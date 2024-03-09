@@ -3,14 +3,28 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [
-      "node"
-    ]
+    "types": [],  
+    "paths": {
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@core-service/*": [
+        "src/app/core/services/*"
+      ],
+      "@home/*": [
+        "src/app/feature/home/*"
+      ],
+      "@company/*": [
+        "src/app/feature/company/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
+      
+    }
   },
   "files": [
-    "src/main.ts",
-    "src/main.server.ts",
-    "server.ts"
+    "src/main.ts"
   ],
   "include": [
     "src/**/*.d.ts"
