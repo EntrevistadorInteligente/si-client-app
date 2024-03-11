@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from '@shared/service/login.service';
 
 @Component({
@@ -6,23 +7,35 @@ import { LoginService } from '@shared/service/login.service';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.scss'
 })
+
 export class MenuComponent implements OnInit{
-  
+
   @Input() isLogged: boolean;
   @Input() isAdmin: boolean;
   @Input() username: string;
+  isMenuOpen = false;
 
-  constructor(private loginService: LoginService) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  login() {
+    this.isLogged = true;
+    this.username = "Entrevistador";
+    this.router.navigate(['/']);
   }
 
-  public login(): void {
-    this.loginService.login();
+  logout() {
+    this.isLogged = false;
+    this.isAdmin = false;
+    this.router.navigate(['/']);
   }
 
-  public logout(): void {
-    this.loginService.logout();
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
   }
 
 }

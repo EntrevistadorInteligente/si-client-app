@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  
+
   isLogged= false;
   username= "string";
 }

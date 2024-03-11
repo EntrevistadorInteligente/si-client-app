@@ -19,7 +19,6 @@
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
     "angular-oauth2-oidc": "^17.0.0",
-    "bootstrap": "^5.3.3",
     "primeicons": "^6.0.1",
     "primeng": "^17.9.0",
     "rxjs": "~7.8.0",

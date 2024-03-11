@@ -8,6 +8,8 @@ import { HomeLoginComponent } from './home-login/home-login.component';
 import { MenuComponent } from './menu/menu.component';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { AccordionModule } from 'primeng/accordion';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -18,6 +20,7 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     CommonModule,
     SharedModule,
+    AccordionModule,
     TableModule,
     ToastModule
   ],
