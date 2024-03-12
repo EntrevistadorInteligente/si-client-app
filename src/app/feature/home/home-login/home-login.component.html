@@ -1,10 +1,54 @@
-<div class="container mt-4">
-    <div class="jumbotron">
-        <h1 *ngIf="!username" class="display-4">No has inciado sesión</h1>
-        <h1 *ngIf="username" class="display-4">Hola {{username}}</h1>
-        <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-      </div>
+<h1 class="text-center fw-bold my-4">Bienvenido/a Logeado</h1>
+
+<!-- CARRUSEL DE IMAGENES -->
+
+<div id="carouselExampleFade" class="carousel slide carousel-fade border-rounded">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="../../assets/img/istockphoto.jpg" class="d-block img-custom" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../../assets/img/istockphoto-1.jpg" class="d-block img-custom" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="../../assets/img/istockphoto-2.jpg" class="d-block img-custom" alt="...">
+    </div>
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
+
+<!-- PREGUNTAS PREDETERMINADAS SIN LOGUEARSE -->
+<section id="preguntas">
+  <div class="table-responsive">
+    <div class="container">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center fw-bold">Pregunta</th>
+            <th class="text-center fw-bold">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="container">
+          @for (pregunta of preguntas; track pregunta.pregunta) {
+          <tr>
+            <td class="text-center">{{ pregunta.pregunta }}</td>
+            <td class="text-center">
+              <button type="button" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

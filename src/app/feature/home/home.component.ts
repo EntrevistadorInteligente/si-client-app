@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class HomeComponent {
 
-  isLogged= false;
+  isLogged= true;
   username= "string";
 }

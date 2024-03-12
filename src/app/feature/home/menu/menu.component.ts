@@ -25,13 +25,13 @@ export class MenuComponent implements OnInit{
   login() {
     this.isLogged = true;
     this.username = "Entrevistador";
-    this.router.navigate(['/']);
+    this.router.navigate(['/home-login']);
   }
 
   logout() {
     this.isLogged = false;
     this.isAdmin = false;
-    this.router.navigate(['/']);
+    this.router.navigate(['/home-sin-login']);
   }
 
   toggleMenu() {
