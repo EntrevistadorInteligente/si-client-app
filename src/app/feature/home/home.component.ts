@@ -5,8 +5,8 @@ import { Component, Input } from '@angular/core';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
 
+export class HomeComponent {
   isLogged= true;
   username= "string";
 }

@@ -2,24 +2,21 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeModule } from '@home/home.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
-import { ReactiveFormsModule } from '@angular/forms';
 
-// COMPONENTES
-import { LoginComponent } from './feature/home/login/login.component';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HomeModule,
-    ReactiveFormsModule,
+    HttpClientModule,
+    SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
           allowedUrls: ['http://localhost:8765/api/*'],
@@ -31,4 +28,5 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
+
 export class AppModule { }

@@ -1,19 +1,26 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IntegradorService } from './service/integrador.service';
-import { HttpClientModule } from '@angular/common/http';
-import { OAuthModule } from 'angular-oauth2-oidc';
-
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
+import { HomeModule } from '@home/home.module';
+import { RouterModule } from '@angular/router';
+import { routes } from '../app.routes';
+import { ContactoComponent } from './contacto/contacto.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MenuComponent,
+    FooterComponent,
+    ContactoComponent
+  ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HomeModule,
+    RouterModule.forRoot(routes)
   ],
-  providers: [IntegradorService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [MenuComponent, ContactoComponent, FooterComponent],
+  providers: [],
 })
-export class SharedModule { 
 
-}
+export class SharedModule { }
+

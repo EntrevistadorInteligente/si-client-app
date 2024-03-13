@@ -1,19 +1,35 @@
-.carousel {
-  height: 800px;
-  width: 74%;
-  margin: auto;
+#carrusel {
+  height: 40%;
 
-  .carousel-inner {
-    height: 100%;
+  .carousel {
+    height: 600;
+    width: calc(100vw - 33%);
+    margin: auto;
 
-    .carousel-item {
-      width: 100%;
+    .carousel-inner {
+      height: 100%;
 
-      .img-custom {
+      .carousel-item {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+
+        .img-custom {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+        }
       }
     }
+  }
+}
+
+#preguntas {
+  margin: 30px 0;
+}
+
+@media (max-width: 990px) {
+  .carousel {
+    width: calc(100vw - 2%);
   }
 }

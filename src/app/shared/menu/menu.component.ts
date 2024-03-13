@@ -8,12 +8,13 @@ import { LoginService } from '@shared/service/login.service';
   styleUrl: './menu.component.scss'
 })
 
-export class MenuComponent implements OnInit{
+export class MenuComponent implements OnInit {
 
   @Input() isLogged: boolean;
   @Input() isAdmin: boolean;
   @Input() username: string;
   isMenuOpen = false;
+  activo: string = "home";
 
   constructor(
     private loginService: LoginService,
@@ -38,4 +39,7 @@ export class MenuComponent implements OnInit{
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  setActiveLink(link: string): void {
+    this.activo = link;
+  }
 }
