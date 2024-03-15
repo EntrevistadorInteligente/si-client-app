@@ -1,4 +1,18 @@
-.contacto {
-  margin-top: 20px;
-  margin-bottom: 40px;
+.container {
+  background-color: rgb(30, 30, 37) !important;
+  border-top-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  .contact-info {
+    text-align: center;
+    color: white;
+    margin-top: 8%;
+  }
+
+  .btn {
+    margin: 10px 0;
+    font-weight: 600;
+    padding: 6px 40px;
+  }
+
 }

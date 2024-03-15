@@ -9,12 +9,14 @@ import { ToastModule } from 'primeng/toast';
 import { HomeComponent } from './home.component';
 import { HomeLoginComponent } from './home-login/home-login.component';
 import { HomeSinLoginComponent } from './home-sin-login/home-sin-login.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
     HomeSinLoginComponent,
-    HomeLoginComponent
+    HomeLoginComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { HomeSinLoginComponent } from './home-sin-login/home-sin-login.component
   exports: [
     HomeComponent,
     HomeSinLoginComponent,
-    HomeLoginComponent
+    HomeLoginComponent,
+    LoginComponent
   ],
   providers: [IntegradorService]
 })

@@ -1,46 +1,45 @@
-<div class="container contacto">
-  <form class="row g-3">
-    <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" class="form-control" id="inputEmail4">
-    </div>
-    <div class="col-md-6">
-      <label for="inputPassword4" class="form-label">Password</label>
-      <input type="password" class="form-control" id="inputPassword4">
-    </div>
-    <div class="col-12">
-      <label for="inputAddress" class="form-label">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="col-12">
-      <label for="inputAddress2" class="form-label">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="col-md-6">
-      <label for="inputCity" class="form-label">City</label>
-      <input type="text" class="form-control" id="inputCity">
-    </div>
-    <div class="col-md-4">
-      <label for="inputState" class="form-label">State</label>
-      <select id="inputState" class="form-select">
-        <option selected>Choose...</option>
-        <option>...</option>
-      </select>
-    </div>
-    <div class="col-md-2">
-      <label for="inputZip" class="form-label">Zip</label>
-      <input type="text" class="form-control" id="inputZip">
-    </div>
-    <div class="col-12">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
+<form action="">
+  <div class="container contact mt-4 mb-4 bg-dark">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="contact-info text-white mx-auto py-4">
+          <h2 class="text-center">Contactanos</h2>
+          <h4 class="text-center">¡Nos encantaría saber tu opinión!</h4>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="fname">Primer nombre:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="fname" placeholder="Escribe tu primer nombre" name="fname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="lname">Last Name:</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="lname" placeholder="Escribe tu apellido" name="lname">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="email">Correo:</label>
+            <div class="col-sm-10">
+            <input type="email" class="form-control" id="email" placeholder="Escribe tu correo" name="email">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2" for="comment">Comentario:</label>
+            <div class="col-sm-10">
+            <textarea class="form-control" rows="5" id="comment"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-outline-primary">Enviar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-primary">Sign in</button>
-    </div>
-  </form>
-</div>
+  </div>
+</form>

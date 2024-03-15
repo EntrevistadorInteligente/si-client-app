@@ -18,7 +18,7 @@
 }
 
 .login-button:hover {
-  background-color: rgb(0, 153, 255);
+  background-color: rgba(62, 207, 255, 0.748);
 }
 
 .offcanvas-title {
@@ -27,7 +27,7 @@
 
 .navbar-toggler {
   border: none;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
 }
 
@@ -43,11 +43,6 @@
   position: relative;
   text-align: center;
   transition: 0.3s ease-in-out;
-}
-
-.nav-link:hover,
-.nav-link.active:hover {
-  color: rgb(0, 153, 255)!important;
 }
 
 .user-name {
