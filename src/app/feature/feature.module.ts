@@ -9,5 +9,4 @@ import { CommonModule } from '@angular/common';
   exports: [
   ],
 })
-
-export class CoreModule { }
+export class FeatureModule { }

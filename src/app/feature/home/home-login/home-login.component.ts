@@ -7,6 +7,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
   templateUrl: './home-login.component.html',
   styleUrl: './home-login.component.scss'
 })
+
 export class HomeLoginComponent  implements OnInit{
 
   preguntas!: VistaPreviaEntrevistaDto[];
