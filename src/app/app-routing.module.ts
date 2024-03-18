@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeLoginComponent } from '@home/home-login/home-login.component';
 import { HomeSinLoginComponent } from '@home/home-sin-login/home-sin-login.component';
 
 const routes: Routes = [
