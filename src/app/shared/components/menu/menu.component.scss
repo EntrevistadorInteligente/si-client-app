@@ -1,12 +1,12 @@
 .navbar {
-  margin-bottom: 60px;
+  margin-bottom: 66px;
 }
 
 .navbar-brand {
   color: rgb(255, 255, 255);
 }
 
-.login-button {
+.navbar-brand:hover .login-button {
   background-color: rgb(0, 60, 255);
   color: white;
   text-decoration: none;
@@ -37,9 +37,23 @@
   outline: none;
 }
 
+.btn-close {
+  color: white;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.login-button-container {
+  width: 120px;
+}
+
 .nav-link,
 .nav-link.active {
-  color: rgb(255, 255, 255)!important;
+  color: rgb(255, 255, 255) !important;
   position: relative;
   text-align: center;
   transition: 0.3s ease-in-out;
@@ -70,5 +84,9 @@
   .nav-link.active::before {
     width: 100%;
     visibility: visible;
+  }
+
+  .btn-close {
+    color: white;
   }
 }

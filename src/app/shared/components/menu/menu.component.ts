@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
   @Input() username: string;
   isMenuOpen = false;
   activo: string = "home";
+  avatarUrl: string = '';
 
   constructor(
     private loginService: LoginService,
@@ -42,4 +43,16 @@ export class MenuComponent implements OnInit {
   setActiveLink(link: string): void {
     this.activo = link;
   }
+
+  onAvatarSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.avatarUrl = e.target.result; // Actualiza la URL del avatar con la nueva imagen seleccionada
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
 }
