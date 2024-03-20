@@ -35,15 +35,16 @@
               (click)="setActiveLink('contactenos')" routerLink="">Contactanos</a>
           </li>
         </ul>
-        <button *ngIf="!isLogged" class="btn btn-outline-success fw-bold" (click)="login()">
+        <a *ngIf="!isLogged" class="btn btn-outline-primary rounded-pill fw-bold mx-auto" (click)="login()">
+          <i class="fas fa-user px-1"></i>
           Login
-        </button>
+        </a>
         <ul class="navbar-nav ml-auto">
-          <li *ngIf="isLogged" class="nav-link align-items-center mx-2">
+          <!-- <li *ngIf="isLogged" class="nav-link align-items-center mx-2">
             <a class="user-name fw-bold" routerLink="">
-              Bienvenido {{username}}
+              {{username}}
             </a>
-          </li>
+          </li> -->
           <li *ngIf="isAdmin" class="nav-item">
             <a class="nav-link" routerLink="">
               <i class="fas fa-toolbox"></i> Admin
@@ -55,9 +56,10 @@
             </a>
           </li>
         </ul>
-        <button *ngIf="isLogged" class="btn btn-outline-warning fw-bold mx-auto" (click)="logout()">
-          Cerrar Sesión
-        </button>
+        <a *ngIf="isLogged" class="btn btn-outline-danger rounded-pill fw-bold mx-auto" (click)="logout()">
+          <i class="fas fa-power-off px-1"></i>
+          Salir
+        </a>
       </div>
     </div>
   </div>

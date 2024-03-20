@@ -1,5 +1,6 @@
 .navbar {
   margin-bottom: 66px;
+  max-width: 100vw;
 }
 
 .navbar-brand {
@@ -22,7 +23,7 @@
 }
 
 .offcanvas-title {
-  color: rgb(0, 60, 255);
+  color: rgb(255, 255, 255);
 }
 
 .navbar-toggler {
@@ -37,14 +38,16 @@
   outline: none;
 }
 
-.btn-close {
-  color: white;
+.btn {
+  width: 120px;
 }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.btn-close {
+  color: white !important;
+}
+
+.btn-close:hover {
+  color: white;
 }
 
 .login-button-container {
@@ -67,6 +70,7 @@
 }
 
 @media (min-width: 990px) {
+
   .nav-link::before {
     content: "";
     position: absolute;

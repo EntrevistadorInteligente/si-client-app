@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { HomeComponent } from './home.component';
 import { HomeLoginComponent } from './home-login/home-login.component';
 import { HomeSinLoginComponent } from './home-sin-login/home-sin-login.component';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HomeSinLoginComponent } from './home-sin-login/home-sin-login.component
     CommonModule,
     TableModule,
     ToastModule,
+    CoreModule
   ],
   exports: [
     HomeComponent,

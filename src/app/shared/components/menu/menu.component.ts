@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from '@shared/service/login.service';
 
 @Component({
@@ -13,8 +13,9 @@ export class MenuComponent implements OnInit {
   @Input() isLogged: boolean;
   @Input() isAdmin: boolean;
   @Input() username: string;
+
   isMenuOpen = false;
-  activo: string = "home";
+  activo: string = '';
   avatarUrl: string = '';
 
   constructor(
@@ -24,16 +25,17 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
+  login(): void {
     this.isLogged = true;
-    this.username = "Entrevistador";
-    this.router.navigate(['/home-login']);
+    this.username = "";
+    console.log('Bienvenido');
+    this.router.navigate(['/login']);
   }
 
-  logout() {
+  logout():void {
     this.isLogged = false;
     this.isAdmin = false;
-    this.router.navigate(['/home-sin-login']);
+    this.router.navigate(['/home']);
   }
 
   toggleMenu() {
@@ -43,16 +45,4 @@ export class MenuComponent implements OnInit {
   setActiveLink(link: string): void {
     this.activo = link;
   }
-
-  onAvatarSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.avatarUrl = e.target.result; // Actualiza la URL del avatar con la nueva imagen seleccionada
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
 }
