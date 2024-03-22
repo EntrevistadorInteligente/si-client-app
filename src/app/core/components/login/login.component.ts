@@ -23,6 +23,11 @@ export class LoginComponent implements OnInit{
 
   login(): void {
     this.isLogged = true;
-    this.router.navigate(['/inicio']);
+    this.router.navigate(['inicio']);
+  }
+
+  register(): void {
+    this.isLogged = false;
+    this.router.navigate(['registro']);
   }
 }

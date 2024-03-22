@@ -1,9 +1,6 @@
 // MODULOS
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IntegradorService } from '../../shared/service/integrador.service';
-import { TableModule } from 'primeng/table';
-import { ToastModule } from 'primeng/toast';
 
 // COMPONENTES
 import { HomeComponent } from './home.component';
@@ -19,16 +16,12 @@ import { CoreModule } from '@core/core.module';
   ],
   imports: [
     CommonModule,
-    TableModule,
-    ToastModule,
-    CoreModule
+    CoreModule,
   ],
   exports: [
-    HomeComponent,
     HomeSinLoginComponent,
     HomeLoginComponent
-  ],
-  providers: [IntegradorService]
+  ]
 })
 
 export class HomeModule { }

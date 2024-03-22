@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
+import { IntegradorService } from '@shared/service/integrador.service';
 
 @Component({
   selector: 'app-home',
@@ -6,7 +8,25 @@ import { Component, Input } from '@angular/core';
   styleUrl: './home.component.scss'
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   isLogged= true;
   username= "string";
+
+  preguntas!: VistaPreviaEntrevistaDto[];
+  selectedProduct!: any;
+
+  constructor(private integradorService: IntegradorService) { }
+
+  ngOnInit() {
+    this.cargarVistaPreviaEntrevista();
+  }
+
+  cargarVistaPreviaEntrevista(): void {
+    this.integradorService.list().subscribe(
+      data => {
+        this.preguntas = data;
+      },
+      err => console.log(err)
+    );
+  }
 }

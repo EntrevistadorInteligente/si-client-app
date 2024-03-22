@@ -1,5 +1,5 @@
 <section class="vh-90">
-  <div class="container py-1 h-100">
+  <div class="container py-4 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
         <div class="card" style="border-radius: 1rem;">
@@ -25,11 +25,13 @@
                   </div>
                   <div class="pt-4 mb-2 mt-2">
                     <button class="btn btn-outline-primary btn-lg btn-block" type="button"
-                      (click)="login">Login</button>
+                      (click)="login()">Login</button>
                   </div>
-                  <a class="small text-muted text-white" href="#!">Forgot password?</a>
-                  <p class="mb-5 pb-lg-2 text-white">¿No tienes cuenta? <a routerLink="/registro"
-                      style="color: #ff6200; text-decoration: none;">Registrate aquí</a></p>
+                  <div class="pt-2 mb-2 mt-2">
+                    <a class="small text-white mb-4" style="text-decoration: none;">Olvidaste la contraseña?</a>
+                  </div>
+                  <p class="mb-5 pb-lg-2 text-white">¿No tienes cuenta? <a (click)="register()"
+                      style="color: #ff6200; text-decoration: none; cursor: pointer;">Registrate aquí</a></p>
                 </form>
               </div>
             </div>

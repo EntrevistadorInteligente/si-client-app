@@ -1,1 +1,25 @@
-<p>drag works!</p>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <label for="fileElem" id="drop-area" class="border rounded d-flex justify-content-center align-items-center bg-gray"
+        (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+        <div class="text-center">
+          <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
+          <p class="mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+        </div>
+        <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf" class="d-none">
+      </label>
+      <button type="button" (click)="uploadFile()" class="btn btn-primary text-center mt-3">Subir archivo</button>
+      <div *ngIf="selectedFiles.length > 0" class="lista mt-3">
+        <p>Archivos seleccionados:</p>
+        <ul>
+          <li *ngFor="let file of selectedFiles">
+            <i class="fas fa-file"></i>
+            {{ file.name }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+

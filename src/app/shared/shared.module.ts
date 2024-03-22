@@ -17,7 +17,6 @@ import { HomeModule } from '@home/home.module';
   imports: [
     CommonModule,
     HomeModule,
-    RouterModule.forRoot(routes)
   ],
   exports: [
     MenuComponent,

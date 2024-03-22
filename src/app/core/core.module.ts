@@ -6,14 +6,8 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { Routes } from '@angular/router';
 import { DragComponent } from './components/drag/drag.component';
-
-const routes : Routes = [
-  { path: 'Login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'perfil', component: PerfilComponent }
-]
+import { FormEmpresaComponent } from './components/form-empresa/form-empresa.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +18,7 @@ const routes : Routes = [
     RegistroComponent,
     AlertComponent,
     DragComponent,
+    FormEmpresaComponent,
   ],
   imports: [
     CommonModule,

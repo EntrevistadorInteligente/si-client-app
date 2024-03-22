@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@shared/shared.module';
 import { CommonModule } from '@angular/common';
 import { HomeModule } from '@home/home.module';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,8 @@ import { HomeModule } from '@home/home.module';
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
+    HomeModule,
+    CoreModule,
     OAuthModule.forRoot({
       resourceServer: {
           allowedUrls: ['http://localhost:8765/api/*'],
