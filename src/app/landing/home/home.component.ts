@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 
@@ -7,10 +7,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-
 export class HomeComponent implements OnInit{
-  isLogged= true;
-  username= "string";
 
   preguntas!: VistaPreviaEntrevistaDto[];
   selectedProduct!: any;
@@ -29,4 +26,5 @@ export class HomeComponent implements OnInit{
       err => console.log(err)
     );
   }
+
 }

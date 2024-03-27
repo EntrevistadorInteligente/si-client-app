@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit{
   }
 
   register(): void {
-    this.isLogged = false;
     this.router.navigate(['registro']);
   }
 }

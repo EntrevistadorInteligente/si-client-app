@@ -1,76 +1,79 @@
 .navbar {
   margin-bottom: 66px;
   max-width: 100vw;
-}
 
-.navbar-brand {
-  color: rgb(255, 255, 255);
-}
+  .navbar-brand {
+    color: rgb(255, 255, 255);
+  }
 
-.navbar-brand:hover .login-button {
-  background-color: rgb(0, 60, 255);
-  color: white;
-  text-decoration: none;
-  padding: 6px 18px;
-  border-radius: 40px;
-  font-weight: 700;
-  font-size: 16px;
-  transition: all 0.3s ease-in;
-}
+  .navbar-brand:hover .login-button {
+    background-color: rgb(0, 60, 255);
+    color: white;
+    text-decoration: none;
+    padding: 6px 18px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 16px;
+    transition: all 0.3s ease-in;
+  }
 
-.login-button:hover {
-  background-color: rgba(62, 207, 255, 0.748);
-}
+  a {
+    cursor: pointer;
+  }
 
-.offcanvas-title {
-  color: rgb(255, 255, 255);
-}
+  .login-button:hover {
+    background-color: rgba(62, 207, 255, 0.748);
+  }
 
-.navbar-toggler {
-  border: none;
-  font-size: 16px;
-  font-weight: 600;
-}
+  .offcanvas-title {
+    color: rgb(255, 255, 255);
+  }
 
-.navbar-toggler:focus,
-.btn-close:focus {
-  box-shadow: none;
-  outline: none;
-}
+  .navbar-toggler {
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+  }
 
-.btn {
-  width: 120px;
-}
+  .navbar-toggler:focus,
+  .btn-close:focus {
+    box-shadow: none;
+    outline: none;
+  }
 
-.btn-close {
-  color: white !important;
-}
+  .btn {
+    width: 120px;
+  }
 
-.btn-close:hover {
-  color: white;
-}
+  .btn-close {
+    color: white !important;
+  }
 
-.login-button-container {
-  width: 120px;
-}
+  .btn-close:hover {
+    color: white;
+  }
 
-.nav-link,
-.nav-link.active {
-  color: rgb(255, 255, 255) !important;
-  position: relative;
-  text-align: center;
-  transition: 0.3s ease-in-out;
-}
+  .login-button-container {
+    width: 120px;
+  }
 
-.user-name {
-  color: white;
-  margin-top: 8px;
-  align-items: center;
-  text-decoration: none;
+  .nav-link,
+  .nav-link.active {
+    color: rgb(255, 255, 255) !important;
+    position: relative;
+    text-align: center;
+    transition: 0.3s ease-in-out;
+  }
+
+  .user-name {
+    color: white;
+    margin-top: 8px;
+    align-items: center;
+    text-decoration: none;
+  }
 }
 
 @media (min-width: 990px) {
-
   .nav-link::before {
     content: "";
     position: absolute;

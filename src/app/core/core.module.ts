@@ -8,6 +8,7 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { DragComponent } from './components/drag/drag.component';
 import { FormEmpresaComponent } from './components/form-empresa/form-empresa.component';
+import { CarruselComponent } from './components/carrusel/carrusel.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormEmpresaComponent } from './components/form-empresa/form-empresa.com
     AlertComponent,
     DragComponent,
     FormEmpresaComponent,
+    CarruselComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,8 @@ import { FormEmpresaComponent } from './components/form-empresa/form-empresa.com
     RegistroComponent,
     AlertComponent,
     DragComponent,
+    FormEmpresaComponent,
+    CarruselComponent,
   ],
 })
 

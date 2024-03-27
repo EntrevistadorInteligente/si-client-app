@@ -13,8 +13,4 @@ export class FooterComponent {
 
   constructor() {}
 
-  setActiveLink(link: string): void {
-    this.activo = link;
-  }
-
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LoginService } from '@shared/service/login.service';
 import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 
@@ -7,16 +7,22 @@ import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'landing-entrevistador';
+
+export class AppComponent implements OnInit{
+
+  title = 'landing entrevistador';
   username: string;
   isLogged: boolean;
   isAdmin: boolean;
 
   constructor(
     private oauthService: OAuthService,
-    private loginService: LoginService
+    private loginService: LoginService,
   ) {
+    this.configure();
+  }
+
+  ngOnInit(): void {
     this.configure();
   }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,6 +10,7 @@ import { Router } from '@angular/router';
 export class RegistroComponent implements OnInit{
 
   private router = inject(Router);
+  private fb = inject(FormBuilder);
 
   constructor(){}
 

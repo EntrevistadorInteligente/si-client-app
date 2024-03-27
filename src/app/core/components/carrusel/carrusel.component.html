@@ -1,19 +1,19 @@
-<app-home-login *ngIf="isLogged"></app-home-login>
-<app-home-sin-login *ngIf="!isLogged"></app-home-sin-login>
-
-<!-- CARRUSEL DE IMAGENES -->
 <section id="carrusel">
-  <div id="carouselExampleDark" class="carousel slide carousel-fade mx-auto" data-bs-ride="carousel"  data-bs-wrap="true" data-bs-animation="true">
+  <div id="carouselExampleDark" class="carousel slide carousel-fade mx-auto" data-bs-ride="carousel"
+    data-bs-wrap="true" data-bs-animation="true">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active my-auto"
         aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="3"
+        aria-label="Slide 4"></button>
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="5000">
-        <img src="assets/img/istockphoto.jpg" class="d-block w-100" alt="interview">
+        <img src="assets/img/istockphoto.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption">
           <h5>First slide label</h5>
           <p>Some representative placeholder content for the first slide.</p>
@@ -21,7 +21,7 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="5000">
-        <img src="assets/img/istockphoto-1.jpg" class="d-block w-100" alt="interview">
+        <img src="assets/img/istockphoto-1.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption">
           <h5>Second slide label</h5>
           <p>Some representative placeholder content for the second slide.</p>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="5000">
-        <img src="assets/img/istockphoto-2.jpg" class="d-block w-100" alt="interview">
+        <img src="assets/img/istockphoto-2.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption">
           <h5>Third slide label</h5>
           <p>Some representative placeholder content for the third slide.</p>
@@ -37,7 +37,7 @@
       </div>
 
       <div class="carousel-item" data-bs-interval="5000">
-        <img src="assets/img/istockphoto-3.jpg" class="d-block w-100" alt="interview">
+        <img src="assets/img/istockphoto-3.jpg" class="d-block w-100" alt="...">
         <div class="carousel-caption">
           <h5>Fourth slide label</h5>
           <p>Some representative placeholder content for the fourth slide.</p>
@@ -53,30 +53,4 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-</section>
-
-<!-- PREGUNTAS PREDETERMINADAS SIN LOGUEARSE -->
-<section id="preguntas">
-  <div class="table-responsive">
-    <div class="container">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th class="text-center fw-bold">Pregunta</th>
-          </tr>
-        </thead>
-        <tbody class="container">
-          @for (pregunta of preguntas; track pregunta.pregunta) {
-          <tr>
-            <td class="text-center">{{ pregunta.pregunta }}</td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<section id="contacto">
-  <app-contacto></app-contacto>
 </section>

@@ -1,0 +1,7 @@
+<ng-container *ngIf="!isLogged">
+  <app-home></app-home>
+</ng-container>
+
+<ng-container *ngIf="isLogged">
+  <app-home-login></app-home-login>
+</ng-container>

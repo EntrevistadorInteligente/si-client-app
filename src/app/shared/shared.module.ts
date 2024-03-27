@@ -1,13 +1,10 @@
 // MODULOS
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { routes } from '../app.routes';
 
 // COMPONENTES
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HomeModule } from '@home/home.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +13,6 @@ import { HomeModule } from '@home/home.module';
   ],
   imports: [
     CommonModule,
-    HomeModule,
   ],
   exports: [
     MenuComponent,
@@ -26,4 +22,3 @@ import { HomeModule } from '@home/home.module';
 })
 
 export class SharedModule { }
-

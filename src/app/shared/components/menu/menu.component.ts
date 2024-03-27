@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { LoginService } from '@shared/service/login.service';
 
 @Component({
@@ -21,20 +21,21 @@ export class MenuComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login(): void {
     this.isLogged = true;
-    this.username = "";
+    this.username = '';
     console.log('Bienvenido');
     this.router.navigate(['/login']);
   }
 
-  logout():void {
+  logout(): void {
     this.isLogged = false;
     this.isAdmin = false;
+    console.log('Sesión cerrada');
     this.router.navigate(['/home']);
   }
 
