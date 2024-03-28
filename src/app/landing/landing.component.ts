@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoaderService } from '@core/service/loader/loader.service';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 
@@ -11,39 +12,47 @@ import { IntegradorService } from '@shared/service/integrador.service';
 
 export class LandingComponent implements OnInit {
 
-  isLogged: boolean = false;
-  loader: boolean = true;
+  isLogged: boolean;
+  loader: boolean = false;
   username = "string";
   private router: Router;
 
   preguntas: VistaPreviaEntrevistaDto[];
+  loaderVisible: boolean;
 
   constructor(
     router: Router,
-    private integradorService: IntegradorService
+    private integradorService: IntegradorService,
+    private loaderService: LoaderService
   ) {
     this.router = router;
   }
 
   ngOnInit() {
-    
-    setTimeout(() => {
-      this.loader = false;
-    }, 4000);
-
-    if (!this.isLogged) {
-      this.router.navigate(['/home']);
-    } else {
+    if (this.isLogged) {
       this.cargarVistaPreviaEntrevista();
     }
   }
 
   cargarVistaPreviaEntrevista(): void {
+    this.showLoader();
     this.integradorService.list().subscribe(
       data => {
         this.preguntas = data;
+        this.hideLoader();
       },
-      err => console.log(err)
+      err => {
+        console.log(err);
+        this.hideLoader();
+      }
     );
+  }
+
+  showLoader(): void {
+    this.loaderService.showLoader();
+  }
+
+  hideLoader(): void {
+    this.loaderService.hideLoader();
   }
 }

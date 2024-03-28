@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '@shared/service/login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,19 +11,19 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 export class LoginComponent implements OnInit{
 
-  private fb = inject(FormBuilder);
-  private router = inject(Router);
-  private activateRoute = inject(ActivatedRoute);
   @Input() isLogged: boolean;
 
   form?: FormGroup;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    ) { }
 
   ngOnInit(): void {}
 
   login(): void {
-    this.isLogged = true;
+    this.loginService.login();
     this.router.navigate(['inicio']);
   }
 

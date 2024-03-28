@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class LoginService {
+
+  authenticationChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private oauthService: OAuthService) { }
 
   public login(): void {
     this.oauthService.initImplicitFlowInternal();
+    this.authenticationChanged.emit(true);
   }
 
   public logout(): void {

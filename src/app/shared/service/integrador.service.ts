@@ -5,6 +5,7 @@ import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable()
+
 export class IntegradorService {
   fooURL = 'http://localhost:8765/api/orquestador/v1/entrevistador/';
   fooURL2 = 'http://localhost:8765/api/ms2/';
@@ -14,8 +15,8 @@ export class IntegradorService {
     private httpClient: HttpClient,
     private oauthService: OAuthService
   ) {}
-   
-   
+
+
   public list(): Observable<VistaPreviaEntrevistaDto[]> {
     return this.httpClient.get<VistaPreviaEntrevistaDto[]>(`${this.fooURL}public/preguntas`);
   }
@@ -32,7 +33,7 @@ export class IntegradorService {
 
       const token = this.oauthService.getAccessToken();
       headers = headers.set('Authorization', `Bearer ${token}`);
- 
+
     return headers;
   }
 
