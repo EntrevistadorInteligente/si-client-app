@@ -12,6 +12,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
 export class LandingComponent implements OnInit {
 
   isLogged: boolean = false;
+  loader: boolean = true;
   username = "string";
   private router: Router;
 
@@ -25,6 +26,11 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    setTimeout(() => {
+      this.loader = false;
+    }, 4000);
+
     if (!this.isLogged) {
       this.router.navigate(['/home']);
     } else {
