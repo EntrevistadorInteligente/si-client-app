@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
 
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CommonModule,
     AppRoutingModule,
     HttpClientModule,

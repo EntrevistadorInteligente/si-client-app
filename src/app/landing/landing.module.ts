@@ -4,6 +4,7 @@ import { LandingComponent } from './landing.component';
 import { HomeLoginComponent } from './home-login/home-login.component';
 import { CoreModule } from '@core/core.module';
 import { HomeComponent } from './home/home.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { HomeComponent } from './home/home.component';
   ],
   imports: [
     CommonModule,
-    CoreModule
+    CoreModule,
+    ReactiveFormsModule 
   ],
   exports: [
     LandingComponent,

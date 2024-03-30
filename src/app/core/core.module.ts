@@ -5,7 +5,6 @@ import { LoginComponent } from './components/login/login.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { DragComponent } from './components/drag/drag.component';
 import { FormEmpresaComponent } from './components/form-empresa/form-empresa.component';
 import { CarruselComponent } from './components/carrusel/carrusel.component';
 import { Error404Component } from './components/error-404/error-404.component';
@@ -14,6 +13,9 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/LoaderInterceptor';
 import { Error403Component } from './components/error-403/error-403.component';
 import { Error500Component } from './components/error-500/error-500.component';
+import { BadgeModule } from 'primeng/badge';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,6 @@ import { Error500Component } from './components/error-500/error-500.component';
     PerfilComponent,
     RegistroComponent,
     AlertComponent,
-    DragComponent,
     FormEmpresaComponent,
     CarruselComponent,
     Error404Component,
@@ -32,7 +33,10 @@ import { Error500Component } from './components/error-500/error-500.component';
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    HttpClientModule,
+    BadgeModule,
+    ButtonModule,
+    DialogModule,
   ],
   exports: [
     ContactoComponent,
@@ -40,11 +44,10 @@ import { Error500Component } from './components/error-500/error-500.component';
     LoginComponent,
     PerfilComponent,
     RegistroComponent,
-    AlertComponent,
-    DragComponent,
     FormEmpresaComponent,
     CarruselComponent,
     Error404Component,
+    AlertComponent
   ],
   providers: [
     {

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 // COMPONENTES
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,8 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     CommonModule,
+    CoreModule
+
   ],
   exports: [
     MenuComponent,

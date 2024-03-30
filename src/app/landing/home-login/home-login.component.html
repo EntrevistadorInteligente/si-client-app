@@ -1,38 +1,82 @@
-<h1 class="text-center fw-bold my-4">Bienvenido/a Logeado</h1>
 
-<!-- FORMULARIO DRAG & DROP -->
-<<ng-container id="drag">
-  <app-drag></app-drag>
-</ng-container>
-
-<!-- PREGUNTAS PREDETERMINADAS LOGUEADO -->
-<!-- <section id="preguntas">
-  <div class="table-responsive">
-    <div class="container">
-      <table class="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th class="text-center fw-bold">Pregunta</th>
-          </tr>
-        </thead>
-        <tbody class="container">
-          @for (pregunta of preguntas; track pregunta.pregunta) {
-          <tr>
-            <td class="text-center">{{ pregunta.pregunta }}</td>
-            <td class="text-center">
-              <button type="button" class="btn btn-primary">
-                <i class="fas fa-plus"></i>
-              </button>
-            </td>
-          </tr>
-          }
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section> -->
 
 <ng-container id="contacto">
-  <app-contacto></app-contacto>
+  <h1 class="text-center fw-bold my-8">Bienvenido/a Logeado</h1>
+
+    <div class="container contact mt-4 mb-4 bg-dark">
+      <div class="row">
+        <form [formGroup]="form"action="">
+        <div class="col-md-3">
+          <div class="contact-info text-white mx-auto py-4">
+            <h2 class="text-center">Oferta/Vacante</h2>
+            <h4 class="text-center">Ingresa los datos para poder generar tu entrevista</h4>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="contact-form pt-4">
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="empresa">Empresa:</label>
+              <div class="col-sm-9">
+                <input formControlName="empresa" type="text" class="form-control" id="empresa" placeholder="Escribe la Empresa" name="empresa">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="perfil">Perfil:</label>
+              <div class="col-sm-9">
+              <input formControlName="perfil"  type="text" class="form-control" id="perfil" placeholder="Escribe el Perfil" name="perfil">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="seniority">Seniority:</label>
+              <div class="col-sm-9">
+              <input  formControlName="seniority" type="text" class="form-control" id="seniority" placeholder="Escribe Seniority requerido" name="seniority">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-2" for="pais">Correo:</label>
+              <div class="col-sm-9">
+              <input  formControlName="pais"  type="text" class="form-control" id="pais" placeholder="Escribe pais" name="pais">
+              </div>
+            </div>
+
+            <div class="container mt-5">
+              <div class="card">
+                <div class="card-body">
+                  <label for="fileElem" id="drop-area" class="border rounded d-flex justify-content-center align-items-center bg-gray"
+                    (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                    <div class="text-center">
+                      <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
+                      <p class="mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+                    </div>
+                    <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf" class="d-none">
+                  </label>
+                 <div *ngIf="selectedFiles.length > 0" class="lista mt-3">
+                    <p>Archivos seleccionados:</p>
+                    <ul>
+                      <li *ngFor="let file of selectedFiles">
+                        <i class="fas fa-file"></i>
+                        {{ file.name }}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+          </div>
+        </div>
+
+      </form>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+          <button class="btn btn-outline-primary"
+          (click)="onSubmit()">Enviar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+ 
+  
 </ng-container>
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { FormularioDto } from '@shared/model/formulario-dto';
 
 @Injectable()
 
@@ -25,6 +26,16 @@ export class IntegradorService {
     return this.httpClient.get<VistaPreviaEntrevistaDto[]>(`${this.fooURL}preguntas`, {
       headers: this.getHeaders()
     });
+  }
+
+  public crearSolicitudEntrevista(file: File, formulario: FormularioDto): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('formulario', new Blob([JSON.stringify(formulario)], {
+        type: 'application/json'
+    }));
+  
+    return this.httpClient.post(`${this.fooURL}cv`, formData);
   }
 
   private getHeaders(): HttpHeaders {
