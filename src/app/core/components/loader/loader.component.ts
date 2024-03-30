@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LoaderService } from '../../service/loader/loader.service';
+import { LoaderService } from '@core/service/loader/loader.service';
 
 @Component({
   selector: 'app-loader',
@@ -20,5 +20,4 @@ export class LoaderComponent {
   hideLoader(): void {
     this.loaderVisible = false;
   }
-
 }
