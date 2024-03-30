@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NetworkService } from '@core/service/network/network.service';
+import { OfflineService } from '@core/service/offline/offline.service';
 import { LoginService } from '@shared/service/login.service';
 import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 
@@ -8,22 +10,37 @@ import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-
   styleUrl: './app.component.scss'
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
 
   title = 'landing entrevistador';
   username: string;
   isLogged: boolean;
   isAdmin: boolean;
+  online: boolean = true;
+  offlineMessage: string = '';
 
   constructor(
     private oauthService: OAuthService,
     private loginService: LoginService,
+    private networkService: NetworkService,
+    private offlineService: OfflineService
   ) {
     this.configure();
   }
 
   ngOnInit(): void {
     this.configure();
+
+    this.networkService.online$.subscribe((online) => {
+      this.online = online;
+      if (online) {
+        this.offlineMessage = '';
+      }
+    });
+
+    this.offlineService.offlineMessage$.subscribe((message) => {
+      this.offlineMessage = message;
+    });
   }
 
   authConfig: AuthConfig = {
@@ -51,3 +68,6 @@ export class AppComponent implements OnInit{
       });
   }
 }
+
+
+
