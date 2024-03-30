@@ -45,6 +45,7 @@ export class AppComponent implements OnInit{
           this.isLogged = this.loginService.getIsLogged();
           this.isAdmin = this.loginService.getIsAdmin();
           this.username = this.loginService.getUsername();
+          this.loginService.authenticationChanged.emit(this.isLogged)
           //this.messageService.sendMessage(this.loginService.getUsername());
         }
       });

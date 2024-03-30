@@ -24,23 +24,22 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isLogged = this.loginService.getIsLogged();
-    this.loginService.authenticationChanged.subscribe((isLogged: boolean) => {
-      this.isLogged = isLogged;
-    });
+    console.log(this.isLogged)
   }
 
   login(): void {
     /* this.isLogged = true;
     this.username = '';
     console.log('Bienvenido'); */
-    this.router.navigate(['/login']);
+    //this.router.navigate(['/login']);
+    this.loginService.login();
   }
 
   logout(): void {
     this.isLogged = false;
     /* this.isAdmin = false;
     console.log('Sesión cerrada'); */
+    this.loginService.logout();
     this.router.navigate(['/home']);
   }
 

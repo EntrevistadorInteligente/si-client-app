@@ -18,6 +18,7 @@ export class LoginService {
 
   public logout(): void {
     this.oauthService.logOut();
+    this.authenticationChanged.emit(false);
   }
 
   public getIsLogged(): boolean {

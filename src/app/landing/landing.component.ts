@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LoaderService } from '@core/service/loader/loader.service';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
+import { LoginService } from '@shared/service/login.service';
 
 @Component({
   selector: 'app-landing',
@@ -23,12 +24,16 @@ export class LandingComponent implements OnInit {
   constructor(
     router: Router,
     private integradorService: IntegradorService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private loginService: LoginService
   ) {
     this.router = router;
   }
 
   ngOnInit() {
+    this.loginService.authenticationChanged.subscribe((isLogged: boolean) => {
+      this.isLogged = isLogged;
+    });
     if (this.isLogged) {
       this.cargarVistaPreviaEntrevista();
     }
