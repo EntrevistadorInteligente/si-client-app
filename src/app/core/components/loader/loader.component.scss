@@ -1,4 +1,17 @@
 .loader {
+  background-color: rgba(255, 255, 255, 0.842);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cubes {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -10,19 +23,9 @@
   transform-style: preserve-3d;
 }
 
-.cubes {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transform: rotateX(60deg) rotateZ(-135deg);
-  animation: cubes 8s cubic-bezier(0,0,1,1) infinite;
-}
-
 .cube {
   position: absolute;
+  padding: 2px;
   top: 0;
   left: 0;
   width: 20px;

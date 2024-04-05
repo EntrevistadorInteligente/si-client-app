@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '@shared/service/login.service';
 
@@ -18,14 +18,16 @@ export class MenuComponent implements OnInit {
   activo: string = '';
   avatarUrl: string = '';
   isAvatarMenuActive: boolean = false;
+  message: string = '¡Bienvenid@!';
 
   constructor(
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private _eref: ElementRef
   ) { }
 
   ngOnInit(): void {
-    console.log(this.isLogged)
+    document.addEventListener('click', this.onDocumentClick.bind(this));
   }
 
   login(): void {
@@ -52,8 +54,19 @@ export class MenuComponent implements OnInit {
     this.activo = link;
   }
 
+  onDocumentClick(event: any) {
+    if (!this._eref.nativeElement.contains(event.target) && !this.isAvatarClicked(event)) {
+      this.isAvatarMenuActive = false;
+    }
+  }
+
   avatarMenu() {
     this.isAvatarMenuActive = !this.isAvatarMenuActive;
+  }
+
+  isAvatarClicked(event: any): boolean {
+    const avatarElement = document.querySelector('.perfil');
+    return avatarElement.contains(event.target);
   }
 
   perfil():void {
