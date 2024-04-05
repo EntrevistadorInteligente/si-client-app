@@ -17,6 +17,7 @@ export class MenuComponent implements OnInit {
   isMenuOpen = false;
   activo: string = '';
   avatarUrl: string = '';
+  isAvatarMenuActive: boolean = false;
 
   constructor(
     private loginService: LoginService,
@@ -49,5 +50,13 @@ export class MenuComponent implements OnInit {
 
   setActiveLink(link: string): void {
     this.activo = link;
+  }
+
+  avatarMenu() {
+    this.isAvatarMenuActive = !this.isAvatarMenuActive;
+  }
+
+  perfil():void {
+    this.router.navigate(['perfil']);
   }
 }

@@ -20,7 +20,6 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
       next: event => {
         this.zone.run(() => { // Ejecuta esta función dentro de la zona de Angular
-
           this.notifications.push({
             id: this.badgeCount,
             message: event.data,
@@ -46,7 +45,6 @@ export class AlertComponent implements OnInit, OnDestroy {
       // Puede ser una redirección a una URL o un llamado a tu router de Angular
       // Por ejemplo: this.router.navigate([notification.url]);
     }
-
   }
 
   onNotification() {

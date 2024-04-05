@@ -13,6 +13,33 @@
         <button type="button" class="btn-close text-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body bg-dark">
+        <div class="action" *ngIf="isLogged">
+          <div class="perfil" (click)="avatarMenu()">
+            <img
+              src="assets/img/78979169-indicador-de-conexión-icono-de-señal-de-usuario-símbolo-de-la-persona-estilo-avatar-flat.jpg"
+              alt="perfil">
+          </div>
+          <div class="avatar" [ngClass]="{'active': isAvatarMenuActive}">
+            <h2>¡Hola!</h2>
+            <li *ngIf="isLogged" class="nav-link align-items-center mx-2">
+              <a class="user-name fw-bold" routerLink="">
+                {{username}}
+              </a>
+            </li>
+            <ul>
+              <li><img src="assets/img/user.png" alt="perfil"><a (click)="perfil()">Mi Perfil</a></li>
+              <li><img src="assets/img/envelope.png" alt="correo"><a>Correo</a></li>
+              <li><img src="assets/img/settings.png" alt="configuracion"><a>Configuración</a></li>
+              <li><img src="assets/img/question.png" alt="ayuda"><a>Ayuda</a></li>
+              <li *ngIf="isLogged" class="nav-item">
+                <a class="btn btn-outline-danger rounded-pill fw-bold mx-auto" (click)="logout()">
+                  <i class="fas fa-power-off px-1"></i>
+                  Salir
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
         <ul class="navbar-nav justify-content-center flex-grow-1 pe-1 mx-auto">
           <li class="nav-item">
             <a class="nav-link active fw-bold" aria-current="page" [ngClass]="{'active': activo === 'home'}"
@@ -35,16 +62,14 @@
               (click)="setActiveLink('contactenos')" routerLink="">Contactanos</a>
           </li>
         </ul>
+
+        <app-alert class="mr-2" *ngIf="isLogged"></app-alert>
+
         <a *ngIf="!isLogged" class="btn btn-outline-primary rounded-pill fw-bold mx-auto" (click)="login()">
           <i class="fas fa-user px-1"></i>
           Login
         </a>
         <ul class="navbar-nav ml-auto">
-          <!-- <li *ngIf="isLogged" class="nav-link align-items-center mx-2">
-            <a class="user-name fw-bold" routerLink="">
-              {{username}}
-            </a>
-          </li> -->
           <li *ngIf="isAdmin" class="nav-item">
             <a class="nav-link" routerLink="">
               <i class="fas fa-toolbox"></i> Admin
@@ -55,13 +80,7 @@
               <i class="fas fa-plus-circle"></i> Nuevo
             </a>
           </li>
-          
         </ul>
-        <app-alert class="mr-3"></app-alert>
-        <a *ngIf="isLogged" class="btn btn-outline-danger rounded-pill fw-bold mx-auto" (click)="logout()">
-          <i class="fas fa-power-off px-1"></i>
-          Salir
-        </a>
       </div>
     </div>
   </div>

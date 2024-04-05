@@ -1,23 +1,22 @@
 <div class="card flex justify-content-center">
-    <p-button label="" icon="pi pi-bell text-3xl" styleClass="p-button-warning" badge="{{badgeCount}}"
-        badgeClass="p-badge-danger" (onClick)="showDialog()">
-    </p-button>
+  <p-button label="" icon="pi pi-bell text-3xl" styleClass="p-button-warning" badge="{{badgeCount}}"
+    badgeClass="p-badge-danger" (onClick)="showDialog()">
+  </p-button>
 </div>
 
-    <p-dialog header="Header" [(visible)]="visible" [modal]="true" 
-    [style]="{ width: '50rem' }">
-        <ng-template pTemplate="header">
-            <div class="inline-flex align-items-center justify-content-center gap-2">
-                <span class="font-bold white-space-nowrap">Notificaciones</span>
-            </div>
-        </ng-template>
-        <p class="m-0">
-            @for (user of notifications; track user.id) {
-                {{ user.message }}
-              } @empty {
-                No hay notificaciones pendientes
-              }</p>
-        <ng-template pTemplate="footer">
-            <p-button icon="pi pi-check" (click)="onNotification()" label="Ok" pAutoFocus [autofocus]="true"></p-button>
-        </ng-template>
+<p-dialog header="Header" [(visible)]="visible" [modal]="true" [style]="{ width: '40rem' }">
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center">
+      <span class="font-bold white-space-nowrap">Notificaciones</span>
+    </div>
+  </ng-template>
+  <p class="m-0">
+    @for (user of notifications; track user.id) {
+    {{ user.message }}
+    } @empty {
+    No hay notificaciones pendientes
+    }</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="onNotification()" label="Ok" pAutoFocus [autofocus]="true"></p-button>
+  </ng-template>
 </p-dialog>

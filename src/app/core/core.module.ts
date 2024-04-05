@@ -2,7 +2,7 @@ import {  NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactoComponent } from './components/contacto/contacto.component';
 import { LoginComponent } from './components/login/login.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from '../shared/components/perfil/perfil.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { FormEmpresaComponent } from './components/form-empresa/form-empresa.component';
@@ -22,7 +22,6 @@ import { DialogModule } from 'primeng/dialog';
     ContactoComponent,
     LoaderComponent,
     LoginComponent,
-    PerfilComponent,
     RegistroComponent,
     AlertComponent,
     FormEmpresaComponent,
@@ -42,7 +41,6 @@ import { DialogModule } from 'primeng/dialog';
     ContactoComponent,
     LoaderComponent,
     LoginComponent,
-    PerfilComponent,
     RegistroComponent,
     FormEmpresaComponent,
     CarruselComponent,
