@@ -47,14 +47,6 @@
     width: 120px;
   }
 
-  .btn-close {
-    color: white !important;
-  }
-
-  .btn-close:hover {
-    color: white;
-  }
-
   .login-button-container {
     width: 120px;
   }
@@ -81,6 +73,7 @@
   position: fixed;
   top: 10px;
   right: 30px;
+  z-index: 10000;
 }
 
 .action .perfil {
@@ -108,9 +101,9 @@
   padding: 10px 20px;
   background: #303337;
   width: 250px;
-  box-sizing: 0 5px 25px rgba(0,0,0,0.1);
+  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  transition: .4s ease-in-out;
+  transition: 0.4s ease-in-out;
   visibility: hidden;
   opacity: 0;
 }
@@ -122,14 +115,14 @@
 }
 
 .action .avatar::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -5px;
   right: 20px;
   width: 20px;
   height: 20px;
   background: #303337;
-  transform:  rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .action .avatar h2 {
@@ -163,7 +156,7 @@
   max-width: 20px;
   margin-right: 20px;
   opacity: 0.5;
-  transition: .5s ease;
+  transition: 0.5s ease;
   object-fit: cover;
 }
 
@@ -176,7 +169,7 @@
   text-decoration: none;
   color: rgb(173, 173, 173);
   font-weight: 500;
-  transition: .5s ease;
+  transition: 0.5s ease;
 }
 
 .action .avatar ul li:hover a {
