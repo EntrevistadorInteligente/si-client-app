@@ -39,7 +39,6 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   onNotificationClick(notificationId: string) {
     const notification = this.notifications.find(n => n.id === parseInt(notificationId));
-
     if (notification) {
       // Aquí puedes manejar la redirección o navegación al componente deseado
       // Por ejemplo: this.router.navigate([notification.url]);

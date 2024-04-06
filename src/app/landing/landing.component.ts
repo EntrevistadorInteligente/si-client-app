@@ -34,23 +34,6 @@ export class LandingComponent implements OnInit {
     this.loginService.authenticationChanged.subscribe((isLogged: boolean) => {
       this.isLogged = isLogged;
     });
-    if (this.isLogged) {
-      this.cargarVistaPreviaEntrevista();
-    }
-  }
-
-  cargarVistaPreviaEntrevista(): void {
-    this.showLoader();
-    this.integradorService.list().subscribe(
-      data => {
-        this.preguntas = data;
-        this.hideLoader();
-      },
-      err => {
-        console.log(err);
-        this.hideLoader();
-      }
-    );
   }
 
   showLoader(): void {

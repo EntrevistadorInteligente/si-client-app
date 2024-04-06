@@ -9,6 +9,12 @@
     margin-top: 8%;
   }
 
+  textarea {
+    height: 160px;
+    resize: none;
+    max-width: 100%;
+  }
+
   label {
     color: white;
     margin-bottom: 0;

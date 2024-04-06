@@ -1,19 +1,21 @@
+// MODULOS
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
+import { LandingModule } from './landing/landing.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { LandingModule } from './landing/landing.module';
+
+// INTERCEPTORS
 import { IntegradorService } from '@shared/service/integrador.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       }
     }),
     ReactiveFormsModule,
-    ButtonModule
   ],
   providers: [
     IntegradorService,

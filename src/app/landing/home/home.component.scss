@@ -1,0 +1,129 @@
+.title {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  align-items: center;
+  margin-top: 50px;
+  font-size: 26px;
+}
+
+h1 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: rgb(0, 0, 0);
+  align-items: center;
+  font-size: 26px;
+}
+
+.container_card {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+  perspective: 900px;
+  display: inline-flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+}
+
+.card_father {
+  display: flexbox;
+  margin: 30px;
+  margin-left: 22%;
+  perspective: 1000px;
+  justify-content: center;
+  align-items: center;
+  transition: 0.8s ease;
+}
+
+.card_father:hover .card {
+  transform: rotateY(180deg);
+}
+
+.card {
+  width: 260px;
+  height: 400px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: all 900ms;
+  border-radius: 20px;
+}
+
+.card_front {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card_front,
+.card_back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  border-radius: 20px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.card_back h2 {
+  color: rgb(255, 105, 36);
+  font-size: 28px;
+  font-family: "Arial", sans-serif;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card_back {
+  transform: rotateY(180deg);
+  background: radial-gradient(
+    circle,
+    rgba(38, 38, 38, 1) 0%,
+    rgba(28, 28, 28, 1) 50%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  border-radius: 20px;
+}
+
+.body_card_front {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: linear-gradient(25deg, #200000 0%, rgb(0, 83, 127) 59%, #00c3ff 100%);
+  transform: translateZ(60px);
+}
+
+.body_card_front h1 {
+  font-size: 28px;
+  padding: 0 14px;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: rgb(0, 128, 255);
+  -webkit-text-stroke: 0.6px rgb(255, 255, 255);
+  text-shadow: 2px solid rgb(0, 0, 0);
+}
+
+.body_card_back {
+  margin-top: 30px;
+  padding: 30px;
+  text-align: center;
+}
+
+.body_card_back p {
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+h5 {
+  font-weight: 400;
+}

@@ -15,7 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     CoreModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule
   ],
   exports: [
     LandingComponent,

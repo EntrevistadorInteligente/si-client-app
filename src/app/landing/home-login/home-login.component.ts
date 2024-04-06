@@ -16,6 +16,7 @@ export class HomeLoginComponent implements OnInit {
   selectedProduct!: any;
   form: FormGroup;
   selectedFiles: File[] = [];
+  message: string = 'Bienvenid@ al Entrevistador Inteligente';
 
   constructor(private integradorService: IntegradorService,
     private fb: FormBuilder) { }
@@ -65,7 +66,7 @@ export class HomeLoginComponent implements OnInit {
     }
   }
 
-  onSubmit(): void {
+  submit(): void {
     if (this.form.valid && this.selectedFiles.length > 0) {
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,

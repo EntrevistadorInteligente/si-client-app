@@ -173,12 +173,23 @@
 }
 
 .custom-button {
-  /* Estilos para que el botón se vea uniforme */
   background-color: transparent;
   border: none;
   cursor: pointer;
   padding: 0;
   margin: 0;
+}
+
+.alert-right {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  margin-right: 70px;
+  display: flex;
+}
+
+.alert-right:hover {
+  border: none;
 }
 
 @media (min-width: 990px) {

@@ -7,6 +7,7 @@ import { LoaderService } from '@core/service/loader/loader.service';
   templateUrl: './loader.component.html',
   styleUrl: './loader.component.scss'
 })
+
 export class LoaderComponent {
 
   constructor(public loaderService: LoaderService){}
