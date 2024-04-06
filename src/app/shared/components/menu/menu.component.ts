@@ -55,9 +55,8 @@ export class MenuComponent implements OnInit {
   }
 
   onDocumentClick(event: any) {
-    if (!this._eref.nativeElement.contains(event.target) && !this.isAvatarClicked(event)) {
+    if (!this._eref.nativeElement.contains(event.target) && !this.isAvatarClicked(event))
       this.isAvatarMenuActive = false;
-    }
   }
 
   avatarMenu() {
@@ -71,5 +70,9 @@ export class MenuComponent implements OnInit {
 
   perfil():void {
     this.router.navigate(['perfil']);
+  }
+
+  home(): void {
+    this.router.navigate(['home']);
   }
 }

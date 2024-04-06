@@ -10,7 +10,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
   styleUrl: './home-login.component.scss'
 })
 
-export class HomeLoginComponent  implements OnInit{
+export class HomeLoginComponent implements OnInit {
 
   preguntas!: VistaPreviaEntrevistaDto[];
   selectedProduct!: any;
@@ -18,7 +18,7 @@ export class HomeLoginComponent  implements OnInit{
   selectedFiles: File[] = [];
 
   constructor(private integradorService: IntegradorService,
-              private fb: FormBuilder) { }
+    private fb: FormBuilder) { }
 
   ngOnInit() {
     this.cargarVistaPreviaEntrevista();
@@ -67,25 +67,23 @@ export class HomeLoginComponent  implements OnInit{
 
   onSubmit(): void {
     if (this.form.valid && this.selectedFiles.length > 0) {
-      const formulario : FormularioDto = {
-        empresa : this.form.value.empresa,
-        perfil : this.form.value.perfil,
-        seniority :this.form.value.seniority,
-        pais : this.form.value.pais
+      const formulario: FormularioDto = {
+        empresa: this.form.value.empresa,
+        perfil: this.form.value.perfil,
+        seniority: this.form.value.seniority,
+        pais: this.form.value.pais
       };
-      this.integradorService.crearSolicitudEntrevista(this.selectedFiles[0], 
+      this.integradorService.crearSolicitudEntrevista(this.selectedFiles[0],
         formulario).subscribe(
-        data => {
-          this.preguntas = data;
-        },
-        err => console.log(err)
-      );
+          data => {
+            this.preguntas = data;
+          },
+          err => console.log(err)
+        );
     } else {
       console.log("MAL")
       console.log(this.form)
       console.log(this.selectedFiles)
     }
   }
-
-
 }

@@ -9,7 +9,7 @@
   }
 
   .navbar-brand:hover .login-button {
-    background-color: rgb(0, 60, 255);
+    background-color: rgb(255, 105, 36);
     color: white;
     text-decoration: none;
     padding: 6px 18px;
@@ -21,10 +21,6 @@
 
   a {
     cursor: pointer;
-  }
-
-  .login-button:hover {
-    background-color: rgba(62, 207, 255, 0.748);
   }
 
   .offcanvas-title {
@@ -96,14 +92,14 @@
 
 .action .avatar {
   position: absolute;
-  top: 120px;
+  top: 110px;
   right: -10px;
   padding: 10px 20px;
-  background: #303337;
-  width: 250px;
+  background: #212529;
+  width: 280px;
   box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  transition: 0.4s ease-in-out;
+  transition: all 0.3s ease-in-out;
   visibility: hidden;
   opacity: 0;
 }
@@ -118,10 +114,10 @@
   content: "";
   position: absolute;
   top: -5px;
-  right: 20px;
+  right: 34px;
   width: 20px;
   height: 20px;
-  background: #303337;
+  background: #212529;
   transform: rotate(45deg);
 }
 
@@ -176,6 +172,15 @@
   color: rgb(255, 105, 36);
 }
 
+.custom-button {
+  /* Estilos para que el botón se vea uniforme */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
 @media (min-width: 990px) {
   .nav-link::before {
     content: "";
@@ -185,7 +190,7 @@
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background-color: rgb(0, 60, 255);
+    background-color: rgb(255, 105, 36);
     visibility: hidden;
     transition: all 0.3s ease-in-out;
   }

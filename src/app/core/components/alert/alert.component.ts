@@ -4,11 +4,11 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
-  standalone: false,
   templateUrl: './alert.component.html',
-  styleUrl: './alert.component.scss'
+  styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent implements OnInit, OnDestroy {
+
   private eventsSubscription: Subscription;
   notifications: Array<{ id: number; message: string; url: string }> = [];
   badgeCount = 0;
@@ -19,7 +19,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
       next: event => {
-        this.zone.run(() => { // Ejecuta esta función dentro de la zona de Angular
+        this.zone.run(() => {
           this.notifications.push({
             id: this.badgeCount,
             message: event.data,
@@ -38,11 +38,10 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   onNotificationClick(notificationId: string) {
-    // Encuentra la notificación específica por id
-    const notification = ""//= this.notifications.find(n => n.id === notificationId);
+    const notification = this.notifications.find(n => n.id === parseInt(notificationId));
+
     if (notification) {
-      // Aquí manejas la redirección o navegación al componente deseado
-      // Puede ser una redirección a una URL o un llamado a tu router de Angular
+      // Aquí puedes manejar la redirección o navegación al componente deseado
       // Por ejemplo: this.router.navigate([notification.url]);
     }
   }
@@ -54,5 +53,9 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.eventsSubscription.unsubscribe();
+  }
+
+  trackById(index: number, item: any): number {
+    return item.id;
   }
 }

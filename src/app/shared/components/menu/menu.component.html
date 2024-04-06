@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand me-auto mx-2 fw-bold" routerLink="">Entrevistador</a>
+    <a class="navbar-brand me-auto mx-2 fw-bold" (click)="home()">Entrevistador</a>
     <button class="navbar-toggler text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
       aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -10,25 +10,27 @@
       aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header bg-dark">
         <h5 class="offcanvas-title fw-bold text-white" id="offcanvasNavbarLabel">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" style="color: white;"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"
+          style="color: white;"></button>
       </div>
+
       <div class="offcanvas-body bg-dark">
         <div class="action">
           <div class="perfil mx-3" #avatar (click)="avatarMenu()">
             <img
               src="assets/img/78979169-indicador-de-conexión-icono-de-señal-de-usuario-símbolo-de-la-persona-estilo-avatar-flat.jpg"
               alt="perfil">
-
           </div>
           <div class="avatar" [ngClass]="{'active': isAvatarMenuActive}">
             <h2 *ngIf="isLogged">{{message}}</h2>
             <h2 *ngIf="!isLogged">¡Hola!</h2>
+            <hr>
             <div *ngIf="isLogged" class="nav-link align-items-center mx-2">
               <a class="user-name fw-bold" routerLink="">
                 {{username}}
               </a>
             </div>
-            <hr>
+            <hr *ngIf="isLogged">
             <ul>
               <li *ngIf="isLogged"><img src="assets/img/edit.png" alt="perfil"><a (click)="perfil()">Mi Perfil</a></li>
               <li><img src="assets/img/user-white.png" alt="usuario"><a (click)="login()">Login</a></li>
@@ -36,52 +38,48 @@
               <li><img src="assets/img/question-white.png" alt="ayuda"><a>Ayuda</a></li>
               <li *ngIf="isLogged"><img src="assets/img/log-out-white.png" alt="salir"><a (click)="logout()">Salir</a>
               </li>
+              <hr *ngIf="isLogged">
+              <app-alert *ngIf="isLogged"></app-alert>
             </ul>
           </div>
         </div>
-
-        <ul class="navbar-nav justify-content-center flex-grow-1 pe-1 mx-auto">
-          <li class="nav-item">
-            <a class="nav-link active fw-bold" aria-current="page" [ngClass]="{'active': activo === 'home'}"
-              (click)="setActiveLink('home')" routerLink="/home">Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'entrevista'}"
-              (click)="setActiveLink('entrevista')" routerLink="#">Entrevista</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-1 fw-bold" [ngClass]="{'active': activo === 'cv'}" (click)="setActiveLink('cv')"
-              routerLink="#">CV</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'quienes'}"
-              (click)="setActiveLink('quienes')" routerLink="#">Quienes somos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'contactenos'}"
-              (click)="setActiveLink('contactenos')" routerLink="">Contactanos</a>
-          </li>
-        </ul>
-
-        <app-alert class="mr-2" *ngIf="isLogged"></app-alert>
-
-        <!-- <a *ngIf="!isLogged" class="btn btn-outline-primary rounded-pill fw-bold mx-auto" (click)="login()">
-          <i class="fas fa-user px-1"></i>
-          Login
-        </a> -->
-        <ul class="navbar-nav ml-auto">
-          <li *ngIf="isAdmin" class="nav-item">
-            <a class="nav-link" routerLink="">
-              <i class="fas fa-toolbox"></i> Admin
-            </a>
-          </li>
-          <li *ngIf="isAdmin" class="nav-item">
-            <a class="nav-link" routerLink="/create">
-              <i class="fas fa-plus-circle"></i> Nuevo
-            </a>
-          </li>
-        </ul>
       </div>
+
+      <ul class="navbar-nav justify-content-center flex-grow-1 pe-1 mx-auto">
+        <li class="nav-item">
+          <a class="nav-link fw-bold" [ngClass]="{'active': activo === 'home' || activo === 'inicio'}"
+            (click)="setActiveLink('home')" routerLink="home" routerLinkActive="router-link-active">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'entrevista'}"
+            (click)="setActiveLink('entrevista')" routerLink="entrevista">Entrevista</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-lg-1 fw-bold" [ngClass]="{'active': activo === 'cv'}" (click)="setActiveLink('cv')"
+            routerLink="cv">CV</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'quienes'}"
+            (click)="setActiveLink('quienes')" routerLink="quienes-somos">Quiénes somos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'contactenos'}"
+            (click)="setActiveLink('contactenos')" routerLink="contactenos">Contáctanos</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav ml-auto">
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="/admin">
+            <i class="fas fa-toolbox"></i> Admin
+          </a>
+        </li>
+        <li *ngIf="isAdmin" class="nav-item">
+          <a class="nav-link" routerLink="/create">
+            <i class="fas fa-plus-circle"></i> Nuevo
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
