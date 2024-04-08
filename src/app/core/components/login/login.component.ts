@@ -24,7 +24,6 @@ export class LoginComponent implements OnInit{
 
   login(): void {
     this.loginService.login();
-    this.router.navigate(['inicio']);
   }
 
   register(): void {

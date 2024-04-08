@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderService } from '@core/service/loader/loader.service';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 import { LoginService } from '@shared/service/login.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-landing',
@@ -11,8 +12,9 @@ import { LoginService } from '@shared/service/login.service';
   styleUrl: './landing.component.scss'
 })
 
-export class LandingComponent implements OnInit {
-
+export class LandingComponent implements OnInit, OnDestroy {
+  private subscription: Subscription;
+  
   isLogged: boolean;
   loader: boolean = false;
   username = "string";
@@ -31,7 +33,7 @@ export class LandingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginService.authenticationChanged.subscribe((isLogged: boolean) => {
+    this.subscription = this.loginService.isLogged$.subscribe(isLogged => {
       this.isLogged = isLogged;
     });
   }
@@ -42,5 +44,9 @@ export class LandingComponent implements OnInit {
 
   hideLoader(): void {
     this.loaderService.hideLoader();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe(); 
   }
 }

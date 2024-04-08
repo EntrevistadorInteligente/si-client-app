@@ -49,11 +49,11 @@
           <a class="nav-link fw-bold" [ngClass]="{'active': activo === 'home' || activo === 'inicio'}"
             (click)="setActiveLink('home')" routerLink="home" routerLinkActive="router-link-active">Inicio</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'entrevista'}"
-            (click)="setActiveLink('entrevista')" routerLink="entrevista">Entrevista</a>
+        <li *ngIf="isLogged" class="nav-item">
+          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'zona-entrevista'}"
+            (click)="setActiveLink('zona-entrevista')" routerLink="zona-entrevista">Entrevista</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="isLogged" class="nav-item">
           <a class="nav-link mx-lg-1 fw-bold" [ngClass]="{'active': activo === 'cv'}" (click)="setActiveLink('cv')"
             routerLink="cv">CV</a>
         </li>
@@ -78,7 +78,6 @@
           </a>
         </li>
       </ul>
-
     </div>
   </div>
 </nav>

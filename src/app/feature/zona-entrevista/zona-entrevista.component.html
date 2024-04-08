@@ -1,0 +1,17 @@
+<p-card>
+    <p-paginator [rows]="1" [totalRecords]="questions.length" [first]="first"
+        (onPageChange)="onPageChange($event)"></p-paginator>
+    <div *ngIf="currentQuestion" class="question-container">
+        <h2>Question {{ currentIndex + 1 }}/{{ questions.length }}</h2>
+        <div class="question">{{ currentQuestion.text }}</div>
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="currentQuestion.userAnswer"></textarea>
+        <p-progressBar [value]="progressValue"></p-progressBar>
+        <div class="question-actions">
+            <button pButton label="Previous" icon="pi pi-chevron-left" (click)="previousQuestion()"
+                [disabled]="currentIndex === 0"></button>
+            <button pButton label="Next" icon="pi pi-chevron-right" (click)="nextQuestion()"
+                [disabled]="currentIndex === questions.length - 1"></button>
+            <button pButton label="Submit" icon="pi pi-check" (click)="submitAnswers()" style="float:right"></button>
+        </div>
+    </div>
+</p-card>

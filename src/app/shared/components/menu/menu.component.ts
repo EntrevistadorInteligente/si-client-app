@@ -1,6 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoginService } from '@shared/service/login.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-menu',
@@ -19,7 +20,9 @@ export class MenuComponent implements OnInit {
   avatarUrl: string = '';
   isAvatarMenuActive: boolean = false;
   message: string = '¡Bienvenid@!';
-
+  items: MenuItem[];
+  activeItem: MenuItem;
+  
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -28,20 +31,19 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     document.addEventListener('click', this.onDocumentClick.bind(this));
+
   }
 
   login(): void {
-    /* this.isLogged = true;
-    this.username = '';
-    console.log('Bienvenido'); */
-    //this.router.navigate(['/login']);
+
     this.loginService.login();
+    if(this.isLogged){
+      this.activo = "home";
+    }
   }
 
   logout(): void {
     this.isLogged = false;
-    /* this.isAdmin = false;
-    console.log('Sesión cerrada'); */
     this.loginService.logout();
     this.router.navigate(['/home']);
   }

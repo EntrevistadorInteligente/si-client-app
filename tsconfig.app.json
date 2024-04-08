@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": [],  
+    "types": [],
     "paths": {
       "@core/*": [
         "src/app/core/*"
@@ -11,16 +11,15 @@
       "@core-service/*": [
         "src/app/core/services/*"
       ],
-      "@home/*": [
-        "src/app/feature/home/*"
+      "@inicio/*": [
+        "src/app/feature/inicio/*"
       ],
-      "@company/*": [
-        "src/app/feature/company/*"
+      "@zona-entrevista/*": [
+        "src/app/feature/zona-entrevista/*"
       ],
       "@shared/*": [
         "src/app/shared/*"
       ]
-      
     }
   },
   "files": [

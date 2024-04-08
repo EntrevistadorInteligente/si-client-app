@@ -1,5 +1,6 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,18 +8,18 @@ import { OAuthService } from 'angular-oauth2-oidc';
 
 export class LoginService {
 
-  authenticationChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
+  private isLoggedSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private oauthService: OAuthService) { }
 
   public login(): void {
     this.oauthService.initImplicitFlowInternal();
-    this.authenticationChanged.emit(true);
+    this.isLoggedSubject.next(true);
   }
 
   public logout(): void {
     this.oauthService.logOut();
-    this.authenticationChanged.emit(false);
+    this.isLoggedSubject.next(false);
   }
 
   public getIsLogged(): boolean {
@@ -36,4 +37,13 @@ export class LoginService {
     const payloadDecoded = JSON.parse(payloadDecodedJson);
     return payloadDecoded.realm_access.roles.indexOf('realm-admin') !== -1;
   }
+  
+  get isLogged$(): Observable<boolean> {
+    return this.isLoggedSubject.asObservable();
+  }
+
+  setIsLogged(isLogged: boolean): void {
+    this.isLoggedSubject.next(isLogged);
+  }
+
 }

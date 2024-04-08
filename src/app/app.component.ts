@@ -41,6 +41,8 @@ export class AppComponent implements OnInit {
     this.offlineService.offlineMessage$.subscribe((message) => {
       this.offlineMessage = message;
     });
+
+    this.subscribeToLoginChanges();
   }
 
   authConfig: AuthConfig = {
@@ -62,11 +64,18 @@ export class AppComponent implements OnInit {
           this.isLogged = this.loginService.getIsLogged();
           this.isAdmin = this.loginService.getIsAdmin();
           this.username = this.loginService.getUsername();
-          this.loginService.authenticationChanged.emit(this.isLogged)
-          //this.messageService.sendMessage(this.loginService.getUsername());
+          this.loginService.setIsLogged(this.isLogged);
         }
       });
   }
+
+  
+  private subscribeToLoginChanges(): void {
+    this.loginService.isLogged$.subscribe((isLogged) => {
+      this.isLogged = isLogged;
+    });
+  }
+  
 }
 
 

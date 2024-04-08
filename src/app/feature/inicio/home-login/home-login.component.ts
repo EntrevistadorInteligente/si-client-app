@@ -22,7 +22,6 @@ export class HomeLoginComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    this.cargarVistaPreviaEntrevista();
     this.form = this.fb.group({
       empresa: ['', Validators.required],
       perfil: ['', Validators.required],
@@ -31,15 +30,6 @@ export class HomeLoginComponent implements OnInit {
     });
   }
 
-  cargarVistaPreviaEntrevista(): void {
-
-    this.integradorService.listAut().subscribe(
-      data => {
-        this.preguntas = data;
-      },
-      err => console.log(err)
-    );
-  }
 
   onFileChange(event: any): void {
     const files: FileList = event.target.files;

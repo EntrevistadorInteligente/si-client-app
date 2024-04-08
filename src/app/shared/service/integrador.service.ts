@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { FormularioDto } from '@shared/model/formulario-dto';
+import { PreguntasDto } from '@shared/model/preguntas-dto';
 
 @Injectable()
 
@@ -46,6 +47,24 @@ export class IntegradorService {
       headers = headers.set('Authorization', `Bearer ${token}`);
 
     return headers;
+  }
+
+  getQuestions(): PreguntasDto[] {
+    return [
+      { text: 'Tell us about yourself.' },
+      { text: 'Why are you interested in this position?' },
+      { text: 'What is your greatest strength?' },
+      { text: 'Where do you see yourself in 5 years?' },
+      { text: 'Describe a challenge you faced and how you dealt with it.' },
+      { text: 'How do you handle stress and pressure?' },
+      { text: 'What are your salary expectations?' },
+      { text: 'Why should we hire you?' },
+      { text: 'Do you have any questions for us?' },
+      { text: 'How do you keep up-to-date with industry trends?' }
+    ].map((q, index) => ({
+      ...q,
+      userAnswer: '', // Initialize the answer property
+    }));
   }
 
 }
