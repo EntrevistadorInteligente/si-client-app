@@ -5,5 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class LoaderService {
 
-  constructor() { }
+  isLoading: boolean = false;
+
+  showLoader(): void {
+    this.isLoading = true;
+  }
+
+  hideLoader(): void {
+    this.isLoading = false;
+  }
 }

@@ -1,1 +1,15 @@
-<router-outlet></router-outlet>
+<div *ngIf="!online"  class="alert alert-danger text-center">
+  <h1>No tienes conexión a internet.</h1>
+  <p>Verifica tu conexión.</p>
+  <p>Intentalo de nuevo más tarde.</p>
+</div>
+
+<div *ngIf="online">
+    <app-menu [isLogged]="isLogged"></app-menu>
+    <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>
+
+<div *ngIf="offlineMessage" class="alert alert-warning text-center">
+  <h4 *ngIf="offlineMessage">{{ offlineMessage }}</h4>
+</div>

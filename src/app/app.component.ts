@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { NetworkService } from '@core/service/network/network.service';
+import { OfflineService } from '@core/service/offline/offline.service';
 import { LoginService } from '@shared/service/login.service';
 import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 
@@ -7,17 +9,40 @@ import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'landing-entrevistador';
+
+export class AppComponent implements OnInit {
+
+  title = 'landing entrevistador';
   username: string;
   isLogged: boolean;
   isAdmin: boolean;
+  online: boolean = true;
+  offlineMessage: string = '';
 
   constructor(
     private oauthService: OAuthService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private networkService: NetworkService,
+    private offlineService: OfflineService
   ) {
     this.configure();
+  }
+
+  ngOnInit(): void {
+    this.configure();
+
+    this.networkService.online$.subscribe((online) => {
+      this.online = online;
+      if (online) {
+        this.offlineMessage = '';
+      }
+    });
+
+    this.offlineService.offlineMessage$.subscribe((message) => {
+      this.offlineMessage = message;
+    });
+
+    this.subscribeToLoginChanges();
   }
 
   authConfig: AuthConfig = {
@@ -39,9 +64,19 @@ export class AppComponent {
           this.isLogged = this.loginService.getIsLogged();
           this.isAdmin = this.loginService.getIsAdmin();
           this.username = this.loginService.getUsername();
-          //this.messageService.sendMessage(this.loginService.getUsername());
+          this.loginService.setIsLogged(this.isLogged);
         }
       });
   }
 
+  
+  private subscribeToLoginChanges(): void {
+    this.loginService.isLogged$.subscribe((isLogged) => {
+      this.isLogged = isLogged;
+    });
+  }
+  
 }
+
+
+

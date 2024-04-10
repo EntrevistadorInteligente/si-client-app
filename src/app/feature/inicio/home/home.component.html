@@ -1,0 +1,117 @@
+<ng-container id="carrusel">
+  <app-carrusel></app-carrusel>
+</ng-container>
+
+<ng-container id="service">
+  <div>
+    <h1 class="title">Nuestros Servicios</h1>
+  </div>
+  <div class="container">
+    <div class="container_card">
+      <div class="card_father">
+        <h1>Análisis CV</h1>
+        <div class="card">
+          <div class="card_front" style="background-image: url(assets/img/cv-analisis.jpg);">
+            <div class="bg"></div>
+            <div class="body_card_front">
+            </div>
+          </div>
+          <div class="card_back">
+            <div class="body_card_back">
+              <p>Analizamos tu CV mediante Inteligencia Artificial (IA) y con ello podemos saber tu nivel de experiencia
+                laboral y habilidades.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container_card">
+      <div class="card_father">
+        <h1>Ofertas</h1>
+        <div class="card">
+          <div class="card_front" style="background-image: url(assets/img/cv-oferta.jpg);">
+            <div class="bg"></div>
+            <div class="body_card_front">
+            </div>
+          </div>
+          <div class="card_back">
+            <div class="body_card_back">
+              <p>Aquí es donde vas a llenar un formulario con la descripción del empleo para preparar el camino a tu
+                entrevista, brindándote confianza y seguridad.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container_card">
+      <div class="card_father">
+        <h1>Entrevista</h1>
+        <div class="card">
+          <div class="card_front" style="background-image: url(assets/img/cv-entrevista.jpg);">
+            <div class="bg"></div>
+            <div class="body_card_front">
+            </div>
+          </div>
+          <div class="card_back">
+            <div class="body_card_back">
+              <p>Para garantizar la entrevista, hemos asegurado que la información clave, como habilidades y
+                experiencia, coincida en ambos documentos.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container_card">
+      <div class="card_father">
+        <h1>Feedback</h1>
+        <div class="card">
+          <div class="card_front" style="background-image: url(assets/img/cv-feedback.jpg);">
+            <div class="bg"></div>
+            <div class="body_card_front">
+            </div>
+          </div>
+          <div class="card_back">
+            <div class="body_card_back">
+              <p>Una vez completada la entrevista te haremos el feedback de la entrevista y sabrás tus fortalezas y
+                cosas por mejorar.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container text-center">
+    <h5 class="my-5">"En nuestra plataforma, te brindamos un servicio integral que incluye análisis detallado de tu CV,
+      evaluación exhaustiva de ofertas laborales, simulacros de entrevistas y valiosa retroalimentación. Nos dedicamos a prepararte
+      para que puedas alcanzar tu empleo ideal.</h5>
+    <h5 class="mb-5 fw-bold">¡Adelante nosotros cremos en tí, tú puedes!</h5>
+  </div>
+
+</ng-container>
+
+<ng-container id="preguntas">
+  <div class="table-responsive">
+    <div class="container">
+      <table class="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th class="text-center fw-bold">Pregunta</th>
+          </tr>
+        </thead>
+        <tbody class="container">
+          @for (pregunta of preguntas; track pregunta.pregunta) {
+          <tr>
+            <td class="text-center">{{ pregunta.pregunta }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>
+
+<app-loader></app-loader>
+
+<ng-container id="contacto">
+  <app-contacto></app-contacto>
+</ng-container>

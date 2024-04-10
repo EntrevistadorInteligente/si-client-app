@@ -1,19 +1,33 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+// MODULOS
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IntegradorService } from './service/integrador.service';
-import { HttpClientModule } from '@angular/common/http';
-import { OAuthModule } from 'angular-oauth2-oidc';
 
+// COMPONENTES
+import { MenuComponent } from './components/menu/menu.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CoreModule } from '@core/core.module';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { PanelModule } from 'primeng/panel';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    MenuComponent,
+    FooterComponent,
+    PerfilComponent
+  ],
   imports: [
     CommonModule,
-    HttpClientModule
+    CoreModule,
+    PanelModule,
+    TabMenuModule
   ],
-  providers: [IntegradorService],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  exports: [
+    MenuComponent,
+    FooterComponent,
+    PerfilComponent
+  ],
+  providers: [],
 })
-export class SharedModule { 
 
-}
+export class SharedModule { }

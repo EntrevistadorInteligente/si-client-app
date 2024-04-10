@@ -23,31 +23,31 @@
     "lib": [
       "ES2022",
       "dom"
-    ]
-    ,
-  "paths": {
-    "@core/*": [
-      "src/app/core/*"
     ],
-    "@core-service/*": [
-      "src/app/core/services/*"
-    ],
-    "@home/*": [
-      "src/app/feature/home/*"
-    ],
-    "@company/*": [
-      "src/app/feature/company/*"
-    ],
-    "@shared/*": [
-      "src/app/shared/*"
-    ]
-  }
+    "paths": {
+      "@core/*": [
+        "src/app/core/*"
+      ],
+      "@core-service/*": [
+        "src/app/core/services/*"
+      ],
+      "@inicio/*": [
+        "src/app/feature/inicio/*"
+      ],
+      "@zona-entrevista/*": [
+        "src/app/feature/zona-entrevista/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
+    }
   },
+
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-    
+
   }
 }
