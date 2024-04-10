@@ -7,6 +7,9 @@ import { PaginatorModule } from 'primeng/paginator';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { ZonaEntrevistaComponent } from './zona-entrevista.component';
 import { ZonaEntrevistaRoutingModule } from './zona-entrevista-routing.module';
+import { DialogModule } from 'primeng/dialog';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -18,10 +21,15 @@ import { ZonaEntrevistaRoutingModule } from './zona-entrevista-routing.module';
     ButtonModule,
     PaginatorModule,
     ProgressBarModule,
-    ZonaEntrevistaRoutingModule
+    ZonaEntrevistaRoutingModule,
+    DialogModule,
+    ToastModule
   ],
   exports: [
     ZonaEntrevistaComponent
-  ]
+  ],
+  providers: [
+    MessageService
+  ],
 })
 export class ZonaEntrevistaModule { }

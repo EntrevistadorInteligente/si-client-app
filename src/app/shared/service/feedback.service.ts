@@ -1,15 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
-import { FormularioDto } from '@shared/model/formulario-dto';
-import { PreguntasDto } from '@shared/model/preguntas-dto';
 
 @Injectable()
-
-export class IntegradorService {
-  fooURL = 'http://localhost:8765/api/orquestador/v1/entrevistador/';
+export class FeedbackService {
+  fooURL = 'http://localhost:8765/api/feedback/v1/';
   fooURL2 = 'http://localhost:8765/api/ms2/';
   httpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
@@ -19,17 +14,7 @@ export class IntegradorService {
   ) {}
 
 
-  public list(): Observable<VistaPreviaEntrevistaDto[]> {
-    return this.httpClient.get<VistaPreviaEntrevistaDto[]>(`${this.fooURL}public/preguntas`);
-  }
-
-  public listAut(): Observable<VistaPreviaEntrevistaDto[]> {
-    return this.httpClient.get<VistaPreviaEntrevistaDto[]>(`${this.fooURL}preguntas`, {
-      headers: this.getHeaders()
-    });
-  }
-
-  public crearSolicitudEntrevista(file: File, formulario: FormularioDto): Observable<any> {
+  public crearSolicitudFeedback(file: File, formulario: FormularioDto): Observable<any> {
     const formData = new FormData();
     formData.append('file', file);
     formData.append('formulario', new Blob([JSON.stringify(formulario)], {

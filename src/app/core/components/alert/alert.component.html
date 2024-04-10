@@ -3,7 +3,8 @@
     badgeClass="p-badge-danger" (click)="showDialog()"></p-button>
 </div>
 
-<p-dialog header="Header" [(visible)]="visible" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }"
+<p-dialog header="Header" [(visible)]="visible" [modal]="true"
+[breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }"
   [draggable]="false" [resizable]="false">
   <ng-template pTemplate="header">
     <div class="inline-flex align-items-center justify-content-center">
@@ -11,13 +12,17 @@
     </div>
   </ng-template>
   <p class="m-0">
-    @for (user of notifications; track user.id) {
-    {{ user.message }}
+    @for (notification of notifications; track notification.id) {
+      <div *ngIf="notification.url === 'PREGUNTAS'">
+        <p>Tu entrevista esta lista!</p>
+        <p-button label="Ir a la entrevista" (onClick)="goToInterview(notification)"></p-button>
+      </div>
+      <div *ngIf="notification.url !== 'PREGUNTAS'">
+        {{ notification.message }}
+      </div>
     } @empty {
     No hay notificaciones pendientes
     }
   </p>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="onNotification()" label="Ok" pAutoFocus [autofocus]="true"></p-button>
-  </ng-template>
+
 </p-dialog>

@@ -1,10 +1,10 @@
 export class PreguntasDto {
-    userAnswer: string;
-    text: string;
+    respuesta: string;
+    pregunta: string;
     constructor(
-        userAnswer: string = '',
-        text: string = '') {
-        this.userAnswer = userAnswer;
-        this.text = text;
+        respuesta: string = '',
+        pregunta: string = '') {
+        this.respuesta = respuesta;
+        this.pregunta = pregunta;
     }
 }
