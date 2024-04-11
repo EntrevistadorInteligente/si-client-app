@@ -120,10 +120,10 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
         ```
         - **Descripción**: DTO para almacenar información de un formulario.
         - **Campos**:
-            - `empresa`: Nombre de la empresa.
-            - `perfil`: Tipo de perfil buscado.
-            - `seniority`: Nivel de seniority.
-            - `pais`: País de ubicación.
+            `empresa`: Nombre de la empresa.
+            `perfil`: Tipo de perfil buscado.
+            `seniority`: Nivel de seniority.
+            `pais`: País de ubicación.
 
     - **vista-previa-entrevista-dto**:
     
@@ -137,7 +137,7 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
         ```
         - **Descripción**: DTO para almacenar una pregunta de entrevista.
         - **Campos**:
-            - `pregunta`: Texto de la pregunta.
+            `pregunta`: Texto de la pregunta.
 
     - **preguntas-dto**:
     
@@ -155,30 +155,19 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
         ```
         - **Descripción**: DTO para almacenar una pregunta y su respuesta.
         - **Campos**:
-            - `pregunta`: Texto de la pregunta.
-            - `respuesta`: Texto de la respuesta.
+            `pregunta`: Texto de la pregunta.
+            `respuesta`: Texto de la respuesta.
 
 ## Services
 
 1. Servicios compartidos entre diferentes partes de la aplicación.
 
-  - **alert-service**:        
-      - **Descripción**: Servicio para mostrar alertas y mensajes de notificación en la aplicación.
-
-  - **dark-mode**:    
-      - **Descripción**: Servicio para gestionar el modo oscuro en la interfaz de usuario.
-
-  - **feedback**:    
-      - **Descripción**: Servicio para recopilar comentarios y retroalimentación de los usuarios.
-
-  - **integrador**:    
-      - **Descripción**: Servicio para integrar datos y funcionalidades de otros sistemas externos.
-
-  - **login**:    
-      - **Descripción**: Servicio para gestionar la autenticación y el inicio de sesión de los usuarios.
-
-  - **message-service**:    
-      - **Descripción**: Servicio para enviar y recibir mensajes dentro de la aplicación, como chat o notificaciones instantáneas.
+1. **alert-service**: Servicio para mostrar alertas y mensajes de notificación en la aplicación.
+2. **dark-mode**: Servicio para gestionar el modo oscuro en la interfaz de usuario.
+3. **feedback**: Servicio para recopilar comentarios y retroalimentación de los usuarios.
+4. **integrador**: Servicio para integrar datos y funcionalidades de otros sistemas externos.
+5. **login**: Servicio para gestionar la autenticación y el inicio de sesión de los usuarios.
+6. **message-service**: Servicio para enviar y recibir mensajes dentro de la aplicación, como chat o notificaciones instantáneas.
 
 ### src/assets/img
 
@@ -195,6 +184,7 @@ Esta carpeta contiene recursos estáticos como imágenes utilizadas en la aplica
 - Angular CLI: Herramienta de línea de comandos para Angular.
 - PrimeIcons: Iconos adicionales para PrimeNG.
 - ngx-bootstrap: Librería de componentes Bootstrap para Angular.
+- angular-oauth2-oidc: Librería para la autenticación y autorización utilizando OAuth 2.0 y OpenID Connect en aplicaciones Angular.
 
 ## Estado del Proyecto
 
