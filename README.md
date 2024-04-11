@@ -7,7 +7,7 @@ Entrevistador Inteligente es una plataforma que utiliza inteligencia artificial 
 Instrucciones sobre cómo instalar el proyecto y configurar el entorno de desarrollo.
 
 1. **Prerrequisitos**: 
-- Asegúrate de tener instalado Node.js versión X.X.X. Puedes descargarlo [aquí](https://nodejs.org/). 
+- Asegúrate de tener instalado Node.js versión 20 en adelante Puedes descargarlo [aquí](https://nodejs.org/). 
 - Además, necesitarás tener Angular CLI instalado globalmente. Si aún no lo tienes, puedes instalarlo ejecutando el siguiente comando: 
   `npm install -g @angular/cli`.
 2. Clona el repositorio: `git clone https://github.com/EntrevistadorInteligente/landing-entrevistador.git`
