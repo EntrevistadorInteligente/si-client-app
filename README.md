@@ -93,10 +93,6 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
 ## Models
 
 1. Definiciones de modelos y dtos utilizados en toda la aplicación.
-  
-  ## Models
-
-1. Definiciones de modelos y DTOs utilizados en toda la aplicación.
 
     - **formulario-dto**:
     
@@ -160,7 +156,7 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
 
 ## Services
 
-1. Servicios compartidos entre diferentes partes de la aplicación.
+Servicios compartidos entre diferentes partes de la aplicación.
 
 1. **alert-service**: Servicio para mostrar alertas y mensajes de notificación en la aplicación.
 2. **dark-mode**: Servicio para gestionar el modo oscuro en la interfaz de usuario.
@@ -200,4 +196,5 @@ Este proyecto es de código abierto.
 
 ## Contacto y Soporte
 
-Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de Discord [aquí](https://discord.com/invite/AkR67b88YP).
+Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de [Discord aquí](https://discord.com/invite/AkR67b88YP){:target="_blank"}.
+
