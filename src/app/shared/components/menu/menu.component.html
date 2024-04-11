@@ -18,7 +18,7 @@
         <div class="action">
           <div class="perfil mx-3" #avatar (click)="avatarMenu()">
             <img
-              src="assets/img/78979169-indicador-de-conexión-icono-de-señal-de-usuario-símbolo-de-la-persona-estilo-avatar-flat.jpg"
+              src="assets/img/perfil.jpg"
               alt="perfil">
           </div>
           <div class="avatar" [ngClass]="{'active': isAvatarMenuActive}">
@@ -31,53 +31,58 @@
               </p>
             </div>
             <ul>
-              <li *ngIf="isLogged"><img src="assets/img/edit-white.png" alt="perfil"><a (click)="perfil()">Mi Perfil</a></li>
-              <li *ngIf="!isLogged"><img src="assets/img/user-white.png" alt="usuario"><a (click)="login()">Login</a></li>
-              <li><img src="assets/img/settings-white.png" alt="configuracion"><a>Configuración</a></li>
-              <li><img src="assets/img/question-white.png" alt="ayuda"><a>Ayuda</a></li>
-              <li *ngIf="isLogged"><img src="assets/img/log-out-white.png" alt="salir"><a (click)="logout()">Salir</a>
+              <li *ngIf="isLogged"><i class="fas fa-user"></i><a (click)="perfil()">Mi Perfil</a></li>
+              <li *ngIf="!isLogged"><i class="fas fa-sign-in-alt"></i><a (click)="login()">Login</a></li>
+              <li><i class="fas fa-cog"></i><a>Configuración</a></li>
+              <li><i class="fas fa-question"></i><a>Ayuda</a></li>
+              <li><i class="far" [ngClass]="{'fa-sun': darkModeService.darkModeEnabled,
+              'fa-moon': !darkModeService.darkModeEnabled}" (click)="toggleDarkMode()"></i>
+                <a (click)="toggleDarkMode()">
+                  {{ darkModeService.darkModeEnabled ? 'Modo Claro' : 'Modo Oscuro' }}
+                </a>
               </li>
+              <li *ngIf="isLogged"><i class="fas fa-sign-out-alt"></i><a (click)="logout()">Salir</a></li>
             </ul>
           </div>
           <hr *ngIf="isLogged">
           <app-alert class="alert-right" *ngIf="isLogged"></app-alert>
         </div>
+        <ul class="navbar-nav justify-content-center flex-grow-1 pe-1 mx-auto">
+          <li class="nav-item active">
+            <a class="nav-link fw-bold" [ngClass]="{'active': activo === 'home' || activo === 'inicio'}"
+              (click)="setActiveLink('home')" routerLink="home" routerLinkActive="router-link-active">Inicio</a>
+          </li>
+          <li *ngIf="isLogged" class="nav-item">
+            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'zona-entrevista'}"
+              (click)="setActiveLink('zona-entrevista')" routerLink="zona-entrevista">Entrevista</a>
+          </li>
+          <li *ngIf="isLogged" class="nav-item">
+            <a class="nav-link mx-lg-1 fw-bold" [ngClass]="{'active': activo === 'cv'}" (click)="setActiveLink('cv')"
+              routerLink="cv">CV</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'quienes'}"
+              (click)="setActiveLink('quienes')" routerLink="quienes-somos">Quiénes Somos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'contactenos'}"
+              (click)="setActiveLink('contactenos')" routerLink="contactenos">Contáctanos</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="admin">
+              <i class="fas fa-toolbox"></i> Admin
+            </a>
+          </li>
+          <li *ngIf="isAdmin" class="nav-item">
+            <a class="nav-link" routerLink="create">
+              <i class="fas fa-plus-circle"></i> Nuevo
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <ul class="navbar-nav justify-content-center flex-grow-1 pe-1 mx-auto">
-        <li class="nav-item active">
-          <a class="nav-link fw-bold" [ngClass]="{'active': activo === 'home' || activo === 'inicio'}"
-            (click)="setActiveLink('home')" routerLink="home" routerLinkActive="router-link-active">Inicio</a>
-        </li>
-        <li *ngIf="isLogged" class="nav-item">
-          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'zona-entrevista'}"
-            (click)="setActiveLink('zona-entrevista')" routerLink="zona-entrevista">Entrevista</a>
-        </li>
-        <li *ngIf="isLogged" class="nav-item">
-          <a class="nav-link mx-lg-1 fw-bold" [ngClass]="{'active': activo === 'cv'}" (click)="setActiveLink('cv')"
-            routerLink="cv">CV</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'quienes'}"
-            (click)="setActiveLink('quienes')" routerLink="quienes-somos">Quiénes Somos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link mx-lg-2 fw-bold" [ngClass]="{'active': activo === 'contactenos'}"
-            (click)="setActiveLink('contactenos')" routerLink="contactenos">Contáctanos</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
-        <li *ngIf="isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="admin">
-            <i class="fas fa-toolbox"></i> Admin
-          </a>
-        </li>
-        <li *ngIf="isAdmin" class="nav-item">
-          <a class="nav-link" routerLink="create">
-            <i class="fas fa-plus-circle"></i> Nuevo
-          </a>
-        </li>
-      </ul>
     </div>
   </div>
 </nav>

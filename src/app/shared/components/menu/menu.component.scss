@@ -148,7 +148,7 @@
   align-items: center;
 }
 
-.action .avatar ul li img {
+.action .avatar ul li i {
   max-width: 20px;
   margin-right: 20px;
   opacity: 0.5;
@@ -156,7 +156,7 @@
   object-fit: cover;
 }
 
-.action .avatar ul li:hover img {
+.action .avatar ul li:hover i {
   opacity: 1;
 }
 
