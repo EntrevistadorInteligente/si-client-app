@@ -196,5 +196,6 @@ Este proyecto es de código abierto.
 
 ## Contacto y Soporte
 
-Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de [Discord aquí](https://discord.com/invite/AkR67b88YP){:target="_blank"}.
+Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de [Discord aquí](https://discord.com/invite/AkR67b88YP){target="_blank"}
+
 
