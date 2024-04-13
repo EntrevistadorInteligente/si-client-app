@@ -1,7 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PreguntasDto } from '@shared/model/preguntas-dto';
-import { AlertService } from '@shared/service/alert.service';
+import { SseService } from '@shared/service/sse.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,7 +16,7 @@ export class AlertComponent implements OnInit, OnDestroy {
   badgeCount = 0;
   visible: boolean = false;
 
-  constructor(private sseService: AlertService, private zone: NgZone,
+  constructor(private sseService: SseService, private zone: NgZone,
     private router: Router
   ) { }
 
@@ -38,11 +37,23 @@ export class AlertComponent implements OnInit, OnDestroy {
 
     this.eventsFeedbackSubscription = this.sseService.getFeedbackServerSentEvent().subscribe({
       next: event => {
+
+        let url ="PREGUNTAS";
+        let notificacion = event.data;
+        const data = JSON.parse(event.data); 
+        if(data.procesoEntrevista[0].feedback !== null){
+          url = "Otra";
+          notificacion = data.procesoEntrevista.map(item => 
+            `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
+          ).join('\n\n');
+        }
+        
+
         this.zone.run(() => {
           this.notifications.push({
             id: this.badgeCount,
-            message: event.data,
-            url: "PREGUNTAS"
+            message: notificacion,
+            url: url
           });
           this.badgeCount = this.notifications.length;
         });
@@ -58,11 +69,8 @@ export class AlertComponent implements OnInit, OnDestroy {
   goToInterview(notification: { id: number; message: string; url: string }) {
     try {
       const data = JSON.parse(notification.message); 
-      if (data && data.feedback) {
-        const preguntasDtos: PreguntasDto[] = data.feedback.map((pregunta: string) => {
-          return { pregunta: pregunta };
-        });
-        this.sseService.changeQuestions(preguntasDtos);
+      if (data && data.procesoEntrevista) {
+        this.sseService.changeQuestions(data);
         this.visible = false;
     this.notifications = [];
         this.router.navigate(['/zona-entrevista']);

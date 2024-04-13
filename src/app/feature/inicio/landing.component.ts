@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderService } from '@core/service/loader/loader.service';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
-import { IntegradorService } from '@shared/service/integrador.service';
 import { LoginService } from '@shared/service/login.service';
 import { Subscription } from 'rxjs';
 
@@ -25,7 +24,6 @@ export class LandingComponent implements OnInit, OnDestroy {
 
   constructor(
     router: Router,
-    private integradorService: IntegradorService,
     private loaderService: LoaderService,
     private loginService: LoginService
   ) {

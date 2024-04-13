@@ -10,6 +10,7 @@ import { ZonaEntrevistaRoutingModule } from './zona-entrevista-routing.module';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MessageService } from 'primeng/api';
     ProgressBarModule,
     ZonaEntrevistaRoutingModule,
     DialogModule,
-    ToastModule
+    ToastModule,
+    SharedModule
   ],
   exports: [
     ZonaEntrevistaComponent
