@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { FormularioDto } from '@shared/model/formulario-dto';
-import { PreguntasDto } from '@shared/model/preguntas-dto';
+import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 
 @Injectable()
 
@@ -37,6 +37,18 @@ export class IntegradorService {
     }));
   
     return this.httpClient.post(`${this.fooURL}cv`, formData);
+  }
+
+  public obtenerHojaDeVida(username:String): Observable<HojaDeVidaDto>{
+    return this.httpClient.get<HojaDeVidaDto>(`${this.fooURL}/hojas-de-vidas/${username}`);
+  }
+
+  public corregirHojaDeVida(formulario: HojaDeVidaDto): Observable<any>{
+    return this.httpClient.put(`${this.fooURL}/hojas-de-vidas/corregir-datos`, formulario);
+  }
+
+  public cargarHojaDeVida(file: File): Observable<any>{
+    return this.httpClient.post(`${this.fooURL}/hojas-de-vidas/cargar`, file);
   }
 
   private getHeaders(): HttpHeaders {

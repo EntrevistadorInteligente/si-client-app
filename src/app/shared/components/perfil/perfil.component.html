@@ -3,21 +3,144 @@
     <div class="row">
       <div class="col-xl-4">
         <div class="card mb-4 mb-xl-0">
-          <div class="card-header">Imagen de Perfil</div>
-          <div class="card-body text-center">
-            <img class="image img-account-profile rounded-circle mb-2"
-              src="assets/img/78979169-indicador-de-conexión-icono-de-señal-de-usuario-símbolo-de-la-persona-estilo-avatar-flat.jpg"
-              alt="Perfil">
-            <div class="small font-italic text-muted mb-4">JPG or PNG no superior a 5 MB</div>
-            <button class="btn btn-primary" type="button">Cargar nueva imagen</button>
+          <div class="card-header">Cargar CV</div>
+
+          <div class="card-body">
+            <label for="fileElem" id="drop-area"
+              class="border rounded d-flex justify-content-center align-items-center bg-gray"
+              (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+              <div class="text-center">
+                <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
+                <p class="mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+              </div>
+              <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf" class="d-none">
+            </label>
+            <div class="" *ngIf="file">
+              <p>{{ file[0].name }}</p>
+            </div>
           </div>
+          <button type="submit" class="btn btn-primary" (click)="handleClick()">Cargar</button>
+
         </div>
       </div>
       <div class="col-xl-8">
         <div class="card mb-4">
           <div class="card-header">Detalles de la cuenta</div>
           <div class="card-body">
-            <form>
+            <form [formGroup]="perfilForm">
+              <div class="mb-3">
+                <label class="small mb-1" for="inputFullName">Nombre completo <span>*</span></label>
+                <input class="form-control" id="inputFullName" name="nombre" type="text" placeholder="Ingresa tu nombre">
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputProfile">Perfil <span>*</span></label>
+                  <input class="form-control" id="inputProfile" type="text" placeholder="Ingresa tu perfil laboral">
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputPhone">Seniority</label>
+                  <input class="form-control" id="inputPhone" type="text" placeholder="Ingresa tu seniority">
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="tecnologiaAgregar">Tecnologias principales <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiaAgregar" />
+                    <button (click)="agregarItem('tecnologiaAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('tecnologia')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('tecnologiasPrincipales').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('tecnologiasPrincipales').value"  formControlName="tecnologiaSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Habilidades tecnicas <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="habilidadAgregar" />
+                    <button (click)="agregarItem('habilidadAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('habilidad')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('habilidadesTecnicas').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('habilidadesTecnicas').value"  formControlName="habilidadSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Experiencias laborales <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="experienciaLaboralAgregar" />
+                    <button (click)="agregarItem('experienciaLaboralAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('experienciaLaboral')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('experienciasLaborales').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('experienciasLaborales').value"  formControlName="experienciaSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Certificaciones <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="certificacionAgregar" />
+                    <button (click)="agregarItem('certificacionAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('certificacion')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('certificaciones').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('certificaciones').value"  formControlName="certificacionSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Proyectos <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="proyectoAgregar" />
+                    <button (click)="agregarItem('proyectoAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('proyecto')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('proyectos').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('proyectos').value"  formControlName="proyectoSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="nivelIngles">Nivel de ingles <span>*</span></label>
+                  <input class="form-control" id="inputBirthday" formControlName="nivelIngles" type="text" name="nivelIngles">
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="inputBirthday">Otras habilidades <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="otraHabilidadAgregar" />
+                    <button (click)="agregarItem('otraHabilidadAgregar')">Agregar</button>
+                    <button (click)="eliminarItem('otraHabilidad')">Eliminar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('otrasHabilidades').value.length > 0">
+                    <p-listbox [options]="perfilForm.get('otrasHabilidades').value"  formControlName="otraHabilidadSelec"
+                  optionLabel="name" [style]="{'width':'100%'}" [listStyle]="{'max-height': '220px'}"></p-listbox>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <button class="btn btn-primary" type="button">Guardar cambios</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--
+
+<form>
               <div class="mb-3">
                 <label class="small mb-1" for="inputUsername">Nombre de usuario <span>*</span></label>
                 <input class="form-control" id="inputUsername" type="text" placeholder="Ingresa tu nombre de usuario">
@@ -69,9 +192,5 @@
                 <button class="btn btn-primary" type="button">Guardar cambios</button>
               </div>
             </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
+-->
