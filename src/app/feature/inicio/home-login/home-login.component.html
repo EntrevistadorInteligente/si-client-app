@@ -1,4 +1,4 @@
-<div class="container mb-5">
+<div class="container">
   <h1 class="title text-center fw-bold my-8 mt-5 ">{{ message }}</h1>
   <div class="row text-center">
     <p class="text-center">Ingresa la información correspondiente de la vacante a la cual deseas postularte.</p>
@@ -13,28 +13,28 @@
             <label class="control-label col-sm-2 pt-1 mb-1" for="empresa">Empresa: <span class="text-danger">*</span></label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="empresa" placeholder="Nombre de la empresa" name="empresa" formControlName="empresa">
-              <span class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched">Este campo es obligatorio</span>
+              <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched">Este campo es obligatorio</small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2 pt-1 mb-1" for="perfil">Perfil: <span class="text-danger">*</span></label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="perfil" placeholder="Escribe el Perfil" name="perfil" formControlName="perfil">
-              <span class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched">Este campo es obligatorio</span>
+              <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched">Este campo es obligatorio</small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2 pt-1 mb-1" for="seniority">Seniority: <span class="text-danger">*</span></label>
             <div class="col-sm-12">
               <input type="text" class="form-control" id="seniority" placeholder="Escribe el seniority requerido" name="seniority" formControlName="seniority">
-              <span class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched">Este campo es obligatorio</span>
+              <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched">Este campo es obligatorio</small>
             </div>
           </div>
           <div class="form-group">
             <label class="control-label col-sm-2 pt-1 mb-1" for="pais">País: <span class="text-danger">*</span></label>
             <div class="col-sm-12">
               <input class="form-control" rows="5" id="pais" placeholder="Ingresa el país de la oferta" formControlName="pais">
-              <span class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es obligatorio</span>
+              <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es obligatorio</small>
             </div>
           </div>
         </div>

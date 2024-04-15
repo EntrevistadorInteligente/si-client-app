@@ -16,7 +16,9 @@ interface PageEvent {
   templateUrl: './zona-entrevista.component.html',
   styleUrl: './zona-entrevista.component.scss'
 })
+
 export class ZonaEntrevistaComponent implements OnInit {
+
   questions: PreguntasDto[] = [];
   currentIndex: number = 0;
   first: number = 0;
@@ -31,7 +33,7 @@ export class ZonaEntrevistaComponent implements OnInit {
     return (this.currentIndex + 1) / this.questions.length * 100;
   }
 
-  constructor(private integradorService: IntegradorService, 
+  constructor(private integradorService: IntegradorService,
     private alertService:AlertService,
     private messageService: MessageService) { }
 
@@ -61,7 +63,7 @@ export class ZonaEntrevistaComponent implements OnInit {
     console.log(this.questions)
     let esValido = false;
     this.questions.forEach(element => {
-     
+
       if(!element.respuesta){
 
         this.visible= true;
@@ -69,13 +71,10 @@ export class ZonaEntrevistaComponent implements OnInit {
       }else{
         esValido = true
       }
-      
+
     });
     if(esValido){
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con exito, estaremos generando su feedbak en un momento' });
     }
   }
-
-
-  
 }

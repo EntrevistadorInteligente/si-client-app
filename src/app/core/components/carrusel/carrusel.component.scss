@@ -1,10 +1,14 @@
 #carrusel {
-  height: 40%;
-
+  margin-top: 56px;
   .carousel {
-    width: 100%; /* Modificamos el ancho del carrusel */
-    max-width: 100%; /* Añadimos un máximo de ancho para asegurar que el carrusel no se extienda demasiado */
+    width: 100%;
+    max-width: 100%;
     transition: 0.2s ease-out;
+
+    .carousel-indicators button {
+      width: 80px !important;
+      height: 6px;
+    }
 
     .carousel-inner {
       height: 100%;
@@ -19,9 +23,9 @@
           background: linear-gradient(
             90deg,
             rgba(255, 255, 255, 0) 0%,
-            rgba(60, 60, 60, 0.458) 25%,
-            rgba(43, 58, 83, 0.95) 50%,
-            rgba(60, 60, 60, 0.458)  75%,
+            rgba(46, 46, 46, 0.458) 25%,
+            rgba(32, 43, 62, 0.95) 50%,
+            rgba(46, 46, 46, 0.458)  75%,
             rgba(255, 255, 255, 0) 100%
           );
         }
@@ -40,6 +44,7 @@
         }
 
         img {
+          max-height: 860px;
           object-fit: cover;
           background-position: center;
         }

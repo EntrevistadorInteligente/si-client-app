@@ -1,21 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+/* IMPORTACION DE FUENTES DE TEXTO */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* IMPORTACION DE LOS ESTILOS DE PRIMENG Y BOOTSTRAP */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 
 :root {
   --color-bg-light: #ffffff;
-  --color-bg-dark: linear-gradient(180deg,
-
-  rgba(21,22,23,0.98) 0%,
-  rgb(29, 29, 29) 40%,
-  rgba(19, 19, 19, 0.99) 50%,
-  rgb(21, 21, 21) 60%,
-  rgba(21,22,23,1) 100%
-
+  --color-bg-dark: radial-gradient(
+    /* 180deg */ circle,
+    /* rgba(13, 17, 19, 0.978) 15%, */
+    rgba(12, 19, 24, 0.978) 50%,
+    rgba(18, 20, 21, 0.978) 80%
   );
+
   --color-text-light: #000000;
   --color-text-dark: #ffffff;
+
+  --color-placeholder-light: #727272;
+  --color-placeholder-dark: #cccccc;
 }
 
 body {
@@ -28,7 +32,70 @@ body {
   color: var(--color-text-dark);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif !important;
+}
+
+a,
+p,
+td,
+tr,
+th,
+thead,
+span,
+small,
+label,
+tbody,
+input,
+button,
+textarea {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+input[type="email"],
+input[type="text"],
+textarea {
+  border-radius: 30px;
+  padding: 10px;
+  outline: none;
+  background-color: transparent;
+  color: var(--color-text-light);
+  background-image: none;
+}
+
+input[type="email"]:focus,
+input[type="text"]:focus,
+textarea:focus {
+  background-color: transparent;
+}
+
+input[type="email"]::placeholder,
+input[type="text"]::placeholder,
+textarea::placeholder {
+  color: var(
+    --color-placeholder-light
+  );
+}
+
+.dark-mode input[type="email"],
+.dark-mode input[type="text"],
+.dark-mode textarea {
+  color: var(--color-text-dark);
+}
+
+.dark-mode input[type="email"]::placeholder,
+.dark-mode input[type="text"]::placeholder {
+  color: var(
+    --color-placeholder-dark
+  );
+}
+
 *::selection {
-  background: rgb(255, 98, 26);
-  color:white;
+  background: rgb(24, 109, 255);
+  color: white;
 }

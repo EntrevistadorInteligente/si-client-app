@@ -7,7 +7,7 @@ Entrevistador Inteligente es una plataforma que utiliza inteligencia artificial 
 Instrucciones sobre cómo instalar el proyecto y configurar el entorno de desarrollo.
 
 1. **Prerrequisitos**: 
-- Asegúrate de tener instalado Node.js versión 20 en adelante Puedes descargarlo [aquí](https://nodejs.org/). 
+- Asegúrate de tener instalado Node.js versión 20 en adelante. Puedes descargarlo [aquí](https://nodejs.org/). 
 - Además, necesitarás tener Angular CLI instalado globalmente. Si aún no lo tienes, puedes instalarlo ejecutando el siguiente comando: 
   `npm install -g @angular/cli`.
 2. Clona el repositorio: `git clone https://github.com/EntrevistadorInteligente/landing-entrevistador.git`
@@ -19,7 +19,7 @@ Instrucciones sobre cómo instalar el proyecto y configurar el entorno de desarr
 Si deseas contribuir a este proyecto, sigue estos pasos:
 
 1. Haz un fork del repositorio
-2. Crea una nueva rama con tu nombre ejemplo frailejon: `git checkout -b feature/frailejon`
+2. Crea una nueva rama con tu nombre ejemplo, frailejon: `git checkout -b feature/frailejon`
 3. Realiza tus cambios y haz commits: `git commit -m 'Añade una nueva característica'`
 4. Sube tus cambios: `git push origin feature/frailejon`
 5. Envía una solicitud de extracción (Pull Request)
@@ -50,7 +50,7 @@ En esta carpeta se encuentran componentes y servicios fundamentales del núcleo 
 
 ## Guards
 
-1. **rutas-no-visibles**: Este guardia protege las rutas de los componentes de error para evitar que sean accesibles sin autorización.
+1. **rutas-no-visibles**: Este guard protege las rutas de los componentes de error para evitar que sean accesibles.
 
 ## Interceptors
 
@@ -196,6 +196,4 @@ Este proyecto es de código abierto.
 
 ## Contacto y Soporte
 
-Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de <a href="https://discord.com/invite/AkR67b88YP" target="_blank">Discord aquí</a>
-
-
+Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de [Discord](https://discord.com/invite/AkR67b88YP)

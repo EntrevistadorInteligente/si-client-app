@@ -1,20 +1,5 @@
-#drop-area {
-  height: 200px;
-  cursor: pointer;
-
-  .bi {
-    font-size: 66px;
-  }
-
-  p {
-    font-weight: 600;
-  }
-
-  ul,
-  li {
-    list-style: none;
-    text-decoration: none;
-  }
+.container {
+  margin-bottom: 60px;
 }
 
 .contact{
@@ -36,6 +21,11 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+  label {
+    color: #000000 !important;
+  }
+
 }
 
 .contact-info{
@@ -78,6 +68,25 @@ p {
 .contact-form label{
   color: #fff;
   font-weight:600;
+}
+
+#drop-area {
+  height: 200px;
+  cursor: pointer;
+
+  .bi {
+    font-size: 66px;
+  }
+
+  p {
+    font-weight: 600;
+  }
+
+  ul,
+  li {
+    list-style: none;
+    text-decoration: none;
+  }
 }
 
 @media (max-width: 900px) {

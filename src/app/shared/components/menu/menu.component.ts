@@ -28,7 +28,7 @@ export class MenuComponent implements OnInit {
     private loginService: LoginService,
     private router: Router,
     private _eref: ElementRef,
-    public darkModeService: DarkModeService
+    public darkModeService: DarkModeService,
   ) { }
 
   ngOnInit(): void {
