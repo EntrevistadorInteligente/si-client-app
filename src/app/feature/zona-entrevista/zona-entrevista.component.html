@@ -2,7 +2,7 @@
 
 <p-card class="container-card pt-4">
     <div *ngIf="currentQuestion" class="question-container ">
-        <h2>Pregunta {{ currentIndex + 1 }}/{{ questions.length }}</h2>
+        <h2>Pregunta {{ currentIndex + 1 }}/{{ feedback.procesoEntrevista.length }}</h2>
         <div class="question">{{ currentQuestion.pregunta }}</div>
         <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="currentQuestion.respuesta"></textarea>
         <p-progressBar [value]="progressValue"></p-progressBar>
@@ -10,7 +10,7 @@
             <button pButton label="Anterior" icon="pi pi-chevron-left" (click)="previousQuestion()"
                 [disabled]="currentIndex === 0"></button>
             <button pButton label="Siguiente" icon="pi pi-chevron-right" (click)="nextQuestion()"
-                [disabled]="currentIndex === questions.length - 1"></button>
+                [disabled]="currentIndex === feedback.procesoEntrevista.length - 1"></button>
             <button pButton label="Enviar" icon="pi pi-check" (click)="submitAnswers()" style="float:right"></button>
         </div>
     </div>

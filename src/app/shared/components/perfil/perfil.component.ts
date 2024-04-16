@@ -200,7 +200,12 @@ export class PerfilComponent implements OnInit {
 
   handleClick(): void{
     console.log(this.file);
-    this.integradorService.cargarHojaDeVida(this.file[0]);
+    this.integradorService.cargarHojaDeVida(this.file[0]).subscribe({
+      next: event => {
+        console.log(event)
+      },
+      error: error => console.error(error)
+    });;
   }
 
   onDragOver(event: DragEvent): void {
