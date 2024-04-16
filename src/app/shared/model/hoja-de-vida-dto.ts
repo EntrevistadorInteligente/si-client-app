@@ -8,7 +8,7 @@ export class HojaDeVidaDto{
     habilidadesTecnicas: Array<string>;
     certificaciones: Array<string>;
     proyectos: Array<string>;
-    nivelIngles: String;
+    nivelIngles: string;
     otrasHabilidades: Array<string>;
 
     constructor(
@@ -21,7 +21,7 @@ export class HojaDeVidaDto{
         habilidadesTecnicas: Array<string> = [],
         certificaciones: Array<string> = [],
         proyectos: Array<string> = [],
-        nivelIngles: String = "",
+        nivelIngles: string = "",
         otrasHabilidades: Array<string> = []
     ){
         this.username = username;
