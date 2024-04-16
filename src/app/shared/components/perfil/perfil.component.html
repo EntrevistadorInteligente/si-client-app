@@ -19,7 +19,7 @@
               <p>{{ file[0].name }}</p>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" (click)="handleClick()">Cargar</button>
+          <button type="submit" class="btn btn-primary" (click)="handleClickCargar()">Cargar</button>
 
         </div>
       </div>
@@ -29,24 +29,24 @@
           <div class="card-body">
             <form [formGroup]="perfilForm">
               <div class="mb-3">
-                <label class="small mb-1" for="inputFullName">Nombre completo <span>*</span></label>
-                <input class="form-control" id="inputFullName" name="nombre" type="text" placeholder="Ingresa tu nombre">
+                <label class="small mb-1" for="nombreCompleto">Nombre completo <span>*</span></label>
+                <input class="form-control" formControlName="nombre" id="nombreCompleto" name="nombre" type="text" placeholder="Ingresa tu nombre">
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputProfile">Perfil <span>*</span></label>
-                  <input class="form-control" id="inputProfile" type="text" placeholder="Ingresa tu perfil laboral">
+                  <label class="small mb-1" for="perfil">Perfil <span>*</span></label>
+                  <input class="form-control" formControlName="perfil" id="perfil" type="text" placeholder="Ingresa tu perfil laboral">
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputPhone">Seniority</label>
-                  <input class="form-control" id="inputPhone" type="text" placeholder="Ingresa tu seniority">
+                  <label class="small mb-1" for="seniority">Seniority</label>
+                  <input class="form-control" formControlName="seniority" id="seniority" type="text" placeholder="Ingresa tu seniority">
                 </div>
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="tecnologiaAgregar">Tecnologias principales <span>*</span></label>
+                  <label class="small mb-1" for="tecnologiasPrincipales">Tecnologias principales <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiaAgregar" />
+                    <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiasPrincipales" />
                     <button (click)="agregarItem('tecnologiaAgregar')">Agregar</button>
                     <button (click)="eliminarItem('tecnologia')">Eliminar</button>
                   </div>
@@ -56,9 +56,9 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Habilidades tecnicas <span>*</span></label>
+                  <label class="small mb-1" for="habilidadesTecnicas">Habilidades tecnicas <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="habilidadAgregar" />
+                    <input type="text" pInputText formControlName="habilidadAgregar" id="habilidadesTecnicas" />
                     <button (click)="agregarItem('habilidadAgregar')">Agregar</button>
                     <button (click)="eliminarItem('habilidad')">Eliminar</button>
                   </div>
@@ -70,9 +70,9 @@
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Experiencias laborales <span>*</span></label>
+                  <label class="small mb-1" for="experienciasLaborales">Experiencias laborales <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="experienciaLaboralAgregar" />
+                    <input type="text" pInputText formControlName="experienciaLaboralAgregar" id="experienciasLaborales" />
                     <button (click)="agregarItem('experienciaLaboralAgregar')">Agregar</button>
                     <button (click)="eliminarItem('experienciaLaboral')">Eliminar</button>
                   </div>
@@ -82,9 +82,9 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Certificaciones <span>*</span></label>
+                  <label class="small mb-1" for="certificaciones">Certificaciones <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="certificacionAgregar" />
+                    <input type="text" pInputText formControlName="certificacionAgregar" id="certificaciones" />
                     <button (click)="agregarItem('certificacionAgregar')">Agregar</button>
                     <button (click)="eliminarItem('certificacion')">Eliminar</button>
                   </div>
@@ -96,9 +96,9 @@
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Proyectos <span>*</span></label>
+                  <label class="small mb-1" for="proyectos">Proyectos <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="proyectoAgregar" />
+                    <input type="text" pInputText formControlName="proyectoAgregar" id="proyectos" />
                     <button (click)="agregarItem('proyectoAgregar')">Agregar</button>
                     <button (click)="eliminarItem('proyecto')">Eliminar</button>
                   </div>
@@ -109,14 +109,14 @@
                 </div>
                 <div class="col-md-6">
                   <label class="small mb-1" for="nivelIngles">Nivel de ingles <span>*</span></label>
-                  <input class="form-control" id="inputBirthday" formControlName="nivelIngles" type="text" name="nivelIngles">
+                  <input class="form-control" id="nivelIngles" formControlName="nivelIngles" formControlName="nivelIngles" type="text" name="nivelIngles">
                 </div>
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Otras habilidades <span>*</span></label>
+                  <label class="small mb-1" for="otrasHabilidades">Otras habilidades <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="otraHabilidadAgregar" />
+                    <input type="text" pInputText formControlName="otraHabilidadAgregar" id="otrasHabilidades" />
                     <button (click)="agregarItem('otraHabilidadAgregar')">Agregar</button>
                     <button (click)="eliminarItem('otraHabilidad')">Eliminar</button>
                   </div>
@@ -127,7 +127,7 @@
                 </div>
               </div>
               <div>
-                <button class="btn btn-primary" type="button">Guardar cambios</button>
+                <button class="btn btn-primary" type="button" (click)="handleClickCorregir()">Guardar cambios</button>
               </div>
             </form>
           </div>

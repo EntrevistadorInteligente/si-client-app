@@ -15,7 +15,6 @@ export class HomeLoginComponent implements OnInit {
   preguntas!: VistaPreviaEntrevistaDto[];
   selectedProduct!: any;
   form: FormGroup;
-  selectedFiles: File[] = [];
   message: string = 'Bienvenid@ al Entrevistador Inteligente';
 
   constructor(private integradorService: IntegradorService,
@@ -26,46 +25,21 @@ export class HomeLoginComponent implements OnInit {
       empresa: ['', Validators.required],
       perfil: ['', Validators.required],
       seniority: ['', Validators.required],
-      pais: ['', Validators.required]
+      pais: ['', Validators.required],
+      descripcionVacante: ['', Validators.required]
     });
   }
 
-
-  onFileChange(event: any): void {
-    const files: FileList = event.target.files;
-    this.handleFiles(files);
-  }
-
-  onDragOver(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-  }
-
-  onDrop(event: DragEvent): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const files: FileList = event.dataTransfer.files;
-    this.handleFiles(files);
-  }
-
-  handleFiles(files: FileList): void {
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        this.selectedFiles.push(files[i]);
-      }
-    }
-  }
-
   submit(): void {
-    if (this.form.valid && this.selectedFiles.length > 0) {
+    if (this.form.valid) {
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
         seniority: this.form.value.seniority,
-        pais: this.form.value.pais
+        pais: this.form.value.pais,
+        descripcionVacante: this.form.value.descripcionVacante
       };
-      this.integradorService.crearSolicitudEntrevista(this.selectedFiles[0],
-        formulario).subscribe(
+      this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
           data => {
             this.preguntas = data;
           },
@@ -74,7 +48,6 @@ export class HomeLoginComponent implements OnInit {
     } else {
       console.log("MAL")
       console.log(this.form)
-      console.log(this.selectedFiles)
     }
   }
 }

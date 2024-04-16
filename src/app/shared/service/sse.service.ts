@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { PreguntasDto } from '@shared/model/preguntas-dto';
+import { FeedbackDto } from '@shared/model/feedback-dto';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AlertService {
-  private questionsSource = new BehaviorSubject<PreguntasDto[]>([]);
+export class SseService {
+  private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
   currentQuestions = this.questionsSource.asObservable();
 
   private sseUrlOrquestador = 'http://localhost:8765/api/orquestador/v1/eventos/subscribe';
-  private sseUrlFeedback = 'http://localhost:8765/api/feedback/v1/eventos/subscribe';
+  private sseUrlFeedback = 'http://localhost:8765/api/administrador-entrevista/v1/eventos/subscribe';
   constructor() { 
   
   }
@@ -54,7 +54,7 @@ export class AlertService {
     });
   }
 
-  changeQuestions(questions: PreguntasDto[]) {
+  changeQuestions(questions: FeedbackDto) {
     this.questionsSource.next(questions);
   }
 

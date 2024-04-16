@@ -12,6 +12,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { ListboxModule } from 'primeng/listbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { FeedbackService } from './service/feedback.service';
+import { IntegradorService } from './service/integrador.service';
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import { InputTextModule } from 'primeng/inputtext';
     FooterComponent,
     PerfilComponent
   ],
-  providers: [],
+  providers: [IntegradorService, FeedbackService],
 })
 
 export class SharedModule { }
