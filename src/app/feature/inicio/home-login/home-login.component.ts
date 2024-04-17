@@ -17,8 +17,28 @@ export class HomeLoginComponent implements OnInit {
   selectedProduct!: any;
   form: FormGroup;
   selectedFiles: File[] = [];
-  message: string = 'Bienvenid@ al Entrevistador Inteligente';
-  paises: any[];
+
+  paises: any[] = [
+    { "nombre": "Argentina" },
+    { "nombre": "Bolivia" },
+    { "nombre": "Brasil" },
+    { "nombre": "Chile" },
+    { "nombre": "Colombia" },
+    { "nombre": "Costa Rica" },
+    { "nombre": "Cuba" },
+    { "nombre": "Ecuador" },
+    { "nombre": "El Salvador" },
+    { "nombre": "Guatemala" },
+    { "nombre": "Honduras" },
+    { "nombre": "México" },
+    { "nombre": "Nicaragua" },
+    { "nombre": "Panamá" },
+    { "nombre": "Paraguay" },
+    { "nombre": "Perú" },
+    { "nombre": "República Dominicana" },
+    { "nombre": "Uruguay" },
+    { "nombre": "Venezuela" }
+  ];
 
   constructor(
     private http: HttpClient,
@@ -26,11 +46,6 @@ export class HomeLoginComponent implements OnInit {
     private fb: FormBuilder) { }
 
   ngOnInit() {
-    
-    this.http.get<any[]>('../../../../assets/JSON/PaisesLatam.json').subscribe(data => {
-      this.paises = data;
-    });
-
     this.form = this.fb.group({
       empresa: ['', Validators.required],
       perfil: ['', Validators.required],

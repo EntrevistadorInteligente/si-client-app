@@ -59,7 +59,9 @@ textarea {
 
 input[type="email"],
 input[type="text"],
-textarea {
+input[type="password"],
+textarea,
+select {
   border-radius: 30px;
   padding: 10px;
   outline: none;
@@ -70,13 +72,17 @@ textarea {
 
 input[type="email"]:focus,
 input[type="text"]:focus,
-textarea:focus {
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
   background-color: transparent;
 }
 
 input[type="email"]::placeholder,
 input[type="text"]::placeholder,
-textarea::placeholder {
+input[type="password"]::placeholder,
+textarea::placeholder,
+select::placeholder {
   color: var(
     --color-placeholder-light
   );
@@ -84,11 +90,14 @@ textarea::placeholder {
 
 .dark-mode input[type="email"],
 .dark-mode input[type="text"],
-.dark-mode textarea {
+.dark-mode input[type="password"],
+.dark-mode textarea,
+.dark-mode select {
   color: var(--color-text-dark);
 }
 
 .dark-mode input[type="email"]::placeholder,
+.dark-mode input[type="password"]::placeholder,
 .dark-mode input[type="text"]::placeholder {
   color: var(
     --color-placeholder-dark
