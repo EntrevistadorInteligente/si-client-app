@@ -1,3 +1,59 @@
+/* HEADER */
+#image-section {
+  position: relative;
+  min-height: 800px;
+  width: 100%;
+  background-image: url('../../../../assets/img/header-1.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#content-text {
+  position: absolute;
+  top: 56%;
+  left: 6%;
+  transform: translateY(-50%);
+  font-family: 'Arial', sans-serif;
+  color: white !important;
+}
+
+#content-text h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  line-height: 1.2;
+  margin: 6rem 0;
+  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.9);
+  text-transform: capitalize;
+}
+
+#content-text p {
+  font-size: 22px;
+  color: rgb(235, 235, 235) !important;
+  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.9);
+}
+
+small {
+  font-size: 22px;
+  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.9);
+  font-weight: 600;
+}
+
+/* TARJETAS */
+.title-card {
+  text-transform: capitalize;
+}
+
+.card-body {
+  height: 110px;
+  background-color: transparent !important;
+
+  p {
+    font-size: 18px;
+  }
+
+}
+
+/* FORMULARIO */
 .container {
   margin-bottom: 60px;
 }
@@ -25,7 +81,6 @@
   label {
     color: #000000 !important;
   }
-
 }
 
 .contact-info{
@@ -70,6 +125,7 @@ p {
   font-weight:600;
 }
 
+/* DRAG & DROP */
 #drop-area {
   height: 200px;
   cursor: pointer;
@@ -92,5 +148,27 @@ p {
 @media (max-width: 900px) {
   .col-md-3 {
     visibility: hidden;
+  }
+}
+
+@media (max-width: 660px) {
+
+  #content-text {
+    top: 50%;
+    padding-top: 20px;
+  }
+
+  #content-text h1 {
+    margin-right: 16px;
+    font-size: 2rem;
+  }
+
+  #content-text p {
+    margin-right: 16px;
+  }
+
+  small {
+    font-size: 20px;
+    margin: 800px 16px 0 0;
   }
 }
