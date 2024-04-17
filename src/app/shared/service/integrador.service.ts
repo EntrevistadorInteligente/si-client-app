@@ -44,13 +44,15 @@ export class IntegradorService {
     }catch(err){
       console.log(err);
     }
-    return this.httpClient.get<HojaDeVidaDto>(`${this.orquestadorURL}${this.hojaDeVida}/
-        ${JSON.stringify(this.username)}
-      `);
+    return this.httpClient.get<HojaDeVidaDto>(`${this.orquestadorURL}${this.hojaDeVida}/${this.username}`, {
+      headers: this.getHeaders()
+    });
   }
 
   public corregirHojaDeVida(formulario: HojaDeVidaDto): Observable<any>{
-    return this.httpClient.put(`${this.orquestadorURL}${this.hojaDeVida}/corregir-datos`, formulario);
+    return this.httpClient.put(`${this.orquestadorURL}${this.hojaDeVida}/corregir-datos`, formulario, {
+      headers: this.getHeaders()
+    });
   }
 
   public cargarHojaDeVida(file: File): Observable<any>{

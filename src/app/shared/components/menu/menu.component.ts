@@ -30,7 +30,6 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isLogged = true; //TODO: quitar esta linea antes de pushear
     document.addEventListener('click', this.onDocumentClick.bind(this));
 
   }
