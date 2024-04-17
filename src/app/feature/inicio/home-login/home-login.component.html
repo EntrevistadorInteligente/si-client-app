@@ -90,10 +90,11 @@
           <div class="form-group">
             <label class="control-label col-sm-2 pt-1 mb-1" for="pais">País: <span class="text-danger">*</span></label>
             <div class="col-sm-12">
-              <input class="form-control" rows="5" id="pais" placeholder="Ingresa el país de la oferta"
-                formControlName="pais">
-              <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es
-                obligatorio</small>
+              <select class="form-control" id="pais" formControlName="pais">
+                <option value="">Selecciona un país</option>
+                <option *ngFor="let country of paises" [value]="country">{{ country }}</option>
+              </select>
+              <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es obligatorio</small>
             </div>
           </div>
         </div>

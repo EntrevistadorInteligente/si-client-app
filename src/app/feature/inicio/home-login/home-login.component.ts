@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home-login',
@@ -17,11 +18,19 @@ export class HomeLoginComponent implements OnInit {
   form: FormGroup;
   selectedFiles: File[] = [];
   message: string = 'Bienvenid@ al Entrevistador Inteligente';
+  paises: any[];
 
-  constructor(private integradorService: IntegradorService,
+  constructor(
+    private http: HttpClient,
+    private integradorService: IntegradorService,
     private fb: FormBuilder) { }
 
   ngOnInit() {
+    
+    this.http.get<any[]>('../../../../assets/JSON/PaisesLatam.json').subscribe(data => {
+      this.paises = data;
+    });
+
     this.form = this.fb.group({
       empresa: ['', Validators.required],
       perfil: ['', Validators.required],
@@ -29,7 +38,6 @@ export class HomeLoginComponent implements OnInit {
       pais: ['', Validators.required]
     });
   }
-
 
   onFileChange(event: any): void {
     const files: FileList = event.target.files;
