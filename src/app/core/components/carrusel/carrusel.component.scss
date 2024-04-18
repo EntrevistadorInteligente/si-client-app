@@ -1,5 +1,6 @@
 #carrusel {
   margin-top: 56px;
+  
   .carousel {
     width: 100%;
     max-width: 100%;
@@ -60,7 +61,7 @@
   }
 
   .carousel-indicators,
-  .carousel-caption {
+  .carousel-caption{
     visibility: hidden;
   }
 }

@@ -3,9 +3,15 @@
 .navbar {
   margin-bottom: 66px;
   max-width: 100vw;
+  position: absolute;
+  background-color: rgb(6, 11, 22) !important;
 
   .navbar-brand {
     color: rgb(255, 255, 255);
+
+    img {
+      height: 40px;
+    }
   }
 
   .navbar-brand:hover .login-button {
@@ -23,8 +29,21 @@
     cursor: pointer;
   }
 
+  .offcanvas {
+    background-color: rgb(6, 11, 22) !important;
+  }
+
+  .offcanvas-header {
+    background-color: rgb(6, 11, 22) !important;
+  }
+
+  .offcanvas-body {
+    background-color: rgb(6, 11, 22) !important;
+  }
+
   .offcanvas-title {
     color: rgb(255, 255, 255);
+
   }
 
   .navbar-toggler {
@@ -37,14 +56,6 @@
   .btn-close:focus {
     box-shadow: none;
     outline: none;
-  }
-
-  .btn {
-    width: 120px;
-  }
-
-  .login-button-container {
-    width: 120px;
   }
 
   .nav-link,
@@ -66,8 +77,8 @@
 /* AVATAR */
 
 .action {
-  position: fixed;
-  top: 10px;
+  position: absolute;
+  top: 13px;
   right: 30px;
   z-index: 10000;
 }
@@ -95,7 +106,7 @@
   top: 110px;
   right: -10px;
   padding: 10px 20px;
-  background: #212529;
+  background: rgb(9, 18, 36);
   width: 280px;
   box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -117,7 +128,7 @@
   right: 34px;
   width: 20px;
   height: 20px;
-  background: #212529;
+  background: rgb(9, 18, 36);
   transform: rotate(45deg);
 }
 
