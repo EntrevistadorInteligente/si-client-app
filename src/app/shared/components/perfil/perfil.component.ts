@@ -41,59 +41,10 @@ export class PerfilComponent implements OnInit {
   proyectosMap: Proyectos = {name:""};
   otrasHabilidadesMap: OtrasHabilidades = {name:""};
   perfilForm: FormGroup | undefined;
-  
-  
+  bandera = false;
 
   ngOnInit() {    
         this.obtenerPerfil();
-        this.perfilForm = new FormGroup({
-          nombre: new FormControl<string | null>(this.hojaDeVidaDto.nombre),
-          perfil: new FormControl<string | null>(this.hojaDeVidaDto.perfil),
-          seniority: new FormControl<string | null>(this.hojaDeVidaDto.seniority),
-          tecnologiaSelec: new FormControl<string | null>(''),
-          tecnologiaAgregar: new FormControl<string | null>(''),
-          tecnologiasPrincipales: new FormControl<TecnologiasPrincipales[] | null>(
-            this.hojaDeVidaDto.tecnologiasPrincipales.map(value => {
-              this.tecnologiasMap.name = value;
-              return this.tecnologiasMap;
-            })),
-          experienciaSelec: new FormControl<string | null>(''),
-          experienciaLaboralAgregar: new FormControl<string | null>(''),
-          experienciasLaborales: new FormControl<ExperienciasLaborales[] | null>(
-            this.hojaDeVidaDto.experienciasLaborales.map(value => {
-              this.experienciaMap.name = value;
-              return this.experienciaMap;
-            })),
-          habilidadSelec: new FormControl<string | null>(''),
-          habilidadAgregar: new FormControl<string | null>(''),
-          habilidadesTecnicas: new FormControl<HabilidadesTecnicas[] | null>(
-            this.hojaDeVidaDto.habilidadesTecnicas.map(value => {
-              this.habilidadesMap.name = value;
-              return this.habilidadesMap;
-            })),
-          certificacionSelec: new FormControl<string | null>(''),
-          certificacionAgregar: new FormControl<string | null>(''),
-          certificaciones: new FormControl<Certificaciones[] | null>(
-            this.hojaDeVidaDto.certificaciones.map(value => {
-              this.certificacionesMap.name = value;
-              return this.certificacionesMap;
-            })),
-          proyectoSelec: new FormControl<string | null>(''),
-          proyectoAgregar: new FormControl<string | null>(''),
-          proyectos: new FormControl<Proyectos[] | null>(
-            this.hojaDeVidaDto.proyectos.map(value => {
-              this.proyectosMap.name = value;
-              return this.proyectosMap;
-            })),
-          nivelIngles: new FormControl<string | null>(this.hojaDeVidaDto.nivelIngles),
-          otraHabilidadSelec: new FormControl<string | null>(''),
-          otraHabilidadAgregar: new FormControl<string | null>(''),
-          otrasHabilidades: new FormControl<OtrasHabilidades[] | null>(
-            this.hojaDeVidaDto.otrasHabilidades.map(value => {
-              this.otrasHabilidadesMap.name = value;
-              return this.otrasHabilidadesMap;
-            })),
-      });
   }
 
   obtenerPerfil(): void {
@@ -102,21 +53,98 @@ export class PerfilComponent implements OnInit {
         this.hojaDeVidaDto.nombre = responseData.nombre;
         this.hojaDeVidaDto.perfil = responseData.perfil;
         this.hojaDeVidaDto.seniority = responseData.seniority;
-        this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales;
-        this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales;
-        this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas;
-        this.hojaDeVidaDto.certificaciones = responseData.certificaciones;
-        this.hojaDeVidaDto.proyectos = responseData.proyectos;
+        this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales == undefined ? 
+          [] : responseData.tecnologiasPrincipales;
+        this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales == undefined ? 
+          [] : responseData.experienciasLaborales;
+        this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas == undefined ? 
+          [] : responseData.habilidadesTecnicas;
+        this.hojaDeVidaDto.certificaciones = responseData.certificaciones == undefined ? 
+          [] : responseData.certificaciones;
+        this.hojaDeVidaDto.proyectos = responseData.proyectos == undefined ? 
+          [] : responseData.proyectos;
         this.hojaDeVidaDto.nivelIngles = responseData.nivelIngles;
-        this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades;
+        this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades == undefined ? 
+          [] : responseData.otrasHabilidades;
+        this.InicializarHojaDeVida();
       },
       error: error => console.error(error),
       
     });
   }
 
+  private InicializarHojaDeVida() {
+    this.perfilForm = new FormGroup({
+      nombre: new FormControl<string | null>(this.hojaDeVidaDto.nombre),
+      perfil: new FormControl<string | null>(this.hojaDeVidaDto.perfil),
+      seniority: new FormControl<string | null>(this.hojaDeVidaDto.seniority),
+      tecnologiaSelec: new FormControl<string | null>(''),
+      tecnologiaAgregar: new FormControl<string | null>(''),
+      tecnologiasPrincipales: new FormControl<TecnologiasPrincipales[] | null>(
+        this.hojaDeVidaDto.tecnologiasPrincipales.map(value => {
+          this.tecnologiasMap.name = value;
+          return this.tecnologiasMap;
+        })),
+      experienciaSelec: new FormControl<string | null>(''),
+      experienciaLaboralAgregar: new FormControl<string | null>(''),
+      experienciasLaborales: new FormControl<ExperienciasLaborales[] | null>(
+        this.hojaDeVidaDto.experienciasLaborales.map(value => {
+          this.experienciaMap.name = value;
+          return this.experienciaMap;
+        })),
+      habilidadSelec: new FormControl<string | null>(''),
+      habilidadAgregar: new FormControl<string | null>(''),
+      habilidadesTecnicas: new FormControl<HabilidadesTecnicas[] | null>(
+        this.hojaDeVidaDto.habilidadesTecnicas.map(value => {
+          this.habilidadesMap.name = value;
+          return this.habilidadesMap;
+        })),
+      certificacionSelec: new FormControl<string | null>(''),
+      certificacionAgregar: new FormControl<string | null>(''),
+      certificaciones: new FormControl<Certificaciones[] | null>(
+        this.hojaDeVidaDto.certificaciones.map(value => {
+          this.certificacionesMap.name = value;
+          return this.certificacionesMap;
+        })),
+      proyectoSelec: new FormControl<string | null>(''),
+      proyectoAgregar: new FormControl<string | null>(''),
+      proyectos: new FormControl<Proyectos[] | null>(
+        this.hojaDeVidaDto.proyectos.map(value => {
+          this.proyectosMap.name = value;
+          return this.proyectosMap;
+        })),
+      nivelIngles: new FormControl<string | null>(this.hojaDeVidaDto.nivelIngles),
+      otraHabilidadSelec: new FormControl<string | null>(''),
+      otraHabilidadAgregar: new FormControl<string | null>(''),
+      otrasHabilidades: new FormControl<OtrasHabilidades[] | null>(
+        this.hojaDeVidaDto.otrasHabilidades.map(value => {
+          this.otrasHabilidadesMap.name = value;
+          return this.otrasHabilidadesMap;
+        })),
+    });
+    this.bandera = true;
+  }
+
+  handleClickCorregir(): void {
+    this.hojaDeVidaDto.nombre = this.perfilForm.get('nombre').value;
+    this.hojaDeVidaDto.perfil = this.perfilForm.get('perfil').value;
+    this.hojaDeVidaDto.seniority = this.perfilForm.get('seniority').value;
+    this.hojaDeVidaDto.tecnologiasPrincipales = this.perfilForm.get('tecnologiasPrincipales').value;
+    this.hojaDeVidaDto.experienciasLaborales = this.perfilForm.get('experienciasLaborales').value;
+    this.hojaDeVidaDto.habilidadesTecnicas = this.perfilForm.get('habilidadesTecnicas').value;
+    this.hojaDeVidaDto.certificaciones = this.perfilForm.get('certificaciones').value;
+    this.hojaDeVidaDto.proyectos = this.perfilForm.get('proyectos').value;
+    this.hojaDeVidaDto.nivelIngles = this.perfilForm.get('nivelIngles').value;
+    this.hojaDeVidaDto.otrasHabilidades = this.perfilForm.get('otrasHabilidades').value;
+    this.integradorService.corregirHojaDeVida(this.hojaDeVidaDto).subscribe({
+      next: event => {
+        console.log(event)
+      },
+      error: error => console.error(error)
+    });
+  }
+
   agregarItem(campo: string): void {
-    
     switch(campo){
       case 'tecnologiaAgregar': {
         if (this.perfilForm.get('tecnologiaAgregar').value.trim() !== '') {
@@ -230,36 +258,6 @@ export class PerfilComponent implements OnInit {
     this.file = file;
   }
 
-  handleClickCargar(): void{
-    this.integradorService.cargarHojaDeVida(this.file[0]).subscribe({
-      next: event => {
-        console.log(event)
-      },
-      error: error => console.error(error)
-    });;
-  }
-
-  handleClickCorregir(): void {
-    this.hojaDeVidaDto.nombre = this.perfilForm.get('nombre').value;
-    this.hojaDeVidaDto.perfil = this.perfilForm.get('perfil').value;
-    this.hojaDeVidaDto.seniority = this.perfilForm.get('seniority').value;
-    this.hojaDeVidaDto.tecnologiasPrincipales = this.perfilForm.get('tecnologiasPrincipales').value;
-    this.hojaDeVidaDto.experienciasLaborales = this.perfilForm.get('experienciasLaborales').value;
-    this.hojaDeVidaDto.habilidadesTecnicas = this.perfilForm.get('habilidadesTecnicas').value;
-    this.hojaDeVidaDto.certificaciones = this.perfilForm.get('certificaciones').value;
-    this.hojaDeVidaDto.proyectos = this.perfilForm.get('proyectos').value;
-    this.hojaDeVidaDto.nivelIngles = this.perfilForm.get('nivelIngles').value;
-    this.hojaDeVidaDto.otrasHabilidades = this.perfilForm.get('otrasHabilidades').value;
-    console.log(this.hojaDeVidaDto);
-    
-    this.integradorService.corregirHojaDeVida(this.hojaDeVidaDto).subscribe({
-      next: event => {
-        console.log(event)
-      },
-      error: error => console.error(error)
-    });;
-  }
-
   onDragOver(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
@@ -271,5 +269,14 @@ export class PerfilComponent implements OnInit {
     const file: File = event.dataTransfer.files[0];
     
     this.handleFiles(file);
+  }
+  
+  handleClickCargar(): void{
+    this.integradorService.cargarHojaDeVida(this.file[0]).subscribe({
+      next: event => {
+        console.log(event)
+      },
+      error: error => console.error(error)
+    });
   }
 }
