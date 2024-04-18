@@ -1,5 +1,4 @@
 export class HojaDeVidaDto{
-    username: string;
     nombre: string;
     perfil: string;
     seniority: string;
@@ -12,7 +11,6 @@ export class HojaDeVidaDto{
     otrasHabilidades: Array<string>;
 
     constructor(
-        username: string = "",
         nombre: string = "",
         perfil: string = "",
         seniority: string = "",
@@ -24,7 +22,6 @@ export class HojaDeVidaDto{
         nivelIngles: string = "",
         otrasHabilidades: Array<string> = []
     ){
-        this.username = username;
         this.nombre = nombre;
         this.perfil = perfil;
         this.seniority = seniority;
