@@ -30,6 +30,7 @@ export class PerfilComponent implements OnInit {
   obtenerPerfil(): void {
     this.integradorService.obtenerHojaDeVida().subscribe({
       next: responseData=>{
+        this.hojaDeVidaDto.uuid = responseData.uuid;
         this.hojaDeVidaDto.nombre = responseData.nombre;
         this.hojaDeVidaDto.perfil = responseData.perfil;
         this.hojaDeVidaDto.seniority = responseData.seniority;

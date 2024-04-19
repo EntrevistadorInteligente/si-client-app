@@ -50,10 +50,11 @@ export class IntegradorService {
   }
 
   public corregirHojaDeVida(formulario: HojaDeVidaDto): Observable<any>{
-    return this.httpClient.put(`${this.orquestadorURL}${this.hojaDeVida}/corregir-datos`, formulario, {
+    return this.httpClient.put(`${this.orquestadorURL}${this.hojaDeVida}/${formulario.uuid}`, formulario, {
       headers: this.getHeaders()
     });
   }
+
 
   public cargarHojaDeVida(file: File): Observable<any>{
     const formData = new FormData();
@@ -61,20 +62,28 @@ export class IntegradorService {
     formData.append('username', new Blob([JSON.stringify(this.oauthService.getIdentityClaims()[`preferred_username`])], {
         type: 'application/json'
     }));
+
     return this.httpClient.post(`${this.orquestadorURL}${this.hojaDeVida}/cargas`, formData, {
-      headers: this.getHeaders()
+      headers: this.getHeadersSinContent()
     });
   }
 
   private getHeaders(): HttpHeaders {
     let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'multipart/form-data; boundary=<calculated when request is sent>');
+    headers = headers.set('Content-Type', 'application/json');
 
       const token = this.oauthService.getAccessToken();
       headers = headers.set('Authorization', `Bearer ${token}`);
 
     return headers;
   }
+
+  private getHeadersSinContent(): HttpHeaders {
+    let headers = new HttpHeaders();
+    const token = this.oauthService.getAccessToken();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return headers;
+}
 
 
 }
