@@ -17,7 +17,7 @@ export class PerfilComponent implements OnInit {
   constructor(private integradorService: IntegradorService) { }
 
   file: File;
-  hojaDeVidaDto: HojaDeVidaDto = new HojaDeVidaDto();
+  hojaDeVidaDto: HojaDeVidaDto = new HojaDeVidaDto("","", "", "", [], [], [], [], [], "", []);
   perfilForm: FormGroup | undefined;
   isHojaDeVidaVacio: boolean = false;
   isTamanoExcedido: boolean = false;
@@ -30,23 +30,25 @@ export class PerfilComponent implements OnInit {
   obtenerPerfil(): void {
     this.integradorService.obtenerHojaDeVida().subscribe({
       next: responseData=>{
-        this.hojaDeVidaDto.uuid = responseData.uuid;
-        this.hojaDeVidaDto.nombre = responseData.nombre;
-        this.hojaDeVidaDto.perfil = responseData.perfil;
-        this.hojaDeVidaDto.seniority = responseData.seniority;
-        this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales == undefined ? 
-          [] : responseData.tecnologiasPrincipales;
-        this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales == undefined ? 
-          [] : responseData.experienciasLaborales;
-        this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas == undefined ? 
-          [] : responseData.habilidadesTecnicas;
-        this.hojaDeVidaDto.certificaciones = responseData.certificaciones == undefined ? 
-          [] : responseData.certificaciones;
-        this.hojaDeVidaDto.proyectos = responseData.proyectos == undefined ? 
-          [] : responseData.proyectos;
-        this.hojaDeVidaDto.nivelIngles = responseData.nivelIngles;
-        this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades == undefined ? 
-          [] : responseData.otrasHabilidades;
+        if(responseData != null){
+          this.hojaDeVidaDto.uuid = responseData.uuid == undefined ? "" : responseData.uuid;
+          this.hojaDeVidaDto.nombre = responseData.nombre == undefined ? "" : responseData.nombre;
+          this.hojaDeVidaDto.perfil = responseData.perfil == undefined ? "" : responseData.perfil;
+          this.hojaDeVidaDto.seniority = responseData.seniority == undefined ? "" : responseData.seniority;
+          this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales == undefined ? 
+            [] : responseData.tecnologiasPrincipales;
+          this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales == undefined ? 
+            [] : responseData.experienciasLaborales;
+          this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas == undefined ? 
+            [] : responseData.habilidadesTecnicas;
+          this.hojaDeVidaDto.certificaciones = responseData.certificaciones == undefined ? 
+            [] : responseData.certificaciones;
+          this.hojaDeVidaDto.proyectos = responseData.proyectos == undefined ? 
+            [] : responseData.proyectos;
+          this.hojaDeVidaDto.nivelIngles = responseData.nivelIngles == undefined ? "" : responseData.nivelIngles;
+          this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades == undefined ? 
+            [] : responseData.otrasHabilidades;
+        }
         this.InicializarHojaDeVida();
       },
       error: error => console.error(error),
@@ -103,13 +105,25 @@ export class PerfilComponent implements OnInit {
     this.hojaDeVidaDto.nombre = this.perfilForm.get('nombre').value;
     this.hojaDeVidaDto.perfil = this.perfilForm.get('perfil').value;
     this.hojaDeVidaDto.seniority = this.perfilForm.get('seniority').value;
-    this.hojaDeVidaDto.tecnologiasPrincipales = this.perfilForm.get('tecnologiasPrincipales').value;
-    this.hojaDeVidaDto.experienciasLaborales = this.perfilForm.get('experienciasLaborales').value;
-    this.hojaDeVidaDto.habilidadesTecnicas = this.perfilForm.get('habilidadesTecnicas').value;
-    this.hojaDeVidaDto.certificaciones = this.perfilForm.get('certificaciones').value;
-    this.hojaDeVidaDto.proyectos = this.perfilForm.get('proyectos').value;
+    this.hojaDeVidaDto.tecnologiasPrincipales = this.perfilForm.get('tecnologiasPrincipales').value.map(
+      value => value.name
+    );
+    this.hojaDeVidaDto.experienciasLaborales = this.perfilForm.get('experienciasLaborales').value.map(
+      value => value.name
+    );
+    this.hojaDeVidaDto.habilidadesTecnicas = this.perfilForm.get('habilidadesTecnicas').value.map(
+      value => value.name
+    );
+    this.hojaDeVidaDto.certificaciones = this.perfilForm.get('certificaciones').value.map(
+      value => value.name
+    );
+    this.hojaDeVidaDto.proyectos = this.perfilForm.get('proyectos').value.map(
+      value => value.name
+    );
     this.hojaDeVidaDto.nivelIngles = this.perfilForm.get('nivelIngles').value;
-    this.hojaDeVidaDto.otrasHabilidades = this.perfilForm.get('otrasHabilidades').value;
+    this.hojaDeVidaDto.otrasHabilidades = this.perfilForm.get('otrasHabilidades').value.map(
+      value => value.name
+    );
     this.integradorService.corregirHojaDeVida(this.hojaDeVidaDto).subscribe({
       next: event => {
         console.log(event)
