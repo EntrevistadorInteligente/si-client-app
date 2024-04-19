@@ -31,11 +31,9 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     document.addEventListener('click', this.onDocumentClick.bind(this));
-
   }
 
   login(): void {
-
     this.loginService.login();
     if(this.isLogged){
       this.activo = "home";

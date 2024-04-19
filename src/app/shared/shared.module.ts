@@ -9,8 +9,12 @@ import { CoreModule } from '@core/core.module';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { PanelModule } from 'primeng/panel';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ListboxModule } from 'primeng/listbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 import { FeedbackService } from './service/feedback.service';
 import { IntegradorService } from './service/integrador.service';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +26,11 @@ import { IntegradorService } from './service/integrador.service';
     CommonModule,
     CoreModule,
     PanelModule,
-    TabMenuModule
+    TabMenuModule,
+    ListboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
   ],
   exports: [
     MenuComponent,
