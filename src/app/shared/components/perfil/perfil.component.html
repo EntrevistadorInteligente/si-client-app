@@ -1,72 +1,153 @@
 <div class="container">
   <div class="container-xl px-4 mt-4">
+    <p *ngIf="isHojaDeVidaVacio" class="w-100 bg-danger text-white">ERROR: Seleccione su hoja de vida antes de cargarlo</p>
+    <p *ngIf="isTamanoExcedido" class="w-100 bg-danger text-white">ERROR: El archivo no debe pesar mas de 3MB</p>
     <div class="row">
       <div class="col-xl-4">
         <div class="card mb-4 mb-xl-0">
-          <div class="card-header">Imagen de Perfil</div>
-          <div class="card-body text-center">
-            <img class="image img-account-profile rounded-circle mb-2"
-              src="assets/img/78979169-indicador-de-conexión-icono-de-señal-de-usuario-símbolo-de-la-persona-estilo-avatar-flat.jpg"
-              alt="Perfil">
-            <div class="small font-italic text-muted mb-4">JPG or PNG no superior a 5 MB</div>
-            <button class="btn btn-primary" type="button">Cargar nueva imagen</button>
+          <div class="card-header">Cargar CV</div>
+
+          <div class="card-body">
+            <label for="fileElem" id="drop-area"
+              class="border rounded d-flex justify-content-center align-items-center bg-gray"
+              (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+              <div class="text-center">
+                <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
+                <p class="mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+              </div>
+              <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf"  class="d-none">
+            </label>
+            <div class="" *ngIf="file">
+              <p>{{ file[0].name }}</p>
+            </div>
           </div>
+          <button type="submit" class="btn btn-primary" (click)="handleClickCargar()">Cargar</button>
+
         </div>
       </div>
-      <div class="col-xl-8">
+      <div *ngIf="bandera" class="col-xl-8">
         <div class="card mb-4">
           <div class="card-header">Detalles de la cuenta</div>
           <div class="card-body">
-            <form>
+            <form [formGroup]="perfilForm">
               <div class="mb-3">
-                <label class="small mb-1" for="inputUsername">Nombre de usuario <span>*</span></label>
-                <input class="form-control" id="inputUsername" type="text" placeholder="Ingresa tu nombre de usuario">
+                <label class="small mb-1" for="nombreCompleto">Nombre completo <span>*</span></label>
+                <input class="form-control" formControlName="nombre" id="nombreCompleto" name="nombre" type="text" placeholder="Ingresa tu nombre">
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputFirstName">Nombre <span>*</span></label>
-                  <input class="form-control" id="inputFirstName" type="text" placeholder="Ingresa tu nombre">
+                  <label class="small mb-1" for="perfil">Perfil <span>*</span></label>
+                  <input class="form-control" formControlName="perfil" id="perfil" type="text" placeholder="Ingresa tu perfil laboral">
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputLastName">Apellido</label>
-                  <input class="form-control" id="inputLastName" type="text" placeholder="Ingresa tu apellido">
-                </div>
-              </div>
-              <div class="mb-3">
-                <label class="small mb-1" for="inputEmailAddress">Correo electrónico <span>*</span></label>
-                <input class="form-control" id="inputEmailAddress" type="email" placeholder="Ingresa tu correo">
-              </div>
-              <div class="row gx-3 mb-3">
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputPhone">Número de contacto</label>
-                  <input class="form-control" id="inputPhone" type="tel" placeholder="Ingresa tu número">
-                </div>
-                <div class="col-md-6">
-                  <label class="small mb-1" for="inputBirthday">Fecha de nacimiento <span>*</span></label>
-                  <input class="form-control" id="inputBirthday" type="date" name="birthday"
-                    placeholder="Ingresa tu fecha de nacimiento">
-                </div>
-              </div>
-              <div class="row gx-3 mb-3">
-                <div class="col-md-14">
-                  <label class="small mb-1" for="inputOrgName">Contraseña <span>*</span></label>
-                  <input class="form-control" id="inputOrgName" type="password" placeholder="Ingresa tu contraseña">
+                  <label class="small mb-1" for="seniority">Seniority</label>
+                  <input class="form-control" formControlName="seniority" id="seniority" type="text" placeholder="Ingresa tu seniority">
                 </div>
               </div>
               <div class="row gx-3 mb-3">
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation">Nueva contraseña</label>
-                  <input class="form-control" id="inputLocation" type="password"
-                    placeholder="Ingresa nueva tu contraseña">
+                  <label class="small mb-1" for="tecnologiasPrincipales">Tecnologias principales <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiasPrincipales" />
+                    <button class="btn btn-primary" (click)="agregarItem('tecnologiaAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('tecnologiasPrincipales').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('tecnologiasPrincipales').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('tecnologia', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
                 </div>
                 <div class="col-md-6">
-                  <label class="small mb-1" for="inputLocation">Repetir contraseña <span>*</span></label>
-                  <input class="form-control" id="inputLocation" type="password"
-                    placeholder="Repite la nueva contraseña">
+                  <label class="small mb-1" for="habilidadesTecnicas">Habilidades tecnicas <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="habilidadAgregar" id="habilidadesTecnicas" />
+                    <button class="btn btn-primary" (click)="agregarItem('habilidadAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('habilidadesTecnicas').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('habilidadesTecnicas').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('habilidad', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="experienciasLaborales">Experiencias laborales <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="experienciaLaboralAgregar" id="experienciasLaborales" />
+                    <button class="btn btn-primary" (click)="agregarItem('experienciaLaboralAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('experienciasLaborales').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('experienciasLaborales').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('experienciaLaboral', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="certificaciones">Certificaciones <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="certificacionAgregar" id="certificaciones" />
+                    <button class="btn btn-primary" (click)="agregarItem('certificacionAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('certificaciones').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('certificaciones').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('certificacion', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="proyectos">Proyectos <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="proyectoAgregar" id="proyectos" />
+                    <button class="btn btn-primary" (click)="agregarItem('proyectoAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('proyectos').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('proyectos').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('proyecto', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="small mb-1" for="nivelIngles">Nivel de ingles <span>*</span></label>
+                  <input class="form-control" id="nivelIngles" formControlName="nivelIngles" formControlName="nivelIngles" type="text" name="nivelIngles">
+                </div>
+              </div>
+              <div class="row gx-3 mb-3">
+                <div class="col-md-6">
+                  <label class="small mb-1" for="otrasHabilidades">Otras habilidades <span>*</span></label>
+                  <div>
+                    <input type="text" pInputText formControlName="otraHabilidadAgregar" id="otrasHabilidades" />
+                    <button class="btn btn-primary" (click)="agregarItem('otraHabilidadAgregar')">Agregar</button>
+                  </div>
+                  <div *ngIf="perfilForm.get('otrasHabilidades').value.length > 0">
+                    <ul class="list-group">
+                      <ng-template ngFor let-item [ngForOf]="perfilForm.get('otrasHabilidades').value" let-i="index">
+                        <li class="list-group-item d-flex justify-content-between">{{item.name}} 
+                          <button (click)="eliminarItem('otraHabilidad', item.name)">Eliminar</button></li>
+                      </ng-template>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div>
-                <button class="btn btn-primary" type="button">Guardar cambios</button>
+                <button class="btn btn-primary" type="button" (click)="handleClickCorregir()">Guardar cambios</button>
               </div>
             </form>
           </div>
