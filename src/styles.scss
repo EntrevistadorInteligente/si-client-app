@@ -10,9 +10,8 @@
   --color-bg-light: #ffffff;
   --color-bg-dark: radial-gradient(
     /* 180deg */ circle,
-    /* rgba(13, 17, 19, 0.978) 15%, */
-    rgba(5, 7, 12, 0.959) 0%,
-    rgba(8, 7, 11, 0.98) 40%,
+    /* rgba(13, 17, 19, 0.978) 15%, */ rgba(5, 7, 12, 0.959) 0%,
+    rgba(7, 9, 11, 0.98) 40%,
     rgba(4, 7, 13, 0.974) 60%
   );
 
@@ -84,9 +83,7 @@ input[type="text"]::placeholder,
 input[type="password"]::placeholder,
 textarea::placeholder,
 select::placeholder {
-  color: var(
-    --color-placeholder-light
-  );
+  color: var(--color-placeholder-light);
 }
 
 .dark-mode input[type="email"],
@@ -99,10 +96,10 @@ select::placeholder {
 
 .dark-mode input[type="email"]::placeholder,
 .dark-mode input[type="password"]::placeholder,
-.dark-mode input[type="text"]::placeholder {
-  color: var(
-    --color-placeholder-dark
-  );
+.dark-mode input[type="text"]::placeholder,
+.dark-mode textarea::placeholder,
+.dark-mode select::placeholder {
+  color: var(--color-placeholder-dark);
 }
 
 *::selection {

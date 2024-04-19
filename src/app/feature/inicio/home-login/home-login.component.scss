@@ -32,17 +32,17 @@
   text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.9);
 }
 
-small {
-  font-size: 22px;
-  text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.9);
-  font-weight: 600;
-}
-
 /* TARJETAS */
-.title-card {
-  text-transform: capitalize;
+.tarjetas {
+  margin: 40px auto;
+
+  .title-card {
+    padding-top: 30px;
+    text-transform: capitalize;
+  }
 }
 
+/*
 .card-body {
   height: 110px;
   background-color: transparent !important;
@@ -50,8 +50,7 @@ small {
   p {
     font-size: 18px;
   }
-
-}
+} */
 
 /* FORMULARIO */
 .container {
@@ -63,12 +62,6 @@ small {
   height: 400px;
 }
 
-.title {
-  margin-top: 70px !important;
-  margin-bottom: 20px;
-  color: #ff0000;
-}
-
 .col-md-3{
   padding: 4%;
   border-top-left-radius: 0.5rem;
@@ -77,10 +70,6 @@ small {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-
-  label {
-    color: #000000 !important;
-  }
 }
 
 .contact-info{

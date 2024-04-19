@@ -4,6 +4,7 @@ import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 import { HttpClient } from '@angular/common/http';
+import { DarkModeService } from '@shared/service/dark-mode.service';
 
 @Component({
   selector: 'app-home-login',
@@ -43,7 +44,8 @@ export class HomeLoginComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private integradorService: IntegradorService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    public darkModeService: DarkModeService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -99,5 +101,9 @@ export class HomeLoginComponent implements OnInit {
       console.log(this.form)
       console.log(this.selectedFiles)
     }
+  }
+
+  toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
   }
 }

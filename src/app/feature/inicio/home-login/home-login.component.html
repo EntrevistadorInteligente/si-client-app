@@ -1,5 +1,5 @@
 <!-- HEADER -->
-<ng-container #header>
+<ng-container>
   <div class="container-fluid">
     <div class="row">
       <div id="image-section" class="col-md-12 img-fluid">
@@ -9,7 +9,7 @@
             <p>Conviértete en el candidato que las empresas buscan.</p>
             <p>Deja que nuestra IA te guíe hacia el éxito en tu próxima entrevista.</p>
           </div>
-          <small>¡Completa el formulario y comienza tu transformación hoy mismo!</small>
+          <p class="fw-bold">¡Completa el formulario y comienza tu transformación hoy mismo!</p>
         </div>
       </div>
     </div>
@@ -17,31 +17,31 @@
 </ng-container>
 
 <!-- TARJETAS DE GUIA -->
-<ng-container #steps>
-  <div class="container">
+<ng-container>
+  <div class="container tarjetas">
     <div class="row mb-5">
-      <h1 class="title-card mt-4">Ten encuenta lo siguiente:</h1>
+      <h1 class="title-card">Ten encuenta lo siguiente:</h1>
       <div class="col-sm-4 pt-5">
-        <div class="card">
-          <img src="assets/robot-1.jpg" class="card-img-top" alt="Robot">
-          <div class="card-body">
+        <div class="card" style="background-color: white;">
+          <img src="assets/img/robot-1.jpg" class="card-img-top" alt="Robot">
+          <div class="card-body" style="height: 110px;">
             <p class="card-text">Completa los campos del formulario con la información correspondiente y sube tu CV.</p>
           </div>
         </div>
       </div>
       <div class="col-sm-4 pt-5">
-        <div class="card">
-          <img src="assets/robot-2.jpg" class="card-img-top" alt="Robot">
-          <div class="card-body">
+        <div class="card" style="background-color: white;">
+          <img src="assets/img/robot-2.jpg" class="card-img-top" alt="Robot">
+          <div class="card-body" style="height: 110px;">
             <p class="card-text">Una vez hayas completado el formulario serás redirigido a una simulación de entrevista.
             </p>
           </div>
         </div>
       </div>
       <div class="col-sm-4 pt-5">
-        <div class="card">
-          <img src="assets/robot-3.jpg" class="card-img-top" alt="Robot">
-          <div class="card-body p-auto">
+        <div class="card" style="background-color: white;">
+          <img src="assets/img/robot-3.jpg" class="card-img-top" alt="Robot">
+          <div class="card-body" style="height: 110px;">
             <p class="card-text">Cuando hayas completado la entrevista te vamos a hacer un Feedback.</p>
           </div>
         </div>
@@ -51,95 +51,89 @@
 </ng-container>
 
 <!-- FORMULARIO -->
-<ng-container #formulary>
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="row">
-      <div class="col-md-3"></div>
-      <div class="col-md-9 bg-dark">
-        <h3 class="text-center text-white fw-bold mb-1">Datos de la oferta</h3>
-        <div class="contact-form">
-          <div class="form-group">
-            <label class="control-label col-sm-2 pt-1 mb-1" for="empresa">Empresa: <span
-                class="text-danger">*</span></label>
-            <div class="col-sm-12">
-              <input type="text" class="form-control" id="empresa" placeholder="Nombre de la empresa" name="empresa"
-                formControlName="empresa">
-              <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched">Este campo
-                es obligatorio</small>
+<ng-container>
+  <div class="container formulary my-4 mb-5">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9 bg-dark">
+          <h3 class="text-center text-white fw-bold mb-1">Datos de la oferta</h3>
+          <div class="contact-form">
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="empresa">Empresa: <span
+                  class="text-danger">*</span></label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="empresa" placeholder="Nombre de la empresa" name="empresa"
+                  formControlName="empresa">
+                <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched">Este campo
+                  es obligatorio</small>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2 pt-1 mb-1" for="perfil">Perfil: <span
-                class="text-danger">*</span></label>
-            <div class="col-sm-12">
-              <input type="text" class="form-control" id="perfil" placeholder="Escribe el Perfil" name="perfil"
-                formControlName="perfil">
-              <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched">Este campo es
-                obligatorio</small>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="perfil">Perfil: <span
+                  class="text-danger">*</span></label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="perfil" placeholder="Escribe el Perfil" name="perfil"
+                  formControlName="perfil">
+                <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched">Este campo
+                  es obligatorio</small>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2 pt-1 mb-1" for="seniority">Seniority: <span
-                class="text-danger">*</span></label>
-            <div class="col-sm-12">
-              <input type="text" class="form-control" id="seniority" placeholder="Escribe el seniority requerido"
-                name="seniority" formControlName="seniority">
-              <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched">Este
-                campo es obligatorio</small>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="seniority">Seniority: <span
+                  class="text-danger">*</span></label>
+              <div class="col-sm-12">
+                <input type="text" class="form-control" id="seniority" placeholder="Escribe el seniority requerido"
+                  name="seniority" formControlName="seniority">
+                <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched">Este
+                  campo es obligatorio</small>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-sm-2 pt-1 mb-1" for="pais">País: <span class="text-danger">*</span></label>
-            <!-- <div class="col-sm-12">
-              <input class="form-control" rows="5" id="pais" placeholder="Ingresa el país de la oferta"
-                formControlName="pais">
-              <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es
-                obligatorio</small>
-            </div> -->
-            <div class="form-group">
-              <label class="control-label col-sm-2 pt-1 mb-1" for="pais">País: <span class="text-danger">*</span></label>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-4 pt-1 mb-1" for="pais">Selecciona el País: <span
+                  class="text-danger">*</span></label>
               <div class="col-sm-12">
                 <select class="form-control" formControlName="pais">
                   <option *ngFor="let pais of paises" [value]="pais.nombre">{{ pais.nombre }}</option>
                 </select>
                 <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo es
-                obligatorio</small>
+                  obligatorio</small>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="container mt-2">
-          <div class="card">
-            <div class="card-body">
-              <label for="fileElem" id="drop-area"
-                class="border rounded d-flex justify-content-center align-items-center bg-gray"
-                (dragover)="onDragOver($event)" (drop)="onDrop($event)">
-                <div class="text-center">
-                  <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
-                  <p class="mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+            <div class="container mt-4">
+              <div class="card">
+                <div class="card-body">
+                  <label for="fileElem" id="drop-area"
+                    class="border rounded d-flex justify-content-center align-items-center bg-gray"
+                    (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+                    <div class="text-center">
+                      <i class="bi bi-cloud-arrow-up-fill text-primary"></i>
+                      <p class="text-secondary mt-2">Arrastra aquí o haz clic para seleccionar archivos PDF.</p>
+                    </div>
+                    <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf" class="d-none">
+                  </label>
+                  <div *ngIf="selectedFiles.length > 0" class="lista mt-3">
+                    <p>Archivos seleccionados:</p>
+                    <ul>
+                      <li *ngFor="let file of selectedFiles">
+                        <i class="fas fa-file"></i>
+                        {{ file.name }}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <input type="file" id="fileElem" (change)="onFileChange($event)" accept=".pdf" class="d-none">
-              </label>
-              <div *ngIf="selectedFiles.length > 0" class="lista mt-3">
-                <p>Archivos seleccionados:</p>
-                <ul>
-                  <li *ngFor="let file of selectedFiles">
-                    <i class="fas fa-file"></i>
-                    {{ file.name }}
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-12 pt-3">
-            <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enviar</button>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-12 pt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enviar</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </ng-container>
 
 <app-loader></app-loader>
