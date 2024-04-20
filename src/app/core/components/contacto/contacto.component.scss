@@ -1,12 +1,11 @@
 .container {
-  background-color: #212529 !important;
+  background-color: transparent !important;
   border-top-left-radius: 40px;
   border-bottom-right-radius: 40px;
 
   .contact-info {
     text-align: center;
-    color: white;
-    margin-top: 8%;
+    margin-top: 2%;
   }
 
   textarea {
@@ -16,7 +15,7 @@
   }
 
   label {
-    color: white;
+    font-weight: 600;
     margin-bottom: 0;
   }
 

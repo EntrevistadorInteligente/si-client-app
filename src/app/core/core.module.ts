@@ -11,7 +11,6 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
-import { FormEmpresaComponent } from './components/form-empresa/form-empresa.component';
 import { CarruselComponent } from './components/carrusel/carrusel.component';
 import { Error404Component } from './components/error-404/error-404.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -27,13 +26,13 @@ import { Error500Component } from './components/error-500/error-500.component';
     LoginComponent,
     RegistroComponent,
     AlertComponent,
-    FormEmpresaComponent,
     CarruselComponent,
     Error404Component,
     Error403Component,
     Error500Component,
     HelpComponent,
   ],
+
   imports: [
     CommonModule,
     HttpClientModule,
@@ -46,7 +45,6 @@ import { Error500Component } from './components/error-500/error-500.component';
     LoaderComponent,
     LoginComponent,
     RegistroComponent,
-    FormEmpresaComponent,
     CarruselComponent,
     Error404Component,
     AlertComponent,

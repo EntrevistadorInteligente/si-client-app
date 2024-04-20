@@ -1,10 +1,14 @@
-<ng-container id="carrusel">
+<!-- CARRUSEL -->
+<ng-container #carrusel id="carrusel">
   <app-carrusel></app-carrusel>
 </ng-container>
 
-<ng-container id="service">
+<!-- TARJETAS DE SERVICIO -->
+<ng-container #service id="service">
   <div>
-    <h1 class="title">Nuestros Servicios</h1>
+    <h1 class="title">
+      Nuestros Servicios
+    </h1>
   </div>
   <div class="container">
     <div class="container_card">
@@ -81,16 +85,22 @@
     </div>
   </div>
   <div class="container text-center">
-    <h5 class="my-5">"En nuestra plataforma, te brindamos un servicio integral que incluye análisis detallado de tu CV,
-      evaluación exhaustiva de ofertas laborales, simulacros de entrevistas y valiosa retroalimentación. Nos dedicamos a prepararte
-      para que puedas alcanzar tu empleo ideal.</h5>
-    <h5 class="mb-5 fw-bold">¡Adelante nosotros cremos en tí, tú puedes!</h5>
+    <h5 class="my-3 text-secondary">"En nuestra plataforma, te brindamos un servicio integral que incluye análisis
+      detallado de tu CV,
+      evaluación exhaustiva de ofertas laborales, simulacros de entrevistas y valiosa retroalimentación. Nos dedicamos a
+      prepararte
+      para que puedas alcanzar tu empleo ideal."</h5>
+    <h5 class="my-3"><strong>¡Adelante nosotros cremos en tí, tú puedes!</strong></h5>
+    <div class="btn mb-5">
+      <a class="fw-bold" href="#">Ver Más</a>
+    </div>
   </div>
 
 </ng-container>
 
+<!-- PREGUNTAS PREESTABLECIDAS -->
 <ng-container id="preguntas">
-  <div class="table-responsive">
+  <!-- <div class="table-responsive">
     <div class="container">
       <table class="table table-striped table-hover">
         <thead>
@@ -107,11 +117,58 @@
         </tbody>
       </table>
     </div>
+  </div> -->
+</ng-container>
+
+<!-- ABOUT US -->
+<ng-container #about id="about">
+  <div class="container py-3 py-md-5">
+    <div class="row gy-3 gy-md-4 gy-lg-0 align-items-lg-center">
+      <div class="col-12 col-lg-6 col-xl-5">
+        <img class="img-fluid rounded" loading="lazy" src="assets/img/dw-1.jpg" alt="Desarrollo Web">
+      </div>
+      <div class="col-12 col-lg-6 col-xl-7">
+        <div class="row justify-content-xl-center">
+          <div class="col-12 col-xl-11">
+            <h2 class="mb-3">¿Quiénes Somos?</h2>
+            <p class="lead fs-4 text-secondary mb-3">Somos una plataforma dedicada a ayudar a los desarrolladores a
+              prepararse para entrevistas de trabajo en el campo de la tecnología. Nuestra meta es ofrecer un servicio
+              excepcionalmente útil y cautivador.</p>
+            <p class="mb-5">A pesar de nuestro rápido crecimiento, siempre mantenemos nuestros valores fundamentales en
+              el centro de nuestras operaciones. Creemos firmemente en la colaboración, la innovación y la satisfacción
+              del cliente. Estamos constantemente explorando nuevas formas de mejorar nuestra plataforma para brindar
+              una experiencia aún mejor a nuestros usuarios.</p>
+            <div class="row gy-4 gy-md-0 gx-xxl-5X mb-3">
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div>
+                    <h2 class="h4 mb-3">Marca Versátil</h2>
+                    <p class="text-secondary mb-0">Estamos creando una plataforma digital que se adapta a las
+                      necesidades de los desarrolladores en todas las etapas de su carrera.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-md-6">
+                <div class="d-flex">
+                  <div>
+                    <h2 class="h4 mb-3">Agencia Digital</h2>
+                    <p class="text-secondary mb-0">Creemos en la innovación al combinar ideas simples con soluciones
+                      tecnológicas avanzadas.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </ng-container>
 
 <app-loader></app-loader>
 
+<!-- FORMULARIO DE CONTACTO -->
 <ng-container id="contacto">
   <app-contacto></app-contacto>
 </ng-container>
