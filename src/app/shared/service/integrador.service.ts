@@ -7,7 +7,6 @@ import { FormularioDto } from '@shared/model/formulario-dto';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 
 @Injectable()
-
 export class IntegradorService {
   orquestadorURL = 'http://localhost:8765/api/orquestador';
   entrevista = '/v1/entrevistadores';
@@ -39,11 +38,7 @@ export class IntegradorService {
   }
 
   public obtenerHojaDeVida(): Observable<HojaDeVidaDto>{
-    try{
-      this.username = this.oauthService.getIdentityClaims()[`preferred_username`];
-    }catch(err){
-      console.log(err);
-    }
+    this.username = this.oauthService.getIdentityClaims()[`preferred_username`];
     return this.httpClient.get<HojaDeVidaDto>(`${this.orquestadorURL}${this.hojaDeVida}/${this.username}`, {
       headers: this.getHeaders()
     });

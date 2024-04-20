@@ -49,13 +49,13 @@
                   <label class="small mb-1" for="tecnologiasPrincipales">Tecnologias principales <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiasPrincipales" />
-                    <button class="btn btn-primary" (click)="agregarItem('tecnologiaAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('tecnologiaAgregar', 'tecnologiasPrincipales')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('tecnologiasPrincipales').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('tecnologiasPrincipales').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('tecnologia', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('tecnologiasPrincipales', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>
@@ -64,13 +64,13 @@
                   <label class="small mb-1" for="habilidadesTecnicas">Habilidades tecnicas <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="habilidadAgregar" id="habilidadesTecnicas" />
-                    <button class="btn btn-primary" (click)="agregarItem('habilidadAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('habilidadAgregar', 'habilidadesTecnicas')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('habilidadesTecnicas').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('habilidadesTecnicas').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('habilidad', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('habilidadesTecnicas', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>
@@ -81,13 +81,13 @@
                   <label class="small mb-1" for="experienciasLaborales">Experiencias laborales <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="experienciaLaboralAgregar" id="experienciasLaborales" />
-                    <button class="btn btn-primary" (click)="agregarItem('experienciaLaboralAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('experienciaLaboralAgregar', 'experienciasLaborales')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('experienciasLaborales').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('experienciasLaborales').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('experienciaLaboral', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('experienciasLaborales', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>
@@ -96,13 +96,13 @@
                   <label class="small mb-1" for="certificaciones">Certificaciones <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="certificacionAgregar" id="certificaciones" />
-                    <button class="btn btn-primary" (click)="agregarItem('certificacionAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('certificacionAgregar', 'certificaciones')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('certificaciones').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('certificaciones').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('certificacion', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('certificaciones', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>
@@ -113,13 +113,13 @@
                   <label class="small mb-1" for="proyectos">Proyectos <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="proyectoAgregar" id="proyectos" />
-                    <button class="btn btn-primary" (click)="agregarItem('proyectoAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('proyectoAgregar', 'proyectos')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('proyectos').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('proyectos').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('proyecto', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('proyectos', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>
@@ -134,13 +134,13 @@
                   <label class="small mb-1" for="otrasHabilidades">Otras habilidades <span>*</span></label>
                   <div>
                     <input type="text" pInputText formControlName="otraHabilidadAgregar" id="otrasHabilidades" />
-                    <button class="btn btn-primary" (click)="agregarItem('otraHabilidadAgregar')">Agregar</button>
+                    <button class="btn btn-primary" (click)="agregarItem('otraHabilidadAgregar', 'otrasHabilidades')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('otrasHabilidades').value.length > 0">
                     <ul class="list-group">
                       <ng-template ngFor let-item [ngForOf]="perfilForm.get('otrasHabilidades').value" let-i="index">
                         <li class="list-group-item d-flex justify-content-between">{{item.name}} 
-                          <button (click)="eliminarItem('otraHabilidad', item.name)">Eliminar</button></li>
+                          <button (click)="eliminarItem('otrasHabilidades', item.name)">Eliminar</button></li>
                       </ng-template>
                     </ul>
                   </div>

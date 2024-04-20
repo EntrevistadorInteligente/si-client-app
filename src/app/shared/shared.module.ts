@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { FeedbackService } from './service/feedback.service';
 import { IntegradorService } from './service/integrador.service';
+import { Transacciones } from './components/perfil/transacciones/transacciones.component';
+import { InicializarHojaDeVida } from './components/perfil/inicializar-formulario/inicializar-formulario.component';
 
 
 @NgModule({
@@ -37,7 +39,7 @@ import { IntegradorService } from './service/integrador.service';
     FooterComponent,
     PerfilComponent
   ],
-  providers: [IntegradorService, FeedbackService],
+  providers: [IntegradorService, FeedbackService, Transacciones, InicializarHojaDeVida],
 })
 
 export class SharedModule { }
