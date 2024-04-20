@@ -52,7 +52,8 @@ export class HomeLoginComponent implements OnInit {
       empresa: ['', Validators.required],
       perfil: ['', Validators.required],
       seniority: ['', Validators.required],
-      pais: ['', Validators.required]
+      pais: ['', Validators.required],
+      descripcionVacante: ['', Validators.required]
     });
   }
 
@@ -82,15 +83,15 @@ export class HomeLoginComponent implements OnInit {
   }
 
   submit(): void {
-    if (this.form.valid && this.selectedFiles.length > 0) {
+    if (this.form.valid) {
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
         seniority: this.form.value.seniority,
-        pais: this.form.value.pais
+        pais: this.form.value.pais,
+        descripcionVacante: this.form.value.descripcionVacante
       };
-      this.integradorService.crearSolicitudEntrevista(this.selectedFiles[0],
-        formulario).subscribe(
+      this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
           data => {
             this.preguntas = data;
           },
@@ -99,7 +100,6 @@ export class HomeLoginComponent implements OnInit {
     } else {
       console.log("MAL")
       console.log(this.form)
-      console.log(this.selectedFiles)
     }
   }
 

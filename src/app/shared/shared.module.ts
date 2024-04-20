@@ -9,6 +9,13 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
+import { PanelModule } from 'primeng/panel';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ListboxModule } from 'primeng/listbox';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { FeedbackService } from './service/feedback.service';
+import { IntegradorService } from './service/integrador.service';
 
 @NgModule({
   declarations: [
@@ -20,14 +27,18 @@ import { PerfilComponent } from './components/perfil/perfil.component';
     CommonModule,
     CoreModule,
     PanelModule,
-    TabMenuModule
+    TabMenuModule,
+    ListboxModule,
+    FormsModule,
+    ReactiveFormsModule,
+    InputTextModule,
   ],
   exports: [
     MenuComponent,
     FooterComponent,
     PerfilComponent
   ],
-  providers: [],
+  providers: [IntegradorService, FeedbackService],
 })
 
 export class SharedModule { }

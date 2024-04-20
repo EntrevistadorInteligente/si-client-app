@@ -13,7 +13,6 @@ import { CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 
 // INTERCEPTORS
-import { IntegradorService } from '@shared/service/integrador.service';
 import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
@@ -39,7 +38,6 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
     ReactiveFormsModule,
   ],
   providers: [
-    IntegradorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: OfflineInterceptor,

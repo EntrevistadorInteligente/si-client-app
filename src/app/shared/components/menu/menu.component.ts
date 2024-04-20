@@ -36,7 +36,6 @@ export class MenuComponent implements OnInit {
   }
 
   login(): void {
-
     this.loginService.login();
     if(this.isLogged){
       this.activo = "home";
