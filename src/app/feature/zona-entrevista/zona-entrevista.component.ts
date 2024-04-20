@@ -18,14 +18,15 @@ interface PageEvent {
   templateUrl: './zona-entrevista.component.html',
   styleUrl: './zona-entrevista.component.scss'
 })
+
 export class ZonaEntrevistaComponent implements OnInit {
+
+  questions: PreguntasDto[] = [];
   feedback: FeedbackDto;
   currentIndex: number = 0;
   first: number = 0;
   rows: number = 10;
   visible: boolean = false;
-
-
 
   constructor(private integradorService: IntegradorService,
     private alertService: SseService,
@@ -64,6 +65,11 @@ export class ZonaEntrevistaComponent implements OnInit {
   submitAnswers() {
     console.log(this.feedback.procesoEntrevista)
     let esValido = false;
+
+    this.questions.forEach(element => {
+
+      if(!element.respuesta){
+
     this.feedback.procesoEntrevista.forEach(element => {
 
       if (!element.respuesta) {
@@ -84,9 +90,6 @@ export class ZonaEntrevistaComponent implements OnInit {
           console.log(err);
         },
       });
-
     }
-
   }
-
 }

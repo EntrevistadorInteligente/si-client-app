@@ -32,7 +32,7 @@ export class IntegradorService {
 
   public crearSolicitudEntrevista(formulario: FormularioDto): Observable<any> {
 
-    return this.httpClient.post(`${this.orquestadorURL}/solicitudes-entrevistas?username=test`, formulario, {
+    return this.httpClient.post(`${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.oauthService.getIdentityClaims()[`preferred_username`]}`, formulario, {
       headers: this.getHeaders()
     });
   }

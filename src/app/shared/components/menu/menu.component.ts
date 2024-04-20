@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DarkModeService } from '@shared/service/dark-mode.service';
 import { LoginService } from '@shared/service/login.service';
 import { MenuItem } from 'primeng/api';
 
@@ -22,11 +23,12 @@ export class MenuComponent implements OnInit {
   message: string = '¡Bienvenid@!';
   items: MenuItem[];
   activeItem: MenuItem;
-  
+
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private _eref: ElementRef
+    private _eref: ElementRef,
+    public darkModeService: DarkModeService,
   ) { }
 
   ngOnInit(): void {
@@ -74,5 +76,9 @@ export class MenuComponent implements OnInit {
 
   home(): void {
     this.router.navigate(['home']);
+  }
+
+  toggleDarkMode() {
+    this.darkModeService.toggleDarkMode();
   }
 }
