@@ -1,18 +1,18 @@
+/* TARJETAS */
+
 .title {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: rgb(0, 0, 0);
-  align-items: center;
   margin-top: 50px;
-  font-size: 26px;
+  font-size: 28px;
+  font-weight: 600;
 }
 
 h1 {
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: rgb(0, 0, 0);
   align-items: center;
   font-size: 26px;
 }
@@ -32,7 +32,6 @@ h1 {
 .card_father {
   display: flexbox;
   margin: 30px;
-  margin-left: 22%;
   perspective: 1000px;
   justify-content: center;
   align-items: center;
@@ -45,7 +44,7 @@ h1 {
 
 .card {
   width: 260px;
-  height: 400px;
+  height: 380px;
   position: relative;
   transform-style: preserve-3d;
   transition: all 900ms;
@@ -75,9 +74,7 @@ h1 {
 }
 
 .card_back h2 {
-  color: rgb(255, 105, 36);
   font-size: 28px;
-  font-family: "Arial", sans-serif;
   font-weight: 600;
   text-align: center;
 }
@@ -86,9 +83,9 @@ h1 {
   transform: rotateY(180deg);
   background: radial-gradient(
     circle,
-    rgba(38, 38, 38, 1) 0%,
-    rgba(28, 28, 28, 1) 50%,
-    rgba(0, 0, 0, 1) 100%
+    rgba(13, 17, 19, 0.978) 15%,
+    rgba(11, 18, 21, 0.978) 50%,
+    rgba(18, 24, 25, 0.978) 85%
   );
   border-radius: 20px;
 }
@@ -99,7 +96,6 @@ h1 {
   text-align: center;
   display: flex;
   justify-content: center;
-  color: linear-gradient(25deg, #200000 0%, rgb(0, 83, 127) 59%, #00c3ff 100%);
   transform: translateZ(60px);
 }
 
@@ -108,8 +104,6 @@ h1 {
   padding: 0 14px;
   text-transform: uppercase;
   font-weight: 900;
-  color: rgb(0, 128, 255);
-  -webkit-text-stroke: 0.6px rgb(255, 255, 255);
   text-shadow: 2px solid rgb(0, 0, 0);
 }
 
@@ -121,9 +115,55 @@ h1 {
 
 .body_card_back p {
   margin-top: 20px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 h5 {
   font-weight: 400;
+}
+
+.btn {
+  margin-top: 8px;
+  padding: 10px 20px;
+  background-color: rgb(24, 109, 255);
+  border-radius: 8px;
+  transition: all 0.4s ease;
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.btn:hover {
+  background-color: rgb(19, 80, 186);
+}
+
+/* TABLA DE PREGUNTAS */
+
+tr, th, thead, tbody, td {
+  background-color: transparent !important;
+}
+
+/* ABOUT US */
+
+#about {
+  margin: 20px 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+
+  img {
+    height: 300px;
+    object-fit: cover;
+  }
+
+}
+/* MEDIA QUERYS */
+
+/* RESPONSIVE DE TARJETAS */
+@media (max-width: 936px) {
+  .card_father {
+    margin-left: 26%;
+  }
 }
