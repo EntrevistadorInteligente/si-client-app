@@ -9,8 +9,6 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuComponent } from './components/menu/menu.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { PanelModule } from 'primeng/panel';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { ListboxModule } from 'primeng/listbox';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';

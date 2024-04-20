@@ -21,7 +21,6 @@ interface PageEvent {
 
 export class ZonaEntrevistaComponent implements OnInit {
 
-  questions: PreguntasDto[] = [];
   feedback: FeedbackDto;
   currentIndex: number = 0;
   first: number = 0;
@@ -66,30 +65,32 @@ export class ZonaEntrevistaComponent implements OnInit {
     console.log(this.feedback.procesoEntrevista)
     let esValido = false;
 
-    this.questions.forEach(element => {
-
-      if(!element.respuesta){
-
     this.feedback.procesoEntrevista.forEach(element => {
 
       if (!element.respuesta) {
 
-        this.visible = true;
+        this.feedback.procesoEntrevista.forEach(element => {
 
-      } else {
-        esValido = true
+          if (!element.respuesta) {
+
+            this.visible = true;
+
+          } else {
+            esValido = true
+          }
+
+        });
+        if (esValido) {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con exito, estaremos generando su feedbak en un momento' });
+          this.feedbackService.crearSolicitudFeedback(this.feedback).subscribe({
+            next: () => {
+            },
+            error: (err: any) => {
+              console.log(err);
+            },
+          });
+        }
       }
-
     });
-    if (esValido) {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con exito, estaremos generando su feedbak en un momento' });
-      this.feedbackService.crearSolicitudFeedback(this.feedback).subscribe({
-        next: () => {
-        },
-        error: (err: any) => {
-          console.log(err);
-        },
-      });
-    }
-  }
+ }
 }
