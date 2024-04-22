@@ -25,6 +25,9 @@
 
         </div>
       </div>
+      <div *ngIf="!bandera" class="col-xl-8">
+        <p class="bg-danger text-white">Cargue su CV para poder modificar los datos de su perfil y acceder a las entrevistas</p>
+      </div>
       <div *ngIf="bandera" class="col-xl-8">
         <div class="card mb-4">
           <div class="card-header">Detalles de la cuenta</div>
@@ -48,7 +51,7 @@
                 <div class="col-md-6">
                   <label class="small mb-1" for="tecnologiasPrincipales">Tecnologias principales <span>*</span></label>
                   <div>
-                    <input type="text" pInputText formControlName="tecnologiaAgregar" name="tecnologiasPrincipales" />
+                    <input type="text" pInputText formControlName="tecnologiaAgregar" id="tecnologiasPrincipales" />
                     <button class="btn btn-primary" (click)="agregarItem('tecnologiaAgregar', 'tecnologiasPrincipales')">Agregar</button>
                   </div>
                   <div *ngIf="perfilForm.get('tecnologiasPrincipales').value.length > 0">
