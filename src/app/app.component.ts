@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
   }
 
   authConfig: AuthConfig = {
-    issuer: 'http://localhost:62098/realms/entrevistador',
+    issuer: 'http://localhost:8080/realms/entrevistador',
     redirectUri: window.location.origin,
     clientId: 'front',
     responseType: 'code',
