@@ -1,0 +1,29 @@
+<p-toast></p-toast>
+
+<p-card class="container-card pt-4">
+    <div *ngIf="currentQuestion" class="question-container ">
+        <h2>Pregunta {{ currentIndex + 1 }}/{{ feedback.procesoEntrevista.length }}</h2>
+        <div class="question">{{ currentQuestion.pregunta }}</div>
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="currentQuestion.respuesta"></textarea>
+        <p-progressBar [value]="progressValue"></p-progressBar>
+        <div class="question-actions">
+            <button pButton label="Anterior" icon="pi pi-chevron-left" (click)="previousQuestion()"
+                [disabled]="currentIndex === 0"></button>
+            <button pButton label="Siguiente" icon="pi pi-chevron-right" (click)="nextQuestion()"
+                [disabled]="currentIndex === feedback.procesoEntrevista.length - 1"></button>
+            <button pButton label="Enviar" icon="pi pi-check" (click)="submitAnswers()" style="float:right"></button>
+        </div>
+    </div>
+</p-card>
+
+<p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '960px': '75vw' }"
+    [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="header">
+        <div class="inline-flex align-items-center justify-content-center">
+            <span class="font-bold white-space-nowrap">Error</span>
+        </div>
+    </ng-template>
+    <p class="m-0">
+        Debes responder todas las preguntas antes de enviar la entrevista
+    </p>
+</p-dialog>

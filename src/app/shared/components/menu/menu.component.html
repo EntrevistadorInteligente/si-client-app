@@ -31,7 +31,7 @@
               </p>
             </div>
             <ul>
-              <li *ngIf="isLogged"><i class="fas fa-user"></i><a (click)="perfil()">Mi Perfil</a></li>
+              <li *ngIf="!isLogged"><i class="fas fa-user"></i><a (click)="perfil()">Mi Perfil</a></li>
               <li *ngIf="!isLogged"><i class="fas fa-sign-in-alt"></i><a (click)="login()">Login</a></li>
               <li><i class="fas fa-cog"></i><a>Configuración</a></li>
               <li><i class="fas fa-question"></i><a>Ayuda</a></li>
@@ -82,7 +82,6 @@
           </li>
         </ul>
       </div>
-
     </div>
   </div>
 </nav>

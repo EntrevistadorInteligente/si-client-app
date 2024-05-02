@@ -53,21 +53,21 @@ label,
 tbody,
 input,
 button,
-textarea {
+textarea,
+option,
+select {
   font-family: "Montserrat", sans-serif !important;
 }
 
 input[type="email"],
 input[type="text"],
 input[type="password"],
-textarea,
 select {
   border-radius: 30px;
   padding: 10px;
   outline: none;
   background-color: transparent;
   color: var(--color-text-light);
-  background-image: none;
 }
 
 input[type="email"]:focus,
@@ -76,6 +76,7 @@ input[type="password"]:focus,
 textarea:focus,
 select:focus {
   background-color: transparent;
+  border-color: transparent;
 }
 
 input[type="email"]::placeholder,
@@ -89,15 +90,19 @@ select::placeholder {
 .dark-mode input[type="email"],
 .dark-mode input[type="text"],
 .dark-mode input[type="password"],
-.dark-mode textarea,
-.dark-mode select {
+.dark-mode select,
+.dark-mode p {
   color: var(--color-text-dark);
+}
+
+.dark-mode textarea {
+  color: var(--color-text-light);
+  font-weight: 500;
 }
 
 .dark-mode input[type="email"]::placeholder,
 .dark-mode input[type="password"]::placeholder,
 .dark-mode input[type="text"]::placeholder,
-.dark-mode textarea::placeholder,
 .dark-mode select::placeholder {
   color: var(--color-placeholder-dark);
 }

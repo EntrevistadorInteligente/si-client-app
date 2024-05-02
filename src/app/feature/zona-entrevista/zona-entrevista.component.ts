@@ -92,5 +92,5 @@ export class ZonaEntrevistaComponent implements OnInit {
         }
       }
     });
- }
+  }
 }

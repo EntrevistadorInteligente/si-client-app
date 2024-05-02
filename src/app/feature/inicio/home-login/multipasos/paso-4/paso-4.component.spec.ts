@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Error404Component } from './error-404.component';
+import { Paso4Component } from './paso-4.component';
 
-describe('Error404Component', () => {
-  let component: Error404Component;
-  let fixture: ComponentFixture<Error404Component>;
+describe('Paso4Component', () => {
+  let component: Paso4Component;
+  let fixture: ComponentFixture<Paso4Component>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Error404Component]
+      declarations: [Paso4Component]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(Error404Component);
+    fixture = TestBed.createComponent(Paso4Component);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

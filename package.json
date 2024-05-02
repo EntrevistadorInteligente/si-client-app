@@ -23,6 +23,7 @@
     "@webcomponents/custom-elements": "^1.6.0",
     "angular-oauth2-oidc": "^17.0.0",
     "bootstrap": "^5.3.3",
+    "gsap": "^3.12.5",
     "polyfills": "^2.1.1",
     "primeicons": "^6.0.1",
     "primeng": "^17.9.0",
@@ -30,7 +31,6 @@
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },
-
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.2.2",
     "@angular/cli": "^17.2.2",

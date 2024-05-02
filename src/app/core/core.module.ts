@@ -12,12 +12,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { CarruselComponent } from './components/carrusel/carrusel.component';
-import { Error404Component } from './components/error-404/error-404.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/LoaderInterceptor';
-import { Error403Component } from './components/error-403/error-403.component';
-import { Error500Component } from './components/error-500/error-500.component';
+import { ErrorComponent } from './components/error/error.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +25,8 @@ import { Error500Component } from './components/error-500/error-500.component';
     RegistroComponent,
     AlertComponent,
     CarruselComponent,
-    Error404Component,
-    Error403Component,
-    Error500Component,
     HelpComponent,
+    ErrorComponent,
   ],
 
   imports: [
@@ -46,7 +42,6 @@ import { Error500Component } from './components/error-500/error-500.component';
     LoginComponent,
     RegistroComponent,
     CarruselComponent,
-    Error404Component,
     AlertComponent,
     HelpComponent,
   ],

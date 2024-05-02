@@ -17,6 +17,13 @@ import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
 
+// SERVICIOS
+import { ErrorService } from '@core/service/error/errorservice.service';
+import { LoaderService } from '@core/service/loader/loader.service';
+
+// VARIABLES DE ENTORNO
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,18 +38,15 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
     SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:8765/api/*'],
+        allowedUrls: [environment.oauthModuleUrl],
         sendAccessToken: true
       }
     }),
     ReactiveFormsModule,
   ],
+
   providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: OfflineInterceptor,
-      multi: true,
-    },
+    ErrorService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
@@ -50,10 +54,21 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
     },
     {
       provide: HTTP_INTERCEPTORS,
+      useClass: OfflineInterceptor,
+      multi: true
+    },
+    LoaderService,
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true,
+      multi: true
+    },
+    {
+      provide: 'SERVER_IP_ADDRESS',
+      useValue: environment.SERVER_IP_ADDRESS
     },
   ],
+
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

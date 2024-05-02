@@ -1,0 +1,67 @@
+.error {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.texto-error {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  text-align: left;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.texto-error h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  font-weight: 800;
+}
+
+.texto-error p {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .texto-error {
+    width: 94%;
+    background-color: rgba(0, 65, 50, 0.37);
+
+    h1,
+    p {
+      text-align: center;
+    }
+  }
+
+  .background-image {
+    background-image: url("../../../../assets/img/Error-mobile.jpeg");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (min-width: 769px) {
+  .texto-error {
+    width: 800px;
+    background-color: rgba(0, 15, 29, 0.37);
+  }
+
+  .background-image {
+    background-image: url("../../../../assets/img/Error.jpeg");
+    background-size: cover;
+    background-position: center;
+  }
+}
