@@ -9,8 +9,8 @@ export class SseService {
   private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
   currentQuestions = this.questionsSource.asObservable();
 
-  private sseUrlOrquestador = 'http://localhost:8765/api/orquestador/v1/eventos/subscribe';
-  private sseUrlFeedback = 'http://localhost:8765/api/administrador-entrevista/v1/eventos/subscribe';
+  private sseUrlOrquestador = 'https://funnel.tail3efd65.ts.net/api/orquestador/v1/eventos/subscribe';
+  private sseUrlFeedback = 'https://funnel.tail3efd65.ts.net/api/administrador-entrevista/v1/eventos/subscribe';
   constructor() { 
   
   }

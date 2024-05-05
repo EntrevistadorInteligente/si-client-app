@@ -14,7 +14,6 @@ export class LoginService {
 
   public login(): void {
     this.oauthService.initImplicitFlowInternal();
-    this.isLoggedSubject.next(true);
   }
 
   public logout(): void {
@@ -45,5 +44,7 @@ export class LoginService {
   setIsLogged(isLogged: boolean): void {
     this.isLoggedSubject.next(isLogged);
   }
+
+  
 
 }

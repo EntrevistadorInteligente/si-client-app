@@ -31,7 +31,7 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
     SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['http://localhost:8765/api/*'],
+        allowedUrls: ['https://funnel.tail3efd65.ts.net/api/*'],
         sendAccessToken: true
       }
     }),

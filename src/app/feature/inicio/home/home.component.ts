@@ -15,16 +15,8 @@ export class HomeComponent implements OnInit{
   constructor(private integradorService: IntegradorService) { }
 
   ngOnInit() {
-    this.cargarVistaPreviaEntrevista();
   }
 
-  cargarVistaPreviaEntrevista(): void {
-    this.integradorService.list().subscribe(
-      data => {
-        this.preguntas = data;
-      },
-      err => console.log(err)
-    );
-  }
+
 
 }

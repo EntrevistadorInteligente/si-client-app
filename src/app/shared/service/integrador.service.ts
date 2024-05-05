@@ -8,7 +8,7 @@ import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 
 @Injectable()
 export class IntegradorService {
-  orquestadorURL = 'http://localhost:8765/api/orquestador';
+  orquestadorURL = 'https://funnel.tail3efd65.ts.net/api/orquestador';
   entrevista = '/v1/entrevistadores';
   hojaDeVida = '/v1/hojas-de-vidas';
   httpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})};

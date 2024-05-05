@@ -29,8 +29,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.configure();
-
     this.networkService.online$.subscribe((online) => {
       this.online = online;
       if (online) {
@@ -42,11 +40,11 @@ export class AppComponent implements OnInit {
       this.offlineMessage = message;
     });
 
-    this.subscribeToLoginChanges();
+
   }
 
   authConfig: AuthConfig = {
-    issuer: 'http://localhost:8080/realms/entrevistador',
+    issuer: 'https://keycloak.pruebas-entrevistador-inteligente.site/realms/entrevistador',
     redirectUri: window.location.origin,
     clientId: 'front',
     responseType: 'code',
@@ -65,6 +63,7 @@ export class AppComponent implements OnInit {
           this.isAdmin = this.loginService.getIsAdmin();
           this.username = this.loginService.getUsername();
           this.loginService.setIsLogged(this.isLogged);
+          this.subscribeToLoginChanges();
         }
       });
   }

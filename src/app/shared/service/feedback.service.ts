@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class FeedbackService {
-  feedbackURL = 'http://localhost:8765/api/administrador-entrevista/v1';
+  feedbackURL = 'https://funnel.tail3efd65.ts.net/api/administrador-entrevista/v1';
   httpOptions = { headers: new HttpHeaders({'Content-Type' : 'application/json'})};
 
   constructor(
