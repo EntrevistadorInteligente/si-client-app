@@ -12,7 +12,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
 
 export class Paso2Component {
 
-  @Output() completed = new EventEmitter<void>();
+  @Output() formularioCompleto = new EventEmitter<boolean>();
   preguntas!: VistaPreviaEntrevistaDto[];
   form: FormGroup;
 
@@ -74,10 +74,11 @@ export class Paso2Component {
         err => console.log(err)
       );
       localStorage.removeItem('formData');
-      this.completed.emit();
+      this.formularioCompleto.emit(true);
     } else {
-      console.log("MAL")
-      console.log(this.form)
+      console.log("MAL");
+      console.log(this.form);
+      this.formularioCompleto.emit(false);
     }
   }
 

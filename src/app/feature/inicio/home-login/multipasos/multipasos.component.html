@@ -2,7 +2,8 @@
   <div class="container">
     <h4>Proceso:</h4>
     <div class="progress mb-4">
-      <div class="progress-bar barra progress-bar-striped bg-primary" role="progressbar" [style.width.%]="calculateProgress()">
+      <div class="progress-bar barra progress-bar-striped bg-primary" role="progressbar"
+        [style.width.%]="calculateProgress()">
         <span class="sr-only">{{ calculateProgress() }}% Completo</span>
       </div>
     </div>
@@ -12,15 +13,17 @@
     <app-paso-1 (completed)="onStepCompleted()"></app-paso-1>
     <div class="text-center mb-4">
       <button class="btn btn-outline-secondary mr-2" disabled>Anterior</button>
-      <button class="btn btn-outline-primary ml-2" (click)="nextStep()">Siguiente</button>
+      <button class="btn btn-outline-primary ml-2" (click)="nextStep()"
+        [disabled]="!puedeContinuarPaso2">Siguiente</button>
     </div>
   </ng-container>
 
   <ng-container *ngIf="currentStep === 2">
-    <app-paso-2 (completed)="onStepCompleted()"></app-paso-2>
+    <app-paso-2 (completed)="nextStep()"></app-paso-2>
     <div class="text-center mb-4">
       <button class="btn btn-outline-primary mr-2" (click)="prevStep()">Anterior</button>
-      <button class="btn btn-outline-primary ml-2" (click)="nextStep()">Siguiente</button>
+      <button class="btn btn-outline-primary ml-2" (click)="nextStep()"
+        [disabled]="!puedeContinuarPaso3">Siguiente</button>
     </div>
   </ng-container>
 
@@ -28,7 +31,8 @@
     <app-paso-3 (completed)="onStepCompleted()"></app-paso-3>
     <div class="text-center mb-4">
       <button class="btn btn-outline-primary mr-2" (click)="prevStep()">Anterior</button>
-      <button class="btn btn-outline-primary ml-2" (click)="nextStep()">Siguiente</button>
+      <button class="btn btn-outline-primary ml-2" (click)="nextStep()"
+        [disabled]="!puedeContinuarPaso4">Siguiente</button>
     </div>
   </ng-container>
 

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultipasosComponent } from './multipasos.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { ZonaEntrevistaRoutingModule } from '@zona-entrevista/zona-entrevista-routing.module';
 import { MessageService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -17,7 +16,6 @@ import { Paso2Component } from './paso-2/paso-2.component';
 import { Paso3Component } from './paso-3/paso-3.component';
 import { Paso4Component } from './paso-4/paso-4.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CoreModule } from '@core/core.module';
 
 @NgModule({
   declarations: [

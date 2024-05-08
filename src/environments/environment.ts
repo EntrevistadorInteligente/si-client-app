@@ -1,5 +1,5 @@
 export const environment = {
-  
+
   production: false,
 
   // OAUTH MODULE -- DEL APP MODULE
@@ -26,4 +26,7 @@ export const environment = {
 
   // INTEGRADOR SERVICE
   orquestadorURL: 'http://localhost:8765/api/orquestador',
+
+  // FEEDBACK SERVICE
+  feedbackURL: 'http://localhost:8765/api/administrador-entrevista/v1',
 };

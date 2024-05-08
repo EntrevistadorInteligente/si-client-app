@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 
@@ -15,6 +15,8 @@ export class Paso1Component implements OnInit {
   file: File;
   fileError: boolean = false;
   load: boolean = false;
+
+  @Output() puedeContinuarChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor(private integradorService: IntegradorService) { }
 
@@ -43,7 +45,7 @@ export class Paso1Component implements OnInit {
         (hojaDeVida: HojaDeVidaDto) => {
           if (hojaDeVida && hojaDeVida.archivo) {
             this.archivoCargado = true;
-            this.puedeContinuar = true;
+            this.verificarPuedeContinuar();
           } else {
             this.archivoCargado = false;
             this.puedeContinuar = false;
@@ -76,6 +78,7 @@ export class Paso1Component implements OnInit {
           this.archivoCargado = true;
           this.puedeContinuar = true;
           this.load = false;
+          this.verificarPuedeContinuar();
         },
         error: error => {
           console.error(error);
@@ -84,5 +87,14 @@ export class Paso1Component implements OnInit {
         }
       });
     }
+  }
+
+  verificarPuedeContinuar(): void {
+    if (this.archivoCargado) {
+      this.puedeContinuar = true;
+    } else {
+      this.puedeContinuar = false;
+    }
+    this.puedeContinuarChanged.emit(this.puedeContinuar);
   }
 }

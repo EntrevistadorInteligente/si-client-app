@@ -23,4 +23,10 @@ export const environment = {
 
   // DIRECCIÓN IP DEL SERVIDOR
   SERVER_IP_ADDRESS: '192.168.1.100',
+
+  // INTEGRADOR SERVICE
+  orquestadorURL: 'http://localhost:8765/api/orquestador',
+
+  // FEEDBACK SERVICE
+  feedbackURL: 'http://localhost:8765/api/administrador-entrevista/v1',
 };

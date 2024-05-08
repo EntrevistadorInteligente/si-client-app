@@ -41,6 +41,7 @@ export class Paso3Component implements OnInit {
   get currentQuestion(): EntrevistaFeedbackDto {
     return this.feedback.procesoEntrevista[this.currentIndex];
   }
+  
   get progressValue(): number {
     return (this.currentIndex + 1) / this.feedback.procesoEntrevista.length * 100;
   }
@@ -49,6 +50,7 @@ export class Paso3Component implements OnInit {
     this.first = event.first;
     this.rows = event.rows;
   }
+
   previousQuestion() {
     if (this.currentIndex > 0) {
       this.currentIndex--;
@@ -62,35 +64,19 @@ export class Paso3Component implements OnInit {
   }
 
   submitAnswers() {
-    console.log(this.feedback.procesoEntrevista)
-    let esValido = false;
-
-    this.feedback.procesoEntrevista.forEach(element => {
-
-      if (!element.respuesta) {
-
-        this.feedback.procesoEntrevista.forEach(element => {
-
-          if (!element.respuesta) {
-
-            this.visible = true;
-
-          } else {
-            esValido = true
-          }
-
-        });
-        if (esValido) {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con exito, estaremos generando su feedbak en un momento' });
-          this.feedbackService.crearSolicitudFeedback(this.feedback).subscribe({
-            next: () => {
-            },
-            error: (err: any) => {
-              console.log(err);
-            },
-          });
-        }
-      }
+    const hasEmptyAnswers = this.feedback.procesoEntrevista.some(element => !element.respuesta);
+    if (hasEmptyAnswers) {
+      this.visible = true;
+      return;
+    }
+    this.feedbackService.crearSolicitudFeedback(this.feedback).subscribe({
+      next: () => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con éxito, estaremos generando su feedback en un momento' });
+      },
+      error: (err: any) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.' });
+        console.error(err);
+      },
     });
   }
 }
