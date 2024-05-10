@@ -16,13 +16,16 @@ export class AuthService {
     try {
       let userDetails = this.keycloakService.getKeycloakInstance().idTokenParsed;
       console.log(userDetails);
-      console.log(this.getRoles());
       return userDetails;
     }
     catch(e) {
       console.error(e);
       return undefined;
     }
+  }
+
+  getUsername() {
+    return this.keycloakService.getUsername();
   }
 
   isLoggedIn() {
@@ -50,8 +53,12 @@ export class AuthService {
     return this.isLoggedSubject.asObservable();
   }
 
-  setIsLogged(isLogged: boolean): void {
-    this.isLoggedSubject.next(isLogged);
+  setIsLogged(isLogged: boolean) {
+    return this.isLoggedSubject.next(isLogged);
+  }
+
+  getToken() {
+    return this.keycloakService.getToken()['__zone_symbol__value'];
   }
 
 }

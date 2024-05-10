@@ -1,0 +1,68 @@
+<ng-container>
+  <div class="container formulary my-4 mb-5">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9 bg-dark">
+          <h3 class="text-center text-white fw-bold mb-1 mt-2">Datos de la oferta</h3>
+          <div class="contact-form">
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="empresa">Empresa: <span class="text-danger">*</span></label>
+              <div class="col-sm-12 mt-2 p-2">
+                <input type="text" class="form-control" id="empresa" placeholder="Nombre de la empresa" name="empresa"
+                  formControlName="empresa">
+                <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched">Este
+                  campo es obligatorio</small>
+              </div>
+            </div>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="perfil">Perfil: <span class="text-danger">*</span></label>
+              <div class="col-sm-12 mt-2 p-2">
+                <input type="text" class="form-control" id="perfil" placeholder="Escribe el Perfil" name="perfil"
+                  formControlName="perfil">
+                <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched">Este
+                  campo es obligatorio</small>
+              </div>
+            </div>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-2 pt-1 mb-1" for="seniority">Seniority: <span class="text-danger">*</span></label>
+              <div class="col-sm-12 mt-2 p-2">
+                <input type="text" class="form-control" id="seniority" placeholder="Escribe el seniority requerido"
+                  name="seniority" formControlName="seniority">
+                <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched">Este
+                  campo es obligatorio</small>
+              </div>
+            </div>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-4 pt-1 mb-1" for="pais">Selecciona el País: <span class="text-danger">*</span></label>
+              <div class="col-sm-12 mt-2 p-2">
+                <select class="form-control text-dark fw-semibold" formControlName="pais" style="border-radius: 40px;">
+                  <option class="fw-semibold" *ngFor="let pais of paises" [value]="pais.nombre"
+                    placeholder="-- Selecciona --">{{ pais.nombre }}</option>
+                </select>
+                <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched">Este campo
+                  es obligatorio</small>
+              </div>
+            </div>
+            <div class="form-group my-2">
+              <label class="control-label col-sm-4 pt-1 mb-1" for="descripcionVacante">Descripción de la vacante:
+                <span class="text-danger">*</span></label>
+              <div class="col-sm-12 mt-2 p-2">
+                <textarea type="text" class="form-control fw-semibold" formControlName="descripcionVacante"
+                  id="descripcionVacante" cols="30" rows="10" style="resize: none;"></textarea>
+                <small class="text-danger"
+                  *ngIf="form.get('descripcionVacante').invalid && form.get('descripcionVacante').touched">Este
+                  campo es obligatorio</small>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-12 mt-2 p-2 pt-3">
+              <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Enviar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-container>

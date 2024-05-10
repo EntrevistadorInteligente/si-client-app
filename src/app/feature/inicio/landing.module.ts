@@ -6,8 +6,9 @@ import { CoreModule } from '@core/core.module';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LandingRoutingModule } from './landing-routing.module';
-import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from '@shared/shared.module';
+import { TooltipModule } from 'primeng/tooltip';
+import { MultipasosModule } from './home-login/multipasos/multipasos.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from '@shared/shared.module';
     ReactiveFormsModule,
     LandingRoutingModule,
     TooltipModule,
-    SharedModule
+    SharedModule,
+    MultipasosModule
   ],
   exports: [
     LandingComponent,

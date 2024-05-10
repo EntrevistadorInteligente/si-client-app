@@ -1,14 +1,6 @@
-.img-account-profile {
-  height: 10rem;
-}
-
 .container {
   margin-top: 100px !important;
   margin-bottom: 60px;
-}
-
-.rounded-circle {
-  border-radius: 50% !important;
 }
 
 .image {
@@ -30,8 +22,7 @@
   border-bottom: 1px solid rgba(33, 40, 50, 0.125);
 }
 
-.form-control,
-.dataTable-input {
+.form-control {
   display: block;
   width: 100%;
   padding: 0.875rem 1.125rem;
@@ -71,17 +62,6 @@ label {
   font-weight: 500;
   font-size: 16px;
 }
-
-span {
-  color: red;
-}
-
-
-
-
-
-
-
 
 #drop-area {
   height: 200px;

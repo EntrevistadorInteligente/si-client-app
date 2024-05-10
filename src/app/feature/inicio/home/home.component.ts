@@ -7,7 +7,8 @@ import { IntegradorService } from '@shared/service/integrador.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit{
+
+export class HomeComponent implements OnInit {
 
   preguntas!: VistaPreviaEntrevistaDto[];
   selectedProduct!: any;
@@ -16,7 +17,6 @@ export class HomeComponent implements OnInit{
 
   ngOnInit() {
   }
-
 
 
 }

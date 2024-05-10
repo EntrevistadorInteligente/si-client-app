@@ -44,9 +44,7 @@ En esta carpeta se encuentran componentes y servicios fundamentales del núcleo 
 6. **loader**: Componente de carga para indicar procesos en curso.
 7. **login**: Componente para la funcionalidad de inicio de sesión.
 8. **registro**: Componente para el registro de usuarios.
-9. **error-403**: Este componente se muestra cuando el usuario no tiene permiso para acceder a un recurso.
-10. **error-404**: Este componente se muestra cuando el usuario intenta acceder a una página que no existe.
-11. **error-500**: Este componente se muestra cuando se produce un error.
+9. **error**: Este componente se muestra cuando ajgún error del lado del servidor.
 
 ## Guards
 
@@ -73,8 +71,9 @@ Esta carpeta contiene el módulo y los componentes específicos para la página 
 
 ## Inicio
 
-1. **home**: Componentes relacionados con la página de inicio.
-2. **home-login**: Componentes específicos para la página de inicio de sesión.
+1. **landing**: Este es el componente padre de las landing page del usuario logueado y sin loguearse.
+2. **home**: Componentes relacionados con la página de inicio sin login.
+3. **home-login**: Componentes específicos para la página de inicio de sesión.
 
 ## Zona Entrevista
 
@@ -90,7 +89,7 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
 2. **footer**: Componente para mostrar el pie de página de la aplicación.
 3. **perfil**: Componente para mostrar y editar el perfil del usuario.
 
-## Models
+## Model
 
 1. Definiciones de modelos y dtos utilizados en toda la aplicación.
 
@@ -102,24 +101,28 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
             perfil: string;
             seniority: string;
             pais: string;
+            descripcionVacante: string;
             constructor(
                 empresa: string = '',
                 perfil: string = '',
                 seniority: string = '',
-                pais: string = '') {
+                pais: string = '',
+                descripcionVacante: string = '') {
                 this.empresa = empresa;
                 this.perfil = perfil;
                 this.seniority = seniority;
                 this.pais = pais;
+                this.descripcionVacante = descripcionVacante;
             }
         }
         ```
         - **Descripción**: DTO para almacenar información de un formulario.
         - **Campos**:
-            `empresa`: Nombre de la empresa.
-            `perfil`: Tipo de perfil buscado.
-            `seniority`: Nivel de seniority.
-            `pais`: País de ubicación.
+            - `empresa`: Nombre de la empresa.
+            - `perfil`: Tipo de perfil buscado.
+            - `seniority`: Nivel de seniority.
+            - `pais`: País de ubicación.
+            - `descripcionVacante`: Descripción de la vacante.
 
     - **vista-previa-entrevista-dto**:
     
@@ -133,7 +136,7 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
         ```
         - **Descripción**: DTO para almacenar una pregunta de entrevista.
         - **Campos**:
-            `pregunta`: Texto de la pregunta.
+            - `pregunta`: Texto de la pregunta.
 
     - **preguntas-dto**:
     
@@ -151,8 +154,184 @@ Aquí se encuentran los componentes, modelos y servicios compartidos entre vario
         ```
         - **Descripción**: DTO para almacenar una pregunta y su respuesta.
         - **Campos**:
-            `pregunta`: Texto de la pregunta.
-            `respuesta`: Texto de la respuesta.
+            - `pregunta`: Texto de la pregunta.
+            - `respuesta`: Texto de la respuesta.
+
+    - **entrevista-feedback-dto**:
+
+        ```typescript
+        export class EntrevistaFeedbackDto {
+            respuesta: string;
+            pregunta: string;
+            feedback: string;
+            constructor(
+                respuesta: string = '',
+                pregunta: string = '',
+                feedback: string = '') {
+                this.respuesta = respuesta;
+                this.pregunta = pregunta;
+                this.feedback = feedback;
+            }
+        }
+        ```
+        - **Descripción**: DTO para almacenar una respuesta de entrevista con su correspondiente feedback.
+        - **Campos**:
+            - `respuesta`: Texto de la respuesta.
+            - `pregunta`: Texto de la pregunta asociada.
+            - `feedback`: Retroalimentación sobre la respuesta.
+
+    - **estado-entrevista-dto**:
+
+        ```typescript
+        export class EstadoEntrevistaDto {
+            fecha: Date;
+            estado: string;
+            fuente: string;
+            error: string;
+            constructor(
+                fecha: Date = null,
+                estado: string = '',
+                fuente: string = '',
+                error: string = '') {
+                this.fecha = fecha;
+                this.estado = estado;
+                this.fuente = fuente;
+                this.error = error;
+            }
+        }
+        ```
+        - **Descripción**: DTO para almacenar el estado de una entrevista.
+        - **Campos**:
+            - `fecha`: Fecha y hora del estado.
+            - `estado`: Estado de la entrevista.
+            - `fuente`: Fuente de la información del estado.
+            - `error`: Descripción del error (si lo hay).
+
+    - **feedback-dto**:
+
+        ```typescript
+        import { EntrevistaFeedbackDto } from "./entrevista-feedback-dto";
+
+        export class FeedbackDto {
+            idEntrevista: string;
+            procesoEntrevista: EntrevistaFeedbackDto[];
+            constructor(
+                idEntrevista: string = '',
+                procesoEntrevista: EntrevistaFeedbackDto[] = []) {
+                this.idEntrevista = idEntrevista;
+                this.procesoEntrevista = procesoEntrevista;
+            }
+        }
+        ```
+        - **Descripción**: DTO para almacenar el feedback de una entrevista.
+        - **Campos**:
+            - `idEntrevista`: ID de la entrevista asociada.
+            - `procesoEntrevista`: Lista de respuestas de entrevista con sus correspondientes feedbacks.
+
+    - **hoja-de-vida-dto**:
+
+        ```typescript
+        export class HojaDeVidaDto {
+            uuid: string;
+            nombre: string;
+            perfil: string;
+            seniority: string;
+            tecnologiasPrincipales: Array<TecnologiasPrincipales>;
+            experienciasLaborales: Array<ExperienciasLaborales>;
+            habilidadesTecnicas: Array<HabilidadesTecnicas>;
+            certificaciones: Array<Certificaciones>;
+            proyectos: Array<Proyectos>;
+            nivelIngles: string;
+            otrasHabilidades: Array<OtrasHabilidades>;
+
+            constructor(
+                uuid: string = "",
+                nombre: string = "",
+                perfil: string = "",
+                seniority: string = "",
+                tecnologiasPrincipales: Array<TecnologiasPrincipales> = [],
+                experienciasLaborales: Array<ExperienciasLaborales> = [],
+                habilidadesTecnicas: Array<HabilidadesTecnicas> = [],
+                certificaciones: Array<Certificaciones> = [],
+                proyectos: Array<Proyectos> = [],
+                nivelIngles: string = "",
+                otrasHabilidades: Array<OtrasHabilidades> = []
+            ) {
+                this.uuid = uuid;
+                this.nombre = nombre;
+                this.perfil = perfil;
+                this.seniority = seniority;
+                this.tecnologiasPrincipales = tecnologiasPrincipales;
+                this.experienciasLaborales = experienciasLaborales;
+                this.habilidadesTecnicas = habilidadesTecnicas;
+                this.certificaciones = certificaciones;
+                this.proyectos = proyectos;
+                this.nivelIngles = nivelIngles;
+                this.otrasHabilidades = otrasHabilidades;
+            }
+        }
+        ```
+        - **Descripción**: DTO para almacenar información de una hoja de vida.
+        - **Campos**:
+            - `uuid`: Identificador único de la hoja de vida.
+            - `nombre`: Nombre del titular de la hoja de vida.
+            - `perfil`: Perfil del titular.
+            - `seniority`: Nivel de seniority del titular.
+            - `tecnologiasPrincipales`: Lista de tecnologías principales.
+            - `experienciasLaborales`: Lista de experiencias laborales.
+            - `habilidadesTecnicas`: Lista de habilidades técnicas.
+            - `certificaciones`: Lista de certificaciones.
+            - `proyectos`: Lista de proyectos.
+            - `nivelIngles`: Nivel de inglés.
+            - `otrasHabilidades`: Otras habilidades.
+
+    - **TecnologiasPrincipales**:
+        
+        ```typescript
+        export interface TecnologiasPrincipales {
+            name: string;
+        }
+        ```
+
+    - **HabilidadesTecnicas**:
+        
+        ```typescript
+        export interface HabilidadesTecnicas {
+            name: string;
+        }
+        ```
+
+    - **ExperienciasLaborales**:
+        
+        ```typescript
+        export interface ExperienciasLaborales {
+            name: string;
+        }
+        ```
+
+    - **Certificaciones**:
+        
+        ```typescript
+        export interface Certificaciones {
+            name: string;
+        }
+        ```
+
+    - **Proyectos**:
+        
+        ```typescript
+        export interface Proyectos {
+            name: string;
+        }
+        ```
+
+    - **OtrasHabilidades**:
+        
+        ```typescript
+        export interface OtrasHabilidades {
+            name: string;
+        }
+        ```
 
 ## Services
 
@@ -164,6 +343,7 @@ Servicios compartidos entre diferentes partes de la aplicación.
 4. **integrador**: Servicio para integrar datos y funcionalidades de otros sistemas externos.
 5. **login**: Servicio para gestionar la autenticación y el inicio de sesión de los usuarios.
 6. **message-service**: Servicio para enviar y recibir mensajes dentro de la aplicación, como chat o notificaciones instantáneas.
+7. **sse.service**: Servicio para manejar la conexión a los eventos de servidor enviados (Server-Sent Events o SSE) desde dos URLs diferentes (`sseUrlOrquestador` y `sseUrlFeedback`).
 
 ### src/assets/img
 

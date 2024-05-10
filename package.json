@@ -23,6 +23,7 @@
     "@webcomponents/custom-elements": "^1.6.0",
     "angular-oauth2-oidc": "^17.0.0",
     "bootstrap": "^5.3.3",
+    "gsap": "^3.12.5",
     "keycloak-angular": "^15.2.1",
     "keycloak-js": "^24.0.3",
     "polyfills": "^2.1.1",

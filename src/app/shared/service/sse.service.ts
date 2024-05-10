@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 import { FeedbackDto } from '@shared/model/feedback-dto';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class SseService {
   private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
   currentQuestions = this.questionsSource.asObservable();
 
-  private sseUrlOrquestador = 'https://funnel.tail3efd65.ts.net/api/orquestador/v1/eventos/subscribe';
-  private sseUrlFeedback = 'https://funnel.tail3efd65.ts.net/api/administrador-entrevista/v1/eventos/subscribe';
+  private sseUrlOrquestador = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1/eventos/subscribe';
+  private sseUrlFeedback = 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1/eventos/subscribe';
   constructor() { 
   
   }
+
   getServerSentEvent(): Observable<any> {
     return new Observable(observer => {
       const eventSource = new EventSource(this.sseUrlOrquestador);
@@ -57,5 +60,4 @@ export class SseService {
   changeQuestions(questions: FeedbackDto) {
     this.questionsSource.next(questions);
   }
-
 }

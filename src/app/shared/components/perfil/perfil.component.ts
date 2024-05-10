@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
-import { TecnologiasPrincipales, ExperienciasLaborales, HabilidadesTecnicas, 
-  Certificaciones, Proyectos, OtrasHabilidades} from '@shared/model/interfaces-perfil';
-
+import {
+  TecnologiasPrincipales, ExperienciasLaborales, HabilidadesTecnicas,
+  Certificaciones, Proyectos, OtrasHabilidades
+} from '@shared/model/interfaces-perfil';
 
 @Component({
   selector: 'app-perfil',
@@ -13,40 +14,40 @@ import { TecnologiasPrincipales, ExperienciasLaborales, HabilidadesTecnicas,
 })
 
 export class PerfilComponent implements OnInit {
-  
+
   constructor(private integradorService: IntegradorService) { }
 
   file: File;
-  hojaDeVidaDto: HojaDeVidaDto = new HojaDeVidaDto("","", "", "", [], [], [], [], [], "", []);
+  hojaDeVidaDto = new HojaDeVidaDto();
   perfilForm: FormGroup | undefined;
   isHojaDeVidaVacio: boolean = false;
   isTamanoExcedido: boolean = false;
   bandera = false;
 
-  ngOnInit() {    
-        this.obtenerPerfil();
+  ngOnInit() {
+    this.obtenerPerfil();
   }
 
   obtenerPerfil(): void {
     this.integradorService.obtenerHojaDeVida().subscribe({
-      next: responseData=>{
-        if(responseData != null){
+      next: responseData => {
+        if (responseData != null) {
           this.hojaDeVidaDto.uuid = responseData.uuid == undefined ? "" : responseData.uuid;
           this.hojaDeVidaDto.nombre = responseData.nombre == undefined ? "" : responseData.nombre;
           this.hojaDeVidaDto.perfil = responseData.perfil == undefined ? "" : responseData.perfil;
           this.hojaDeVidaDto.seniority = responseData.seniority == undefined ? "" : responseData.seniority;
-          this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales == undefined ? 
+          this.hojaDeVidaDto.tecnologiasPrincipales = responseData.tecnologiasPrincipales == undefined ?
             [] : responseData.tecnologiasPrincipales;
-          this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales == undefined ? 
+          this.hojaDeVidaDto.experienciasLaborales = responseData.experienciasLaborales == undefined ?
             [] : responseData.experienciasLaborales;
-          this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas == undefined ? 
+          this.hojaDeVidaDto.habilidadesTecnicas = responseData.habilidadesTecnicas == undefined ?
             [] : responseData.habilidadesTecnicas;
-          this.hojaDeVidaDto.certificaciones = responseData.certificaciones == undefined ? 
+          this.hojaDeVidaDto.certificaciones = responseData.certificaciones == undefined ?
             [] : responseData.certificaciones;
-          this.hojaDeVidaDto.proyectos = responseData.proyectos == undefined ? 
+          this.hojaDeVidaDto.proyectos = responseData.proyectos == undefined ?
             [] : responseData.proyectos;
           this.hojaDeVidaDto.nivelIngles = responseData.nivelIngles == undefined ? "" : responseData.nivelIngles;
-          this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades == undefined ? 
+          this.hojaDeVidaDto.otrasHabilidades = responseData.otrasHabilidades == undefined ?
             [] : responseData.otrasHabilidades;
           this.InicializarHojaDeVida();
         }
@@ -63,33 +64,33 @@ export class PerfilComponent implements OnInit {
       tecnologiaAgregar: new FormControl<string | null>(''),
       tecnologiasPrincipales: new FormControl<TecnologiasPrincipales[] | null>(
         this.hojaDeVidaDto.tecnologiasPrincipales.map(value => {
-          return {name: value};
+          return { name: value };
         })),
       experienciaLaboralAgregar: new FormControl<string | null>(''),
       experienciasLaborales: new FormControl<ExperienciasLaborales[] | null>(
         this.hojaDeVidaDto.experienciasLaborales.map(value => {
-          return {name: value};
+          return { name: value };
         })),
       habilidadAgregar: new FormControl<string | null>(''),
       habilidadesTecnicas: new FormControl<HabilidadesTecnicas[] | null>(
         this.hojaDeVidaDto.habilidadesTecnicas.map(value => {
-          return {name: value};
+          return { name: value };
         })),
       certificacionAgregar: new FormControl<string | null>(''),
       certificaciones: new FormControl<Certificaciones[] | null>(
         this.hojaDeVidaDto.certificaciones.map(value => {
-          return {name: value};
+          return { name: value };
         })),
       proyectoAgregar: new FormControl<string | null>(''),
       proyectos: new FormControl<Proyectos[] | null>(
         this.hojaDeVidaDto.proyectos.map(value => {
-          return {name: value};
+          return { name: value };
         })),
       nivelIngles: new FormControl<string | null>(this.hojaDeVidaDto.nivelIngles),
       otraHabilidadAgregar: new FormControl<string | null>(''),
       otrasHabilidades: new FormControl<OtrasHabilidades[] | null>(
         this.hojaDeVidaDto.otrasHabilidades.map(value => {
-          return {name: value};
+          return { name: value };
         })),
     });
     this.bandera = true;
@@ -141,7 +142,6 @@ eliminarItem(listToDelete: string ,item: string): void{
       this.perfilForm.controls[listToDelete].value.filter(s => s.name != item)
     );
 }
-
   onFileChange(event: any): void {
     const file: File = event.target.files;
     this.handleFiles(file);
@@ -160,20 +160,20 @@ eliminarItem(listToDelete: string ,item: string): void{
     event.preventDefault();
     event.stopPropagation();
     const file: File = event.dataTransfer.files[0];
-    
+
     this.handleFiles(file);
   }
-  
-  handleClickCargar(): void{
+
+  handleClickCargar(): void {
     this.isHojaDeVidaVacio = false;
     this.isTamanoExcedido = false;
-    if(this.file == undefined){
+    if (this.file == undefined) {
       this.isHojaDeVidaVacio = true;
     }
-    else if(this.file[0].size > 3000000){
+    else if (this.file[0].size > 3000000) {
       this.isTamanoExcedido = true;
     }
-    else{
+    else {
       this.integradorService.cargarHojaDeVida(this.file[0]).subscribe({
         next: event => {
           console.log(event)

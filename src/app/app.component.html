@@ -1,7 +1,8 @@
-<div *ngIf="!online"  class="alert alert-danger text-center">
-  <h1>No tienes conexión a internet.</h1>
-  <p>Verifica tu conexión.</p>
-  <p>Intentalo de nuevo más tarde.</p>
+<div *ngIf="!online" class="offline-message">
+  <div class="offline-content">
+    <h1 class="text-danger">No tienes conexión a internet.</h1>
+    <p>Verifica tu conexión e inténtalo de nuevo más tarde.</p>
+  </div>
 </div>
 
 <div *ngIf="online">

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Error403Component } from './error-403.component';
+import { MultipasosComponent } from './multipasos.component';
 
-describe('Error403Component', () => {
-  let component: Error403Component;
-  let fixture: ComponentFixture<Error403Component>;
+describe('MultipasosComponent', () => {
+  let component: MultipasosComponent;
+  let fixture: ComponentFixture<MultipasosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Error403Component]
+      declarations: [MultipasosComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(Error403Component);
+    fixture = TestBed.createComponent(MultipasosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

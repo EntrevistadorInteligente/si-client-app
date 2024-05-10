@@ -33,7 +33,7 @@ import { initializer } from './app-init';
     SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://funnel.tail3efd65.ts.net/api/*'],
+        allowedUrls: ['https://gateway.pruebas-entrevistador-inteligente.site/api/*'],
         sendAccessToken: true
       }
     }),
@@ -61,7 +61,7 @@ import { initializer } from './app-init';
       useFactory: initializer,
       multi: true,
       deps: [KeycloakService]
-    },
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

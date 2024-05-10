@@ -47,9 +47,7 @@ export class AppComponent implements OnInit {
     const isLoggedIn = this.keycloakService.isLoggedIn();
       if (isLoggedIn) {
         this.isLogged = isLoggedIn;
-        const userDetails = this.keycloakService.getUsername();
         this.authService.setIsLogged(this.isLogged);
-        console.log(userDetails);
       }
   }
 

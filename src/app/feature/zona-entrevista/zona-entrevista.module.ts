@@ -12,7 +12,6 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { SharedModule } from '@shared/shared.module';
 
-
 @NgModule({
   declarations: [ZonaEntrevistaComponent],
   imports: [
