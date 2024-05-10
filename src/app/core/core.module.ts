@@ -8,7 +8,6 @@ import { HelpComponent } from './components/help/help.component';
 
 // COMPONENTES
 import { ContactoComponent } from './components/contacto/contacto.component';
-import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { CarruselComponent } from './components/carrusel/carrusel.component';
@@ -23,7 +22,6 @@ import { Error500Component } from './components/error-500/error-500.component';
   declarations: [
     ContactoComponent,
     LoaderComponent,
-    LoginComponent,
     RegistroComponent,
     AlertComponent,
     CarruselComponent,
@@ -43,7 +41,6 @@ import { Error500Component } from './components/error-500/error-500.component';
   exports: [
     ContactoComponent,
     LoaderComponent,
-    LoginComponent,
     RegistroComponent,
     CarruselComponent,
     Error404Component,

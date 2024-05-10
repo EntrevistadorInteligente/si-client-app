@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoginService } from '@shared/service/login.service';
+import { AuthService } from '@shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,13 +17,13 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private router: Router,
-    private loginService: LoginService,
+    private authService: AuthService,
     ) { }
 
   ngOnInit(): void {}
 
   login(): void {
-    this.loginService.login();
+    this.authService.login();
   }
 
   register(): void {

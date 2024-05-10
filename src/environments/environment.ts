@@ -4,7 +4,9 @@
 
 export const environment = {
   production: false,
-  endpoint: 'https://funnel.tail3efd65.ts.net88/barberia',
-  trmApiKey: 'qiQCbigCpW5PSQ5WNw7xxqp9a',
+  keycloakConfig: {
+    clientId: 'front',
+    realm: 'entrevistador',
+    url: 'https://keycloak.pruebas-entrevistador-inteligente.site/auth'
+  }
 };
-

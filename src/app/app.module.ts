@@ -1,5 +1,5 @@
 // MODULOS
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -16,6 +16,8 @@ import { AppComponent } from './app.component';
 import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
+import { KeycloakService } from 'keycloak-angular';
+import { initializer } from './app-init';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,13 @@ import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true,
+    },
+    KeycloakService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      multi: true,
+      deps: [KeycloakService]
     },
   ],
   bootstrap: [AppComponent],
