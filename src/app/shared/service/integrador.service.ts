@@ -5,12 +5,12 @@ import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { FormularioDto } from '@shared/model/formulario-dto';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
-
 export class IntegradorService {
 
-  orquestadorURL = 'http://localhost:8765/api/orquestador';
+  orquestadorURL = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador';
   entrevista = '/v1/entrevistadores';
   hojaDeVida = '/v1/hojas-de-vidas';
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -18,6 +18,7 @@ export class IntegradorService {
 
   constructor(
     private httpClient: HttpClient,
+    private authService: AuthService,
     private oauthService: OAuthService
   ) { }
 
@@ -33,17 +34,13 @@ export class IntegradorService {
 
   public crearSolicitudEntrevista(formulario: FormularioDto): Observable<any> {
 
-    return this.httpClient.post(`${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.oauthService.getIdentityClaims()[`preferred_username`]}`, formulario, {
+    return this.httpClient.post(`${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.authService.getUsername()}`, formulario, {
       headers: this.getHeaders()
     });
   }
 
-  public obtenerHojaDeVida(): Observable<HojaDeVidaDto> {
-    try {
-      this.username = this.oauthService.getIdentityClaims()[`preferred_username`];
-    } catch (err) {
-      console.log(err);
-    }
+  public obtenerHojaDeVida(): Observable<HojaDeVidaDto>{
+    this.username = this.authService.getUsername();
     return this.httpClient.get<HojaDeVidaDto>(`${this.orquestadorURL}${this.hojaDeVida}/${this.username}`, {
       headers: this.getHeaders()
     });
@@ -56,9 +53,10 @@ export class IntegradorService {
   }
 
   public cargarHojaDeVida(file: File): Observable<any> {
+
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('username', new Blob([JSON.stringify(this.oauthService.getIdentityClaims()[`preferred_username`])], {
+    formData.append('username', new Blob([JSON.stringify(this.authService.getUsername())], {
       type: 'application/json'
     }));
 
@@ -67,20 +65,21 @@ export class IntegradorService {
     });
   }
 
+  private getHeadersSinContent(): HttpHeaders {
+    let headers = new HttpHeaders();
+    const token = this.authService.getToken();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return headers;
+  }
+
   private getHeaders(): HttpHeaders {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');
 
-    const token = this.oauthService.getAccessToken();
+    const token = this.authService.getToken();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
     return headers;
   }
 
-  private getHeadersSinContent(): HttpHeaders {
-    let headers = new HttpHeaders();
-    const token = this.oauthService.getAccessToken();
-    headers = headers.set('Authorization', `Bearer ${token}`);
-    return headers;
-  }
 }

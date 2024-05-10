@@ -1,5 +1,5 @@
 // MODULOS
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { APP_INITIALIZER, CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { OAuthModule } from 'angular-oauth2-oidc';
@@ -16,13 +16,8 @@ import { AppComponent } from './app.component';
 import { LoaderInterceptor } from '@core/interceptors/LoaderInterceptor';
 import { OfflineInterceptor } from '@core/interceptors/OfflineInterceptor';
 import { HttpErrorInterceptor } from '@core/interceptors/HttpErrorInterceptor';
-
-// SERVICIOS
-import { ErrorService } from '@core/service/error/errorservice.service';
-import { LoaderService } from '@core/service/loader/loader.service';
-
-// VARIABLES DE ENTORNO
-import { environment } from 'src/environments/environment';
+import { KeycloakService } from 'keycloak-angular';
+import { initializer } from './app-init';
 
 @NgModule({
   declarations: [
@@ -38,15 +33,18 @@ import { environment } from 'src/environments/environment';
     SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: [environment.oauthModuleUrl],
+        allowedUrls: ['https://gateway.pruebas-entrevistador-inteligente.site/api/*'],
         sendAccessToken: true
       }
     }),
     ReactiveFormsModule,
   ],
-
   providers: [
-    ErrorService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: OfflineInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorInterceptor,
@@ -54,21 +52,17 @@ import { environment } from 'src/environments/environment';
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: OfflineInterceptor,
-      multi: true
-    },
-    LoaderService,
-    {
-      provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
-      multi: true
+      multi: true,
     },
+    KeycloakService,
     {
-      provide: 'SERVER_IP_ADDRESS',
-      useValue: environment.SERVER_IP_ADDRESS
-    },
+      provide: APP_INITIALIZER,
+      useFactory: initializer,
+      multi: true,
+      deps: [KeycloakService]
+    }
   ],
-
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

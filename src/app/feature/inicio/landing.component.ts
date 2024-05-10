@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LoaderService } from '@core/service/loader/loader.service';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
-import { LoginService } from '@shared/service/login.service';
+import { AuthService } from '@shared/service/auth/auth.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -25,13 +25,13 @@ export class LandingComponent implements OnInit, OnDestroy {
   constructor(
     router: Router,
     private loaderService: LoaderService,
-    private loginService: LoginService
+    private authService: AuthService
   ) {
     this.router = router;
   }
 
   ngOnInit() {
-    this.subscription = this.loginService.isLogged$.subscribe(isLogged => {
+    this.subscription = this.authService.isLogged$.subscribe(isLogged => {
       this.isLogged = isLogged;
     });
   }

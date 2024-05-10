@@ -21,7 +21,7 @@ export const environment = {
   sseUrlOrquestador: 'http://localhost:8765/api/orquestador/v1/eventos/subscribe',
   sseUrlFeedback: 'http://localhost:8765/api/administrador-entrevista/v1/eventos/subscribe',
 
-  // DIRECCIÃ“N IP DEL SERVIDOR
+  // DIRECCIÓN IP DEL SERVIDOR
   SERVER_IP_ADDRESS: '192.168.1.100',
 
   // INTEGRADOR SERVICE

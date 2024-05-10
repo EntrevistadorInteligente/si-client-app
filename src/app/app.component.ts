@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NetworkService } from '@core/service/network/network.service';
 import { OfflineService } from '@core/service/offline/offline.service';
-import { LoginService } from '@shared/service/login.service';
-import { AuthConfig, NullValidationHandler, OAuthService } from 'angular-oauth2-oidc';
+import { AuthService } from '@shared/service/auth/auth.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-root',
@@ -20,17 +20,14 @@ export class AppComponent implements OnInit {
   offlineMessage: string = '';
 
   constructor(
-    private oauthService: OAuthService,
-    private loginService: LoginService,
     private networkService: NetworkService,
-    private offlineService: OfflineService
+    private offlineService: OfflineService,
+    private keycloakService: KeycloakService,
+    private authService:AuthService
   ) {
-    this.configure();
   }
 
   ngOnInit(): void {
-    this.configure();
-
     this.networkService.online$.subscribe((online) => {
       this.online = online;
       if (online) {
@@ -42,36 +39,20 @@ export class AppComponent implements OnInit {
       this.offlineMessage = message;
     });
 
+    this.checkLogin();
     this.subscribeToLoginChanges();
   }
 
-  authConfig: AuthConfig = {
-    issuer: 'http://localhost:62098/realms/entrevistador',
-    redirectUri: window.location.origin,
-    clientId: 'front',
-    responseType: 'code',
-    scope: 'openid profile email offline_access',
-    showDebugInformation: true,
-  };
-
-  configure(): void {
-    this.oauthService.configure(this.authConfig);
-    this.oauthService.tokenValidationHandler = new NullValidationHandler();
-    this.oauthService.setupAutomaticSilentRefresh();
-    this.oauthService.loadDiscoveryDocument().then(() => this.oauthService.tryLogin())
-      .then(() => {
-        if (this.oauthService.getIdentityClaims()) {
-          this.isLogged = this.loginService.getIsLogged();
-          this.isAdmin = this.loginService.getIsAdmin();
-          this.username = this.loginService.getUsername();
-          this.loginService.setIsLogged(this.isLogged);
-        }
-      });
+  private checkLogin(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+      if (isLoggedIn) {
+        this.isLogged = isLoggedIn;
+        this.authService.setIsLogged(this.isLogged);
+      }
   }
 
-  
   private subscribeToLoginChanges(): void {
-    this.loginService.isLogged$.subscribe((isLogged) => {
+    this.authService.isLogged$.subscribe((isLogged) => {
       this.isLogged = isLogged;
     });
   }

@@ -43,7 +43,7 @@ export class Paso1Component implements OnInit {
     setTimeout(() => {
       this.integradorService.obtenerHojaDeVida().subscribe(
         (hojaDeVida: HojaDeVidaDto) => {
-          if (hojaDeVida && hojaDeVida.archivo) {
+          if (hojaDeVida && hojaDeVida.uuid) {
             this.archivoCargado = true;
             this.verificarPuedeContinuar();
           } else {
@@ -57,7 +57,7 @@ export class Paso1Component implements OnInit {
           this.load = false;
         }
       );
-    }, 3000);
+    }, 1000);
   }
 
   onFileChange(event: any): void {

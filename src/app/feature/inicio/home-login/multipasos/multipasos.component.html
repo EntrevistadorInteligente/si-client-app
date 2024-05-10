@@ -10,7 +10,7 @@
   </div>
 
   <ng-container *ngIf="currentStep === 1">
-    <app-paso-1 (completed)="onStepCompleted()"></app-paso-1>
+    <app-paso-1 (completed)="onStepCompleted()" (puedeContinuarChanged)="puedeContinuar($event)"></app-paso-1>
     <div class="text-center mb-4">
       <button class="btn btn-outline-secondary mr-2" disabled>Anterior</button>
       <button class="btn btn-outline-primary ml-2" (click)="nextStep()"

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '@shared/service/auth/auth.service';
 import { DarkModeService } from '@shared/service/dark-mode.service';
-import { LoginService } from '@shared/service/login.service';
 import { MenuItem } from 'primeng/api';
 
 @Component({
@@ -25,10 +25,10 @@ export class MenuComponent implements OnInit {
   activeItem: MenuItem;
 
   constructor(
-    private loginService: LoginService,
     private router: Router,
     private _eref: ElementRef,
     public darkModeService: DarkModeService,
+    private authService:AuthService
   ) { }
 
   ngOnInit(): void {
@@ -36,15 +36,12 @@ export class MenuComponent implements OnInit {
   }
 
   login(): void {
-    this.loginService.login();
-    if(this.isLogged){
-      this.activo = "home";
-    }
+    this.authService.login();
   }
 
   logout(): void {
     this.isLogged = false;
-    this.loginService.logout();
+    this.authService.logout();
     this.router.navigate(['/home']);
   }
 

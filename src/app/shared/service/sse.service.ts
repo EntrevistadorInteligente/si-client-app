@@ -11,10 +11,10 @@ export class SseService {
   private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
   currentQuestions = this.questionsSource.asObservable();
 
-  private sseUrlOrquestador = environment.sseUrlOrquestador;
-  private sseUrlFeedback = environment.sseUrlFeedback;
-
-  constructor() {
+  private sseUrlOrquestador = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1/eventos/subscribe';
+  private sseUrlFeedback = 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1/eventos/subscribe';
+  constructor() { 
+  
   }
 
   getServerSentEvent(): Observable<any> {
