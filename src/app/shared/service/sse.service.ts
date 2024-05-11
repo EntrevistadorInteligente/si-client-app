@@ -19,22 +19,29 @@ export class SseService {
 
   getServerSentEvent(): Observable<any> {
     return new Observable(observer => {
-      const eventSource = new EventSource(this.sseUrlOrquestador);
-
-      eventSource.onmessage = event => {
-        console.log('Received event: ', event);
-        observer.next(event);
-      };
-
-      eventSource.onerror = error => {
-        console.log('EventSource failed:', error);
-        observer.error(error);
-      };
-
-      return () => {
-        eventSource.close();
-      };
+      const eventSource = this.connect(observer, this.sseUrlOrquestador);
+      return () => eventSource.close();
     });
+  }
+
+  private connect(observer: any, url: string): EventSource {
+    const eventSource = new EventSource(url);
+
+    eventSource.onmessage = event => {
+      console.log('Received event:', event);
+      observer.next(event);
+    };
+
+    eventSource.onerror = error => {
+      console.log('EventSource failed:', error);
+      eventSource.close(); // Cierra la conexión actual
+      // Se establece un breve retardo antes de reconectar
+      setTimeout(() => {
+        this.connect(observer, url); // Llama recursivamente a conectar
+      }, 100); // Reintenta después de 100 milisegundos
+    };
+
+    return eventSource;
   }
 
   getFeedbackServerSentEvent(): Observable<any> {
