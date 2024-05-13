@@ -15,6 +15,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoaderComponent } from './components/loader/loader.component';
 import { LoaderInterceptor } from './interceptors/LoaderInterceptor';
 import { ErrorComponent } from './components/error/error.component';
+import { SignalRService } from './service/signal-r/signal-r.service';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ErrorComponent } from './components/error/error.component';
       useClass: LoaderInterceptor,
       multi: true,
     },
+    SignalRService,
   ],
 })
 

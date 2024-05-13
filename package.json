@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^17.2.0",
     "@angular/router": "^17.2.0",
     "@angular/ssr": "^17.2.3",
+    "@microsoft/signalr": "~7.0.14",
     "@webcomponents/custom-elements": "^1.6.0",
     "angular-oauth2-oidc": "^17.0.0",
     "bootstrap": "^5.3.3",

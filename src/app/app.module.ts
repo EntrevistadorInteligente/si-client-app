@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '@shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { CoreModule } from '@core/core.module';
 
 // COMPONENTES
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { initializer } from './app-init';
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
+    CoreModule,
     AppRoutingModule,
     HttpClientModule,
     SharedModule,

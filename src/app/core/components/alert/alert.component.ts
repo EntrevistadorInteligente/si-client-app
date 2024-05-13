@@ -1,5 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SignalRService } from '@core/service/signal-r/signal-r.service';
 import { SseService } from '@shared/service/sse.service';
 import { Subscription } from 'rxjs';
 
@@ -17,11 +18,13 @@ export class AlertComponent implements OnInit, OnDestroy {
   visible: boolean = false;
 
   constructor(private sseService: SseService, private zone: NgZone,
-    private router: Router
+    private router: Router,
+    private signalRService:SignalRService
   ) { }
 
   ngOnInit() {
-    this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
+    this.signalRService.establecerConexion();
+    /*this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
       next: event => {
         this.zone.run(() => {
           this.notifications.push({
@@ -59,7 +62,7 @@ export class AlertComponent implements OnInit, OnDestroy {
         });
       },
       error: error => console.error(error)
-    });
+    });*/
   }
 
   showDialog() {

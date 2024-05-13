@@ -11,8 +11,8 @@ export class SseService {
   private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
   currentQuestions = this.questionsSource.asObservable();
 
-  private sseUrlOrquestador = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1/eventos/subscribe';
-  private sseUrlFeedback = 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1/eventos/subscribe';
+  private sseUrlOrquestador = 'http://localhost:8765/api/orquestador/v1/eventos/subscribe';
+  private sseUrlFeedback = 'http://localhost:8765/api/administrador-entrevista/v1/eventos/subscribe';
   constructor() { 
   
   }
@@ -33,12 +33,10 @@ export class SseService {
     };
 
     eventSource.onerror = error => {
-      console.log('EventSource failed:', error);
-      eventSource.close(); // Cierra la conexión actual
-      // Se establece un breve retardo antes de reconectar
+      eventSource.close(); 
       setTimeout(() => {
-        this.connect(observer, url); // Llama recursivamente a conectar
-      }, 100); // Reintenta después de 100 milisegundos
+        this.connect(observer, url);
+      }, 100);
     };
 
     return eventSource;
@@ -46,21 +44,8 @@ export class SseService {
 
   getFeedbackServerSentEvent(): Observable<any> {
     return new Observable(observer => {
-      const eventSource = new EventSource(this.sseUrlFeedback);
-
-      eventSource.onmessage = event => {
-        console.log('Received event: ', event);
-        observer.next(event);
-      };
-
-      eventSource.onerror = error => {
-        console.log('EventSource failed:', error);
-        observer.error(error);
-      };
-
-      return () => {
-        eventSource.close();
-      };
+      const eventSource = this.connect(observer, this.sseUrlFeedback);
+      return () => eventSource.close();
     });
   }
 
