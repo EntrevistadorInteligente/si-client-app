@@ -1,6 +1,5 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SignalRService } from '@core/service/signal-r/signal-r.service';
 import { SseService } from '@shared/service/sse.service';
 import { Subscription } from 'rxjs';
 
@@ -12,72 +11,76 @@ import { Subscription } from 'rxjs';
 export class AlertComponent implements OnInit, OnDestroy {
 
   private eventsSubscription: Subscription;
-  private eventsFeedbackSubscription: Subscription;
-  notifications: Array<{ id: number; message: string; url: string }> = [];
+  notifications: any[] = [];
   badgeCount = 0;
-  visible: boolean = false;
+  visible = false;
 
-  constructor(private sseService: SseService, private zone: NgZone,
-    private router: Router,
-    private signalRService:SignalRService
-  ) { }
+  constructor(private sseService: SseService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
-    this.signalRService.establecerConexion();
-    /*this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
+    this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
       next: event => {
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: event.data,
-            url: "data.url"
-          });
-          this.badgeCount = this.notifications.length;
-        });
+        this.handleEvent(event);
       },
       error: error => console.error(error)
     });
+  }
 
-    this.eventsFeedbackSubscription = this.sseService.getFeedbackServerSentEvent().subscribe({
-      next: event => {
+  handleEvent(event: any) {
+    const { tipoEvento, mensaje } = event;
+    switch (tipoEvento) {
+      case 'FEEDBACK':
+        this.handleFeedbackEvent(mensaje);
+        break;
+      case 'ORQUESTADOR':
+        this.handleOrquestadorEvent(mensaje);
+        break;
+      // Agrega más casos según los tipos de evento
+      default:
+        console.warn(`Tipo de evento desconocido: ${tipoEvento}`);
+    }
+  }
 
-        let url ="PREGUNTAS";
-        let notificacion = event.data;
-        const data = JSON.parse(event.data); 
-        if(data.procesoEntrevista[0].feedback !== null){
-          url = "Otra";
-          notificacion = data.procesoEntrevista.map(item => 
-            `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
-          ).join('\n\n');
-        }
-        
+  handleFeedbackEvent(mensaje: string) {
+    const data = JSON.parse(mensaje);
+    let url = "PREGUNTAS";
+    let notificacion = mensaje;
+    if (data.procesoEntrevista[0].feedback !== null) {
+      url = "Otra";
+      notificacion = data.procesoEntrevista.map(item =>
+        `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
+      ).join('\n\n');
+    }
 
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: notificacion,
-            url: url
-          });
-          this.badgeCount = this.notifications.length;
-        });
-      },
-      error: error => console.error(error)
-    });*/
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: notificacion,
+        url: url
+      });
+      this.badgeCount = this.notifications.length;
+    });
+  }
+
+  handleOrquestadorEvent(mensaje: string) {
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: mensaje,
+        url: "data.url"
+      });
+      this.badgeCount = this.notifications.length;
+    });
   }
 
   showDialog() {
     this.visible = true;
     this.badgeCount = 0;
   }
+
   goToInterview(notification: { id: number; message: string; url: string }) {
     try {
-      const data = JSON.parse(notification.message); 
-      if (data && data.procesoEntrevista) {
-        this.sseService.changeQuestions(data);
-        this.visible = false;
-    this.notifications = [];
-        this.router.navigate(['/zona-entrevista']);
-      }
+      const data = JSON.parse(notification.message);
     } catch (e) {
       console.error('Error al parsear las preguntas', e);
     }
@@ -89,8 +92,9 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
-    this.eventsFeedbackSubscription.unsubscribe();
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 
   trackById(index: number, item: any): number {

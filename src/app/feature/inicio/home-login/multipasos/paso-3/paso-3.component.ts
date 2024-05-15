@@ -33,9 +33,9 @@ export class Paso3Component implements OnInit {
     private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    this.alertService.currentQuestions.subscribe(feedback => {
+   /*this.alertService.currentEvento.subscribe(feedback => {
       this.feedback = feedback;
-    });
+    });*/
   }
 
   get currentQuestion(): EntrevistaFeedbackDto {
