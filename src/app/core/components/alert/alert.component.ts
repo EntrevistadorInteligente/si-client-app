@@ -27,40 +27,46 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   handleEvent(event: any) {
-    const { tipoEvento, mensaje } = event;
-    switch (tipoEvento) {
-      case 'FEEDBACK':
+    const { tipo, mensaje } = event;
+    switch (tipo) {
+      case 'PG':
+        this.handlePreguntasEvent(mensaje);
+        break;
+      case 'FG':
         this.handleFeedbackEvent(mensaje);
         break;
       case 'ORQUESTADOR':
         this.handleOrquestadorEvent(mensaje);
         break;
-      // Agrega más casos según los tipos de evento
       default:
-        console.warn(`Tipo de evento desconocido: ${tipoEvento}`);
+        console.warn(`Tipo de evento desconocido: ${tipo}`);
     }
   }
 
-  handleFeedbackEvent(mensaje: string) {
-    const data = JSON.parse(mensaje);
-    let url = "PREGUNTAS";
-    let notificacion = mensaje;
-    if (data.procesoEntrevista[0].feedback !== null) {
-      url = "Otra";
-      notificacion = data.procesoEntrevista.map(item =>
-        `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
-      ).join('\n\n');
-    }
-
+  handlePreguntasEvent(mensaje: string) {
     this.zone.run(() => {
       this.notifications.push({
         id: this.badgeCount,
-        message: notificacion,
-        url: url
+        message: 'Tu entrevista está lista!',
+        url: 'PG',
+        idEntrevista: mensaje
       });
       this.badgeCount = this.notifications.length;
     });
   }
+
+  handleFeedbackEvent(mensaje: string) {
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: 'Tu feedback está listo!',
+        url: 'FG',
+        idEntrevista: mensaje
+      });
+      this.badgeCount = this.notifications.length;
+    });
+  }
+
 
   handleOrquestadorEvent(mensaje: string) {
     this.zone.run(() => {
@@ -78,11 +84,21 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.badgeCount = 0;
   }
 
-  goToInterview(notification: { id: number; message: string; url: string }) {
-    try {
-      const data = JSON.parse(notification.message);
-    } catch (e) {
-      console.error('Error al parsear las preguntas', e);
+  goToInterview(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.url === 'PG' && notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
+    } else {
+      this.visible = false;
+      this.notifications = [];
+    }
+  }
+
+  goToFeedback(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.url === 'FG' && notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
+    } else {
+      this.visible = false;
+      this.notifications = [];
     }
   }
 

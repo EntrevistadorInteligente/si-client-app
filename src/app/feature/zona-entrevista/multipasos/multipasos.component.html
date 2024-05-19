@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="stepper-container">
+    <div class="step" *ngFor="let step of steps; let i = index">
+      <div class="step-header">
+        <div class="step-number">{{ i + 1 }}</div>
+        <div class="step-title">{{ step.title }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step-content">
+    <ng-container [ngSwitch]="currentStep">
+      <app-paso-2 *ngSwitchCase="2"></app-paso-2>
+      <app-paso-3 *ngSwitchCase="3"></app-paso-3>
+      <app-paso-4 *ngSwitchCase="4"></app-paso-4>
+    </ng-container>
+  </div>
+</div>

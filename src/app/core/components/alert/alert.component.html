@@ -13,11 +13,15 @@
   </ng-template>
   <p class="m-0">
     @for (notification of notifications; track notification.id) {
-      <div *ngIf="notification.url === 'PREGUNTAS'">
+      <div *ngIf="notification.url === 'PG'">
         <p>Tu entrevista esta lista!</p>
         <p-button label="Ir a la entrevista" (onClick)="goToInterview(notification)"></p-button>
       </div>
-      <div *ngIf="notification.url !== 'PREGUNTAS'">
+      <div *ngIf="notification.url === 'FG'">
+        <p>Tu entrevista esta lista!</p>
+        <p-button label="Ir a feedback" (onClick)="goToFeedback(notification)"></p-button>
+      </div>
+      <div *ngIf="notification.url !== 'PG' && notification.url !== 'FG'">
         {{ notification.message }}
       </div>
     } @empty {

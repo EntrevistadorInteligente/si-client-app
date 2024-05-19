@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
+import { FeedbackService } from '@shared/service/feedback.service';
 import { IntegradorService } from '@shared/service/integrador.service';
 
 @Component({
@@ -39,7 +40,8 @@ export class Paso2Component {
   ];
 
   constructor(private fb: FormBuilder,
-    private integradorService: IntegradorService
+    private integradorService: IntegradorService,
+    private feedbackService: FeedbackService
   ) { }
 
   ngOnInit() {

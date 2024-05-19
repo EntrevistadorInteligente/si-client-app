@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { SharedModule } from '@shared/shared.module';
+import { MultipasosModule } from './multipasos/multipasos.module';
 
 @NgModule({
   declarations: [ZonaEntrevistaComponent],
@@ -24,7 +25,8 @@ import { SharedModule } from '@shared/shared.module';
     ZonaEntrevistaRoutingModule,
     DialogModule,
     ToastModule,
-    SharedModule
+    SharedModule,
+    MultipasosModule
   ],
   exports: [
     ZonaEntrevistaComponent

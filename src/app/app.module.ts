@@ -35,7 +35,7 @@ import { initializer } from './app-init';
     SharedModule,
     OAuthModule.forRoot({
       resourceServer: {
-        allowedUrls: ['https://gateway.pruebas-entrevistador-inteligente.site/api/*'],
+        allowedUrls: ['http://localhost:8765/api/*'],
         sendAccessToken: true
       }
     }),

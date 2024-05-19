@@ -1,7 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { FeedbackDto } from '@shared/model/feedback-dto';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { AuthService } from './auth/auth.service';
 import { NotifiacionDto } from '@shared/model/notificacion-dto';
 import { TipoNotificacionEnum } from '@shared/model/tipo-notificacion.enum';
@@ -14,7 +12,7 @@ export class SseService {
   private eventoSource  = new BehaviorSubject<NotifiacionDto>(undefined);
   currentEvento = this.eventoSource.asObservable();
 
-  private sseUrl = 'https://gateway.pruebas-entrevistador-inteligente.site/api/websocket/v1/eventos/subscribe';
+  private sseUrl = 'http://localhost:8765/api/notificaciones/v1/eventos/subscribe';
 
   constructor(private authService: AuthService, private zone: NgZone) { }
 

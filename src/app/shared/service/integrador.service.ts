@@ -6,11 +6,12 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { FormularioDto } from '@shared/model/formulario-dto';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 import { AuthService } from './auth/auth.service';
+import { EstadoEntrevistaDto } from '@shared/model/feedback-dto copy';
 
 @Injectable()
 export class IntegradorService {
 
-  orquestadorURL = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador';
+  orquestadorURL = 'http://localhost:8765/api/orquestador';
   entrevista = '/v1/entrevistadores';
   hojaDeVida = '/v1/hojas-de-vidas';
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -64,6 +65,15 @@ export class IntegradorService {
       headers: this.getHeadersSinContent()
     });
   }
+
+
+  public obtenerEstadoEntrevistaPorUsuario(): Observable<EstadoEntrevistaDto>{
+    this.username = this.authService.getUsername();
+    return this.httpClient.get<EstadoEntrevistaDto>(`${this.orquestadorURL}${this.entrevista}/${this.username}`, {
+      headers: this.getHeaders()
+    });
+  }
+
 
   private getHeadersSinContent(): HttpHeaders {
     let headers = new HttpHeaders();
