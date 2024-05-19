@@ -47,7 +47,7 @@ import { ErrorComponent } from './components/error/error.component';
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptor,
       multi: true,
-    },
+    }
   ],
 })
 

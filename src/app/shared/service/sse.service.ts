@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
-import { FeedbackDto } from '@shared/model/feedback-dto';
+import { Injectable, NgZone } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from './auth/auth.service';
+import { NotifiacionDto } from '@shared/model/notificacion-dto';
+import { TipoNotificacionEnum } from '@shared/model/tipo-notificacion.enum';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -8,18 +10,17 @@ import { environment } from 'src/environments/environment';
 })
 
 export class SseService {
-  private questionsSource = new BehaviorSubject<FeedbackDto>(undefined);
-  currentQuestions = this.questionsSource.asObservable();
-
-  private sseUrlOrquestador = 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1/eventos/subscribe';
-  private sseUrlFeedback = 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1/eventos/subscribe';
-  constructor() { 
+  private eventoSource  = new BehaviorSubject<NotifiacionDto>(undefined);
+  currentEvento = this.eventoSource.asObservable();
   
-  }
+  orquestadorURL = environment.orquestadorURL;
+  
+  constructor(private authService: AuthService, private zone: NgZone) { }
 
   getServerSentEvent(): Observable<any> {
+    const user = this.authService.getUsername();
     return new Observable(observer => {
-      const eventSource = this.connect(observer, this.sseUrlOrquestador);
+      const eventSource = this.connect(observer, `${this.orquestadorURL}/eventos/subscribe/${user}`);
       return () => eventSource.close();
     });
   }
@@ -28,43 +29,26 @@ export class SseService {
     const eventSource = new EventSource(url);
 
     eventSource.onmessage = event => {
-      console.log('Received event:', event);
-      observer.next(event);
+      console.log('Received event:', event.data );
+      this.zone.run(() => {
+        const data = JSON.parse(event.data) as NotifiacionDto;
+        if (data.tipo === TipoNotificacionEnum.NOTIFICACION_FRONT) {
+          return;
+        }
+        
+        observer.next(data);
+        this.eventoSource.next(data);
+      });
     };
 
     eventSource.onerror = error => {
-      console.log('EventSource failed:', error);
-      eventSource.close(); // Cierra la conexión actual
-      // Se establece un breve retardo antes de reconectar
+      eventSource.close();
       setTimeout(() => {
-        this.connect(observer, url); // Llama recursivamente a conectar
-      }, 100); // Reintenta después de 100 milisegundos
+        this.connect(observer, url);
+      }, 10);
     };
 
     return eventSource;
   }
 
-  getFeedbackServerSentEvent(): Observable<any> {
-    return new Observable(observer => {
-      const eventSource = new EventSource(this.sseUrlFeedback);
-
-      eventSource.onmessage = event => {
-        console.log('Received event: ', event);
-        observer.next(event);
-      };
-
-      eventSource.onerror = error => {
-        console.log('EventSource failed:', error);
-        observer.error(error);
-      };
-
-      return () => {
-        eventSource.close();
-      };
-    });
-  }
-
-  changeQuestions(questions: FeedbackDto) {
-    this.questionsSource.next(questions);
-  }
 }

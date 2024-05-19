@@ -11,54 +11,71 @@ import { Subscription } from 'rxjs';
 export class AlertComponent implements OnInit, OnDestroy {
 
   private eventsSubscription: Subscription;
-  private eventsFeedbackSubscription: Subscription;
-  notifications: Array<{ id: number; message: string; url: string }> = [];
+  notifications: any[] = [];
   badgeCount = 0;
-  visible: boolean = false;
+  visible = false;
 
-  constructor(private sseService: SseService, private zone: NgZone,
-    private router: Router
-  ) { }
+  constructor(private sseService: SseService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
       next: event => {
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: event.data,
-            url: "data.url"
-          });
-          this.badgeCount = this.notifications.length;
-        });
+        this.handleEvent(event);
       },
       error: error => console.error(error)
     });
+  }
 
-    this.eventsFeedbackSubscription = this.sseService.getFeedbackServerSentEvent().subscribe({
-      next: event => {
+  handleEvent(event: any) {
+    const { tipo, mensaje } = event;
+    switch (tipo) {
+      case 'PG':
+        this.handlePreguntasEvent(mensaje);
+        break;
+      case 'FG':
+        this.handleFeedbackEvent(mensaje);
+        break;
+      case 'ORQUESTADOR':
+        this.handleOrquestadorEvent(mensaje);
+        break;
+      default:
+        console.warn(`Tipo de evento desconocido: ${tipo}`);
+    }
+  }
 
-        let url ="PREGUNTAS";
-        let notificacion = event.data;
-        const data = JSON.parse(event.data); 
-        if(data.procesoEntrevista[0].feedback !== null){
-          url = "Otra";
-          notificacion = data.procesoEntrevista.map(item => 
-            `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
-          ).join('\n\n');
-        }
-        
+  handlePreguntasEvent(mensaje: string) {
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: 'Tu entrevista está lista!',
+        url: 'PG',
+        idEntrevista: mensaje
+      });
+      this.badgeCount = this.notifications.length;
+    });
+  }
 
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: notificacion,
-            url: url
-          });
-          this.badgeCount = this.notifications.length;
-        });
-      },
-      error: error => console.error(error)
+  handleFeedbackEvent(mensaje: string) {
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: 'Tu feedback está listo!',
+        url: 'FG',
+        idEntrevista: mensaje
+      });
+      this.badgeCount = this.notifications.length;
+    });
+  }
+
+
+  handleOrquestadorEvent(mensaje: string) {
+    this.zone.run(() => {
+      this.notifications.push({
+        id: this.badgeCount,
+        message: mensaje,
+        url: "data.url"
+      });
+      this.badgeCount = this.notifications.length;
     });
   }
 
@@ -66,17 +83,22 @@ export class AlertComponent implements OnInit, OnDestroy {
     this.visible = true;
     this.badgeCount = 0;
   }
-  goToInterview(notification: { id: number; message: string; url: string }) {
-    try {
-      const data = JSON.parse(notification.message); 
-      if (data && data.procesoEntrevista) {
-        this.sseService.changeQuestions(data);
-        this.visible = false;
-    this.notifications = [];
-        this.router.navigate(['/zona-entrevista']);
-      }
-    } catch (e) {
-      console.error('Error al parsear las preguntas', e);
+
+  goToInterview(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.url === 'PG' && notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
+    } else {
+      this.visible = false;
+      this.notifications = [];
+    }
+  }
+
+  goToFeedback(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.url === 'FG' && notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
+    } else {
+      this.visible = false;
+      this.notifications = [];
     }
   }
 
@@ -86,8 +108,9 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
-    this.eventsFeedbackSubscription.unsubscribe();
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 
   trackById(index: number, item: any): number {
