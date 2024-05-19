@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { NotifiacionDto } from '@shared/model/notificacion-dto';
 import { TipoNotificacionEnum } from '@shared/model/tipo-notificacion.enum';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,15 @@ import { TipoNotificacionEnum } from '@shared/model/tipo-notificacion.enum';
 export class SseService {
   private eventoSource  = new BehaviorSubject<NotifiacionDto>(undefined);
   currentEvento = this.eventoSource.asObservable();
-
-  private sseUrl = 'http://localhost:8765/api/notificaciones/v1/eventos/subscribe';
-
+  
+  orquestadorURL = environment.orquestadorURL;
+  
   constructor(private authService: AuthService, private zone: NgZone) { }
 
   getServerSentEvent(): Observable<any> {
     const user = this.authService.getUsername();
     return new Observable(observer => {
-      const eventSource = this.connect(observer, `${this.sseUrl}/${user}`);
+      const eventSource = this.connect(observer, `${this.orquestadorURL}/eventos/subscribe/${user}`);
       return () => eventSource.close();
     });
   }

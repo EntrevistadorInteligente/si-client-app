@@ -2,25 +2,23 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { VistaPreviaEntrevistaDto } from '../model/vista-previa-entrevista-dto';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { FormularioDto } from '@shared/model/formulario-dto';
 import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 import { AuthService } from './auth/auth.service';
 import { EstadoEntrevistaDto } from '@shared/model/feedback-dto copy';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class IntegradorService {
-
-  orquestadorURL = 'http://localhost:8765/api/orquestador';
-  entrevista = '/v1/entrevistadores';
-  hojaDeVida = '/v1/hojas-de-vidas';
+  orquestadorURL = environment.orquestadorURL;
+  entrevista = '/entrevistadores';
+  hojaDeVida = '/hojas-de-vidas';
   httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
   username: any;
 
   constructor(
     private httpClient: HttpClient,
-    private authService: AuthService,
-    private oauthService: OAuthService
+    private authService: AuthService
   ) { }
 
   public list(): Observable<VistaPreviaEntrevistaDto[]> {
