@@ -13,14 +13,14 @@ export class SseService {
   private eventoSource  = new BehaviorSubject<NotifiacionDto>(undefined);
   currentEvento = this.eventoSource.asObservable();
   
-  orquestadorURL = environment.orquestadorURL;
+  notifcacionesURL = environment.notifcacionesURL;
   
   constructor(private authService: AuthService, private zone: NgZone) { }
 
   getServerSentEvent(): Observable<any> {
     const user = this.authService.getUsername();
     return new Observable(observer => {
-      const eventSource = this.connect(observer, `${this.orquestadorURL}/eventos/subscribe/${user}`);
+      const eventSource = this.connect(observer, `${this.notifcacionesURL}/eventos/subscribe/${user}`);
       return () => eventSource.close();
     });
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IntegradorService } from '@shared/service/integrador.service';
 
@@ -8,44 +8,17 @@ import { IntegradorService } from '@shared/service/integrador.service';
   styleUrls: ['./multipasos.component.scss']
 })
 export class MultipasosComponent implements OnInit {
-
-  currentStep: number = 2;
+  @Input() currentStep: number = 2;
   steps = [
-    { title: 'Formulario' },
-    { title: 'Preguntas'},
-    { title: 'Feedback'}
+    { title: 'Formulario', component: 'app-paso-2' },
+    { title: 'Preguntas', component: 'app-paso-3' },
+    { title: 'Feedback', component: 'app-paso-4' }
   ];
 
-  constructor(private route: ActivatedRoute, private entrevistaService: IntegradorService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const idEntrevista = params['idEntrevista'];
-      if (idEntrevista) {
-
-      }
-  
-    });
-
-    this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe(
-      (estado) => {
-        this.currentStep = this.getStepFromEstado(estado.estadoEntrevista);
-      },
-      error => {
-        console.error(error);
-      }
-    );
-  }
-
-  getStepFromEstado(estado: string): number {
-    switch (estado) {
-      case 'PG':
-        return 3;
-      case 'FG':
-        return 4;
-      default:
-        return 2;
-    }
+  onStepCompleted() {
+    // Lógica para manejar la finalización de un paso
   }
 
 }

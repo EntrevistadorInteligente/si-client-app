@@ -4,7 +4,7 @@ import { ZonaEntrevistaComponent } from './zona-entrevista.component';
 
 const routes: Routes = [
   { path: '', component: ZonaEntrevistaComponent },
-
+  { path: ':idEntrevista', component: ZonaEntrevistaComponent }
 ];
 
 @NgModule({

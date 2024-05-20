@@ -19,87 +19,59 @@ export class AlertComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
-      next: event => {
-        this.handleEvent(event);
-      },
+      next: event => this.handleEvent(event),
       error: error => console.error(error)
     });
   }
 
-  handleEvent(event: any) {
-    const { tipo, mensaje } = event;
+    handleEvent(event: any) {
+      const { tipo, mensaje } = event;
+
+      let idEntrevista;
+      try {
+          // Intenta parsear mensaje como JSON
+          const parsedMensaje = JSON.parse(mensaje);
+          idEntrevista = parsedMensaje.idEntrevista || mensaje; // Asigna el idEntrevista si está en el JSON
+      } catch (e) {
+          // Si hay un error al parsear, mensaje es un string
+          idEntrevista = mensaje;
+      }
+
+      // Elimina comillas adicionales si idEntrevista es un string con comillas
+      if (typeof idEntrevista === 'string') {
+          idEntrevista = idEntrevista.replace(/^"|"$/g, '');
+      }
+
+      this.zone.run(() => {
+          this.notifications.push({ 
+              id: this.badgeCount, 
+              message: this.getMessage(tipo), 
+              url: tipo, 
+              idEntrevista: idEntrevista 
+          });
+          this.badgeCount = this.notifications.length;
+      });
+  }
+  
+  getMessage(tipo: string): string {
     switch (tipo) {
-      case 'PG':
-        this.handlePreguntasEvent(mensaje);
-        break;
-      case 'FG':
-        this.handleFeedbackEvent(mensaje);
-        break;
-      case 'ORQUESTADOR':
-        this.handleOrquestadorEvent(mensaje);
-        break;
-      default:
-        console.warn(`Tipo de evento desconocido: ${tipo}`);
+      case 'PG': return 'Tu entrevista está lista!';
+      case 'FG': return 'Tu feedback está listo!';
+      default: return 'Nuevo mensaje!';
     }
   }
 
-  handlePreguntasEvent(mensaje: string) {
-    this.zone.run(() => {
-      this.notifications.push({
-        id: this.badgeCount,
-        message: 'Tu entrevista está lista!',
-        url: 'PG',
-        idEntrevista: mensaje
-      });
-      this.badgeCount = this.notifications.length;
-    });
-  }
-
-  handleFeedbackEvent(mensaje: string) {
-    this.zone.run(() => {
-      this.notifications.push({
-        id: this.badgeCount,
-        message: 'Tu feedback está listo!',
-        url: 'FG',
-        idEntrevista: mensaje
-      });
-      this.badgeCount = this.notifications.length;
-    });
-  }
-
-
-  handleOrquestadorEvent(mensaje: string) {
-    this.zone.run(() => {
-      this.notifications.push({
-        id: this.badgeCount,
-        message: mensaje,
-        url: "data.url"
-      });
-      this.badgeCount = this.notifications.length;
-    });
+  goToNotification(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista', notification.idEntrevista]);
+    }
+    this.visible = false;
+    this.notifications = [];
   }
 
   showDialog() {
     this.visible = true;
     this.badgeCount = 0;
-  }
-
-  goToInterview(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
-    if (notification.url === 'PG' && notification.idEntrevista) {
-      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
-    } else {
-      this.visible = false;
-      this.notifications = [];
-    }
-  }
-
-  goToFeedback(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
-    if (notification.url === 'FG' && notification.idEntrevista) {
-      this.router.navigate(['/zona-entrevista/', notification.idEntrevista]);
-    } else {
-      this.visible = false;
-      this.notifications = [];
-    }
   }
 
   onNotification() {

@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class IntegradorService {
+
   orquestadorURL = environment.orquestadorURL;
   entrevista = '/entrevistadores';
   hojaDeVida = '/hojas-de-vidas';
@@ -67,11 +68,16 @@ export class IntegradorService {
 
   public obtenerEstadoEntrevistaPorUsuario(): Observable<EstadoEntrevistaDto>{
     this.username = this.authService.getUsername();
-    return this.httpClient.get<EstadoEntrevistaDto>(`${this.orquestadorURL}${this.entrevista}/${this.username}`, {
+    return this.httpClient.get<EstadoEntrevistaDto>(`${this.orquestadorURL}${this.entrevista}?username=${this.username}`, {
       headers: this.getHeaders()
     });
   }
 
+  obtenerEstadoEntrevista(idEntrevista: string): Observable<EstadoEntrevistaDto>{
+    return this.httpClient.get<EstadoEntrevistaDto>(`${this.orquestadorURL}${this.entrevista}/${idEntrevista}`, {
+      headers: this.getHeaders()
+    });
+  }
 
   private getHeadersSinContent(): HttpHeaders {
     let headers = new HttpHeaders();

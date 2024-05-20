@@ -10,9 +10,9 @@
 
   <div class="step-content">
     <ng-container [ngSwitch]="currentStep">
-      <app-paso-2 *ngSwitchCase="2"></app-paso-2>
-      <app-paso-3 *ngSwitchCase="3"></app-paso-3>
-      <app-paso-4 *ngSwitchCase="4"></app-paso-4>
+      <app-paso-2 *ngSwitchCase="2" (completed)="onStepCompleted()"></app-paso-2>
+      <app-paso-3 *ngSwitchCase="3" (completed)="onStepCompleted()"></app-paso-3>
+      <app-paso-4 *ngSwitchCase="4" (completed)="onStepCompleted()"></app-paso-4>
     </ng-container>
   </div>
 </div>
