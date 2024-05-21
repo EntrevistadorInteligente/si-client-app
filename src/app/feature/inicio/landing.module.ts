@@ -8,7 +8,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LandingRoutingModule } from './landing-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { TooltipModule } from 'primeng/tooltip';
-import { MultipasosModule } from './home-login/multipasos/multipasos.module';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 
@@ -21,9 +20,9 @@ import { FormsModule } from '@angular/forms';
     LandingRoutingModule,
     TooltipModule,
     SharedModule,
-    MultipasosModule,
     DropdownModule,
     FormsModule,
+    SharedModule,
   ],
   exports: [LandingComponent, HomeLoginComponent, HomeComponent],
 })

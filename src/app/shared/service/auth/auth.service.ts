@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 export class AuthService {
   private isLoggedSubject = new BehaviorSubject<boolean>(false);
   constructor(private keycloakService: KeycloakService,
-    private http: HttpClient
+    private cookieService: CookieService,
   ) { }
 
   getLoggedUser() {
@@ -35,6 +35,7 @@ export class AuthService {
   logout() {
     this.keycloakService.logout();
     this.isLoggedSubject.next(false);
+    this.cookieService.deleteAll();
   }
 
   redirectToProfile() {

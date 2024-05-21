@@ -11,73 +11,67 @@ import { Subscription } from 'rxjs';
 export class AlertComponent implements OnInit, OnDestroy {
 
   private eventsSubscription: Subscription;
-  private eventsFeedbackSubscription: Subscription;
-  notifications: Array<{ id: number; message: string; url: string }> = [];
+  notifications: any[] = [];
   badgeCount = 0;
-  visible: boolean = false;
+  visible = false;
 
-  constructor(private sseService: SseService, private zone: NgZone,
-    private router: Router
-  ) { }
+  constructor(private sseService: SseService, private router: Router, private zone: NgZone) { }
 
   ngOnInit() {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
-      next: event => {
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: event.data,
-            url: "data.url"
-          });
-          this.badgeCount = this.notifications.length;
-        });
-      },
+      next: event => this.handleEvent(event),
       error: error => console.error(error)
     });
+  }
 
-    this.eventsFeedbackSubscription = this.sseService.getFeedbackServerSentEvent().subscribe({
-      next: event => {
+    handleEvent(event: any) {
+      const { tipo, mensaje } = event;
 
-        let url ="PREGUNTAS";
-        let notificacion = event.data;
-        const data = JSON.parse(event.data); 
-        if(data.procesoEntrevista[0].feedback !== null){
-          url = "Otra";
-          notificacion = data.procesoEntrevista.map(item => 
-            `"pregunta":"${item.pregunta}",\n"respuesta":"${item.respuesta}",\n"feedback":"${item.feedback}"`
-          ).join('\n\n');
-        }
-        
+      let idEntrevista;
+      try {
+          // Intenta parsear mensaje como JSON
+          const parsedMensaje = JSON.parse(mensaje);
+          idEntrevista = parsedMensaje.idEntrevista || mensaje; // Asigna el idEntrevista si está en el JSON
+      } catch (e) {
+          // Si hay un error al parsear, mensaje es un string
+          idEntrevista = mensaje;
+      }
 
-        this.zone.run(() => {
-          this.notifications.push({
-            id: this.badgeCount,
-            message: notificacion,
-            url: url
+      // Elimina comillas adicionales si idEntrevista es un string con comillas
+      if (typeof idEntrevista === 'string') {
+          idEntrevista = idEntrevista.replace(/^"|"$/g, '');
+      }
+
+      this.zone.run(() => {
+          this.notifications.push({ 
+              id: this.badgeCount, 
+              message: this.getMessage(tipo), 
+              url: tipo, 
+              idEntrevista: idEntrevista 
           });
           this.badgeCount = this.notifications.length;
-        });
-      },
-      error: error => console.error(error)
-    });
+      });
+  }
+  
+  getMessage(tipo: string): string {
+    switch (tipo) {
+      case 'PG': return 'Tu entrevista está lista!';
+      case 'FG': return 'Tu feedback está listo!';
+      default: return 'Nuevo mensaje!';
+    }
+  }
+
+  goToNotification(notification: { id: number; message: string; url: string; idEntrevista?: string }) {
+    if (notification.idEntrevista) {
+      this.router.navigate(['/zona-entrevista', notification.idEntrevista]);
+    }
+    this.visible = false;
+    this.notifications = [];
   }
 
   showDialog() {
     this.visible = true;
     this.badgeCount = 0;
-  }
-  goToInterview(notification: { id: number; message: string; url: string }) {
-    try {
-      const data = JSON.parse(notification.message); 
-      if (data && data.procesoEntrevista) {
-        this.sseService.changeQuestions(data);
-        this.visible = false;
-    this.notifications = [];
-        this.router.navigate(['/zona-entrevista']);
-      }
-    } catch (e) {
-      console.error('Error al parsear las preguntas', e);
-    }
   }
 
   onNotification() {
@@ -86,8 +80,9 @@ export class AlertComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.eventsSubscription.unsubscribe();
-    this.eventsFeedbackSubscription.unsubscribe();
+    if (this.eventsSubscription) {
+      this.eventsSubscription.unsubscribe();
+    }
   }
 
   trackById(index: number, item: any): number {
