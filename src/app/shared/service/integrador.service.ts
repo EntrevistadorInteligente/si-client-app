@@ -32,7 +32,7 @@ export class IntegradorService {
 
   public listPerfiles(): Observable<Perfil[]> {
     return this.httpClient.get<Perfil[]>(
-      `${this.orquestadorURL}/v1/entrevistador/public/perfiles`
+      `${this.orquestadorURL}/entrevistador/public/perfiles`
     );
   }
 
