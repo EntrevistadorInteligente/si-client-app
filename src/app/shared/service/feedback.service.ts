@@ -31,8 +31,8 @@ export class FeedbackService {
     });
   }
 
-  public enviarRespuestas(respuestas: RespuestaComentarioDto[]): Observable<any> {
-    return this.httpClient.post(`${this.feedbackURL}/respuestas/solicitudes-feedback/entrevistas/66481e493e360c336023dfec`, respuestas, {
+  public enviarRespuestas(entrevistaId: string, respuestas: RespuestaComentarioDto[]): Observable<any> {
+    return this.httpClient.post(`${this.feedbackURL}/respuestas/solicitudes-feedback/entrevistas/${entrevistaId}`, respuestas, {
       headers: this.getHeaders()
     });
   }

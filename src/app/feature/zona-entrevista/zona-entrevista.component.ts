@@ -34,17 +34,21 @@ export class ZonaEntrevistaComponent implements OnInit {
   }
 
   obtenerEstadoEntrevistaPorId(idEntrevista: string) {
-    this.entrevistaService.obtenerEstadoEntrevista(idEntrevista).subscribe(
-      (response) => this.currentStep = this.getStepFromEstado(response.estadoEntrevista),
-      error => console.error(error)
-    );
+    this.entrevistaService.obtenerEstadoEntrevista(idEntrevista).subscribe({
+      next: (response) => this.currentStep = this.getStepFromEstado(response.estadoEntrevista),
+      error: (error) => console.error(error)
+    });
   }
 
   obtenerEstadoEntrevistaPorUsuario() {
-    this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe(
-      (response) => this.currentStep = this.getStepFromEstado(response.estadoEntrevista),
-      error => console.error(error)
-    );
+    this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe({
+      next: (response) => { 
+        if(response){
+          this.currentStep = this.getStepFromEstado(response.estadoEntrevista) 
+        }
+      },
+      error: (error) => console.error(error)
+    });
   }
 
   getStepFromEstado(estado: string): number {
