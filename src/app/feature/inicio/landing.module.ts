@@ -9,13 +9,11 @@ import { LandingRoutingModule } from './landing-routing.module';
 import { SharedModule } from '@shared/shared.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { MultipasosModule } from './home-login/multipasos/multipasos.module';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    LandingComponent,
-    HomeLoginComponent,
-    HomeComponent
-  ],
+  declarations: [LandingComponent, HomeLoginComponent, HomeComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -23,13 +21,10 @@ import { MultipasosModule } from './home-login/multipasos/multipasos.module';
     LandingRoutingModule,
     TooltipModule,
     SharedModule,
-    MultipasosModule
+    MultipasosModule,
+    DropdownModule,
+    FormsModule,
   ],
-  exports: [
-    LandingComponent,
-    HomeLoginComponent,
-    HomeComponent,
-  ]
+  exports: [LandingComponent, HomeLoginComponent, HomeComponent],
 })
-
-export class LandingModule { }
+export class LandingModule {}
