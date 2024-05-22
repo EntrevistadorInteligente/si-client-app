@@ -1,18 +1,21 @@
 export interface TecnologiasPrincipales {
-    name: string
-  }
+  name: string;
+}
 export interface HabilidadesTecnicas {
-name: string
+  name: string;
 }
 export interface ExperienciasLaborales {
-name: string
+  name: string;
 }
 export interface Certificaciones {
-name: string
+  name: string;
 }
 export interface Proyectos {
-name: string
+  name: string;
 }
 export interface OtrasHabilidades {
-name: string
+  name: string;
+}
+export interface Perfil {
+  name: string;
 }
