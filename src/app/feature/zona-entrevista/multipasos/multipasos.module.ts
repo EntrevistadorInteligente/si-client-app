@@ -16,6 +16,9 @@ import { Paso2Component } from './paso-2/paso-2.component';
 import { Paso3Component } from './paso-3/paso-3.component';
 import { Paso4Component } from './paso-4/paso-4.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StepsModule } from 'primeng/steps';
+import { FieldsetModule } from 'primeng/fieldset';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -39,6 +42,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     TooltipModule,
     ReactiveFormsModule,
+    StepsModule,
+    FieldsetModule,
+    InputTextModule
   ],
 
   exports: [
