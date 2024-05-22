@@ -10,6 +10,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class MultipasosComponent implements OnInit {
   @Input() currentStep: number = 2;
+  @Input() idEntrevista: string;
   steps : MenuItem[];
   
   // steps = [
