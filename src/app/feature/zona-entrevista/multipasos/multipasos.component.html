@@ -7,11 +7,10 @@
         [readonly]="true"> 
       </p-steps>
       <app-paso-2 *ngSwitchCase="2" (completed)="onStepCompleted()"></app-paso-2>
-      <app-paso-3 *ngSwitchCase="3" (completed)="onStepCompleted()"></app-paso-3>
-      <app-paso-4 *ngSwitchCase="4" (completed)="onStepCompleted()"></app-paso-4>
+      <app-paso-3 *ngSwitchCase="3" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-3>
+      <app-paso-4 *ngSwitchCase="4" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-4>
     </ng-container>
-  </div>
-  
+  </div>  
 </div> 
 
 

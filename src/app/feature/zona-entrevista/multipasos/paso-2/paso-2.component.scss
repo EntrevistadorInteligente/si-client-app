@@ -41,10 +41,10 @@ p {
   font-weight: 400;
 }
 
-h3, label, input[type=text], input[type=password], input[type=text]::placeholder, select, textarea {
-  color: #fff;
-  background-color: transparent;
-}
+// h3, label, input[type=text], input[type=password], input[type=text]::placeholder, select, textarea {
+//   color: #fff;
+//   background-color: transparent;
+// }
 
 .contact-info h4 {
   margin-bottom: 10%;
@@ -65,25 +65,16 @@ h3, label, input[type=text], input[type=password], input[type=text]::placeholder
   font-weight:600;
 }
 
-.card {
-  background-color: #73747773;
-  backdrop-filter: blur(10px);
+.card, .card-header, .card-body {
+  border: none;
+  background-color: transparent;
 }
 
 .background {
-  margin:0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 70vh;
-  background: url('../../../../../assets/img/startup.jpg') center;
-  background-size: cover;
-  border-radius: 3px;  
+  box-shadow: 9px 3em 4em 9px rgba(0, 0, 0, 0.1), 
+  0 0 13px 2px rgb(255, 255, 255);
 }
 
 .background-blur {
-  padding: 2rem 3rem;
-  text-align: center;
-  backdrop-filter: blur(10px);  
+  padding: 2rem 3rem; 
 }

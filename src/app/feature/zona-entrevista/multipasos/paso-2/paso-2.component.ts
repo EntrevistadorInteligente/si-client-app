@@ -4,6 +4,7 @@ import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { IntegradorService } from '@shared/service/integrador.service';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-paso-2',
@@ -16,6 +17,7 @@ export class Paso2Component {
   @Output() formularioCompleto = new EventEmitter<boolean>();
   preguntas!: VistaPreviaEntrevistaDto[];
   form: FormGroup;
+  public loading = false;
 
   paises: any[] = [
     { "nombre": "Argentina" },
@@ -61,7 +63,8 @@ export class Paso2Component {
   }
 
   submit(): void {
-    if (this.form.valid) {
+    this.loading = true;
+    if (this.form.valid) {      
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
@@ -71,6 +74,13 @@ export class Paso2Component {
       };
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
         data => {
+          this.loading = false;
+          Swal.fire({
+            title: 'OK',
+            text: 'Continue al siguiente paso',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
           this.preguntas = data;
         },
         err => console.log(err)
@@ -81,7 +91,7 @@ export class Paso2Component {
       console.log("MAL");
       console.log(this.form);
       this.formularioCompleto.emit(false);
-    }
+     }
   }
 
   ngOnDestroy() {

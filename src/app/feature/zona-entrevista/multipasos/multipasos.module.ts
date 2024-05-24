@@ -19,6 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StepsModule } from 'primeng/steps';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
+import { StepperModule } from 'primeng/stepper';
+import { NgxLoadingModule } from "ngx-loading";
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     StepsModule,
     FieldsetModule,
-    InputTextModule
+    InputTextModule,
+    StepperModule,
+    NgxLoadingModule.forRoot({})
   ],
 
   exports: [
