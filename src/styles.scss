@@ -116,9 +116,8 @@ select::placeholder {
   padding-left: 0!important;
 }
 
-.disabled {
-  pointer-events: none;
-  opacity: 0.5;
+.btn .disabled {
+  border-color: none!important;
 }
 
 .p-tabview-nav-link{

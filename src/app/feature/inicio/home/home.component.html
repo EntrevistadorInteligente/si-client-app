@@ -130,16 +130,15 @@
       placeholder="Seleccionar Perfiles"
       [options]="(perfiles$ | async)!"
     ></p-dropdown>
-    <div class="btn mb-2 ms-3">
-      <a
-        class="fw-bold"
-        type="button"
-        [class.disabled]="!selectedPerfil"
-        [attr.disabled]="!selectedPerfil ? true : null"
-        (click)="onCargarPreguntas($event)"
-        >Empezar</a
-      >
-    </div>
+    <button
+      type="button"
+      class="btn mb-2 ms-3"
+      [class.disabled]="!selectedPerfil"
+      [attr.disabled]="!selectedPerfil ? true : null"
+      (click)="onCargarPreguntas($event)"
+    >
+      <span class="fw-bold" style="color: white">Empezar</span>
+    </button>
   </div>
   }
   <div class="preguntas_preview">
@@ -172,28 +171,38 @@
         </p-tabPanel>
       </p-tabView>
       <button
-        pButton
-        pRipple
+        type="button"
+        class="btn mb-2 ms-3"
         label="Enviar"
         (click)="submitAnswers()"
-        class="ms-3"
-      ></button>
+      >
+        <span class="fw-bold" style="color: white">Enviar</span>
+      </button>
 
       <p-dialog
         [(visible)]="display"
         [breakpoints]="{ '960px': '75vw', '640px': '100vw' }"
+        modal="true"
+        dismissableMask="true"
         [style]="{ width: '50vw' }"
       >
         <ng-template pTemplate="header"> Para Seguir... </ng-template>
         Para obtener una entrevista personalizada porfavor Inicie Sesión
         <ng-template pTemplate="footer">
           <button
-            pButton
-            pRipple
-            label="Iniciar Sesión"
-            class="p-button-success"
+            type="button"
+            class="btn btn-success mb-2 ms-3"
+            label="Enviar"
             (click)="login()"
-          ></button>
+          >
+            <span class="fw-bold" style="color: white">
+              <i
+                class="bi bi-box-arrow-in-right mr-2"
+                style="font-size: 1.2rem"
+              ></i
+              >Iniciar Sesión</span
+            >
+          </button>
         </ng-template>
       </p-dialog>
     </ng-container>

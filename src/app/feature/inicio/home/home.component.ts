@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
 import { FeedbackService } from '@shared/service/feedback.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, shareReplay } from 'rxjs';
 import { FeedbackComentarioDto } from '@shared/model/feedback-dto';
 import { AuthService } from '@shared/service/auth/auth.service';
 
@@ -32,9 +32,10 @@ export class HomeComponent implements OnInit {
   }
 
   cargarListaPerfiles(): void {
-    this.perfiles$ = this.integradorService
-      .listPerfiles()
-      .pipe(map((perfil) => perfil));
+    this.perfiles$ = this.integradorService.listPerfiles().pipe(
+      map((perfil) => perfil),
+      shareReplay(1)
+    );
   }
 
   onCargarPreguntas(event?: Event): void {

@@ -13,7 +13,6 @@ import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
-import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [LandingComponent, HomeLoginComponent, HomeComponent],
@@ -30,7 +29,6 @@ import { ButtonModule } from 'primeng/button';
     SharedModule,
     ProgressSpinnerModule,
     DialogModule,
-    ButtonModule,
   ],
   exports: [LandingComponent, HomeLoginComponent, HomeComponent],
 })
