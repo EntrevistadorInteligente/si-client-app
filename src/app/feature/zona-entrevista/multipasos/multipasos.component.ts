@@ -9,6 +9,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
 })
 export class MultipasosComponent implements OnInit {
   @Input() currentStep: number = 2;
+  @Input() idEntrevista: string;
   steps = [
     { title: 'Formulario', component: 'app-paso-2' },
     { title: 'Preguntas', component: 'app-paso-3' },
