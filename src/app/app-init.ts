@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 export function initializer(keycloak: KeycloakService): () => Promise<boolean> {
   const options: KeycloakOptions = {
     config: {
-      url: 'http://localhost:8080',
+      url: 'https://keycloak.pruebas-entrevistador-inteligente.site/',
       realm: 'entrevistador',
       clientId: 'front',
     },
