@@ -12,6 +12,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [LandingComponent, HomeLoginComponent, HomeComponent],
@@ -27,6 +29,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     FormsModule,
     SharedModule,
     ProgressSpinnerModule,
+    DialogModule,
+    ButtonModule,
   ],
   exports: [LandingComponent, HomeLoginComponent, HomeComponent],
 })

@@ -1,14 +1,10 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from '@shared/service/integrador.service';
-//import { EntrevistaPreviewService } from '@shared/service/entrevista-preview.service';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { Observable, map } from 'rxjs';
-import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
-import {
-  FeedBackPruebaDto,
-  FeedbackComentarioDto,
-} from '@shared/model/feedback-dto';
+import { FeedbackComentarioDto } from '@shared/model/feedback-dto';
+import { AuthService } from '@shared/service/auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -20,13 +16,15 @@ export class HomeComponent implements OnInit {
   preguntasMuestra: FeedbackComentarioDto[] = [];
   preguntas!: VistaPreviaEntrevistaDto[];
   selectedProduct!: any;
+  display: boolean = false;
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
   cargandoPreguntas: boolean = false;
 
   constructor(
     private integradorService: IntegradorService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -69,20 +67,10 @@ export class HomeComponent implements OnInit {
         });
     }
   }
-  submitAnswers(event?: Event): void {}
-
-  // submitAnswers(event?: Event): void {
-  //   const entrevistaPrueba: FeedBackPruebaDto = {
-  //     perfil: this.selectedPerfil.perfilEmpresa,
-  //     procesoEntrevista: this.previoFeedback,
-  //   };
-  //   this.feedbackService.obtenerMuestraFeedback(entrevistaPrueba).subscribe({
-  //     next: (response: any) => {
-  //       console.log(response);
-  //     },
-  //     error: (error) => {
-  //       console.error(error);
-  //     },
-  //   });
-  // }
+  submitAnswers(event?: Event): void {
+    this.display = true;
+  }
+  login(): void {
+    this.authService.login();
+  }
 }

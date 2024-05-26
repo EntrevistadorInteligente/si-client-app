@@ -1,18 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  FeedBackPruebaDto,
-  FeedbackComentarioDto,
-  FeedbackDto,
-} from '@shared/model/feedback-dto';
+import { FeedbackComentarioDto, FeedbackDto } from '@shared/model/feedback-dto';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth/auth.service';
-import {
-  RespuestaComentarioDto,
-  RespuestaDto,
-} from '@shared/model/respuesta-dto';
+import { RespuestaComentarioDto } from '@shared/model/respuesta-dto';
 
 @Injectable()
 export class FeedbackService {
@@ -52,15 +45,6 @@ export class FeedbackService {
   ): Observable<FeedbackComentarioDto[]> {
     return this.httpClient.get<FeedbackComentarioDto[]>(
       `${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`
-    );
-  }
-
-  public obtenerMuestraFeedback(
-    respuestas: FeedBackPruebaDto
-  ): Observable<any> {
-    return this.httpClient.post(
-      `${this.feedbackURL}/muestra/feedback/preguntas`,
-      respuestas
     );
   }
 
