@@ -83,7 +83,15 @@ export class Paso2Component {
           })
           this.preguntas = data;
         },
-        err => console.log(err)
+        err => {
+          this.loading = false;
+          Swal.fire({
+            title: 'Error',
+            text: 'Por favor póngase en contacto con el administrador.',
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
+        }          
       );
       localStorage.removeItem('formData');
       this.formularioCompleto.emit(true);
