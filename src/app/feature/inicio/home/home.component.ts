@@ -51,11 +51,7 @@ export class HomeComponent implements OnInit {
         .subscribe({
           next: (response: FeedbackComentarioDto[]) => {
             this.preguntasMuestra = response;
-            if (response.length == 0) {
-              this.preguntasNoEncontradas = false;
-            } else {
-              this.preguntasNoEncontradas = true;
-            }
+            this.preguntasNoEncontradas = response.length == 0 ? false : true;
             this.previoFeedback = response.map((p) => {
               return {
                 idPregunta: p.idPregunta,
@@ -65,7 +61,6 @@ export class HomeComponent implements OnInit {
               };
             });
             this.cargandoPreguntas = false;
-            console.log(response);
           },
           error: (error) => {
             console.error(error);
