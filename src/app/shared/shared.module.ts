@@ -14,13 +14,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { FeedbackService } from './service/feedback.service';
 import { IntegradorService } from './service/integrador.service';
+import { LocaldataService } from './service/localdata.service';
 
 @NgModule({
-  declarations: [
-    MenuComponent,
-    FooterComponent,
-    PerfilComponent
-  ],
+  declarations: [MenuComponent, FooterComponent, PerfilComponent],
   imports: [
     CommonModule,
     CoreModule,
@@ -31,12 +28,7 @@ import { IntegradorService } from './service/integrador.service';
     ReactiveFormsModule,
     InputTextModule,
   ],
-  exports: [
-    MenuComponent,
-    FooterComponent,
-    PerfilComponent
-  ],
-  providers: [IntegradorService, FeedbackService],
+  exports: [MenuComponent, FooterComponent, PerfilComponent],
+  providers: [IntegradorService, FeedbackService, LocaldataService],
 })
-
-export class SharedModule { }
+export class SharedModule {}
