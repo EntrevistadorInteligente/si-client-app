@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
-import { RespuestaComentarioDto, RespuestaDto } from '@shared/model/respuesta-dto';
+import { RespuestaComentarioDto } from '@shared/model/respuesta-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { MessageService } from 'primeng/api';
 
