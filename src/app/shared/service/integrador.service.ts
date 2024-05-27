@@ -82,7 +82,7 @@ export class IntegradorService {
     formData.append('file', file);
     formData.append(
       'username',
-      new Blob([JSON.stringify(this.authService.getUsername())], {
+      new Blob([this.authService.getUsername()], {
         type: 'application/json',
       })
     );
