@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
   cargandoPreguntas: boolean = false;
+  preguntasNoEncontradas: boolean = true;
 
   constructor(
     private integradorService: IntegradorService,
@@ -50,6 +51,11 @@ export class HomeComponent implements OnInit {
         .subscribe({
           next: (response: FeedbackComentarioDto[]) => {
             this.preguntasMuestra = response;
+            if (response.length == 0) {
+              this.preguntasNoEncontradas = false;
+            } else {
+              this.preguntasNoEncontradas = true;
+            }
             this.previoFeedback = response.map((p) => {
               return {
                 idPregunta: p.idPregunta,
@@ -63,6 +69,7 @@ export class HomeComponent implements OnInit {
           },
           error: (error) => {
             console.error(error);
+            this.preguntasNoEncontradas = false;
             this.cargandoPreguntas = false;
           },
         });

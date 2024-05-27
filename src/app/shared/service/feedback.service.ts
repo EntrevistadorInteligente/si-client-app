@@ -2,10 +2,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FeedbackComentarioDto, FeedbackDto } from '@shared/model/feedback-dto';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
-import { Observable } from 'rxjs';
+import { Observable, of, shareReplay, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth/auth.service';
 import { RespuestaComentarioDto } from '@shared/model/respuesta-dto';
+import { LocaldataService } from './localdata.service';
 
 @Injectable()
 export class FeedbackService {
@@ -16,6 +17,7 @@ export class FeedbackService {
 
   constructor(
     private httpClient: HttpClient,
+    private localdata: LocaldataService,
     private authService: AuthService
   ) {}
 
@@ -43,9 +45,23 @@ export class FeedbackService {
   public obtenerMuestraPreguntas(
     perfil: string
   ): Observable<FeedbackComentarioDto[]> {
-    return this.httpClient.get<FeedbackComentarioDto[]>(
-      `${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`
-    );
+    const cache = this.localdata.getCacheFromLocalStorage();
+    const cachedData = cache[perfil];
+
+    if (cachedData && !this.localdata.isCacheExpired(cachedData.timestamp)) {
+      return of(cachedData.data);
+    } else {
+      return this.httpClient
+        .get<FeedbackComentarioDto[]>(
+          `${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`
+        )
+        .pipe(
+          tap((response) =>
+            this.localdata.saveToLocalStorage(perfil, response)
+          ),
+          shareReplay(1)
+        );
+    }
   }
 
   public enviarRespuestas(
