@@ -44,7 +44,8 @@ export class ZonaEntrevistaComponent implements OnInit {
     this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe({
       next: (response) => { 
         if(response){
-          this.currentStep = this.getStepFromEstado(response.estadoEntrevista) 
+          this.currentStep = this.getStepFromEstado(response.estadoEntrevista);
+          this.idEntrevista = response.idEntrevista;
         }
       },
       error: (error) => console.error(error)
