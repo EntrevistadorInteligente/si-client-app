@@ -10,6 +10,9 @@ import { SharedModule } from '@shared/shared.module';
 import { TooltipModule } from 'primeng/tooltip';
 import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
+import { TabViewModule } from 'primeng/tabview';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { DialogModule } from 'primeng/dialog';
 
 @NgModule({
   declarations: [LandingComponent, HomeLoginComponent, HomeComponent],
@@ -21,8 +24,11 @@ import { FormsModule } from '@angular/forms';
     TooltipModule,
     SharedModule,
     DropdownModule,
+    TabViewModule,
     FormsModule,
     SharedModule,
+    ProgressSpinnerModule,
+    DialogModule,
   ],
   exports: [LandingComponent, HomeLoginComponent, HomeComponent],
 })
