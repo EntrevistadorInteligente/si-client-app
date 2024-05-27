@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { EntrevistaFeedbackDto } from '@shared/model/entrevista-feedback-dto';
+import { Component, Input, OnInit } from '@angular/core';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
 import { RespuestaComentarioDto, RespuestaDto } from '@shared/model/respuesta-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
-import { IntegradorService } from '@shared/service/integrador.service';
-import { SseService } from '@shared/service/sse.service';
 import { MessageService } from 'primeng/api';
 
 interface PageEvent {
@@ -21,7 +18,7 @@ interface PageEvent {
 })
 
 export class Paso3Component implements OnInit {
-
+  @Input() idEntrevista: string;
   preguntas: PreguntaComentarioDto[] = [];
   respuestas: RespuestaComentarioDto[] = [];
   currentIndex: number = 0;
@@ -33,7 +30,7 @@ export class Paso3Component implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.obtenerPreguntas('66481e493e360c336023dfec');
+    this.obtenerPreguntas(this.idEntrevista);
   }
 
   get currentQuestion(): PreguntaComentarioDto {
@@ -81,13 +78,7 @@ export class Paso3Component implements OnInit {
       return;
     }
 
-    const respuestaDto: RespuestaDto = {
-      idEntrevista: '66481e493e360c336023dfec', // Deberías obtener este valor dinámicamente
-      username: 'username', // Deberías obtener este valor dinámicamente
-      procesoEntrevista: this.respuestas
-    };
-
-    this.integradorService.enviarRespuestas(this.respuestas).subscribe({
+    this.integradorService.enviarRespuestas(this.idEntrevista, this.respuestas).subscribe({
       next: () => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con éxito, estaremos generando su feedback en un momento' });
       },

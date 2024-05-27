@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedbackDto } from '@shared/model/feedback-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { MessageService } from 'primeng/api';
@@ -10,13 +10,13 @@ import { MessageService } from 'primeng/api';
 })
 
 export class Paso4Component implements OnInit {
-
+  @Input() idEntrevista: string;
   feedbackItems: any[] = [];
 
   constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
-    this.obtenerFeedback('66481e493e360c336023dfec');
+    this.obtenerFeedback(this.idEntrevista);
   }
 
   obtenerFeedback(entrevistaId: string): void {
