@@ -115,3 +115,15 @@ select::placeholder {
 .p-dropdown-items{
   padding-left: 0!important;
 }
+
+.btn .disabled {
+  border-color: none!important;
+}
+
+.p-tabview-nav-link{
+  text-decoration: none;
+}
+
+.p-progress-spinner-circle {
+  stroke: #186DFF!important;
+}
