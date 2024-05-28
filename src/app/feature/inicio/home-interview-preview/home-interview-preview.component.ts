@@ -9,7 +9,10 @@ import { Observable, map, shareReplay } from 'rxjs';
 @Component({
   selector: 'app-home-interview-preview',
   templateUrl: './home-interview-preview.component.html',
-  styleUrl: './home-interview-preview.component.scss',
+  styleUrls: [
+    './home-interview-preview.component.scss',
+    '../home/home.component.scss',
+  ],
 })
 export class HomeInterviewPreviewComponent implements OnInit {
   public StateEnum = StatePreguntas;
