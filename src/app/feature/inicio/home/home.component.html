@@ -120,7 +120,7 @@
 <!-- PREGUNTAS PREESTABLECIDAS -->
 <ng-container id="preguntas">
   <h1 class="title">Muestra de ejemplos de Entrevistas</h1>
-  @if (stateEntrevista === StateEnum.show) {
+  @if (stateEntrevista !== StateEnum.show) {
     <div class="container text-center mb-3">
       <p-dropdown
         *ngIf="perfiles$ | async as perfiles"
