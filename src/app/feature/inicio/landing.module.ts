@@ -13,9 +13,10 @@ import { FormsModule } from '@angular/forms';
 import { TabViewModule } from 'primeng/tabview';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DialogModule } from 'primeng/dialog';
+import { HomeInterviewPreviewComponent } from './home-interview-preview/home-interview-preview.component';
 
 @NgModule({
-  declarations: [LandingComponent, HomeLoginComponent, HomeComponent],
+  declarations: [LandingComponent, HomeLoginComponent, HomeComponent, HomeInterviewPreviewComponent],
   imports: [
     CommonModule,
     CoreModule,
