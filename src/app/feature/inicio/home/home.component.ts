@@ -5,6 +5,7 @@ import { FeedbackService } from '@shared/service/feedback.service';
 import { Observable, map, shareReplay } from 'rxjs';
 import { FeedbackComentarioDto } from '@shared/model/feedback-dto';
 import { AuthService } from '@shared/service/auth/auth.service';
+import { StatePreguntas } from '@shared/model/entrevista-muestra-enums';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,8 @@ import { AuthService } from '@shared/service/auth/auth.service';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+  public StateEnum = StatePreguntas;
+  stateEntrevista = StatePreguntas.off;
   perfiles$!: Observable<any[]>;
   preguntasMuestra: FeedbackComentarioDto[] = [];
   preguntas!: VistaPreviaEntrevistaDto[];
@@ -19,8 +22,7 @@ export class HomeComponent implements OnInit {
   display: boolean = false;
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
-  cargandoPreguntas: boolean = false;
-  preguntasNoEncontradas: boolean = true;
+  iniciandoMuestra: boolean = false;
 
   constructor(
     private integradorService: IntegradorService,
@@ -40,18 +42,20 @@ export class HomeComponent implements OnInit {
   }
 
   onCargarPreguntas(event?: Event): void {
+    this.iniciandoMuestra = true;
+    this.stateEntrevista = StatePreguntas.load;
     if (event) {
       event.preventDefault();
       event.stopPropagation(); // Prevenir el comportamiento predeterminado del enlace
     }
     if (this.selectedPerfil) {
-      this.cargandoPreguntas = true;
       this.feedbackService
         .obtenerMuestraPreguntas(this.selectedPerfil.perfilEmpresa)
         .subscribe({
           next: (response: FeedbackComentarioDto[]) => {
             this.preguntasMuestra = response;
-            this.preguntasNoEncontradas = response.length == 0 ? false : true;
+            this.stateEntrevista =
+              response.length == 0 ? StatePreguntas.error : StatePreguntas.show;
             this.previoFeedback = response.map((p) => {
               return {
                 idPregunta: p.idPregunta,
@@ -60,12 +64,10 @@ export class HomeComponent implements OnInit {
                 feedback: '',
               };
             });
-            this.cargandoPreguntas = false;
           },
           error: (error) => {
             console.error(error);
-            this.preguntasNoEncontradas = false;
-            this.cargandoPreguntas = false;
+            this.stateEntrevista = StatePreguntas.error;
           },
         });
     }
