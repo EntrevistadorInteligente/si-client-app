@@ -4,7 +4,8 @@ import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { IntegradorService } from '@shared/service/integrador.service';
-import Swal from 'sweetalert2'
+import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
 
 @Component({
   selector: 'app-paso-2',
@@ -17,7 +18,8 @@ export class Paso2Component {
   @Output() formularioCompleto = new EventEmitter<boolean>();
   preguntas!: VistaPreviaEntrevistaDto[];
   form: FormGroup;
-  public loading = false;
+  public loading = true;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
 
   paises: any[] = [
     { "nombre": "Argentina" },
@@ -48,9 +50,13 @@ export class Paso2Component {
 
   ngOnInit() {
     const savedFormData = localStorage.getItem('formData');
+    console.log('entro', savedFormData);
+    
     if (savedFormData) {
       const formData = JSON.parse(savedFormData);
       this.form = this.fb.group(formData);
+      console.log('form', this.form);
+      
     } else {
       this.form = this.fb.group({
         empresa: ['', Validators.required],
@@ -64,42 +70,57 @@ export class Paso2Component {
 
   submit(): void {
     this.loading = true;
-    if (this.form.valid) {      
-      const formulario: FormularioDto = {
-        empresa: this.form.value.empresa,
-        perfil: this.form.value.perfil,
-        seniority: this.form.value.seniority,
-        pais: this.form.value.pais,
-        descripcionVacante: this.form.value.descripcionVacante
-      };
-      this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
-        data => {
-          this.loading = false;
-          Swal.fire({
-            title: 'OK',
-            text: 'Continue al siguiente paso',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })
-          this.preguntas = data;
-        },
-        err => {
-          this.loading = false;
-          Swal.fire({
-            title: 'Error',
-            text: 'Por favor póngase en contacto con el administrador.',
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          })
-        }          
-      );
-      localStorage.removeItem('formData');
-      this.formularioCompleto.emit(true);
-    } else {
-      console.log("MAL");
-      console.log(this.form);
-      this.formularioCompleto.emit(false);
-     }
+    // setTimeout(() => {
+    //   this.loading = false;
+    // }, 5000);
+    // if (this.form.valid) {      
+    //   const formulario: FormularioDto = {
+    //     empresa: this.form.value.empresa,
+    //     perfil: this.form.value.perfil,
+    //     seniority: this.form.value.seniority,
+    //     pais: this.form.value.pais,
+    //     descripcionVacante: this.form.value.descripcionVacante
+    //   };
+    //   this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
+    //     data => {
+    //       this.preguntas = data;          
+    //       this.loading = false;
+          
+    //     },
+    //     err => {
+    //       this.loading = false;
+    //       switch (err.error.codigo) {
+    //         case 'E001':
+    //           this.alert('Error', 'No se pueden generar más entrevistas.', 'error');
+    //           break;
+    //         case 'E002':
+    //           this.alert('Error', 'El usuario tiene una entrevista en proceso.', 'error');
+    //           break;
+    //         case 'E500':
+    //           this.alert('Error', 'Por favor póngase en contacto con el administrador.', 'error');
+    //           break;
+    //         default:
+      
+    //           break;
+    //       }
+    //     }          
+    //   );
+    //   localStorage.removeItem('formData');
+    //   this.formularioCompleto.emit(true);
+    // } else {
+    //   console.log("MAL");
+    //   console.log(this.form);
+    //   this.formularioCompleto.emit(false);
+    //  }
+  }
+
+  alert(title: string, text: string, icon: SweetAlertIcon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      confirmButtonText: 'Ok'
+    })
   }
 
   ngOnDestroy() {
