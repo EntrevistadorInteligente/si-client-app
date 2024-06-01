@@ -25,6 +25,7 @@ export class PerfilComponent implements OnInit {
   perfilForm: FormGroup | undefined;
   bandera = false;
   currentError: ErrorMessage | null = null;
+  currentInfo: boolean = false;
 
   ngOnInit() {
     this.obtenerPerfil();
@@ -183,9 +184,11 @@ export class PerfilComponent implements OnInit {
       if (file.type === 'application/pdf') {
         this.file = file;
         this.currentError = null;
+        this.currentInfo = true;
       } else {
         console.error('El archivo seleccionado no es un PDF.');
         this.currentError = ErrorMessage.ArchivoNoPDF;
+        this.currentInfo = false;
       }
     }
   }
