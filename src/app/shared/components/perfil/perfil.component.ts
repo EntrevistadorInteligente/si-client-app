@@ -209,10 +209,11 @@ export class PerfilComponent implements OnInit {
     this.currentError = null;
     if (this.file == undefined) {
       this.currentError = ErrorMessage.HojaDeVidaVacio;
-    } else if (this.file[0].size > 3000000) {
+    } else if (this.file.size > 3000000) {
       this.currentError = ErrorMessage.TamanoExcedido;
     } else {
-      this.integradorService.cargarHojaDeVida(this.file[0]).subscribe({
+      console.log(this.file);
+      this.integradorService.cargarHojaDeVida(this.file).subscribe({
         next: (event) => {
           console.log(event);
         },
