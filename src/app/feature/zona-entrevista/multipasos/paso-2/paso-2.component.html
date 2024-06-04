@@ -63,31 +63,12 @@
         </div>
       </div>
     </div>
-      <!-- <ngx-loading
-      [show]="loading"
-      [config]="{ animationType: ngxLoadingAnimationTypes.cubeGrid,
-                  primaryColour: '#ffffff',
-                  backdropBorderRadius: '3px', 
-                   }"
-      >
-    </ngx-loading> -->
 
-    <!-- <div class="loader-container" *ngIf="loading">
-      <div class="contenedor">
-        <h1 class="display-3">Se están generando las preguntas...<span class="cursor">&#160;</span></h1>
-      </div> -->
-      <!-- <div class="col-md-3">
-        <img src="../../../../../assets/img/chatbot.png" alt="chatbot" srcset="">
-      </div>
-      <div class="col-md-9">
-        <h1 class="display-4 p">Generando preguntas</h1>
-      </div> -->
-    <!-- </div> -->
-    <div class="loader-container" *ngIf="loading">
+    <div class="loader-container" *ngIf="isLoading">
       <div class="row prueba">
         <div class="col-md-1"></div>
         <div class="col-md-10 text-center">
-          <img src="../../../../../assets/img/chatbot.png" width="200" alt="chatbot" srcset="">
+          <img src="../../../../../assets/img/chatbot.png" width="180" alt="chatbot" srcset="">
           <h3 class="animate-charcter display-3">Generando preguntas<span class="cursor"><b>|</b></span></h3>
         </div>
         <div class="col-md-1"></div>

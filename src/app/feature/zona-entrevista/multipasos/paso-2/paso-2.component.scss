@@ -91,7 +91,7 @@ p {
   animation-direction:normal, linear;
   animation-iteration-count: 1, infinite;
   display: inline-block;
-  font-size: 80px;
+  font-size: 90px;
 }
 
 h3 {
@@ -102,24 +102,6 @@ h3 {
     escribiendo 4s steps(40);        
   overflow: hidden;
   color: #fff;
-}
-
-.prueba:hover {
-  animation:
-    move 3s infinite 0s,
-    // rotate 3s infinite 3s;
-}
-
-@keyframes move {
-  to {
-    transform: translateX(200px);
-  }
-}
-
-@keyframes rotate {
-  to {
-    transform: rotate(360deg) scale(0.5);
-  }
 }
 
 @keyframes textclip {

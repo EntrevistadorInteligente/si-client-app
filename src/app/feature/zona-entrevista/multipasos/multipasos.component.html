@@ -4,7 +4,8 @@
       <p-toast />
       <p-steps 
         [model]="steps"
-        [readonly]="true"> 
+        [readonly]="true"
+        > 
       </p-steps>
       <app-paso-2 *ngSwitchCase="2" (completed)="onStepCompleted()"></app-paso-2>
       <app-paso-3 *ngSwitchCase="3" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-3>
