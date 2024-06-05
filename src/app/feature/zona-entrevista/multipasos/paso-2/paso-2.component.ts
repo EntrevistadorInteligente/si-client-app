@@ -4,6 +4,9 @@ import { FormularioDto } from '@shared/model/formulario-dto';
 import { VistaPreviaEntrevistaDto } from '@shared/model/vista-previa-entrevista-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { IntegradorService } from '@shared/service/integrador.service';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
+import { ngxLoadingAnimationTypes } from 'ngx-loading';
+import { LoaderService } from '@shared/service/loader.service';
 
 @Component({
   selector: 'app-paso-2',
@@ -16,6 +19,9 @@ export class Paso2Component {
   @Output() formularioCompleto = new EventEmitter<boolean>();
   preguntas!: VistaPreviaEntrevistaDto[];
   form: FormGroup;
+  public loading = true;
+  public ngxLoadingAnimationTypes = ngxLoadingAnimationTypes;
+  isLoading: boolean;
 
   paises: any[] = [
     { "nombre": "Argentina" },
@@ -41,14 +47,18 @@ export class Paso2Component {
 
   constructor(private fb: FormBuilder,
     private integradorService: IntegradorService,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    private loaderService: LoaderService
   ) { }
 
   ngOnInit() {
+    this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
     const savedFormData = localStorage.getItem('formData');
+    
     if (savedFormData) {
       const formData = JSON.parse(savedFormData);
       this.form = this.fb.group(formData);
+      
     } else {
       this.form = this.fb.group({
         empresa: ['', Validators.required],
@@ -61,7 +71,8 @@ export class Paso2Component {
   }
 
   submit(): void {
-    if (this.form.valid) {
+    this.loaderService.show();   
+    if (this.form.valid) {      
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
@@ -71,17 +82,41 @@ export class Paso2Component {
       };
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
         data => {
-          this.preguntas = data;
+          this.preguntas = data;          
+          this.loaderService.hide();          
         },
-        err => console.log(err)
+        err => {
+          this.loaderService.hide();
+          switch (err.error.codigo) {
+            case 'E001':
+              this.alert('Error', 'No se pueden generar más entrevistas.', 'error');
+              break;
+            case 'E002':
+              this.alert('Error', 'El usuario tiene una entrevista en proceso.', 'error');
+              break;
+            case 'E500':
+              this.alert('Error', 'Por favor póngase en contacto con el administrador.', 'error');
+              break;
+            default:
+      
+              break;
+          }
+        }          
       );
       localStorage.removeItem('formData');
       this.formularioCompleto.emit(true);
     } else {
-      console.log("MAL");
-      console.log(this.form);
       this.formularioCompleto.emit(false);
-    }
+     }
+  }
+
+  alert(title: string, text: string, icon: SweetAlertIcon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      confirmButtonText: 'Ok'
+    })
   }
 
   ngOnDestroy() {
