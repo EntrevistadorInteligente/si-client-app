@@ -1,74 +1,37 @@
-.container-card {
-  display: flex;
-  flex-direction: column;
-}
-
-.question-container {
-  background-color: #1e1e2f;
-  border: none;
-  border-radius: 10px;
-  color: white;
-  padding: 20px;
-  box-shadow: 0px 4px 10px rgba(120, 113, 113, 0.5);
-}
-
-.question-header {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
-.question {
-  background-color: #2a2a40;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
-
 textarea {
   width: 100%;
-  border: 1px solid #333;
-  background-color: #2a2a40;
-  color: #fff;
 }
 
-p-progressBar .p-progressbar {
-  background-color: #333345;
-  height: 10px;
-  border-radius: 5px;
+.p-card {
+  padding: 2%;
 }
 
-p-progressBar .p-progressbar-value {
-  background-color: #0096d2;
+h3, .text-pregunta {
+  padding-bottom: 1rem;
 }
 
-.question-actions button {
-  margin-top: 10px;
-  border: none;
-  background-color: #4d4d69;
-  color: white;
-  margin-right: 10px;
-  border-radius: 20px;
-}
-
-.question-actions button:disabled {
-  background-color: #3d3d5c;
-}
-
-.question-actions button:last-child {
+.btn-success, .btn_end_process
+{
   float: right;
+  border-radius: 0.5rem;
 }
 
-p-paginator .p-paginator {
-  padding: 20px;
+.btn_chevron, .btn_microphone {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 
-p-paginator .p-paginator-pages .p-paginator-page {
-  background-color: #2a2a40;
-  border-color: #1e1e2f;
+.btn_microphone {
+  background-color: transparent;
+  color: black;
+  border: none;
 }
 
-p-paginator .p-paginator-pages .p-paginator-page.p-highlight {
-  background-color: #0096d2;
-  border-color: #0096d2;
+.div_btn_end_process{
+  margin-bottom: 1rem;
+}
+
+.btn_end_process {
+  border: none;
+  font-size: small;
 }

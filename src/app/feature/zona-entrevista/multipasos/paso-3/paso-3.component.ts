@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
 import { RespuestaComentarioDto } from '@shared/model/respuesta-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
 import { MessageService } from 'primeng/api';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 interface PageEvent {
   first: number;
@@ -23,6 +24,9 @@ export class Paso3Component implements OnInit {
   respuestas: RespuestaComentarioDto[] = [];
   currentIndex: number = 0;
   visible: boolean = false;
+  btn_success: boolean = false;
+  progress: number = 0;
+
 
   constructor(
     private integradorService: FeedbackService,
@@ -31,26 +35,34 @@ export class Paso3Component implements OnInit {
 
   ngOnInit(): void {
     this.obtenerPreguntas(this.idEntrevista);
+    
   }
 
   get currentQuestion(): PreguntaComentarioDto {
     return this.preguntas[this.currentIndex];
   }
 
-  get progressValue(): number {
-    return (this.currentIndex + 1) / this.preguntas.length * 100;
+  progressValue(): number {
+    this.progress = ((this.currentIndex + 1) / this.preguntas.length * 100 | 0);
+    
+    if (this.progress == 100) {
+      this.btn_success = true;
+    }
+    return this.progress
   }
 
   previousQuestion() {
     if (this.currentIndex > 0) {
       this.currentIndex--;
+      this.btn_success = false;
     }
   }
 
   nextQuestion() {
-    if (this.currentIndex < this.preguntas.length - 1) {
+    if(this.respuestas[this.currentIndex].respuesta.trim() === '') 
+      this.alert('Campo vacío', 'Debe responder para poder continuar', 'warning');
+    else if (this.currentIndex < this.preguntas.length - 1) 
       this.currentIndex++;
-    }
   }
 
   obtenerPreguntas(entrevistaId: string): void {
@@ -74,18 +86,26 @@ export class Paso3Component implements OnInit {
   submitAnswers() {
     const hasEmptyAnswers = this.respuestas.some(respuesta => !respuesta.respuesta);
     if (hasEmptyAnswers) {
-      this.visible = true;
+      this.alert('Campo vacío', 'Debe responder para poder enviar las respuestas', 'warning');
       return;
     }
 
     this.integradorService.enviarRespuestas(this.idEntrevista, this.respuestas).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Entrevista enviada con éxito, estaremos generando su feedback en un momento' });
+        this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
       },
       error: (err: any) => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.' });
-        console.error(err);
+        this.alert('Error', 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.', 'error');
       },
     });
+  }
+
+  alert(title: string, text: string, icon: SweetAlertIcon) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      confirmButtonText: 'OK'
+    })
   }
 }

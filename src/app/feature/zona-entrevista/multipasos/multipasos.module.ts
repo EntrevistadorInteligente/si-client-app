@@ -21,6 +21,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { StepperModule } from 'primeng/stepper';
 import { NgxLoadingModule } from "ngx-loading";
+import { DividerModule } from 'primeng/divider';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NgxLoadingModule } from "ngx-loading";
     FieldsetModule,
     InputTextModule,
     StepperModule,
+    DividerModule,
     NgxLoadingModule.forRoot({})
   ],
 
