@@ -16,7 +16,17 @@
         <div class="row">
             <div class="col-md-8">
                 <button pButton class="btn_chevron" icon="pi pi-chevron-left" (click)="previousQuestion()" [disabled]="currentIndex === 0"></button>&nbsp;&nbsp;
-                <button pButton class="btn_chevron" icon="pi pi-chevron-right" (click)="nextQuestion()" [disabled]="currentIndex === preguntas.length - 1"></button>
+                <button pButton class="btn_chevron" icon="pi pi-chevron-right" (click)="nextQuestion()" [disabled]="currentIndex === preguntas.length - 1"></button>&nbsp;&nbsp;
+
+                <button pButton class="btn_microphone" pTooltip="Responder con audio a texto" tooltipPosition="top" (click)="toggleVoiceRecognition(currentIndex)" *ngIf="isRecording ? 'Detener' : 'Hablar'">
+                    <i class="pi pi-microphone" style="font-size: 1.5rem"></i>
+                </button>&nbsp;&nbsp;
+                <p class="text-danger" *ngIf="isRecording">
+                    Grabación iniciada
+                </p>
+                <p class="text-success" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </p>
             </div>
             <div class="col-md-4">
                 <button pButton pRipple label="Enviar" class="btn-success" (click)="submitAnswers()" [disabled]="!btn_success"></button>

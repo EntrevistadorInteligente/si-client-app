@@ -35,3 +35,28 @@ h3, .text-pregunta {
   border: none;
   font-size: small;
 }
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+p {
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+p[ng-reflect-ng-if="true"] {
+  color: green;
+}
