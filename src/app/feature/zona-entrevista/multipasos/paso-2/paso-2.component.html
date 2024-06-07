@@ -2,55 +2,45 @@
   <div class="container">
     <div class="row background">
       <div class="col-md-12 background-blur">
-        <div class="card ">
+        <div class="card">
           <div class="card-header header">
-            <h3 class="text-center"> Datos de la oferta</h3>
+            <h3 class="text-center title">Datos de la oferta</h3>
           </div>
           <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="submit()">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="empresa">Empresa <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" placeholder="Empresa" formControlName="empresa">
-                  <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched"><b>Este
-                    campo es obligatorio</b>
-                  </small>
+                  <input type="text" class="form-control input" placeholder="Empresa" formControlName="empresa">
+                  <small class="text-danger" *ngIf="form.get('empresa').invalid && form.get('empresa').touched"><b>Este campo es obligatorio</b></small>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="perfil">Perfil <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" placeholder="Perfil" formControlName="perfil">
-                  <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched"><b>Este
-                    campo es obligatorio</b>
-                  </small>
+                  <input type="text" class="form-control input" placeholder="Perfil" formControlName="perfil">
+                  <small class="text-danger" *ngIf="form.get('perfil').invalid && form.get('perfil').touched"><b>Este campo es obligatorio</b></small>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="seniority">Seniority <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" placeholder="Seniority" formControlName="seniority">
-                  <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched"><b>Este
-                    campo es obligatorio</b>
-                  </small>
+                  <input type="text" class="form-control input" placeholder="Seniority" formControlName="seniority">
+                  <small class="text-danger" *ngIf="form.get('seniority').invalid && form.get('seniority').touched"><b>Este campo es obligatorio</b></small>
                 </div>
+           
                 <div class="form-group col-md-6">
                   <label for="pais">Seleccione país <span class="text-danger">*</span></label>
-                  <select id="inputState" class="form-control" formControlName="pais">
-                    <option selected>-- Seleccione --</option>
-                    <option *ngFor="let pais of paises" [value]="pais.nombre">{{ pais.nombre }}</option>
-                  </select>
-                  <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched"><b>Este campo
-                    es obligatorio</b>
-                  </small>
+                  <p-dropdown [options]="paises"
+                  [filter]="true" 
+                  filterBy="nombre"
+                   formControlName="pais" optionLabel="nombre" placeholder="Seleccione un país"></p-dropdown>
+                  <small class="text-danger" *ngIf="form.get('pais').invalid && form.get('pais').touched"><b>Este campo es obligatorio</b></small>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-12">
-                    <label for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
-                    <textarea class="form-control" id="descripcionVacante" rows="9" formControlName="descripcionVacante"></textarea>                    
-                    <small class="text-danger"
-                      *ngIf="form.get('descripcionVacante').invalid && form.get('descripcionVacante').touched"><b>Este
-                        campo es obligatorio</b>
-                    </small>
+                  <label for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
+                  <textarea class="form-control input" id="descripcionVacante" rows="9" formControlName="descripcionVacante"></textarea>
+                  <small class="text-danger" *ngIf="form.get('descripcionVacante').invalid && form.get('descripcionVacante').touched"><b>Este campo es obligatorio</b></small>
                 </div>
               </div> 
               <div class="form-group">
@@ -63,7 +53,6 @@
         </div>
       </div>
     </div>
-
     <div class="loader-container" *ngIf="isLoading">
       <div class="row prueba">
         <div class="col-md-1"></div>
@@ -75,5 +64,4 @@
       </div>
     </div>
   </div>  
-    
 </ng-container>

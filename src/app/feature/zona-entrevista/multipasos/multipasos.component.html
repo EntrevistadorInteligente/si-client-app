@@ -5,6 +5,7 @@
       <p-steps 
         [model]="steps"
         [readonly]="true"
+        [activeIndex]="currentStep" 
         > 
       </p-steps>
       <app-paso-2 *ngSwitchCase="2" (completed)="onStepCompleted()"></app-paso-2>

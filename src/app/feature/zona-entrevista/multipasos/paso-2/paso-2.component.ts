@@ -7,6 +7,7 @@ import { IntegradorService } from '@shared/service/integrador.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { ngxLoadingAnimationTypes } from 'ngx-loading';
 import { LoaderService } from '@shared/service/loader.service';
+import { PaisService } from '@shared/service/pais.service';
 
 @Component({
   selector: 'app-paso-2',
@@ -48,7 +49,8 @@ export class Paso2Component {
   constructor(private fb: FormBuilder,
     private integradorService: IntegradorService,
     private feedbackService: FeedbackService,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private paisService: PaisService
   ) { }
 
   ngOnInit() {
@@ -68,6 +70,7 @@ export class Paso2Component {
         descripcionVacante: ['', Validators.required]
       });
     }
+    //this.loadCountries();
   }
 
   submit(): void {
@@ -108,6 +111,15 @@ export class Paso2Component {
     } else {
       this.formularioCompleto.emit(false);
      }
+  }
+
+  loadCountries() {
+    this.paisService.getCountries().subscribe(data => {
+      this.paises = data.map(country => ({
+        name: country.name.common,
+        code: country.cca2
+      }));
+    });
   }
 
   alert(title: string, text: string, icon: SweetAlertIcon) {

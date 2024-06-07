@@ -3,15 +3,15 @@ export const environment = {
   production: false,
 
   // OAUTH MODULE -- DEL APP MODULE
-  oauthModuleUrl: 'https://gateway.pruebas-entrevistador-inteligente.site/api/*',
+  oauthModuleUrl: 'http://localhost:8765/*',
 
   // INTEGRADOR SERVICE
-  orquestadorURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1',
+  orquestadorURL: 'http://localhost:8765/api/orquestador/v1',
 
   // FEEDBACK SERVICE
-  feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
+  feedbackURL: 'http://localhost:8765/api/administrador-entrevista/v1',
 
   // FEEDBACK SERVICE
-  notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1'
+  notifcacionesURL: 'http://localhost:8765/api/notificaciones/v1'
 
 };

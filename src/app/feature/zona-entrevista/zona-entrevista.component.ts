@@ -3,6 +3,8 @@ import { IntegradorService } from '@shared/service/integrador.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { LoaderService } from '@shared/service/loader.service';
+import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
+import { catchError, forkJoin, of } from 'rxjs';
 
 interface PageEvent {
   first: number;
@@ -35,7 +37,7 @@ export class ZonaEntrevistaComponent implements OnInit {
       if (this.idEntrevista) {
         this.obtenerEstadoEntrevistaPorId(this.idEntrevista);
       } else {
-        this.obtenerEstadoEntrevistaPorUsuario();
+        this.validarEstadoUsuario();
       }
     });
   }
@@ -47,6 +49,30 @@ export class ZonaEntrevistaComponent implements OnInit {
     });
   }
 
+  validarEstadoUsuario() {
+    forkJoin({
+      hojaDeVida: this.entrevistaService.obtenerHojaDeVida().pipe(catchError(error => of(null))),
+      estadoEntrevista: this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().pipe(catchError(error => of(null)))
+    }).subscribe(({ hojaDeVida, estadoEntrevista }) => {
+      if (hojaDeVida && hojaDeVida.uuid) {
+        if (estadoEntrevista) {
+          this.currentStep = this.getStepFromEstado(estadoEntrevista.estadoEntrevista);
+          this.idEntrevista = estadoEntrevista.idEntrevista;
+        } else {
+          this.loaderService.hide();
+          // Manejar aquí un modal para aceptar que ya tienen una entrevista en proceso
+        }
+      } else {
+        this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
+      }
+    }, (error) => this.handleError(error));
+  }
+
+  handleError(error: any) {
+    console.error(error);
+    // Aquí puedes manejar los errores de manera global, mostrar notificaciones, etc.
+  }
+
   obtenerEstadoEntrevistaPorUsuario() {    
     this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe({
       next: (response) => {          
@@ -56,7 +82,8 @@ export class ZonaEntrevistaComponent implements OnInit {
         }
         else {
           this.loaderService.hide();
-          this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
+          //manjear aqui un modal para aceptar que ya tienen una entrevista en proceso
+          
         } 
       },
       error: (error) => console.error(error)
@@ -86,4 +113,6 @@ export class ZonaEntrevistaComponent implements OnInit {
       }
     });
   }
+
+
 }
