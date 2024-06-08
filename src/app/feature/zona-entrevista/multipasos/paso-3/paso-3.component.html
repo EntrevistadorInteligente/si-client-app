@@ -1,18 +1,29 @@
 <p-toast></p-toast>
-
-<p-card class="container-card pt-4">
-    <div *ngIf="currentQuestion" class="question-container">
-        <h2>Pregunta {{ currentIndex + 1 }}/{{ preguntas.length }}</h2>
-        <div class="question">{{ currentQuestion.pregunta }}</div>
-        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="respuestas[currentIndex].respuesta"></textarea>
-        <p-progressBar [value]="progressValue"></p-progressBar>
-        <div class="question-actions">
-            <button pButton label="Anterior" icon="pi pi-chevron-left" (click)="previousQuestion()" [disabled]="currentIndex === 0"></button>
-            <button pButton label="Siguiente" icon="pi pi-chevron-right" (click)="nextQuestion()" [disabled]="currentIndex === preguntas.length - 1"></button>
-            <button pButton label="Enviar" icon="pi pi-check" (click)="submitAnswers()" style="float:right"></button>
+<div class="container">
+    <div *ngIf="currentQuestion" class="p-card">
+        <div class="row">
+            <div class="col-md-12">                
+                <div class="p-card-header">
+                    <p-progressBar [value]="progressValue()" />
+                </div>
+                <div class="p-card-content">
+                    <h3 [ngStyle]="{color: 'var(--highlight-text-color)'}">Pregunta {{ currentIndex + 1 }}/{{ preguntas.length }}</h3>
+                    <div class="text-pregunta"><h5>{{ currentQuestion.pregunta }}</h5></div>
+                    <textarea rows="5" cols="100" pInputTextarea [(ngModel)]="respuestas[currentIndex].respuesta"></textarea>
+                </div>                                
+            </div>
         </div>
-    </div>
-</p-card>
+        <div class="row">
+            <div class="col-md-8">
+                <button pButton class="btn_chevron" icon="pi pi-chevron-left" (click)="previousQuestion()" [disabled]="currentIndex === 0"></button>&nbsp;&nbsp;
+                <button pButton class="btn_chevron" icon="pi pi-chevron-right" (click)="nextQuestion()" [disabled]="currentIndex === preguntas.length - 1"></button>
+            </div>
+            <div class="col-md-4">
+                <button pButton pRipple label="Enviar" class="btn-success" (click)="submitAnswers()" [disabled]="!btn_success"></button>
+            </div>
+        </div>
+    </div>    
+</div>
 
 <p-dialog header="Header" [(visible)]="visible" [modal]="true" [breakpoints]="{ '960px': '75vw' }" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
     <ng-template pTemplate="header">

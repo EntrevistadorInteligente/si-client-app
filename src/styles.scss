@@ -26,13 +26,9 @@ body {
   color: var(--color-text-dark);
 }
 
-/* TIPOGRAFÍA */
+/* TIPOGRAF�A */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Roboto", sans-serif !important;
-}
-
-a, p, td, tr, th, thead, span, small, label, tbody, input, button, textarea, option, select {
-  font-family: "Montserrat", sans-serif !important;
 }
 
 /* FORMULARIOS */
@@ -79,7 +75,7 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   color: var(--color-placeholder-dark);
 }
 
-/* Ajustes específicos para select en modo oscuro */
+/* Ajustes espec�ficos para select en modo oscuro */
 .dark-mode select {
   background-color: var(--color-bg-dark);
   color: var(--color-text-dark);
@@ -92,7 +88,7 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   border-color: var(--color-text-dark);
 }
 
-/* SELECCIÓN DE TEXTO */
+/* SELECCI�N DE TEXTO */
 *::selection {
   background: rgb(24, 109, 255);
   color: white;
@@ -119,7 +115,7 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   text-decoration: none !important;
 }
 
-/* Ajustes específicos para select en modo oscuro */
+/* Ajustes espec�ficos para select en modo oscuro */
 .dark-mode select {
   background-color: var(--color-bg-dark);
   color: var(--color-text-dark);
@@ -148,14 +144,14 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
 }
 
 .dark-mode .p-dropdown .p-dropdown-panel {
-  background-color: #1b1a1a; /* Fondo oscuro sólido */
+  background-color: #1b1a1a; /* Fondo oscuro s�lido */
   color: var(--color-text-dark);
   border: 1px solid var(--color-placeholder-dark);
 }
 
 .dark-mode .p-dropdown .p-dropdown-item {
   color: var(--color-text-dark);
-  background-color: #1b1a1a; /* Fondo oscuro sólido */
+  background-color: #1b1a1a; /* Fondo oscuro s�lido */
 }
 
 .dark-mode .p-dropdown .p-dropdown-item:hover {
@@ -163,7 +159,7 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   color: var(--color-text-dark);
 }
 
-/* Ajustes específicos para PrimeNG Dropdown */
+/* Ajustes espec�ficos para PrimeNG Dropdown */
 .dark-mode .p-dropdown {
   background-color: var(--color-bg-dark);
   color: var(--color-text-dark);
@@ -177,14 +173,14 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
 }
 
 .dark-mode .p-dropdown .p-dropdown-panel {
-  background-color: #333; /* Fondo oscuro sólido */
+  background-color: #333; /* Fondo oscuro s�lido */
   color: var(--color-text-dark);
   border: 1px solid var(--color-placeholder-dark);
 }
 
 .dark-mode .p-dropdown .p-dropdown-item {
   color: var(--color-text-dark);
-  background-color: #333; /* Fondo oscuro sólido */
+  background-color: #333; /* Fondo oscuro s�lido */
 }
 
 .dark-mode .p-dropdown .p-dropdown-item:hover {
@@ -192,13 +188,13 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   color: var(--color-text-dark);
 }
 
-/* Estilos para el input de búsqueda dentro del p-dropdown */
+/* Estilos para el input de b�squeda dentro del p-dropdown */
 .dark-mode .p-dropdown .p-dropdown-filter-container {
-  background-color: #333; /* Fondo oscuro sólido */
+  background-color: #333; /* Fondo oscuro s�lido */
 }
 
 .dark-mode .p-dropdown .p-dropdown-filter {
-  background-color: #333; /* Fondo oscuro sólido */
+  background-color: #333; /* Fondo oscuro s�lido */
   color: var(--color-text-dark);
   border: 1px solid var(--color-placeholder-dark);
 }
@@ -207,13 +203,13 @@ input[type="email"]::placeholder, input[type="text"]::placeholder, input[type="p
   color: var(--color-placeholder-dark);
 }
 
-/* Selección de texto */
+/* Selecci�n de texto */
 *::selection {
   background: rgb(24, 109, 255);
   color: white;
 }
 
-/* Asegurar que los elementos de formularios están alineados correctamente */
+/* Asegurar que los elementos de formularios est�n alineados correctamente */
 .form-group {
   display: flex;
   flex-direction: column;

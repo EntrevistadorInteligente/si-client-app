@@ -9,16 +9,10 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./multipasos.component.scss']
 })
 export class MultipasosComponent implements OnInit {
-  @Input() currentStep: number = 2;
+  @Input() currentStep: number = 0;
   @Input() idEntrevista: string;
   steps : MenuItem[];
   
-  // steps = [
-  //   { title: 'Formulario', component: 'app-paso-2' },
-  //   { title: 'Preguntas', component: 'app-paso-3' },
-  //   { title: 'Feedback', component: 'app-paso-4' }
-  // ];
-
   ngOnInit() {
     this.steps  = [ 
       { label: "Formulario" }, 

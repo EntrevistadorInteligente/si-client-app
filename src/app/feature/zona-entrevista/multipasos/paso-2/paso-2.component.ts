@@ -80,7 +80,7 @@ export class Paso2Component {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
         seniority: this.form.value.seniority,
-        pais: this.form.value.pais,
+        pais: this.form.value.pais.nombre,
         descripcionVacante: this.form.value.descripcionVacante
       };
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe(

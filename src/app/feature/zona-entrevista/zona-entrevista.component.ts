@@ -3,7 +3,6 @@ import { IntegradorService } from '@shared/service/integrador.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { LoaderService } from '@shared/service/loader.service';
-import { HojaDeVidaDto } from '@shared/model/hoja-de-vida-dto';
 import { catchError, forkJoin, of } from 'rxjs';
 
 interface PageEvent {
@@ -21,7 +20,7 @@ interface PageEvent {
 
 export class ZonaEntrevistaComponent implements OnInit {
 
-  currentStep: number = 2;
+  currentStep: number = 0;
   idEntrevista: string;
   isLoading: boolean;
 
@@ -82,8 +81,7 @@ export class ZonaEntrevistaComponent implements OnInit {
         }
         else {
           this.loaderService.hide();
-          //manjear aqui un modal para aceptar que ya tienen una entrevista en proceso
-          
+          //manjear aqui un modal para aceptar que ya tienen una entrevista en proceso   
         } 
       },
       error: (error) => console.error(error)
@@ -92,9 +90,9 @@ export class ZonaEntrevistaComponent implements OnInit {
 
   getStepFromEstado(estado: string): number {
     switch (estado) {
-      case 'PG': return 3;
-      case 'FG': return 4;
-      default: return 2;
+      case 'PG': return 1;
+      case 'FG': return 2;
+      default: return 0;
     }
   }
 
@@ -113,6 +111,5 @@ export class ZonaEntrevistaComponent implements OnInit {
       }
     });
   }
-
 
 }
