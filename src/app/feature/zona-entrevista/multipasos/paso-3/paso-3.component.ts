@@ -2,6 +2,7 @@ import { Component, Input, NgZone, OnInit } from '@angular/core';
 import { PreguntaComentarioDto } from '@shared/model/pregunta-comentario-dto';
 import { RespuestaComentarioDto } from '@shared/model/respuesta-dto';
 import { FeedbackService } from '@shared/service/feedback.service';
+import { RecordVoiceService } from '@shared/service/record-voice.service';
 import { MessageService } from 'primeng/api';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
@@ -26,14 +27,27 @@ export class Paso3Component implements OnInit {
   visible: boolean = false;
   btn_success: boolean = false;
   progress: number = 0;
-
+  isRecording: boolean = false;
+  errorMessage: string = '';
 
   constructor(
     private integradorService: FeedbackService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private voiceRecognitionService: RecordVoiceService
   ) { }
 
   ngOnInit(): void {
+    this.voiceRecognitionService.getSpeechResult().subscribe(result => {
+      this.respuestas[this.currentIndex].respuesta += result + '';
+    });
+
+    this.voiceRecognitionService.getRecordingStatus().subscribe(status => {
+      this.isRecording = status;
+    });
+
+    this.voiceRecognitionService.getRecognitionError().subscribe(error => {
+      this.errorMessage = `Error: ${error}`;
+    });
     this.obtenerPreguntas(this.idEntrevista);
     
   }
@@ -83,6 +97,16 @@ export class Paso3Component implements OnInit {
     });
   }
 
+  toggleVoiceRecognition(index: number) {
+    this.currentIndex = index;
+    this.errorMessage = '';
+    if (this.isRecording) {
+      this.voiceRecognitionService.stopRecognition();
+    } else {
+      this.voiceRecognitionService.startRecognition();
+    }
+  }
+
   submitAnswers() {
     const hasEmptyAnswers = this.respuestas.some(respuesta => !respuesta.respuesta);
     if (hasEmptyAnswers) {
@@ -91,10 +115,14 @@ export class Paso3Component implements OnInit {
     }
 
     this.integradorService.enviarRespuestas(this.idEntrevista, this.respuestas).subscribe({
-      next: () => {
+      next: (res:any) => {
+        console.log('ok: ', res);
+        
         this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
       },
       error: (err: any) => {
+        console.error('error: ', err);
+        
         this.alert('Error', 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.', 'error');
       },
     });
