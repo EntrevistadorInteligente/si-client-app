@@ -51,10 +51,6 @@ export class HomeLoginComponent implements OnInit {
     }
   }
 
-  toggleDarkMode() {
-    this.darkModeService.toggleDarkMode();
-  }
-
   @HostListener('window:scroll', ['$event'])
   checkIfVisible(event: any) {
     const windowHeight = window.innerHeight;
