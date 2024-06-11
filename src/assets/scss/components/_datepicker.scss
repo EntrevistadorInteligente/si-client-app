@@ -1,0 +1,165 @@
+/**=====================
+    52. Datepicker CSS Start
+==========================**/
+.date-picker{
+  ngb-datepicker-month{
+    .ngb-dp-day{
+      .custom-day{
+        &:hover{
+          background-color: $primary-color;
+        }
+        &.range{
+          background-color: $primary-color;
+          &.faded{
+            background-color: rgba($primary-color,0.4);
+          }
+        }
+      }
+    }
+  }
+  .datepicker-here{
+    padding: 10px;
+  }
+}
+ngb-datepicker.dropdown-menu{
+  padding: 10px !important;
+}
+.dp-hidden{
+  .input-group{
+    input{
+      visibility: hidden;
+    }
+  }
+}
+//colors
+.clockpicker-canvas {
+  line {
+    stroke: $primary-color;
+  }
+}
+.clockpicker-canvas-fg, .clockpicker-canvas-bearing {
+  fill: $primary-color;
+}
+.daterangepicker {
+  td, th {
+    &.available {
+      &:hover {
+          background-color: $primary-color;
+      }
+    }
+  }
+}
+.datepicker--day-name {
+  color: $black;
+  font-weight: bold;
+}
+.datepicker--cell {
+  &.-current- {
+    color: $black;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 5px;
+    font-weight: bold;
+    border: 2px solid $primary-color;
+  }
+  &.-focus- {
+    background: $primary-color;
+    color: $white;
+  }
+  &.-selected- {
+    background: $primary-color;
+  }
+}
+.daterangepicker.ltr {
+  color: $dark-gray;
+  z-index: 8;
+  tr {
+    font-size: 13px;
+    td {
+      height: 34px;
+      width: 34px;
+      &.in-range {
+        background-color: $auth-bg-color;
+      }
+      &.active {
+        background-color: $primary-color;
+      }
+    }
+  }
+  .ranges {
+    float: none;
+    li {
+      color: $primary-color;
+      &:hover {
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+        color: $white;
+      }
+      &.active {
+        background-color: $primary-color;
+        border: 1px solid $primary-color;
+        color: $white;
+      }
+    }
+  }
+  .calendar-time select {
+    color: $dark-gray;
+  }
+}
+.datetime-picker {
+  .bootstrap-datetimepicker-widget.dropdown-menu {
+    width: auto;
+  }
+}
+.date-range-picker{
+  .daterange-card{
+    padding-bottom: 10px;
+  }
+  > div{
+    &:last-child{
+      .theme-form{
+        margin-bottom: 0px;
+      }
+    }
+  }
+
+
+  
+}
+.daterangepicker{
+  &:before {
+    border-bottom: 7px solid $light-semi-gray;
+  }
+  .daterangepicker_input {
+    i {
+      font-size: 14px;
+      color: $semi-dark;
+    }
+  }
+
+ .input-mini{
+   border-color: $light-semi-gray !important;
+   font-size: 14px;
+   color: $semi-dark;
+ }
+  th,td{
+    height: 34px;
+    width: 34px;
+    &:hover{
+      color: $dark-color;
+    }
+    &.prev,&.next{
+      color: $white;
+      height: 34px;
+      width: 34px;
+      background-color: $primary-color;
+    }
+    &.month{
+      color: $primary-color;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+  }
+}
+/**=====================
+   52. Datepicker CSS End
+==========================**/

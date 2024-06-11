@@ -1,0 +1,61 @@
+<div class="card">
+  <div class="card-header pb-0">
+    <h5>Datos de la oferta</h5>
+    <span>Completa los campos con la información solicitada.</span>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label" for="empresa">Empresa <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="empresa" placeholder="Empresa" formControlName="empresa" required>
+          <small class="text-danger" *ngIf="form.get('empresa')?.invalid && form.get('empresa')?.touched"><b>Este campo es obligatorio</b></small>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="perfil">Perfil <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="perfil" placeholder="Perfil" formControlName="perfil" required>
+          <small class="text-danger" *ngIf="form.get('perfil')?.invalid && form.get('perfil')?.touched"><b>Este campo es obligatorio</b></small>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label" for="seniority">Seniority <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="seniority" placeholder="Seniority" formControlName="seniority" required>
+          <small class="text-danger" *ngIf="form.get('seniority')?.invalid && form.get('seniority')?.touched"><b>Este campo es obligatorio</b></small>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="pais">Seleccione país <span class="text-danger">*</span></label>
+          <p-dropdown [options]="paises" [filter]="true" filterBy="nombre" formControlName="pais" optionLabel="nombre" placeholder="Seleccione un país"></p-dropdown>
+          <small class="text-danger" *ngIf="form.get('pais')?.invalid && form.get('pais')?.touched"><b>Este campo es obligatorio</b></small>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-md-12">
+          <label class="form-label" for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
+          <textarea class="form-control" id="descripcionVacante" rows="9" formControlName="descripcionVacante" required></textarea>
+          <small class="text-danger" *ngIf="form.get('descripcionVacante')?.invalid && form.get('descripcionVacante')?.touched"><b>Este campo es obligatorio</b></small>
+        </div>
+      </div>
+      <div class="mb-3 mt-3">
+        <div class="form-check">
+          <div class="checkbox p-0">
+            <input class="form-check-input" id="agreeTerms" type="checkbox" required>
+            <label class="form-check-label" for="agreeTerms">Acepto los términos y condiciones</label>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Enviar</button>
+    </form>
+  </div>
+</div>
+
+<div class="loader-container" *ngIf="isLoading">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10 text-center">
+      <img src="assets/img/chatbot.png" width="180" alt="chatbot">
+      <h3 class="animate-character display-3">Generando preguntas<span class="cursor"><b>|</b></span></h3>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+</div>

@@ -1,27 +1,61 @@
-# Zeta
+# Entrevistador Inteligente
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.4.
+Entrevistador Inteligente es una plataforma que utiliza inteligencia artificial para ayudar a los usuarios a prepararse para entrevistas laborales de manera efectiva. Los usuarios pueden cargar su currículum vitae y completar un formulario que incluye la descripción del trabajo y el nombre de la empresa a la que desean postularse.
 
-## Development server
+## Instalación
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Instrucciones sobre cómo instalar el proyecto y configurar el entorno de desarrollo.
 
-## Code scaffolding
+1. **Prerrequisitos**: 
+- Asegúrate de tener instalado Node.js versión 20 en adelante. Puedes descargarlo [aquí](https://nodejs.org/). 
+- Además, necesitarás tener Angular CLI instalado globalmente. Si aún no lo tienes, puedes instalarlo ejecutando el siguiente comando: 
+  `npm install -g @angular/cli`.
+2. Clona el repositorio: `git clone https://github.com/EntrevistadorInteligente/landing-entrevistador.git`
+3. Instala las dependencias: `npm install`
+4. Ejecuta el proyecto: `npm start`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Contribución
 
-## Build
+Si deseas contribuir a este proyecto, sigue estos pasos:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+1. Haz un fork del repositorio
+2. Crea una nueva rama con tu nombre ejemplo, frailejon: `git checkout -b feature/frailejon`
+3. Realiza tus cambios y haz commits: `git commit -m 'Añade una nueva característica'`
+4. Sube tus cambios: `git push origin feature/frailejon`
+5. Envía una solicitud de extracción (Pull Request)
 
-## Running unit tests
+Por favor, asegúrate de seguir nuestras pautas de contribución.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Estructura del Proyecto
 
-## Running end-to-end tests
+Este proyecto sigue una estructura organizativa específica para mantener una arquitectura limpia y modular. A continuación se detalla la organización de carpetas y los componentes principales en cada una:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+## Tecnologías Utilizadas
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- Angular: Framework de desarrollo de aplicaciones web.
+- PrimeNG: Biblioteca de componentes de UI para Angular.
+- Bootstrap 5: Framework de diseño front-end para desarrollo web moderno.
+
+### Dependencias
+
+- Angular CLI: Herramienta de línea de comandos para Angular.
+- PrimeIcons: Iconos adicionales para PrimeNG.
+- ngx-bootstrap: Librería de componentes Bootstrap para Angular.
+- angular-oauth2-oidc: Librería para la autenticación y autorización utilizando OAuth 2.0 y OpenID Connect en aplicaciones Angular.
+
+## Estado del Proyecto
+
+Entrevistador Inteligente se encuentra en desarrollo activo y se están agregando nuevas funcionalidades y mejoras continuamente.
+
+## Contribución
+
+¡Apreciamos cualquier contribución al proyecto!
+
+## Licencia
+
+Este proyecto es de código abierto.
+
+## Contacto y Soporte
+
+Si tienes alguna pregunta o necesitas ayuda, no dudes en ponerte en contacto con nosotros a través de [Discord](https://discord.com/invite/AkR67b88YP)

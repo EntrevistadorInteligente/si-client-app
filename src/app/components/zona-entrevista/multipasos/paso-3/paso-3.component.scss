@@ -1,0 +1,62 @@
+textarea {
+  width: 100%;
+}
+
+.p-card {
+  padding: 2%;
+}
+
+h3, .text-pregunta {
+  padding-bottom: 1rem;
+}
+
+.btn-success, .btn_end_process
+{
+  float: right;
+  border-radius: 0.5rem;
+}
+
+.btn_chevron, .btn_microphone {
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.btn_microphone {
+  background-color: transparent;
+  color: black;
+  border: none;
+}
+
+.div_btn_end_process{
+  margin-bottom: 1rem;
+}
+
+.btn_end_process {
+  border: none;
+  font-size: small;
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+p {
+  font-size: 15px;
+  color: red;
+  font-weight: bold;
+  margin-top: 2%;
+}
+
+p[ng-reflect-ng-if="true"] {
+  color: green;
+}

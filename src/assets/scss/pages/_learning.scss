@@ -1,0 +1,174 @@
+
+/**=====================
+     75. Learning CSS start
+==========================**/
+.learning-box{
+  &.product-box{
+    border-radius: 15px;
+    &:hover{
+      .product-hover{
+        border-radius: 15px 15px 0 0;
+      }
+    }
+    .product-img{
+      img{
+        border-radius: 15px 15px 0 0;
+      }
+    }
+  }
+  .details-main{
+    padding: 30px;
+    h6{
+      font-size:20px;      
+      font-weight:600;
+    }
+    p{
+      color : $semi-dark;
+      margin-bottom: 0;
+    }
+  }
+}
+.learning-header{
+  margin-bottom:5px;
+  h5{
+    font-size: 16px !important;
+    margin-bottom: 10px !important;
+  }
+}
+.categories{
+  padding:20px 0;
+  + .categories{
+    padding-top: 0;
+  }
+  .learning-header{
+    padding-left:30px;
+    font-size:16px;
+  }
+  ul{
+    li{
+      padding: 5px 60px 5px 30px;
+      position: relative;
+      .badge{
+        position: absolute;
+        right: 30px;
+        top: 6px;
+      }
+      a{
+        color: $light-text;
+        font-weight: 500;
+      }
+      &:hover{
+        background-color: rgba($primary-color, 0.1);
+        a{
+          color:$primary-color;
+        }
+      }
+    }
+  }
+}
+.upcoming-course{
+  .media{
+    + .media{
+      margin-top: 30px;
+    }
+  }
+}
+.job-accordion{
+  margin-bottom: 0;
+}
+
+
+.learning-section{
+  .categories {
+    ul {
+      li{
+        a{
+          font-size:13px;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+@media screen and (min-width: 1200px) and (max-width: 1366px){
+  .learning-comment{   
+    float: left !important;
+  } 
+  .blog-box {
+    .blog-details {
+      .blog-social {
+        li{
+          &:nth-child(n+2){
+            padding-left:15px;
+            margin-left:15px;
+          }
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: 991px){
+  .categories{
+    padding: 20px 0;
+    .learning-header{
+      padding-left: 20px;
+    }
+    ul{
+      li{
+        padding: 5px 20px;
+      }
+    }
+  }
+  .upcoming-course{
+    .media{
+      + .media{
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 767px){
+  .categories {
+    ul{
+      li{
+        a{
+          font-size:13px;
+        }
+      }
+    }
+  }
+  .comment-box {
+    h4{
+      margin-bottom:20px;
+      padding-bottom:15px;
+    }
+    li{
+      margin-bottom:20px;
+    }
+  }
+  
+}
+
+@media only screen and (max-width: 575px){
+  .categories{
+    padding: 15px 0;
+    .learning-header{
+      padding-left: 15px;
+    }
+  }
+  .upcoming-course{
+    .media{
+      + .media{
+        margin-top:10px;
+      }
+    }
+  }
+}
+/**=====================
+     75. Learning CSS end
+==========================**/

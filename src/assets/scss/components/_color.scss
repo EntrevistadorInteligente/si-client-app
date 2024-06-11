@@ -1,0 +1,78 @@
+/**=====================
+     07. Color CSS Start
+==========================**/
+.colors-palette-section {
+  > .card-body {
+    .card {
+      .card-body {
+        position: relative;
+        padding-bottom: 48px;
+        h5 {
+          margin-bottom: 0;
+        }
+        div.color-name {
+          background-color: $white;
+          position: absolute;
+          bottom: -2px;
+          right: 0;
+          left: 0;
+          text-align: center;
+          border-radius: 8px;
+          h6 {
+            padding: 4px;
+            margin: 0;
+            font-size: 13px;
+            color: $dark;
+          }
+        }
+      }
+    }
+  }
+}
+
+.color-box {
+  margin-bottom: -10px;
+
+  button {
+    margin-bottom: 10px;
+
+    + button {
+      margin-left: 5px;
+    }
+  }
+}
+
+
+.light-font {
+  color: $theme-body-sub-title-color;
+}
+
+@media screen and (max-width: 1660px) {
+  .color-shape {
+    ul {
+      display: block;
+      li {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .colors-palette-section {
+    > .card-body {
+      .card {
+        .card-body {
+          position: relative;
+          padding-bottom: 42px;
+        }
+      }
+    }
+  }
+}
+
+/**=====================
+      07. Color CSS Ends
+ ==========================**/

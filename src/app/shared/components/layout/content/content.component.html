@@ -1,0 +1,26 @@
+<div 
+  [class]="layout.config.settings.layout_version">
+  <div class="page-wrapper" 
+  [ngClass]="layout.config.settings.sidebar"
+       id="canvas-bookmark"
+      >
+       <div class="page-header" (scroll)="scrollHandler()"
+       [ngStyle]="{ 'display': show ? 'block' : 'none' }"
+            [class.close_icon]="navServices.collapseSidebar">
+      <app-header></app-header>
+    </div>
+    <div class="page-body-wrapper " [class.scorlled]="Scorlled && show == false">
+      <div class="sidebar-wrapper"  
+            [attr.sidebar-layout]="layout.config.settings.sidebar_type"
+            [class.close_icon]="navServices.collapseSidebar">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="page-body" [@routeAnimations]="prepareRoute(outlet)">
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+      <div class="footer" [class.footer-dark]="footerDark" [class.footer-light]="footerLight" [class.footer-fix]="footerFix">
+        <app-footer></app-footer>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,377 @@
+/**=====================
+    angular plugin css start
+==========================**/
+// ck editor
+.ck {
+  &.ck-toolbar {
+    border: 1px solid $common-shadow-color !important;
+    background: #fefefe !important;
+    .ck {
+      &.ck-toolbar__separator {
+        background: $common-shadow-color !important;
+      }
+    }
+  }
+}
+.ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+  border-color: $common-shadow-color !important;
+}
+.ck-editor__editable {
+  height: 245px;
+}
+// tree structure
+.node-content-wrapper-focused{
+  background-color: rgba($primary-color, 0.2);
+}
+.node-content-wrapper{
+  &:hover{
+    background-color: rgba($primary-color,0.1);
+  }
+}
+// date picker
+.owl-dt-dialog-container{
+  margin: 0;
+}
+.owl-dt-container-buttons, .owl-dt-timer{
+  color: $primary-color;
+}
+.owl-dt-calendar-table{
+  .owl-dt-calendar-cell-selected{
+    background-color: $primary-color;
+  }
+} 
+ngx-dropzone {
+  border: 2px dashed var(--theme-deafult) !important;
+  background-color: rgba($primary-color, 0.1) !important;
+  height: auto !important;
+  padding: 50px;
+  i {
+    font-size: 48px !important;
+    color: var(--theme-deafult);
+  }
+}
+.dz-message{
+  h6 {
+    font-weight: 600;
+    font-size: 16px;
+    color: $dark;
+  }
+  span{
+    color: $dark;
+    font-size: 14px;
+  }
+}
+.dz-message {
+  h4 {
+    font-weight: 200;
+    margin-top: 20px;
+  }
+}
+.accordion-header {
+  .accordion-button {
+    color: $theme-body-font-color;
+    &:not(.collapsed) {
+      color: var(--theme-deafult);
+      background-color: rgba($primary-color, 0.1) !important;
+    }
+  }
+}
+// calendar
+ngb-datepicker {
+  border: 0 !important;
+  box-shadow: 0 0 37px rgba(8, 21, 66, 0.05);
+  .ngb-dp-header {
+    background-color: $white;
+    padding: 4px 0 10px;
+    .ngb-dp-arrow-btn {
+      background-color: $primary-color;
+      color: $white;
+      width: 32px;
+      height: 32px;
+      margin: 0;
+      span {
+        width: 8px;
+        height: 8px;
+      }
+    }
+  }
+  .ngb-dp-weekday {
+    color: $theme-body-font-color;
+    font-weight: 600;
+    font-style: initial;
+  }
+  .ngb-dp-content {
+    .ngb-dp-week {
+      .btn-light {
+        background-color: $white !important;
+        border-color: $white !important;
+        color: $theme-body-font-color;
+        &:hover {
+          background-color: $primary-color !important;
+          border-color: $primary-color !important;
+          color: $white;
+          outline: 0;
+          &.text-muted {
+            color: $white !important;
+          }
+        }
+        &.text-white {
+          background-color: $primary-color !important;
+          border: 1px solid $primary-color !important;
+          color: $white !important;
+        }
+      }
+    }
+  }
+  .ngb-dp-weekdays {
+    background-color: $white;
+    border-bottom: 0;
+  }
+}
+.cal-date-widget {
+  .cal-datepicker {
+    ngb-datepicker {
+      width: 100%;
+      padding: 16px;
+    }
+    .ngb-dp-month {
+      width: 100%;
+      .ngb-dp-weekday,
+      .ngb-dp-day {
+        width: 100%;
+      }
+      .ngb-dp-day {
+        > div[ngbdatepickerdayview] {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+// rating
+.br-horizontal{
+  justify-content: flex-start;
+  .br-unit-inner{
+    background-color: $primary-color;
+  }
+  .br-text{
+    width: 26px;
+    color: $primary-color;
+  }
+}
+.br-movie{
+  .br-text{
+    text-align: left;
+    color: $primary-color;
+  }
+  .br-unit-inner{
+    background-color: $primary-color;
+  }
+}
+.br-square{
+  .br-unit-inner{
+    border: 2px solid $primary-color;
+    color: $primary-color;
+  }
+}
+.br-vertical{
+  .br-unit-inner{
+    background-color: $primary-color;
+  }
+}
+.br-units{
+  .br-unit{
+    fa-icon{
+      color: $primary-color !important;
+    }
+  }
+}
+// toastr page css
+.ngx-toastr {
+  background-color: var(--theme-deafult) !important;
+  box-shadow: none !important;
+  &:hover {
+    box-shadow: none !important;
+  }
+  &.toast-success {
+    background-color: $success-color !important;
+  }
+  &.toast-error {
+    background-color: $danger-color !important;
+  }
+  &.toast-info {
+    background-color: var(--theme-deafult) !important;
+  }
+  &.toast-warning {
+    background-color: $warning-color !important;
+  }
+  .toast-close-button {
+    top: -1px;
+  }
+}
+// ngx select
+.ng-select{
+  &.ng-select-multiple{
+    .ng-select-container{
+      .ng-value-container{
+        .ng-value{
+          background-color: $primary-color;
+          color: $white;
+          .ng-value-icon.left{
+            border-right: 1px solid $white;
+          }
+        }
+      }
+    }
+  }
+}   
+.ng-dropdown-panel{
+  .ng-dropdown-panel-items{
+    .ng-option{
+      &.ng-option-marked{
+        background-color: rgba($primary-color, 0.1);
+      }
+    }
+  }
+}
+.cal-datepicker{
+  ngb-datepicker-navigation-select{
+    >.form-select{
+      + .form-select{
+        margin-left: 5px;
+      }
+    }
+  }
+}
+// notify color
+.notifier__notification--primary{
+  background-color: $primary-color;
+  color: $white;
+  .notifier__notification-button-icon{
+    fill: $white;
+  }
+}
+.notifier__notification--secondary{
+  background-color: $secondary-color;
+}
+.notifier__notification--info{
+  background-color: $info-color;
+}
+.notifier__notification--success{
+  background-color: $success-color;
+}
+.notifier__notification--warning{
+  background-color: $warning-color;
+}
+.notifier__notification--danger{
+  background-color: $danger-color;
+}
+// range slider css
+.ngx-slider{
+  margin-bottom: 25px !important;
+  .ngx-slider-pointer{
+    width: 22px !important;
+    height: 22px !important;
+    top: -10px !important;
+    &::after{
+      top: 7px !important;
+      left: 7px !important;
+    }
+  }
+}
+// toastr page css
+.toast-success {
+  background-color: $success-color !important;
+}
+.toast-error {
+  background-color: $danger-color !important;
+}
+.toast-info {
+  background-color: var(--theme-deafult) !important;
+}
+.toast-warning {
+  background-color: $warning-color !important;
+}
+.ngx-toastr {
+  background-color: var(--theme-deafult) !important;
+  box-shadow: none !important;
+  &:hover {
+    box-shadow: none !important;
+  }
+  .toast-close-button {
+    top: -1px;
+  }
+}
+.g-backdrop{
+  background-color: rgba($black, 0.8) !important;
+}
+.card-body{
+  ngb-typeahead-window{
+    z-index: 7 !important;
+  }
+}
+.cal-month-view{
+  .cal-day-badge{
+    background-color: $primary-color;
+  }
+} 
+.swal2-actions{
+  button{
+    + button{
+      margin-left: 10px;
+    }
+  }
+}
+.calendar-event {
+  tbody {
+    tr {
+      td {
+        input[type="color"] {
+          border-radius: 0;
+          padding: 3px;
+          + input[type="color"]{
+            margin-left: 6px;
+          }
+        }
+      }
+    }
+  }
+}
+.cal-month-view{
+  .cal-header{
+    .cal-cell{
+      text-align: right;
+    }
+  }
+  .cal-header{
+    font-weight: 500 !important;
+  }
+}
+.ng-select{
+  &.js-example-basic-single{
+    padding: 0;
+  }
+  .ng-clear-wrapper{
+    align-self: center;
+  }
+}
+.base-inputs{
+  .form-group{
+    .ng-select.ng-select-multiple{
+      .ng-select-container{
+        .ng-value-container{
+          .ng-placeholder{
+            line-height: 3.2;
+          }
+        }
+      }
+    }
+  }    
+}
+// toaster
+.toast-container{
+  z-index: 999;
+}
+/**=====================
+    angular plugin css end
+  ==========================**/

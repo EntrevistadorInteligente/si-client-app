@@ -1,0 +1,247 @@
+/**=====================
+     76. Order History CSS start
+==========================**/
+
+.prooduct-details-box {
+  margin-bottom: 30px;
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .media {
+    border: 1px solid $light-gray;
+    width: 100%;
+    position: relative;
+    display: block;
+    .media-body {
+      padding: 15px;
+      .product-name {
+        h6 {
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  .rating {
+    color: #ffaf45;
+  }
+  .price {
+    font-size: 14px;
+    font-weight: 600;
+    span {
+      margin-left: 5px;
+      color: $light-font;
+    }
+  }
+  ul.rating {
+    li {
+      display: inline-block;
+    }
+  }
+  .product-name {
+    h6 {
+      color: $theme-body-font-color;
+      font-size: 15px;
+    }
+  }
+  .btn {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    font-size: 9px;
+    padding: 2px 5px;
+    z-index: 0;
+  }
+}
+.order-history {
+  .input-group {
+    text-align: right;
+    max-width: 300px;
+  }
+  table {
+    th {
+      min-width: 170px;
+    } 
+    th,
+    td {
+      text-align: center;
+    }
+    thead {
+      tr {
+        th {
+          vertical-align: middle;
+          border-top: none;
+          background-color: rgba($primary-color, 0.05);
+          border: 1px solid $primary-color;
+          padding: 15px;
+          font-size: 16px;
+          color: $primary-color;
+          font-weight: 600;
+        }
+      }
+    }
+    .qty-box {
+      width: 120px;
+      margin: 0 auto;
+      border-radius: 5px;
+      overflow: hidden;
+      input {
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        &:focus {
+          box-shadow: none;
+          border: none;
+        }
+      }
+      .input-group {
+        justify-content: space-between;
+        align-items: center;
+        background-color: transparent;
+        border-radius: 5px;
+        border: 1px solid $light-gray;
+        overflow: hidden;
+      }
+      .btn {
+        background-color: transparent;
+        padding: 8px 13px;
+        font-size: 10px;
+      }
+    }
+    tbody {
+      tr {
+        border-bottom: 1px solid #ddd;
+        &:hover{
+          background-color: $light-bg;
+        }
+        &:nth-child(even){
+          td{
+            &:first-child{
+              background-color: $auth-bg-color;
+            }
+          }
+        }
+        &:nth-child(odd){
+          background-color: $light-bg;
+          td{
+            &:first-child{
+              background-color: $body-color;
+            }
+          }
+        }
+        td {
+          vertical-align: middle;
+          color: $light-text;
+          font-weight: 600;
+          .product-name {
+            a {
+              font-size: 15px;
+              color: $dark-gray;
+            }
+            .order-process {
+              font-size: 13px;
+              padding-left: 15px;
+
+              .order-process-circle {
+                position: relative;
+
+                &:before {
+                  position: absolute;
+                  content: "";
+                  width: 4px;
+                  height: 4px;
+                  border-radius: 100%;
+                  background-color: $dark-gray;
+                  left: -15px;
+                  top: 5px;
+                }
+
+                &.shipped-order {
+                  &:before {
+                    background-color: $success-color;
+                  }
+                }
+
+                &.cancel-order {
+                  &:before {
+                    background-color: $danger-color;
+                  }
+                }
+              }
+            }
+          }
+          &.total-amount {
+            color: $theme-body-font-color;
+          }
+        }
+      }
+    }
+  }
+  .product-name {
+    h6 {
+      color: $theme-body-font-color;
+      margin-bottom: unset;
+      font-size: 14px;
+    }
+  }
+}
+
+.whishlist-main {
+  > div {
+    margin-bottom: -30px;
+  }
+}
+.table-responsive {
+  overflow-x: hidden;
+}
+@media screen and (max-width: 1780px) and (min-width: 1661px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+}
+@media only screen and (max-width: 1660px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+}
+@media only screen and (max-width: 1199px) {
+  .order-history {
+    table {
+      width: 900px;
+      overflow: auto;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .order-history {
+    table {
+      tbody {
+        tr {
+          td {
+            .product-name {
+              a {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .wishlist {
+    .text-end {
+      text-align: left !important;
+    }
+  }
+}
+
+/**=====================
+     76. Order History CSS end
+==========================**/
