@@ -27,6 +27,7 @@ import { SearchCustomizeComponent } from "./components/header/header/search-cust
 import { FeedbackService } from "./services/domain/feedback.service";
 import { IntegradorService } from "./services/domain/integrador.service";
 import { LocaldataService } from "./services/domain/localdata.service";
+import { ChatService } from "./services/chat/chat.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { LocaldataService } from "./services/domain/localdata.service";
     SearchCustomizeComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, AngularSvgIconModule.forRoot()],
-  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService],
+  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService],
   exports: [RouterModule, 
     BreadcrumbComponent, 
     TapToTopComponent, 

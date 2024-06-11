@@ -1,0 +1,90 @@
+<ul class="nav nav-tabs border-tab nav-primary" id="info-tab" role="tablist">
+   <li class="nav-item">
+     <a href="javascript:void(0)" class="nav-link" [ngClass]="{'active show': openTab == 'call'}"
+       id="info-home-tab" (click)="tabbed('call')">CALL</a>
+   </li>
+   <li class="nav-item">
+     <a href="javascript:void(0)" class="nav-link" [ngClass]="{'active': openTab == 'status'}"
+       id="profile-info-tab" (click)="tabbed('status')">STATUS</a>
+   </li>
+   <li class="nav-item">
+     <a href="javascript:void(0)" class="nav-link" [ngClass]="{'active': openTab == 'profile'}"
+       id="contact-info-tab" (click)="tabbed('profile')">PROFILE</a>
+   </li>
+ </ul>
+ <div class="tab-content" id="info-tabContent">
+   <div class="tab-pane fade" [ngClass]="{'show active': openTab == 'call'}" id="info-home" role="tabpanel" aria-labelledby="info-home-tab">
+     <div class="people-list">
+       <ul class="list digits custom-scrollbar">
+         <ng-container *ngFor="let call of calls">
+           <li class="clearfix">
+             <div class="media"><img class="rounded-circle user-image" src="{{call.profile}}" alt="">
+               <div class="media-body">
+                 <div class="about">
+                   <div class="name">{{call.user}}</div>
+                   <div class="status"><i class="fa fa-{{call.callType}} font-{{call.callTypeColor}}"></i>{{call.date}}</div>
+                 </div>
+               </div>
+             </div>
+           </li>
+         </ng-container>
+       </ul>
+     </div>
+   </div>
+   <div class="tab-pane fade" [ngClass]="{'show active': openTab == 'status'}" id="info-profile" role="tabpanel" aria-labelledby="profile-info-tab">
+     <div class="people-list">
+       <div class="search">
+         <form class="theme-form">
+           <div class="form-group">
+             <input class="form-control" type="text" placeholder="Write Status..."><i class="fa fa-pencil"></i>
+           </div>
+         </form>
+       </div>
+     </div>
+     <div class="status">
+       <p class="font-primary f-w-600">Active</p>
+       <hr>
+       <p>
+         Established fact that a reader will be
+         distracted  <i class="icofont icofont-emo-heart-eyes font-danger f-20"></i><i class="icofont icofont-emo-heart-eyes font-danger f-20 m-l-5"></i>
+       </p>
+       <hr>
+       <p>Dolore magna aliqua  <i class="icofont icofont-emo-rolling-eyes font-success f-20"></i></p>
+     </div>
+   </div>
+   <div class="tab-pane fade" [ngClass]="{'show active': openTab == 'profile'}" id="info-contact" role="tabpanel" aria-labelledby="contact-info-tab">
+     <div class="user-profile">
+       <div class="image">
+         <div class="avatar text-center"><img alt="" src="assets/images/user/2.jpg"></div>
+         <div class="icon-wrapper"><i class="icofont icofont-pencil-alt-5"></i></div>
+       </div>
+       <div class="user-content text-center">
+         <h5 class="text-uppercase">mark jenco</h5>
+         <div class="social-list">
+           <ul>
+             <li><a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+             <li><a href="https://myaccount.google.com/"><i class="fa fa-google-plus"></i></a></li>
+             <li><a href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+             <li><a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a></li>
+             <li><a href="https://dashboard.rss.com/auth/sign-in/"><i class="fa fa-rss"> </i></a></li>
+           </ul>
+         </div>
+         <div class="follow text-center">
+           <div class="row">
+             <div class="col border-right"><span>Following</span>
+               <div class="follow-num">236k</div>
+             </div>
+             <div class="col"><span>Follower</span>
+               <div class="follow-num">3691k                                         </div>
+             </div>  
+           </div>
+         </div>
+         <div class="text-center digits">
+           <p>Mark.jecno23&#64;gmail.com</p>
+           <p>+91 365 - 658 - 1236</p>
+           <p>Fax: 123-4560</p>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>

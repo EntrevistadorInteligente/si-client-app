@@ -23,7 +23,10 @@ export class Paso3Component implements OnInit {
   progress: number = 0;
   isRecording: boolean = false;
   errorMessage: string = '';
-
+  public openTab : string = "call";
+  show = false;
+  active = 1;
+ 
   constructor(
     private integradorService: FeedbackService,
     private messageService: MessageService,
@@ -129,5 +132,13 @@ export class Paso3Component implements OnInit {
       icon: icon,
       confirmButtonText: 'OK'
     })
+  }
+
+  openMenu(){
+    this.show = !this.show
+  }
+
+  public tabbed(val: string) {
+  	this.openTab = val
   }
 }

@@ -19,7 +19,6 @@
 // @import "vendors/font-awesome/variables";
 @import "./vendors/chartist/chartist-settings";
 @import "./vendors/chartist/chartist";
-@import "vendors/flag-icon";
 @import "vendors/icofont"; 
 @import "vendors/themify";
 @import "vendors/font-awesome.scss";
@@ -87,7 +86,7 @@
 @import "pages/_crypto-dashboard";
 @import "pages/ecommerce.scss";
 @import "pages/email-application.scss";
-@import "pages/errorpage.scss";
+//@import "pages/errorpage.scss";
 @import "pages/faq.scss";
 @import "pages/file.scss";
 @import "pages/gallery.scss";
