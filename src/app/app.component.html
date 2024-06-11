@@ -1,16 +1,3 @@
-<div *ngIf="!online" class="offline-message">
-  <div class="offline-content">
-    <h1 class="text-danger">No tienes conexión a internet.</h1>
-    <p>Verifica tu conexión e inténtalo de nuevo más tarde.</p>
-  </div>
-</div>
-
-<div *ngIf="online">
-    <app-menu [isLogged]="isLogged"></app-menu>
-    <router-outlet></router-outlet>
-</div>
-<app-footer></app-footer>
-
-<div *ngIf="offlineMessage" class="alert alert-warning text-center">
-  <h4 *ngIf="offlineMessage">{{ offlineMessage }}</h4>
-</div>
+<app-loader></app-loader>
+<app-tap-to-top></app-tap-to-top>
+<router-outlet></router-outlet>

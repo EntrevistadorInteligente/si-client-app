@@ -1,63 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { NetworkService } from '@core/service/network/network.service';
-import { OfflineService } from '@core/service/offline/offline.service';
-import { AuthService } from '@shared/service/auth/auth.service';
-import { KeycloakService } from 'keycloak-angular';
+import { Component, HostBinding, Inject, PLATFORM_ID } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { LoadingBarService } from '@ngx-loading-bar/core';
+import { delay, map, withLatestFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
+export class AppComponent {
 
-export class AppComponent implements OnInit {
+  @HostBinding('@.disabled')
+  public animationsDisabled = false;
 
-  title = 'landing entrevistador';
-  username: string;
-  isLogged: boolean;
-  isAdmin: boolean;
-  online: boolean = true;
-  offlineMessage: string = '';
-
-  constructor(
-    private networkService: NetworkService,
-    private offlineService: OfflineService,
-    private keycloakService: KeycloakService,
-    private authService:AuthService
-  ) {
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet?.activatedRouteData?.['animation'];
   }
 
-  ngOnInit(): void {
-    this.networkService.online$.subscribe((online) => {
-      this.online = online;
-      if (online) {
-        this.offlineMessage = '';
-      }
-    });
 
-    this.offlineService.offlineMessage$.subscribe((message) => {
-      this.offlineMessage = message;
-    });
-
-    this.checkLogin();
-    this.subscribeToLoginChanges();
+  toggleAnimations() {
+    this.animationsDisabled = !this.animationsDisabled;
+  }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+    private loader: LoadingBarService) {
+    
   }
 
-  private checkLogin(): void {
-    const isLoggedIn = this.keycloakService.isLoggedIn();
-      if (isLoggedIn) {
-        this.isLogged = isLoggedIn;
-        this.authService.setIsLogged(this.isLogged);
-      }
-  }
-
-  private subscribeToLoginChanges(): void {
-    this.authService.isLogged$.subscribe((isLogged) => {
-      this.isLogged = isLogged;
-    });
-  }
-  
 }
-
-
-

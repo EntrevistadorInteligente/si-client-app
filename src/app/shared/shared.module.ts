@@ -1,34 +1,61 @@
-// MODULOS
-import { CoreModule } from '@core/core.module';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PanelModule } from 'primeng/panel';
-import { TabMenuModule } from 'primeng/tabmenu';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-// COMPONENTES
-import { MenuComponent } from './components/menu/menu.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
-import { ListboxModule } from 'primeng/listbox';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { FeedbackService } from './service/feedback.service';
-import { IntegradorService } from './service/integrador.service';
-import { LocaldataService } from './service/localdata.service';
+import { HeaderComponent } from "./components/header/header/header.component";
+import { ContentComponent } from "./components/layout/content/content.component";
+import { SidebarComponent } from "./components/sidebar/sidebar.component";
+
+import { NavService } from "./services/nav.service";
+import { FeatherIconComponent } from "./components/feather-icon/feather-icon.component";
+import { RouterModule } from "@angular/router";
+import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
+import { TapToTopComponent } from "./components/tap-to-top/tap-to-top.component";
+import { FooterComponent } from "./components/footer/footer.component";
+import { BookmarkComponent } from "./components/header/header/bookmark/bookmark.component";
+import { NotificationComponent } from "./components/header/header/notification/notification.component";
+import { MaximizeComponent } from "./components/header/header/maximize/maximize.component";
+import { AccountComponent } from "./components/header/header/account/account.component";
+import { ModeComponent } from "./components/header/header/mode/mode.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { LoaderComponent } from "./components/loader/loader.component";
+import { FullComponent } from "./components/layout/full/full.component";
+import { AngularSvgIconModule } from "angular-svg-icon";
+import { DecimalPipe } from "@angular/common";
+import { SearchComponent } from "./components/header/header/search/search.component";
+import { SearchCustomizeComponent } from "./components/header/header/search-customize/search-customize.component";
+import { FeedbackService } from "./services/domain/feedback.service";
+import { IntegradorService } from "./services/domain/integrador.service";
+import { LocaldataService } from "./services/domain/localdata.service";
 
 @NgModule({
-  declarations: [MenuComponent, FooterComponent, PerfilComponent],
-  imports: [
-    CommonModule,
-    CoreModule,
-    PanelModule,
-    TabMenuModule,
-    ListboxModule,
-    FormsModule,
-    ReactiveFormsModule,
-    InputTextModule,
+  declarations: [
+    HeaderComponent,
+    ContentComponent,
+    SidebarComponent,
+    FeatherIconComponent,
+    BreadcrumbComponent,
+    TapToTopComponent,
+    FooterComponent,
+    BookmarkComponent,
+    NotificationComponent,
+    MaximizeComponent,
+    AccountComponent,
+    ModeComponent,
+    LoaderComponent,
+    FullComponent,
+    SearchComponent,
+    SearchCustomizeComponent,
   ],
-  exports: [MenuComponent, FooterComponent, PerfilComponent],
-  providers: [IntegradorService, FeedbackService, LocaldataService],
+  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, AngularSvgIconModule.forRoot()],
+  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService],
+  exports: [RouterModule, 
+    BreadcrumbComponent, 
+    TapToTopComponent, 
+    FeatherIconComponent, 
+    ContentComponent, 
+    LoaderComponent, 
+    NgbModule, 
+    AngularSvgIconModule],
 })
 export class SharedModule {}
