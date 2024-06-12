@@ -11,7 +11,7 @@ import { IntegradorService } from 'src/app/shared/services/domain/integrador.ser
   templateUrl: './home-interview-preview.component.html',
   styleUrls: [
     './home-interview-preview.component.scss',
-    '../home/home.component.scss',
+    '../../home/home.component.scss',
   ],
 })
 export class HomeInterviewPreviewComponent implements OnInit {
