@@ -17,7 +17,7 @@ export class UsersChatsComponent implements OnInit {
 
   //get chat data
   constructor(private chatService: ChatService) {
-    this.chatService.getUsers().subscribe((users: ChatUsers[]) => { 
+    this.chatService.getUsers().subscribe(users => { 
       this.searchUsers = users
       this.users = users 
     })
@@ -29,7 +29,7 @@ export class UsersChatsComponent implements OnInit {
   }
 
   public getProfile() {
-    this.chatService.getCurrentUser().subscribe((userProfile: any) => this.profile = userProfile)
+    this.chatService.getCurrentUser().subscribe(userProfile => this.profile = userProfile)
   }
 
   searchTerm(term: any) {
@@ -46,7 +46,7 @@ export class UsersChatsComponent implements OnInit {
   }
 
   public userChat(id:any =1){    
-    this.chatService.chatToUser(id).subscribe((chatUser: any) => this.chatUser = chatUser)
-    this.chatService.getChatHistory(id).subscribe((chats: any) => this.chats = chats)
+    this.chatService.chatToUser(id).subscribe(chatUser => this.chatUser = chatUser)
+    this.chatService.getChatHistory(id).subscribe(chats => this.chats = chats)
   }
 }

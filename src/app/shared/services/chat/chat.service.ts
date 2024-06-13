@@ -12,8 +12,56 @@ export class ChatService {
   currentMessage = this.messageSource.asObservable();
 
   constructor() {
-    this.chat
-    this.users
+    this.users = [
+      { id: 1, name: 'Ethan Gonzalez', authenticate: 0, avatar: 'assets/images/ethan.jpg' },
+      { id: 2, name: 'Bryan Wallace', authenticate: 0, avatar: 'assets/images/bryan.jpg' },
+      { id: 3, name: 'Avery Stewart', authenticate: 0, avatar: 'assets/images/avery.jpg' },
+      { id: 4, name: 'Katie Peterson', authenticate: 0, avatar: 'assets/images/katie.jpg' },
+      { id: 5, name: 'Ray Edwards', authenticate: 0, avatar: 'assets/images/ray.jpg' }
+    ];
+
+    this.chat = [
+      {
+        id: 1,
+        userId: 1,
+        messages: [
+          { text: 'Hi there!', sender: 1, date: new Date() },
+          { text: 'Hello', sender: 0, date: new Date() }
+        ]
+      },
+      {
+        id: 2,
+        userId: 2,
+        messages: [
+          { text: 'Hi there!', sender: 2, date: new Date() },
+          { text: 'Hello', sender: 0, date: new Date() }
+        ]
+      },
+      {
+        id: 3,
+        userId: 3,
+        messages: [
+          { text: 'Hi there!', sender: 3, date: new Date() },
+          { text: 'Hello', sender: 0, date: new Date() }
+        ]
+      },
+      {
+        id: 4,
+        userId: 4,
+        messages: [
+          { text: 'Hi there!', sender: 4, date: new Date() },
+          { text: 'Hello', sender: 0, date: new Date() }
+        ]
+      },
+      {
+        id: 5,
+        userId: 5,
+        messages: [
+          { text: 'Hi there!', sender: 5, date: new Date() },
+          { text: 'Hello', sender: 0, date: new Date() }
+        ]
+      }
+    ];
    }
    
     getUsers(): Observable<ChatUsers[]> {

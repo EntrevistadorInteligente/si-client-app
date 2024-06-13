@@ -18,7 +18,7 @@
      <ul class="list custom-scrollbar">
       <ng-container *ngFor="let user of searchUsers">
         <li class="clearfix">
-          <!--div class="media">
+          <div class="media">
             <img class="rounded-circle user-image" [src]="user.profile" alt="">
             <div class="status-circle away" [ngClass]="{'online' : user.online, 'offline' : !user.online}"></div>
             <div class="media-body">
@@ -27,7 +27,7 @@
                 <div class="status">{{user.status}}</div>
               </div>
             </div>
-          </div-->
+          </div>
         </li>
       </ng-container>
      </ul>

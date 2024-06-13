@@ -21,9 +21,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { StepperModule } from 'primeng/stepper';
 import { DividerModule } from 'primeng/divider';
 import { ZonaEntrevistaRoutingModule } from '../zona-entrevista-routing.module';
-import { ChatMenuComponent } from './paso-3/chat-menu/chat-menu.component';
-import { ChatAppComponent } from './paso-3/chat-app/chat-app.component';
-import { ChatsComponent } from './paso-3/chat-app/chats/chats.component';
+import { ChatAppComponent } from './paso-3/chat/chat-app/chat-app.component';
+import { UsersChatsComponent } from './paso-3/chat/chat-app/users-chats/users-chats.component';
+import { VideoChatComponent } from './paso-3/chat/video-chat/video-chat.component';
+import { ChatMenuComponent } from './paso-3/chat/chat-menu/chat-menu.component';
 
 @NgModule({
   declarations: [
@@ -32,9 +33,10 @@ import { ChatsComponent } from './paso-3/chat-app/chats/chats.component';
     Paso2Component,
     Paso3Component,
     Paso4Component,
-    ChatMenuComponent,
     ChatAppComponent,
-    ChatsComponent
+    VideoChatComponent,
+    UsersChatsComponent,
+    ChatMenuComponent
   ],
 
   imports: [

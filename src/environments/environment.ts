@@ -5,16 +5,16 @@
 export const environment = {
   production: true,
     // OAUTH MODULE -- DEL APP MODULE
-    oauthModuleUrl: 'http://localhost:8765/api/*',
+    oauthModuleUrl: 'https://gateway.pruebas-entrevistador-inteligente.site/api/*',
 
     // INTEGRADOR SERVICE
-    orquestadorURL: 'http://localhost:8765/api/orquestador/v1',
+    orquestadorURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1',
   
     // FEEDBACK SERVICE
-    feedbackURL: 'http://localhost:8765/api/administrador-entrevista/v1',
+    feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
   
     // FEEDBACK SERVICE
-    notifcacionesURL: 'http://localhost:8765/api/notificaciones/v1'
+    notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1'
   
 };
 

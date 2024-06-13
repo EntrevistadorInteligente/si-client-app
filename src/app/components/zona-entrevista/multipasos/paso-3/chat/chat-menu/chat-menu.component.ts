@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as chatData from 'src/app/shared/services/chat/chat'
 @Component({
   selector: 'app-chat-menu',
   templateUrl: './chat-menu.component.html',
@@ -9,7 +9,7 @@ export class ChatMenuComponent implements OnInit {
   public openTab : string = "call";
 
   // data
-  public calls = undefined//chatData.ChatDB.call
+  public calls = chatData.ChatDB.call
 
   constructor() { }
 
