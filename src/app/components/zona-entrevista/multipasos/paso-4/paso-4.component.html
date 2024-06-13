@@ -6,8 +6,19 @@
           <div class="col-sm-12">
             <div class="{{ribbon[0].ribbonClass}}">
               <div class="card-body">
-                <div class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h4"> {{ feedback.pregunta }}</div>
+                <div class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
                 <p>{{ feedback.feedback }}</p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-original-title="test" data-bs-target="#exampleModal" (click)="simpleModal(simpleContent)">Ver tu respuesta</button>
+                <!-- modal -->
+                <ng-template #simpleContent let-modal>
+                  <div class="modal-header">
+                    <h5 class="modal-title ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}}" id="exampleModalLabel">Respuesta # {{currentIndex + 1}}</h5>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="h4">{{ feedback.respuesta }}</p>
+                  </div>
+                </ng-template>
               </div>
             </div>
           </div>

@@ -6,6 +6,19 @@
   border-radius: 15px;
   box-shadow: none;
 }
+
 .text-dark {
   font-size: medium;
+}
+
+.ribbon-clip {
+  max-width: 120ch;
+  white-space: pre-wrap; 
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  height: auto;
+}
+
+p {
+  margin-top: 1%;
 }
