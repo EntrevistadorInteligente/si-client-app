@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Component, Input, OnInit } from '@angular/core';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
+import * as data from '../../../../shared/data/animation/ribbons';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-paso-4',
@@ -8,14 +9,25 @@ import { FeedbackService } from 'src/app/shared/services/domain/feedback.service
   styleUrl: './paso-4.component.scss'
 })
 
-export class Paso4Component implements OnInit {
+export class Paso4Component implements OnInit  {
+
+  public ribbon = data.ribbons
+  public ribbonColor = data.ribbonColor
   @Input() idEntrevista: string;
   feedbackItems: any[] = [];
+  paginationSide = "center";
+  currentIndex: number = 0;
+  pageSize: number = 1;
+  maxPagesToShow: number = 5;
 
-  constructor(private feedbackService: FeedbackService) { }
+  constructor(private feedbackService: FeedbackService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.obtenerFeedback(this.idEntrevista);
+    this.obtenerFeedback(this.idEntrevista);    
+  }
+
+  get currentFeedback() {
+    return this.feedbackItems.slice(this.currentIndex, this.currentIndex + this.pageSize);
   }
 
   obtenerFeedback(entrevistaId: string): void {
@@ -27,5 +39,31 @@ export class Paso4Component implements OnInit {
         console.error(error);
       }
     );
+  }
+
+  changePage(index: number): void {
+    if (index >= 0 && index < this.totalPages) {
+      this.currentIndex = index;
+    }
+  }
+
+  get totalPages(): number {
+    return Math.ceil(this.feedbackItems.length / this.pageSize);
+  }
+
+  get pages(): number[] {
+    const half = Math.floor(this.maxPagesToShow / 2);
+    let start = Math.max(0, this.currentIndex - half);
+    let end = Math.min(this.totalPages, start + this.maxPagesToShow);
+
+    if (end - start < this.maxPagesToShow) {
+      start = Math.max(0, end - this.maxPagesToShow);
+    }
+
+    return Array.from({ length: end - start }, (_, i) => start + i + 1);
+  }
+
+  simpleModal(simpleContent:any){
+    const modalRef = this.modalService.open(simpleContent);
   }
 }

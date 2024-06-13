@@ -1,15 +1,52 @@
-<div class="feedback-container">
-  <div *ngFor="let item of feedbackItems" class="feedback-card">
-    <div class="question">
-      <h3>{{ item.pregunta }}</h3>
-    </div>
-    <div class="answer">
-      <h4>Tu respuesta:</h4>
-      <p>{{ item.respuesta }}</p>
-    </div>
-    <div class="feedback">
-      <h4>Feedback:</h4>
-      <p>{{ item.feedback }}</p>
-    </div>
+<div class="card card-test">  
+  <div class="card-body">
+    <div *ngFor="let feedback of currentFeedback">      
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="{{ribbon[0].ribbonClass}}">
+              <div class="card-body">
+                <div class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
+                <p>{{ feedback.feedback }}</p>
+                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-original-title="test" data-bs-target="#exampleModal" (click)="simpleModal(simpleContent)">Ver tu respuesta</button>
+                <!-- modal -->
+                <ng-template #simpleContent let-modal>
+                  <div class="modal-header">
+                    <h5 class="modal-title ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}}" id="exampleModalLabel">Respuesta # {{currentIndex + 1}}</h5>
+                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p class="h4">{{ feedback.respuesta }}</p>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+    </div>  
   </div>
 </div>
+<ng-container>
+  <nav class="m-b-30" aria-label="Page navigation example">
+    <ul class="pagination justify-content-{{paginationSide}} pagination-primary">
+      <li class="page-item" [class.disabled]="currentIndex === 0">
+        <a class="page-link" (click)="changePage(currentIndex - 1)" aria-label="Previous">
+          <span aria-hidden="true">«</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+
+      <li *ngFor="let page of pages" class="page-item" [class.active]="currentIndex === page - 1">
+        <a class="page-link" (click)="changePage(page - 1)">{{ page }}</a>
+      </li>
+
+      <li class="page-item" [class.disabled]="currentIndex >= totalPages - 1">
+        <a class="page-link" (click)="changePage(currentIndex + 1)" aria-label="Next">
+          <span aria-hidden="true">»</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</ng-container>

@@ -1,52 +1,24 @@
-.feedback-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-  }
-  
-  .feedback-card {
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    padding: 20px;
-    width: 80%;
-    max-width: 800px;
-  }
-  
-  .question {
-    background-color: #e0f7fa;
-    border-radius: 10px;
-    padding: 10px;
-  }
-  
-  .answer {
-    background-color: #fff3e0;
-    border-radius: 10px;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  
-  .feedback {
-    background-color: #e1bee7;
-    border-radius: 10px;
-    margin-top: 10px;
-    padding: 10px;
-  }
-  
-  h3 {
-    margin: 0;
-    color: #00796b;
-  }
-  
-  h4 {
-    margin: 0;
-    color: #d84315;
-  }
-  
-  p {
-    margin: 10px 0 0;
-    color: #424242;
-  }
-  
+.card-test {
+  margin-bottom: 30px;
+  border: none;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  border-radius: 15px;
+  box-shadow: none;
+}
+
+.text-dark {
+  font-size: medium;
+}
+
+.ribbon-clip {
+  max-width: 120ch;
+  white-space: pre-wrap; 
+  overflow-wrap: break-word; 
+  word-wrap: break-word;
+  height: auto;
+}
+
+p {
+  margin-top: 1%;
+}
