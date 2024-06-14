@@ -1,24 +1,22 @@
-.card-test {
-  margin-bottom: 30px;
-  border: none;
-  transition: all 0.3s ease;
-  letter-spacing: 0.5px;
-  border-radius: 15px;
-  box-shadow: none;
-}
-
-.text-dark {
-  font-size: medium;
-}
-
 .ribbon-clip {
-  max-width: 120ch;
-  white-space: pre-wrap; 
-  overflow-wrap: break-word; 
-  word-wrap: break-word;
   height: auto;
+  width: 100%;
 }
 
-p {
-  margin-top: 1%;
+.card-response {
+  box-shadow: none;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+  max-height: 0;
+  padding: 0 20px;
+}
+
+.content-visible {
+  max-height: 500px; /* Ajusta esto según la altura máxima esperada */
+  padding: 20px;
+}
+
+.content-hidden {
+  max-height: 0;
+  padding: 0 20px;
 }

@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
 import * as data from '../../../../shared/data/animation/ribbons';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-paso-4',
@@ -11,6 +10,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class Paso4Component implements OnInit  {
 
+  @ViewChild('divpregunta') divpregunta!: ElementRef;
+  @ViewChild('pfeedback') pfeedback!: ElementRef;
+
   public ribbon = data.ribbons
   public ribbonColor = data.ribbonColor
   @Input() idEntrevista: string;
@@ -19,11 +21,13 @@ export class Paso4Component implements OnInit  {
   currentIndex: number = 0;
   pageSize: number = 1;
   maxPagesToShow: number = 5;
+  isVisibleAnswer: boolean = false;
 
-  constructor(private feedbackService: FeedbackService, private modalService: NgbModal) { }
+  constructor(private feedbackService: FeedbackService) { }
 
   ngOnInit(): void {
     this.obtenerFeedback(this.idEntrevista);    
+    this.adjustMargin();
   }
 
   get currentFeedback() {
@@ -45,6 +49,7 @@ export class Paso4Component implements OnInit  {
     if (index >= 0 && index < this.totalPages) {
       this.currentIndex = index;
     }
+    this.adjustMargin();
   }
 
   get totalPages(): number {
@@ -63,7 +68,22 @@ export class Paso4Component implements OnInit  {
     return Array.from({ length: end - start }, (_, i) => start + i + 1);
   }
 
-  simpleModal(simpleContent:any){
-    const modalRef = this.modalService.open(simpleContent);
+  @HostListener('window:resize')
+  onResize() {
+    this.adjustMargin();
+  }
+
+  private adjustMargin() {
+    setTimeout(() => {
+      const containerHeight = this.divpregunta.nativeElement.offsetHeight;
+      const screenWidth = window.innerWidth;
+
+      this.pfeedback.nativeElement.style.marginTop = screenWidth <= 400 ?  `${containerHeight / 2.7}%` : `${containerHeight / 2}px`;
+
+    }, 400);
+  }
+
+  mostrarRespuestas() {
+    this.isVisibleAnswer = !this.isVisibleAnswer;
   }
 }
