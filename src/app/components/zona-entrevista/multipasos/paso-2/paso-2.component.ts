@@ -10,9 +10,8 @@ import { FormularioDto } from 'src/app/shared/model/formulario-dto';
 @Component({
   selector: 'app-paso-2',
   templateUrl: './paso-2.component.html',
-  styleUrl: './paso-2.component.scss'
+  styleUrls: ['./paso-2.component.scss']
 })
-
 export class Paso2Component {
 
   @Output() formularioCompleto = new EventEmitter<boolean>();
@@ -22,32 +21,31 @@ export class Paso2Component {
   isLoading: boolean;
 
   paises: any[] = [
-    { "nombre": "Argentina" },
-    { "nombre": "Bolivia" },
-    { "nombre": "Brasil" },
-    { "nombre": "Chile" },
-    { "nombre": "Colombia" },
-    { "nombre": "Costa Rica" },
-    { "nombre": "Cuba" },
-    { "nombre": "Ecuador" },
-    { "nombre": "El Salvador" },
-    { "nombre": "Guatemala" },
-    { "nombre": "Honduras" },
-    { "nombre": "México" },
-    { "nombre": "Nicaragua" },
-    { "nombre": "Panamá" },
-    { "nombre": "Paraguay" },
-    { "nombre": "Perú" },
-    { "nombre": "República Dominicana" },
-    { "nombre": "Uruguay" },
-    { "nombre": "Venezuela" }
+    { nombre: "Argentina" },
+    { nombre: "Bolivia" },
+    { nombre: "Brasil" },
+    { nombre: "Chile" },
+    { nombre: "Colombia" },
+    { nombre: "Costa Rica" },
+    { nombre: "Cuba" },
+    { nombre: "Ecuador" },
+    { nombre: "El Salvador" },
+    { nombre: "Guatemala" },
+    { nombre: "Honduras" },
+    { nombre: "México" },
+    { nombre: "Nicaragua" },
+    { nombre: "Panamá" },
+    { nombre: "Paraguay" },
+    { nombre: "Perú" },
+    { nombre: "República Dominicana" },
+    { nombre: "Uruguay" },
+    { nombre: "Venezuela" }
   ];
 
   constructor(private fb: FormBuilder,
-    private integradorService: IntegradorService,
-    private loaderService: LoaderService,
-    private paisService: PaisService
-  ) { }
+              private integradorService: IntegradorService,
+              private loaderService: LoaderService,
+              private paisService: PaisService) { }
 
   ngOnInit() {
     this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
@@ -56,17 +54,16 @@ export class Paso2Component {
     if (savedFormData) {
       const formData = JSON.parse(savedFormData);
       this.form = this.fb.group(formData);
-      
     } else {
       this.form = this.fb.group({
         empresa: ['', Validators.required],
         perfil: ['', Validators.required],
         seniority: ['', Validators.required],
         pais: ['', Validators.required],
-        descripcionVacante: ['', Validators.required]
+        descripcionVacante: ['', Validators.required],
+        agreeTerms: [false, Validators.requiredTrue]
       });
     }
-    //this.loadCountries();
   }
 
   submit(): void {
@@ -76,7 +73,7 @@ export class Paso2Component {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
         seniority: this.form.value.seniority,
-        pais: this.form.value.pais.nombre,
+        pais: this.form.value.pais,
         descripcionVacante: this.form.value.descripcionVacante
       };
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
@@ -97,16 +94,15 @@ export class Paso2Component {
               this.alert('Error', 'Por favor póngase en contacto con el administrador.', 'error');
               break;
             default:
-      
               break;
           }
-        }          
+        }
       );
       localStorage.removeItem('formData');
       this.formularioCompleto.emit(true);
     } else {
       this.formularioCompleto.emit(false);
-     }
+    }
   }
 
   loadCountries() {
@@ -124,7 +120,7 @@ export class Paso2Component {
       text: text,
       icon: icon,
       confirmButtonText: 'Ok'
-    })
+    });
   }
 
   ngOnDestroy() {

@@ -57,6 +57,7 @@ import { ChatService } from "./services/chat/chat.service";
     ContentComponent, 
     LoaderComponent, 
     NgbModule, 
-    AngularSvgIconModule],
+    AngularSvgIconModule]
+
 })
 export class SharedModule {}

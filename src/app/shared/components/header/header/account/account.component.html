@@ -1,10 +1,11 @@
 <div class="media profile-media">
   <svg-icon src="assets/svgIcon/account.svg"></svg-icon>   
- </div>
- <ul class="profile-dropdown onhover-show-div">
-   <li><a href="profile"><i data-feather="user"></i><span>Account </span></a></li>
-   <li><a href="email/email-app"><i data-feather="mail"></i><span>Inbox</span></a></li>
-   <li><a href="task"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
-   <li><a href="users/users-edit"><i data-feather="settings"></i><span>Settings</span></a></li>
-   <li ><i data-feather="log-in"></i><a (click)="login()">Log in</a></li>
- </ul>
+</div>
+<ul class="profile-dropdown onhover-show-div">
+  <li><a href="profile"><i data-feather="user"></i><span>Account</span></a></li>
+  <li><a href="email/email-app"><i data-feather="mail"></i><span>Inbox</span></a></li>
+  <li><a href="task"><i data-feather="file-text"></i><span>Taskboard</span></a></li>
+  <li><a href="users/users-edit"><i data-feather="settings"></i><span>Settings</span></a></li>
+  <li *ngIf="!isLogged"><i data-feather="log-in"></i><a (click)="login()">Log in</a></li>
+  <li *ngIf="isLogged"><i data-feather="log-out"></i><a (click)="logout()">Log out</a></li>
+</ul>

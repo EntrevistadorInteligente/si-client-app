@@ -1,10 +1,9 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { PreguntaComentarioDto } from 'src/app/shared/model/pregunta-comentario-dto';
 import { RespuestaComentarioDto } from 'src/app/shared/model/respuesta-dto';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
 import { SpeechService } from 'src/app/shared/services/chat/speech.service';
 import Typed from 'typed.js';
-import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.service';
 
 @Component({
   selector: 'app-video-chat',
@@ -14,6 +13,8 @@ import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.
 export class VideoChatComponent implements OnInit, AfterViewInit {
   @ViewChild('chatHistory') private chatHistory: ElementRef;
   @Input() idEntrevista: string;
+  @Output() respuestasEntrevista = new EventEmitter<RespuestaComentarioDto[]>();
+
   public preguntas: PreguntaComentarioDto[] = [];
   public respuestas: RespuestaComentarioDto[] = [];
   public currentIndex: number = 0;
@@ -21,7 +22,9 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
   public userMessage: string = '';
   public botTyping: boolean = false;
   public escribiendo = "Typing..."
-  public vacio = ""
+  public vacio = "";
+  public interviewFinished: boolean = false;
+  public currentTime: string = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   errorMessage: string = '';
   isRecording: boolean = false;
 
@@ -58,7 +61,7 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
     if (this.currentIndex < this.preguntas.length) {
       const question = this.preguntas[this.currentIndex].pregunta;
       const messageId = `typewriter-${this.messages.length}`;
-      this.botTyping = true;
+      this.botTyping = false;
       this.messages.push({
         id: this.messages.length,
         type: 'bot',
@@ -70,6 +73,8 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
         this.initTypedEffect(`#${messageId}`, question);
         this.speechService.start(question, 1);
       }, 0);
+    } else {
+      this.endInterview();
     }
   }
 
@@ -80,19 +85,31 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
       showCursor: false,
       onComplete: () => {
         this.botTyping = false;
+        this.scrollToBottom();
       }
     });
   }
 
-  sendMessage() {
-    if (this.userMessage.trim() === '' || this.botTyping) return;
-
+  addBotMessage(text: string) {
     this.messages.push({
-      type: 'user',
-      text: this.userMessage,
+      type: 'bot',
+      text: text,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     });
+  }
 
+  addUserMessage(text: string) {
+    this.messages.push({
+      type: 'user',
+      text: text,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    });
+  }
+
+  sendMessage() {
+    if (this.userMessage.trim() === '' || this.botTyping || this.interviewFinished) return;
+
+    this.addUserMessage(this.userMessage);
     this.respuestas[this.currentIndex].respuesta = this.userMessage;
     this.userMessage = '';
     this.currentIndex++;
@@ -100,6 +117,15 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       this.showNextQuestion();
     }, 500);
+  }
+
+  endInterview() {
+    this.interviewFinished = true;
+    this.currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  finalizeInterview() {
+    this.respuestasEntrevista.emit(this.respuestas);
   }
 
   ngAfterViewChecked() {
@@ -111,5 +137,5 @@ export class VideoChatComponent implements OnInit, AfterViewInit {
       this.chatHistory.nativeElement.scrollTop = this.chatHistory.nativeElement.scrollHeight;
     } catch (err) { }
   }
-
+  
 }

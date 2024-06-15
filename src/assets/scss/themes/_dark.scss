@@ -18,6 +18,12 @@ body {
         background: $dark-card-background;
       }
     }
+    .card{
+      color: $dark-all-font-color;
+    }
+    .breadcrumb-item.active{
+      color: $dark-all-font-color;
+    }
     .add-product{
       .product-info{
         .product-group{

@@ -4,58 +4,43 @@
     <span>Completa los campos con la información solicitada.</span>
   </div>
   <div class="card-body">
-    <form [formGroup]="form" (ngSubmit)="submit()" ngNativeValidate>
+    <form [formGroup]="form" (ngSubmit)="submit()" class="was-validated">
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label" for="empresa">Empresa <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" id="empresa" placeholder="Empresa" formControlName="empresa" required>
-          <small class="text-danger" *ngIf="form.get('empresa')?.invalid && form.get('empresa')?.touched"><b>Este campo es obligatorio</b></small>
+         <input type="text" class="form-control is-invalid" id="empresa" placeholder="Empresa" formControlName="empresa" required>
+         <div class="invalid-feedback" *ngIf="form.get('empresa')?.invalid && form.get('empresa')?.touched">Este campo es obligatorio.</div> 
         </div>
         <div class="col-md-6">
-          <label class="form-label" for="perfil">Perfil <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" id="perfil" placeholder="Perfil" formControlName="perfil" required>
-          <small class="text-danger" *ngIf="form.get('perfil')?.invalid && form.get('perfil')?.touched"><b>Este campo es obligatorio</b></small>
+          <label class="form-label" for="perfil">Perfil <span class="text-danger">*</span></label> 
+          <input type="text" class="form-control is-invalid" id="perfil" placeholder="Perfil" formControlName="perfil" required>
+          <div class="invalid-feedback" *ngIf="form.get('perfil')?.invalid && form.get('perfil')?.touched">Este campo es obligatorio.</div>
         </div>
       </div>
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label" for="seniority">Seniority <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" id="seniority" placeholder="Seniority" formControlName="seniority" required>
-          <small class="text-danger" *ngIf="form.get('seniority')?.invalid && form.get('seniority')?.touched"><b>Este campo es obligatorio</b></small>
+         <input type="text" class="form-control is-invalid" id="seniority" placeholder="Seniority" formControlName="seniority" required>
+         <div class="invalid-feedback" *ngIf="form.get('seniority')?.invalid && form.get('seniority')?.touched">Este campo es obligatorio.</div>
         </div>
         <div class="col-md-6">
           <label class="form-label" for="pais">Seleccione país <span class="text-danger">*</span></label>
-          <p-dropdown [options]="paises" [filter]="true" filterBy="nombre" formControlName="pais" optionLabel="nombre" placeholder="Seleccione un país"></p-dropdown>
-          <small class="text-danger" *ngIf="form.get('pais')?.invalid && form.get('pais')?.touched"><b>Este campo es obligatorio</b></small>
+          <select class="form-select" [ngClass]="{'is-invalid': form.get('pais')?.invalid && form.get('pais')?.touched}" id="pais" formControlName="pais" required>
+            <option selected="" disabled="" value="">Seleccione un país</option>
+            <option *ngFor="let pais of paises" [value]="pais.nombre">{{ pais.nombre }}</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="form.get('pais')?.invalid && form.get('pais')?.touched">Este campo es obligatorio.</div>
         </div>
       </div>
       <div class="row g-3">
+        <label class="form-label" for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
+          
         <div class="col-md-12">
-          <label class="form-label" for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
-          <textarea class="form-control" id="descripcionVacante" rows="9" formControlName="descripcionVacante" required></textarea>
-          <small class="text-danger" *ngIf="form.get('descripcionVacante')?.invalid && form.get('descripcionVacante')?.touched"><b>Este campo es obligatorio</b></small>
+         <textarea class="form-control is-invalid" id="descripcionVacante" rows="9" formControlName="descripcionVacante" placeholder="Ingrese la descripción de la vacante" required></textarea>
+         <div class="invalid-feedback" *ngIf="form.get('descripcionVacante')?.invalid && form.get('descripcionVacante')?.touched">Este campo es obligatorio.</div>
         </div>
       </div>
-      <div class="mb-3 mt-3">
-        <div class="form-check">
-          <div class="checkbox p-0">
-            <input class="form-check-input" id="agreeTerms" type="checkbox" required>
-            <label class="form-check-label" for="agreeTerms">Acepto los términos y condiciones</label>
-          </div>
-        </div>
-      </div>
-      <button class="btn btn-primary" type="submit" [disabled]="form.invalid">Enviar</button>
+      <button class="btn btn-primary mt-3" type="submit" [disabled]="form.invalid">Enviar</button>
     </form>
-  </div>
-</div>
-
-<div class="loader-container" *ngIf="isLoading">
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10 text-center">
-      <img src="assets/img/chatbot.png" width="180" alt="chatbot">
-      <h3 class="animate-character display-3">Generando preguntas<span class="cursor"><b>|</b></span></h3>
-    </div>
-    <div class="col-md-1"></div>
   </div>
 </div>

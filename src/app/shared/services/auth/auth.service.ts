@@ -1,16 +1,38 @@
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
-//import { CookieService } from 'ngx-cookie-service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
   private isLoggedSubject = new BehaviorSubject<boolean>(false);
-  constructor(private keycloakService: KeycloakService,
-    //private cookieService: CookieService,
-  ) { }
+  private tokenExpiryTime: number;
+
+  constructor(private keycloakService: KeycloakService) {
+    this.scheduleTokenRefresh();
+  }
+
+  private scheduleTokenRefresh(): void {
+    const token = this.keycloakService.getKeycloakInstance()?.tokenParsed;
+    if (token && token.exp) {
+      this.tokenExpiryTime = token.exp * 1000;
+      const expiresIn = this.tokenExpiryTime - Date.now();
+      setTimeout(() => this.refreshToken(), expiresIn - 60000); // Refresh 1 minute before expiry
+    }
+  }
+
+  private async refreshToken(): Promise<void> {
+    try {
+      await this.keycloakService.updateToken(70); // Refresh if token will expire in 70 seconds
+      this.scheduleTokenRefresh();
+    } catch (error) {
+      console.error('Failed to refresh token', error);
+      this.logout();
+    }
+  }
+
 
   getLoggedUser() {
     try {
@@ -30,12 +52,6 @@ export class AuthService {
 
   isLoggedIn() {
     return this.keycloakService.getKeycloakInstance().authenticated;
-  }
-
-  logout() {
-    this.keycloakService.logout();
-    this.isLoggedSubject.next(false);
-    //this.cookieService.deleteAll();
   }
 
   redirectToProfile() {
@@ -58,6 +74,11 @@ export class AuthService {
     return this.isLoggedSubject.next(isLogged);
   }
 
+  async logout() {
+    await this.keycloakService.logout();
+    this.isLoggedSubject.next(false);
+  }
+
   async getToken() {
     try {
       const token = await this.keycloakService.getToken();
@@ -68,5 +89,4 @@ export class AuthService {
       throw error;
     }
   }
-
 }

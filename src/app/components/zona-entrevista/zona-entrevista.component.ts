@@ -56,6 +56,7 @@ export class ZonaEntrevistaComponent implements OnInit {
       } else {
         this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
       }
+      this.isLoading = false;
     }, (error) => this.handleError(error));
   }
 
