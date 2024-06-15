@@ -1,4 +1,4 @@
-<div class="card card-test">  
+<div class="card">  
   <div class="card-body">
     <div *ngFor="let feedback of currentFeedback">      
       <div class="container-fluid">
@@ -6,19 +6,21 @@
           <div class="col-sm-12">
             <div class="{{ribbon[0].ribbonClass}}">
               <div class="card-body">
-                <div class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
-                <p>{{ feedback.feedback }}</p>
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-original-title="test" data-bs-target="#exampleModal" (click)="simpleModal(simpleContent)">Ver tu respuesta</button>
-                <!-- modal -->
-                <ng-template #simpleContent let-modal>
-                  <div class="modal-header">
-                    <h5 class="modal-title ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}}" id="exampleModalLabel">Respuesta # {{currentIndex + 1}}</h5>
-                      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+                <div #divpregunta class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
+                <p #pfeedback>{{ feedback.feedback }}</p>
+                <hr>
+                <button (click)="mostrarRespuestas()" [ngClass]="{'active': isVisibleAnswer}" class="btn btn-primary">                  
+                  <p *ngIf="isVisibleAnswer">Ocultar respuestas <i class="fa fa-eye-slash"></i></p>
+                  <p *ngIf="!isVisibleAnswer">Ver tus respuestas <i class="fa fa-eye"></i></p>
+                </button>
+                <div class="card card-response" [ngClass]="{'content-visible': isVisibleAnswer, 'content-hidden': !isVisibleAnswer}">
+                  <div class="card-header pb-0">
+                    <p class="h3 txt-primary"><small>Tu respuesta</small></p>
                   </div>
-                  <div class="modal-body">
-                    <p class="h4">{{ feedback.respuesta }}</p>
+                  <div class="card-body">                    
+                    <p>{{ feedback.respuesta }}</p>
                   </div>
-                </ng-template>
+                </div>
               </div>
             </div>
           </div>
@@ -27,6 +29,7 @@
     </div>  
   </div>
 </div>
+
 <ng-container>
   <nav class="m-b-30" aria-label="Page navigation example">
     <ul class="pagination justify-content-{{paginationSide}} pagination-primary">
