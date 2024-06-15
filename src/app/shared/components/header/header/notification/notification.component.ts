@@ -28,15 +28,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
     let idEntrevista = "";
     try {
-      // Intenta parsear mensaje como JSON
       const parsedMensaje = JSON.parse(mensaje);
       idEntrevista = parsedMensaje.idEntrevista || mensaje; 
     } catch (e) {
-      // Si hay un error al parsear, mensaje es un string
       idEntrevista = mensaje;
     }
 
-    // Elimina comillas adicionales si idEntrevista es un string con comillas
     if (typeof idEntrevista === 'string') {
       idEntrevista = idEntrevista.replace(/^"|"$/g, '');
     }
@@ -47,7 +44,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
         message: this.getMessage(tipo),
         url: tipo,
         idEntrevista: idEntrevista,
-        sender: 'Teri Dactyl',
+        sender: 'Kori Thomas',
         time: new Date().toLocaleTimeString()
       });
       this.badgeCount = this.notifications.length;
@@ -67,6 +64,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
       return ['/zona-entrevista', notification.idEntrevista];
     } else {
       return ['#'];
+    }
+  }
+
+  navigateToNotification(notification: any) {
+    const link = this.getNotificationLink(notification);
+    const currentUrl = this.router.url;
+
+    if (currentUrl === this.router.createUrlTree(link).toString()) {
+      // Recargar la página si ya está en la misma ruta
+      window.location.reload();
+    } else {
+      this.router.navigate(link);
     }
   }
 

@@ -78,7 +78,8 @@ export class Paso2Component {
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
         data => {
           this.preguntas = data;          
-          this.loaderService.hide();          
+          this.loaderService.hide();       
+          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');   
         },
         err => {
           this.loaderService.hide();
