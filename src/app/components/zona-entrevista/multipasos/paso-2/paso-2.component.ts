@@ -60,8 +60,7 @@ export class Paso2Component {
         perfil: ['', Validators.required],
         seniority: ['', Validators.required],
         pais: ['', Validators.required],
-        descripcionVacante: ['', Validators.required],
-        agreeTerms: [false, Validators.requiredTrue]
+        descripcionVacante: ['', Validators.required]
       });
     }
   }
