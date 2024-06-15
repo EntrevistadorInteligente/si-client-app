@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { HojaDeVidaDto } from "src/app/shared/model/hoja-de-vida-dto";
 import { IntegradorService } from "src/app/shared/services/domain/integrador.service";
+declare var require: any;
 const Swal = require("sweetalert2");
 
 @Component({
@@ -44,6 +45,7 @@ export class ProfileComponent implements OnInit {
     this.integradorService.corregirHojaDeVida(hojaDeVida).subscribe({
       next: (event) => {
         console.log(event);
+        this.alertSucces(event.message);
       },
       error: (error) => console.error(error),
     });
@@ -54,6 +56,7 @@ export class ProfileComponent implements OnInit {
     this.integradorService.cargarHojaDeVida(file).subscribe({
       next: (event) => {
         console.log(event);
+        this.alertSucces(event.message);
       },
       error: (error) => console.error(error),
     });

@@ -6,6 +6,7 @@ import {
   SimpleChanges,
 } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { Subscription } from "rxjs";
 import { HojaDeVidaDto } from "src/app/shared/model/hoja-de-vida-dto";
 import {
   Certificaciones,
@@ -27,6 +28,25 @@ export class EditProfileComponent {
   hojaDeVidaDto = new HojaDeVidaDto();
   hojaDeVidaExist: boolean = false;
   perfilForm: FormGroup = new FormGroup({});
+  private subscriptions: Subscription[] = [];
+  estaEditado: boolean = false;
+
+  ngOnInit() {
+    this.inicializarHojaDeVida();
+
+    // Suscribirse a los cambios en los controles del formulario
+    this.subscriptions.push(
+      this.perfilForm.valueChanges.subscribe((val) => {
+        console.log("Formulario ha cambiado", val);
+        this.estaEditado = true;
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    // Desuscribirse de todas las suscripciones cuando el componente se destruya
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["hojaDeVida"] && changes["hojaDeVida"].currentValue) {
@@ -105,38 +125,41 @@ export class EditProfileComponent {
   }
 
   handleClickCorregir(): void {
-    this.hojaDeVidaDto.nombre = this.perfilForm?.get("nombre")?.value || "";
-    this.hojaDeVidaDto.perfil = this.perfilForm?.get("perfil")?.value || "";
-    this.hojaDeVidaDto.seniority =
-      this.perfilForm?.get("seniority")?.value || "";
-    this.hojaDeVidaDto.tecnologiasPrincipales =
-      this.perfilForm
-        ?.get("tecnologiasPrincipales")
-        ?.value.map((value: any) => value.name) || [];
-    this.hojaDeVidaDto.experienciasLaborales =
-      this.perfilForm
-        ?.get("experienciasLaborales")
-        ?.value.map((value: any) => value.name) || [];
-    this.hojaDeVidaDto.habilidadesTecnicas =
-      this.perfilForm
-        ?.get("habilidadesTecnicas")
-        ?.value.map((value: any) => value.name) || [];
-    this.hojaDeVidaDto.certificaciones =
-      this.perfilForm
-        ?.get("certificaciones")
-        ?.value.map((value: any) => value.name) || [];
-    this.hojaDeVidaDto.proyectos =
-      this.perfilForm
-        ?.get("proyectos")
-        ?.value.map((value: any) => value.name) || [];
-    this.hojaDeVidaDto.nivelIngles =
-      this.perfilForm?.get("nivelIngles")?.value || "";
-    this.hojaDeVidaDto.otrasHabilidades =
-      this.perfilForm
-        ?.get("otrasHabilidades")
-        ?.value.map((value: any) => value.name) || [];
+    if (this.estaEditado) {
+      this.hojaDeVidaDto.nombre = this.perfilForm?.get("nombre")?.value || "";
+      this.hojaDeVidaDto.perfil = this.perfilForm?.get("perfil")?.value || "";
+      this.hojaDeVidaDto.seniority =
+        this.perfilForm?.get("seniority")?.value || "";
+      this.hojaDeVidaDto.tecnologiasPrincipales =
+        this.perfilForm
+          ?.get("tecnologiasPrincipales")
+          ?.value.map((value: any) => value.name) || [];
+      this.hojaDeVidaDto.experienciasLaborales =
+        this.perfilForm
+          ?.get("experienciasLaborales")
+          ?.value.map((value: any) => value.name) || [];
+      this.hojaDeVidaDto.habilidadesTecnicas =
+        this.perfilForm
+          ?.get("habilidadesTecnicas")
+          ?.value.map((value: any) => value.name) || [];
+      this.hojaDeVidaDto.certificaciones =
+        this.perfilForm
+          ?.get("certificaciones")
+          ?.value.map((value: any) => value.name) || [];
+      this.hojaDeVidaDto.proyectos =
+        this.perfilForm
+          ?.get("proyectos")
+          ?.value.map((value: any) => value.name) || [];
+      this.hojaDeVidaDto.nivelIngles =
+        this.perfilForm?.get("nivelIngles")?.value || "";
+      this.hojaDeVidaDto.otrasHabilidades =
+        this.perfilForm
+          ?.get("otrasHabilidades")
+          ?.value.map((value: any) => value.name) || [];
 
-    this.EnviarhojaDeVida.emit(this.hojaDeVidaDto);
+      this.EnviarhojaDeVida.emit(this.hojaDeVidaDto);
+      this.estaEditado = false;
+    }
   }
 
   onItemsChange(event: { field: string; items: any[] }) {
