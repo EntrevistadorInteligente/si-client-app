@@ -1,0 +1,28 @@
+.h5-colapse{
+    white-space: normal;
+}
+
+.new-item{
+  height: 45px!important;
+  margin-bottom: 10px!important;
+}
+
+@media (min-width: 1200px) and (max-width: 1500px) {
+    .h5-colapse {
+      width: 50%; /* Ajusta el ancho para colapsar en dos líneas */ /* Opcional: Ajustar tamaño de la fuente */
+    }
+  }
+
+@media (max-width: 870px) {
+    .h5-colapse {
+      width: 50%; /* Ajusta el ancho para colapsar en dos líneas */ /* Opcional: Ajustar tamaño de la fuente */
+    }
+  }
+
+  
+
+@media only screen and (max-width: 991.98px){
+    .todo-list-wrapper #todo-list li .task-container .ajuste {
+        min-width: 0 !important;
+    }
+}
