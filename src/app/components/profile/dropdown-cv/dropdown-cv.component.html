@@ -1,0 +1,35 @@
+<div class="card">
+  <div class="card-header pb-0">
+    <h5>Cargar Hoja de Vida</h5>
+  </div>
+  <div class="card-body">
+    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+      <ngx-dropzone-label>
+        <div>
+          <div class="dz-message needsclick">
+            <i class="icon-cloud-up"></i>
+            <h6>Suelte su CV o click para cargar</h6>
+            <span class="dz-message needsclick"
+              >(El archivo debe ser en formato PDF y maximo de 3MB)</span
+            >
+          </div>
+        </div>
+      </ngx-dropzone-label>
+      <ngx-dropzone-preview
+        *ngFor="let f of files"
+        [removable]="true"
+        (removed)="onRemove(f)"
+      >
+        <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+      </ngx-dropzone-preview>
+    </ngx-dropzone>
+    <button
+      class="btn btn-primary w-100 mt-3"
+      [disabled]="files.length === 0"
+      (click)="handleClickCargar()"
+      type="button"
+    >
+      Cargar
+    </button>
+  </div>
+</div>
