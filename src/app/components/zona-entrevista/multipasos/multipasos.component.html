@@ -1,24 +1,27 @@
 <div class="step-content">
-  <ng-container [ngSwitch]="currentStep">
-    <p-toast></p-toast>
-    <div class="card">
-      <div class="card-body">
-        <div class="row">
-          <div class="u-pearl col-4" [ngClass]="getStepClass(0)">
-            <div class="u-pearl-icon"><i class="icon-write" aria-hidden="true"></i></div><span class="u-pearl-title">Formulario</span>
-          </div>
-          <div class="u-pearl col-4" [ngClass]="getStepClass(1)">
-            <div class="u-pearl-icon"><i class="icofont icofont-tasks" aria-hidden="true"></i></div><span class="u-pearl-title">Preguntas</span>
-          </div>
-          <div class="u-pearl col-4" [ngClass]="getStepClass(2)">
-            <div class="u-pearl-icon"><i class="icon-check" aria-hidden="true"></i></div><span class="u-pearl-title">Feedback</span>
-          </div>
+  <p-toast></p-toast>
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="u-pearl col-4" [ngClass]="getStepClass(0)">
+          <div class="u-pearl-icon"><i class="icon-write" aria-hidden="true"></i></div><span class="u-pearl-title">Formulario</span>
+        </div>
+        <div class="u-pearl col-4" [ngClass]="getStepClass(1)">
+          <div class="u-pearl-icon"><i class="icofont icofont-tasks" aria-hidden="true"></i></div><span class="u-pearl-title">Preguntas</span>
+        </div>
+        <div class="u-pearl col-4" [ngClass]="getStepClass(2)">
+          <div class="u-pearl-icon"><i class="icon-check" aria-hidden="true"></i></div><span class="u-pearl-title">Feedback</span>
         </div>
       </div>
     </div>
+  </div>
 
-    <app-paso-2 *ngSwitchCase="0" (completed)="onStepCompleted()"></app-paso-2>
-    <app-paso-3 *ngSwitchCase="1" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-3>
-    <app-paso-4 *ngSwitchCase="2" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-4>
+  <ng-container *ngIf="!isIntermediate; else waitingTemplate">
+    <app-paso-2 *ngIf="currentStep === 0" (formularioCompleto)="onFormCompleted()"></app-paso-2>
+    <app-paso-3 *ngIf="currentStep === 1" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-3>
+    <app-paso-4 *ngIf="currentStep === 2" (completed)="onStepCompleted()" [idEntrevista]="idEntrevista"></app-paso-4>
   </ng-container>
+  <ng-template #waitingTemplate>
+    <app-waiting-area [loadingMessage]="loadingMessage"></app-waiting-area>
+  </ng-template>
 </div>
