@@ -1,24 +1,30 @@
 .h5-colapse{
     white-space: normal;
-}
+    flex: 1;
+  }
 
 .new-item{
   height: 45px!important;
   margin-bottom: 10px!important;
 }
 
-@media (min-width: 1200px) and (max-width: 1500px) {
-    .h5-colapse {
-      width: 50%; /* Ajusta el ancho para colapsar en dos líneas */ /* Opcional: Ajustar tamaño de la fuente */
-    }
-  }
+.card-header.header-flex{
+  display: flex;
+  justify-content: space-between;
+}
 
-@media (max-width: 870px) {
-    .h5-colapse {
-      width: 50%; /* Ajusta el ancho para colapsar en dos líneas */ /* Opcional: Ajustar tamaño de la fuente */
-    }
-  }
+.card-header.non-flex {
+  display: block;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
+.card-header.non-flex .h5-colapse,
+.card-header.non-flex .fixed-size-btn {
+  display: block;
+  margin: 0 auto 10px auto;
+}
   
 
 @media only screen and (max-width: 991.98px){
