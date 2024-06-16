@@ -5,6 +5,8 @@ import { FeedbackComentarioDto } from "src/app/shared/model/feedback-dto";
 import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { FeedbackService } from "src/app/shared/services/domain/feedback.service";
 import { IntegradorService } from "src/app/shared/services/domain/integrador.service";
+declare var require: any;
+const Swal = require("sweetalert2");
 
 @Component({
   selector: "app-home-interview-preview",
@@ -16,7 +18,6 @@ export class HomeInterviewPreviewComponent implements OnInit {
   stateEntrevista = StatePreguntas.off;
   perfiles$!: Observable<any[]>;
   preguntasMuestra: FeedbackComentarioDto[] = [];
-  display: boolean = false;
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
   iniciandoMuestra: boolean = false;
@@ -69,8 +70,24 @@ export class HomeInterviewPreviewComponent implements OnInit {
         });
     }
   }
+
   submitAnswers(event?: Event): void {
-    this.display = true;
+    Swal.fire({
+      title: "¡Prueba el Servicio Gratis!",
+      text: "Inicia sesión para obtener una entrevista y feedback personalizado",
+      imageUrl: "assets/img/Logo-EI.png",
+      imageWidth: "35%",
+      customClass: {
+        confirmButton: "btn btn-lg btn-info",
+      },
+      confirmButtonText: `<span class="fw-bold" style="color: white">
+                            <i class="icofont icofont-login mr-2" style="font-size: 1.2rem"></i>
+                          Iniciar Sesión</span>`,
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        this.login();
+      }
+    });
   }
   login(): void {
     this.authService.login();
