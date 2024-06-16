@@ -1,18 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, map, shareReplay } from 'rxjs';
-import { StatePreguntas } from 'src/app/shared/model/entrevista-muestra-enums';
-import { FeedbackComentarioDto } from 'src/app/shared/model/feedback-dto';
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
+import { Component, OnInit } from "@angular/core";
+import { Observable, map, shareReplay } from "rxjs";
+import { StatePreguntas } from "src/app/shared/model/entrevista-muestra-enums";
+import { FeedbackComentarioDto } from "src/app/shared/model/feedback-dto";
+import { AuthService } from "src/app/shared/services/auth/auth.service";
+import { FeedbackService } from "src/app/shared/services/domain/feedback.service";
+import { IntegradorService } from "src/app/shared/services/domain/integrador.service";
 
 @Component({
-  selector: 'app-home-interview-preview',
-  templateUrl: './home-interview-preview.component.html',
-  styleUrls: [
-    './home-interview-preview.component.scss',
-    '../../home/home.component.scss',
-  ],
+  selector: "app-home-interview-preview",
+  templateUrl: "./home-interview-preview.component.html",
+  styleUrls: ["./home-interview-preview.component.scss"],
 })
 export class HomeInterviewPreviewComponent implements OnInit {
   public StateEnum = StatePreguntas;
@@ -27,7 +24,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
   constructor(
     private integradorService: IntegradorService,
     private feedbackService: FeedbackService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -37,7 +34,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
   cargarListaPerfiles(): void {
     this.perfiles$ = this.integradorService.listPerfiles().pipe(
       map((perfil) => perfil),
-      shareReplay(1),
+      shareReplay(1)
     );
   }
 
@@ -50,7 +47,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
     }
     if (this.selectedPerfil) {
       this.feedbackService
-        .obtenerMuestraPreguntas(this.selectedPerfil.perfilEmpresa)
+        .obtenerMuestraPreguntas(this.selectedPerfil)
         .subscribe({
           next: (response: FeedbackComentarioDto[]) => {
             this.preguntasMuestra = response;
@@ -60,8 +57,8 @@ export class HomeInterviewPreviewComponent implements OnInit {
               return {
                 idPregunta: p.idPregunta,
                 pregunta: p.pregunta,
-                respuesta: '',
-                feedback: '',
+                respuesta: "",
+                feedback: "",
               };
             });
           },

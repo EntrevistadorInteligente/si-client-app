@@ -34,14 +34,12 @@
               },
               "src/favicon.ico",
               "src/assets"
-              
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
-            "scripts": [
-             
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -102,13 +100,8 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

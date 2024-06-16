@@ -1,19 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { InicioRoutingModule } from './inicio-routing.module';
-import { TooltipModule } from 'primeng/tooltip';
-import { DropdownModule } from 'primeng/dropdown';
-import { TabViewModule } from 'primeng/tabview';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { DialogModule } from 'primeng/dialog';
-import { HomeInterviewPreviewComponent } from './home/home-interview-preview/home-interview-preview.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HomeComponent } from './home/home.component';
-import { InicioComponent } from './inicio.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { InicioRoutingModule } from "./inicio-routing.module";
+import { TooltipModule } from "primeng/tooltip";
+import { DropdownModule } from "primeng/dropdown";
+import { TabViewModule } from "primeng/tabview";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
+import { DialogModule } from "primeng/dialog";
+import { HomeInterviewPreviewComponent } from "./home/home-interview-preview/home-interview-preview.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { HomeComponent } from "./home/home.component";
+import { InicioComponent } from "./inicio.component";
+import { SharedModule } from "src/app/shared/shared.module";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 @NgModule({
-  declarations: [InicioComponent, HomeComponent ,HomeInterviewPreviewComponent],
+  declarations: [InicioComponent, HomeComponent, HomeInterviewPreviewComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +25,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     TabViewModule,
     ProgressSpinnerModule,
     DialogModule,
-    SharedModule
-  ]
+    NgSelectModule,
+    SharedModule,
+  ],
 })
-export class InicioModule { }
+export class InicioModule {}
