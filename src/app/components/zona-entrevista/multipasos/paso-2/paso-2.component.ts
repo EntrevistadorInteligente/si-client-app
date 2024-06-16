@@ -75,13 +75,13 @@ export class Paso2Component {
         pais: this.form.value.pais,
         descripcionVacante: this.form.value.descripcionVacante
       };
-      this.integradorService.crearSolicitudEntrevista(formulario).subscribe(
-        data => {
+      this.integradorService.crearSolicitudEntrevista(formulario).subscribe({
+        next: data => {
           this.preguntas = data;          
           this.loaderService.hide();       
           this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');   
         },
-        err => {
+        error: err => {
           this.loaderService.hide();
           switch (err.error.codigo) {
             case 'E001':
@@ -97,7 +97,7 @@ export class Paso2Component {
               break;
           }
         }
-      );
+      });
       localStorage.removeItem('formData');
       this.formularioCompleto.emit(true);
     } else {

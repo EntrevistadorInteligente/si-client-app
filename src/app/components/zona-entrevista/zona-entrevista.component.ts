@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
+import { InterviewState } from 'src/app/shared/model/interview-state';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
 import { LoaderService } from 'src/app/shared/services/domain/loader.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
@@ -15,6 +16,8 @@ export class ZonaEntrevistaComponent implements OnInit {
   currentStep: number = 0;
   idEntrevista: string;
   isLoading: boolean;
+  isIntermediate: boolean = false;
+  loadingMessage: string = '';
 
   constructor(private route: ActivatedRoute, 
               private entrevistaService: IntegradorService, 
@@ -23,7 +26,7 @@ export class ZonaEntrevistaComponent implements OnInit {
 
   ngOnInit() {
     this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params: { [x: string]: string; }) => {
       this.idEntrevista = params['idEntrevista'];
       if (this.idEntrevista) {
         this.obtenerEstadoEntrevistaPorId(this.idEntrevista);
@@ -35,7 +38,12 @@ export class ZonaEntrevistaComponent implements OnInit {
 
   obtenerEstadoEntrevistaPorId(idEntrevista: string) {
     this.entrevistaService.obtenerEstadoEntrevista(idEntrevista).subscribe({
-      next: (response) => this.currentStep = this.getStepFromEstado(response.estadoEntrevista),
+      next: (response) => {
+        const estado = this.getStepFromEstado(response.estadoEntrevista);
+        this.currentStep = estado.step;
+        this.isIntermediate = estado.isIntermediate;
+        this.loadingMessage = estado.loadingMessage;
+      },
       error: (error) => console.error(error)
     });
   }
@@ -47,7 +55,10 @@ export class ZonaEntrevistaComponent implements OnInit {
     }).subscribe(({ hojaDeVida, estadoEntrevista }) => {
       if (hojaDeVida?.uuid) {
         if (estadoEntrevista) {
-          this.currentStep = this.getStepFromEstado(estadoEntrevista.estadoEntrevista);
+          const estado = this.getStepFromEstado(estadoEntrevista.estadoEntrevista);
+          this.currentStep = estado.step;
+          this.isIntermediate = estado.isIntermediate;
+          this.loadingMessage = estado.loadingMessage;
           this.idEntrevista = estadoEntrevista.idEntrevista;
         } else {
           this.loaderService.hide();
@@ -69,7 +80,10 @@ export class ZonaEntrevistaComponent implements OnInit {
     this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe({
       next: (response) => {          
         if(response){
-          this.currentStep = this.getStepFromEstado(response.estadoEntrevista);
+          const estado = this.getStepFromEstado(response.estadoEntrevista);
+          this.currentStep = estado.step;
+          this.isIntermediate = estado.isIntermediate;
+          this.loadingMessage = estado.loadingMessage;
           this.idEntrevista = response.idEntrevista;
         }
         else {
@@ -81,14 +95,21 @@ export class ZonaEntrevistaComponent implements OnInit {
     });
   }
 
-  getStepFromEstado(estado: string): number {
+
+  getStepFromEstado(estado: string): InterviewState {
     switch (estado) {
-      case 'PG': return 1;
-      case 'FG': return 2;
-      default: return 0;
+      case 'PG':
+        return new InterviewState(1, false, '');
+      case 'FG':
+        return new InterviewState(2, false, '');
+      case 'GP':
+        return new InterviewState(1, true, 'Estamos generando tu entrevista... por favor esta a tento a las notificaciones');
+      case 'GF':
+        return new InterviewState(2, true, 'Estamos generando el feedback... por favor esta a tento a las notificaciones');
+      default:
+        return new InterviewState(0, false, '');
     }
   }
-
   alertConfirm(title: string, text: string, icon: SweetAlertIcon) {
     Swal.fire({
       title: title,

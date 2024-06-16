@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Paso1Component } from './paso-1.component';
+import { WaitingAreaComponent } from './waiting-area.component';
 
-describe('Paso1Component', () => {
-  let component: Paso1Component;
-  let fixture: ComponentFixture<Paso1Component>;
+describe('WaitingAreaComponent', () => {
+  let component: WaitingAreaComponent;
+  let fixture: ComponentFixture<WaitingAreaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [Paso1Component]
+      imports: [WaitingAreaComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(Paso1Component);
+    fixture = TestBed.createComponent(WaitingAreaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
