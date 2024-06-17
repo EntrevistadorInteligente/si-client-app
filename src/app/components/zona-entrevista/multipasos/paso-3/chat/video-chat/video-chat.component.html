@@ -2,9 +2,6 @@
   <div class="row">
     <div class="col call-chat-body">
       <div class="card">
-
-
-        
         <div class="card-body p-0">
           <div class="row chat-box">
             <div class="col chat-right-aside">
@@ -38,29 +35,53 @@
                                 </div>
                               </li>
                             </ul>
+
                             <div *ngIf="interviewFinished" class="interview-finished">
                               <div class="message my-message">
                                 <div class="message-data">
                                   <span class="message-data-time">{{currentTime}}</span>
                                 </div>
-                                Tu entrevista ha terminado. ¿Deseas finalizar la entrevista?
+                                  Tu entrevista ha terminado. Gracias por participar.
                                 <button class="btn btn-danger mt 1" (click)="finalizeInterview()">Finalizar Entrevista</button>
                               </div>
                             </div>
                           </div>
                           <div class="chat-message clearfix">
+                            <div class="character-counter">
+                              {{ userMessage.length }}/1000
+                            </div>
                             <div class="row">
                               <div class="col-xl-12 d-flex">
                                 <div class="smiley-box bg-primary">
                                   <div class="picker"><img src="assets/images/smiley.png" alt=""></div>
                                 </div>
                                 <div class="input-group text-box">
-                                  <input class="form-control input-txt-bx" id="message-to-send" type="text" name="message-to-send" placeholder="Type a message......" [(ngModel)]="userMessage" (keyup.enter)="sendMessage()" [disabled]="botTyping || interviewFinished">
-                                  <button class="btn btn-primary input-group-text" type="button" (click)="sendMessage()" [disabled]="botTyping || interviewFinished">Enviar</button>
-                                </div>
+                                  <input class="form-control input-txt-bx" 
+                                         id="message-to-send" 
+                                         #messageInput
+                                         type="text" 
+                                         name="message-to-send" 
+                                         placeholder="Escribe tu respuesta..." 
+                                         [(ngModel)]="userMessage" 
+                                         (keyup.enter)="sendMessage()" 
+                                         (input)="onInput($event)" 
+                                         (paste)="onPaste($event)" 
+                                         [disabled]="botTyping || interviewFinished">
+                                         <button class="btn btn-success" 
+                                         type="button" 
+                                         [disabled]="botTyping || interviewFinished"
+                                         (click)="toggleVoiceRecognition()">
+                                   <i [ngClass]="isRecording ? 'fa fa-stop' : 'fa fa-microphone'" 
+                                      style="font-size: 1.5rem"></i>
+                                 </button>
+                                  <button class="btn btn-primary input-group-text" 
+                                          type="button" 
+                                          (click)="sendMessage()" 
+                                          [disabled]="botTyping || interviewFinished">Enviar</button>                         
+                                </div>                          
                               </div>
                             </div>
-                          </div>
+                          </div> 
                         </div>
                       </div>
                     </div>

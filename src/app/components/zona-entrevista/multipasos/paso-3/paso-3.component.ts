@@ -1,8 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { RespuestaComentarioDto } from 'src/app/shared/model/respuesta-dto';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 
@@ -13,46 +11,18 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 })
 
 export class Paso3Component implements OnInit {
+  @Output() entravistaCompleta = new EventEmitter<boolean>();
   @Input() idEntrevista: string;
   currentIndex: number = 0;
   visible: boolean = false;
-  btn_success: boolean = false;
-  progress: number = 0;
-  isRecording: boolean = false;
   errorMessage: string = '';
-  public openTab : string = "call";
-  show = false;
-  active = 1;
  
   constructor(
-    private integradorService: FeedbackService,
-    private messageService: MessageService,
-    private voiceRecognitionService: RecordVoiceService
+    private integradorService: FeedbackService
   ) { }
 
   ngOnInit(): void {
-    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
-      //this.respuestas[this.currentIndex].respuesta += result + '';
-    });
 
-    this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
-      this.isRecording = status;
-    });
-
-    this.voiceRecognitionService.getRecognitionError().subscribe((error: string) => {
-      this.errorMessage = `Error: ${error}`;
-    });
-    
-  }
-
-  toggleVoiceRecognition(index: number) {
-    this.currentIndex = index;
-    this.errorMessage = '';
-    if (this.isRecording) {
-      this.voiceRecognitionService.stopRecognition();
-    } else {
-      this.voiceRecognitionService.startRecognition();
-    }
   }
 
   submitAnswers(respuestas: RespuestaComentarioDto[]) {
@@ -65,7 +35,7 @@ export class Paso3Component implements OnInit {
     this.integradorService.enviarRespuestas(this.idEntrevista, respuestas).subscribe({
       next: (res:any) => {
         console.log('ok: ', res);
-        
+        this.entravistaCompleta.emit(true);
         this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
       },
       error: (err: any) => {
@@ -85,11 +55,4 @@ export class Paso3Component implements OnInit {
     })
   }
 
-  openMenu(){
-    this.show = !this.show
-  }
-
-  public tabbed(val: string) {
-  	this.openTab = val
-  }
 }

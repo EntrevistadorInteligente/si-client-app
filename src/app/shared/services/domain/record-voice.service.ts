@@ -8,7 +8,7 @@ export class RecordVoiceService {
 
   private recognition: any;
   private speechRecognition: any;
-  private speechResult = new Subject<string>();
+  private speechResult = new Subject<{ interim: string, final: string }>();
   private recordingStatus = new Subject<boolean>();
   private recognitionError = new Subject<string>();
   private isManualStop: boolean = false;
@@ -23,7 +23,7 @@ export class RecordVoiceService {
     if (this.speechRecognition) {
       this.recognition = new this.speechRecognition();
       this.recognition.lang = 'es-ES';
-      this.recognition.interimResults = false;
+      this.recognition.interimResults = true;
       this.recognition.maxAlternatives = 1;
       this.recognition.continuous = true;
 
@@ -44,9 +44,17 @@ export class RecordVoiceService {
       };
 
       this.recognition.onresult = (event: any) => {
-        const result = event.results[event.resultIndex][0].transcript;
+        let interimTranscript = '';
+        let finalTranscript = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          if (event.results[i].isFinal) {
+            finalTranscript += event.results[i][0].transcript;
+          } else {
+            interimTranscript += event.results[i][0].transcript;
+          }
+        }
         this.ngZone.run(() => {
-          this.speechResult.next(result);
+          this.speechResult.next({ interim: interimTranscript, final: finalTranscript });
         });
       };
 
@@ -74,7 +82,7 @@ export class RecordVoiceService {
     }
   }
 
-  getSpeechResult(): Observable<string> {
+  getSpeechResult(): Observable<{ interim: string, final: string }> {
     return this.speechResult.asObservable();
   }
 
