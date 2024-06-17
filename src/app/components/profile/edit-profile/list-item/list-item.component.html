@@ -1,12 +1,19 @@
-<div class="card border">
-  <div class="card-header">
+<div #cardContainer class="card border">
+  <div class="card-header header-flex">
     <h5 class="h5-colapse">{{ title }}</h5>
+    <button
+      class="btn btn-primary"
+      style="min-width: 68px"
+      (click)="visible = true"
+    >
+      <i class="icon-plus"></i> Agregar
+    </button>
   </div>
   <div class="card-body pt-0">
     <div class="todo">
       <div class="todo-list-wrapper">
         <div class="todo-list-container">
-          <div class="mark-all-tasks">
+          <!-- <div class="mark-all-tasks">
             <div class="todo-list-footer ms-2">
               <div class="add-task-btn-wrapper">
                 <span class="add-task-btn">
@@ -16,7 +23,7 @@
                 </span>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="todo-list-body">
             <ul id="todo-list">

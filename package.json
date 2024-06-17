@@ -28,7 +28,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
     "@fortawesome/free-solid-svg-icons": "^6.1.2",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
-    "@ng-select/ng-select": "^12.0.4",
+    "@ng-select/ng-select": "^12.0.7",
     "@ngx-loading-bar/core": "^6.0.2",
     "@ngx-loading-bar/http-client": "^6.0.2",
     "@ngx-loading-bar/router": "^6.0.2",

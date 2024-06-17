@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, from, of } from 'rxjs';
-import { switchMap, tap, shareReplay } from 'rxjs/operators';
-import { LocaldataService } from './localdata.service';
-import { AuthService } from '../auth/auth.service';
-import { environment } from 'src/environments/environment';
-import { FeedbackComentarioDto, FeedbackDto } from '../../model/feedback-dto';
-import { PreguntaComentarioDto } from '../../model/pregunta-comentario-dto';
-import { RespuestaComentarioDto } from '../../model/respuesta-dto';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable, from, of } from "rxjs";
+import { switchMap, tap, shareReplay } from "rxjs/operators";
+import { LocaldataService } from "./localdata.service";
+import { AuthService } from "../auth/auth.service";
+import { environment } from "src/environments/environment";
+import { FeedbackComentarioDto, FeedbackDto } from "../../model/feedback-dto";
+import { PreguntaComentarioDto } from "../../model/pregunta-comentario-dto";
+import { RespuestaComentarioDto } from "../../model/respuesta-dto";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class FeedbackService {
   feedbackURL = environment.feedbackURL;
@@ -33,7 +33,9 @@ export class FeedbackService {
     );
   }
 
-  public obtenerPreguntas(entrevistaId: string): Observable<PreguntaComentarioDto[]> {
+  public obtenerPreguntas(
+    entrevistaId: string
+  ): Observable<PreguntaComentarioDto[]> {
     return from(this.getHeaders()).pipe(
       switchMap((headers) =>
         this.httpClient.get<PreguntaComentarioDto[]>(
@@ -44,28 +46,32 @@ export class FeedbackService {
     );
   }
 
-  public obtenerMuestraPreguntas(perfil: string): Observable<FeedbackComentarioDto[]> {
+  public obtenerMuestraPreguntas(
+    perfil: string
+  ): Observable<FeedbackComentarioDto[]> {
     const cache = this.localdata.getCacheFromLocalStorage();
     const cachedData = cache[perfil];
 
     if (cachedData && !this.localdata.isCacheExpired(cachedData.timestamp)) {
       return of(cachedData.data);
     } else {
-      return from(this.getHeaders()).pipe(
-        switchMap((headers) =>
-          this.httpClient.get<FeedbackComentarioDto[]>(
-            `${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`,
-            { headers }
-          ).pipe(
-            tap((response) => this.localdata.saveToLocalStorage(perfil, response)),
-            shareReplay(1)
-          )
-        )
-      );
+      return this.httpClient
+        .get<
+          FeedbackComentarioDto[]
+        >(`${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`)
+        .pipe(
+          tap((response) =>
+            this.localdata.saveToLocalStorage(perfil, response)
+          ),
+          shareReplay(1)
+        );
     }
   }
 
-  public enviarRespuestas(entrevistaId: string, respuestas: RespuestaComentarioDto[]): Observable<any> {
+  public enviarRespuestas(
+    entrevistaId: string,
+    respuestas: RespuestaComentarioDto[]
+  ): Observable<any> {
     return from(this.getHeaders()).pipe(
       switchMap((headers) =>
         this.httpClient.post(
@@ -90,13 +96,13 @@ export class FeedbackService {
 
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
-    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set("Content-Type", "application/json");
 
     try {
       const token = await this.authService.getToken();
-      headers = headers.set('Authorization', `Bearer ${token}`);
+      headers = headers.set("Authorization", `Bearer ${token}`);
     } catch (error) {
-      console.error('Error obteniendo el token', error);
+      console.error("Error obteniendo el token", error);
       throw error;
     }
 

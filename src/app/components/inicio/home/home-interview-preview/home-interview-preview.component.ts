@@ -1,25 +1,23 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, map, shareReplay } from 'rxjs';
-import { StatePreguntas } from 'src/app/shared/model/entrevista-muestra-enums';
-import { FeedbackComentarioDto } from 'src/app/shared/model/feedback-dto';
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
+import { Component, OnInit } from "@angular/core";
+import { Observable, map, shareReplay } from "rxjs";
+import { StatePreguntas } from "src/app/shared/model/entrevista-muestra-enums";
+import { FeedbackComentarioDto } from "src/app/shared/model/feedback-dto";
+import { AuthService } from "src/app/shared/services/auth/auth.service";
+import { FeedbackService } from "src/app/shared/services/domain/feedback.service";
+import { IntegradorService } from "src/app/shared/services/domain/integrador.service";
+declare var require: any;
+const Swal = require("sweetalert2");
 
 @Component({
-  selector: 'app-home-interview-preview',
-  templateUrl: './home-interview-preview.component.html',
-  styleUrls: [
-    './home-interview-preview.component.scss',
-    '../../home/home.component.scss',
-  ],
+  selector: "app-home-interview-preview",
+  templateUrl: "./home-interview-preview.component.html",
+  styleUrls: ["./home-interview-preview.component.scss"],
 })
 export class HomeInterviewPreviewComponent implements OnInit {
   public StateEnum = StatePreguntas;
   stateEntrevista = StatePreguntas.off;
   perfiles$!: Observable<any[]>;
   preguntasMuestra: FeedbackComentarioDto[] = [];
-  display: boolean = false;
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
   iniciandoMuestra: boolean = false;
@@ -27,7 +25,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
   constructor(
     private integradorService: IntegradorService,
     private feedbackService: FeedbackService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -37,7 +35,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
   cargarListaPerfiles(): void {
     this.perfiles$ = this.integradorService.listPerfiles().pipe(
       map((perfil) => perfil),
-      shareReplay(1),
+      shareReplay(1)
     );
   }
 
@@ -50,7 +48,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
     }
     if (this.selectedPerfil) {
       this.feedbackService
-        .obtenerMuestraPreguntas(this.selectedPerfil.perfilEmpresa)
+        .obtenerMuestraPreguntas(this.selectedPerfil)
         .subscribe({
           next: (response: FeedbackComentarioDto[]) => {
             this.preguntasMuestra = response;
@@ -60,8 +58,8 @@ export class HomeInterviewPreviewComponent implements OnInit {
               return {
                 idPregunta: p.idPregunta,
                 pregunta: p.pregunta,
-                respuesta: '',
-                feedback: '',
+                respuesta: "",
+                feedback: "",
               };
             });
           },
@@ -72,8 +70,24 @@ export class HomeInterviewPreviewComponent implements OnInit {
         });
     }
   }
+
   submitAnswers(event?: Event): void {
-    this.display = true;
+    Swal.fire({
+      title: "¡Prueba el Servicio Gratis!",
+      text: "Inicia sesión para obtener una entrevista y feedback personalizado",
+      imageUrl: "assets/img/Logo-EI.png",
+      imageWidth: "35%",
+      customClass: {
+        confirmButton: "btn btn-lg btn-info",
+      },
+      confirmButtonText: `<span class="fw-bold" style="color: white">
+                            <i class="icofont icofont-login mr-2" style="font-size: 1.2rem"></i>
+                          Iniciar Sesión</span>`,
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        this.login();
+      }
+    });
   }
   login(): void {
     this.authService.login();
