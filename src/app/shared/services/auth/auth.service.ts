@@ -19,13 +19,13 @@ export class AuthService {
     if (token && token.exp) {
       this.tokenExpiryTime = token.exp * 1000;
       const expiresIn = this.tokenExpiryTime - Date.now();
-      setTimeout(() => this.refreshToken(), expiresIn - 60000); // Refresh 1 minute before expiry
+      setTimeout(() => this.refreshToken(), expiresIn - 60000); 
     }
   }
 
   private async refreshToken(): Promise<void> {
     try {
-      await this.keycloakService.updateToken(70); // Refresh if token will expire in 70 seconds
+      await this.keycloakService.updateToken(70);
       this.scheduleTokenRefresh();
     } catch (error) {
       console.error('Failed to refresh token', error);

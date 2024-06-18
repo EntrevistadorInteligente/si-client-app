@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "zeta": {
+    "landing-entrevistador": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [],
-            "outputPath": "dist/zeta",
+            "outputPath": "dist/landing-entrevistador",
             "baseHref": "/",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "zeta:build:production"
+              "buildTarget": "landing-entrevistador:build:production"
             },
             "development": {
-              "buildTarget": "zeta:build:development"
+              "buildTarget": "landing-entrevistador:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "zeta:build"
+            "buildTarget": "landing-entrevistador:build"
           }
         },
         "test": {

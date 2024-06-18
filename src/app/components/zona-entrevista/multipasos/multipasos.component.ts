@@ -31,6 +31,14 @@ export class MultipasosComponent implements OnInit {
     this.loadingMessage = 'Estamos generando tu entrevista... por favor esta a tento a las notificaciones';
   }
 
+  onInterviewCompleted() {
+    this.isIntermediate = true;
+    this.loadingMessage = 'Estamos generando el feedback para tu entrevista... por favor, estate atento a las notificaciones';
+  }
+
+
+  
+
   getStepClass(stepIndex: number): string {
     if (stepIndex < this.currentStep) {
       return 'done';
