@@ -8,10 +8,10 @@ import { NavService } from 'src/app/shared/services/nav.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  public dark: boolean = this.layout.config.settings.layout_version == 'dark-only' ? true : false;
-
+  public dark: boolean;
   collapseSidebar: boolean = true;
     constructor(private navServices: NavService, public layout: LayoutService) {
+      this.dark = this.layout.config.settings.layout_version == 'dark-only';
   }
 
   sidebarToggle( ) {

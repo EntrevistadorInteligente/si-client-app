@@ -8,9 +8,11 @@ import { LayoutService } from 'src/app/shared/services/layout/layout.service';
 })
 export class ModeComponent implements OnInit {
 
-  public dark: boolean = this.layout.config.settings.layout_version == 'dark-only' ? true : false;
+  public dark: boolean;
 
-  constructor(public layout: LayoutService) { }
+  constructor(public layout: LayoutService) {
+    this.dark = this.layout.config.settings.layout_version == 'dark-only';
+  }
 
   ngOnInit(): void {
   }

@@ -39,18 +39,14 @@ export class VideoChatComponent implements OnInit {
   ngOnInit(): void {
     this.obtenerPreguntas(this.idEntrevista);
 
-    this.voiceRecognitionService.getSpeechResult().subscribe(({ interim, final }) => {
-      if (final) {
-        this.finalTranscript += final;
-      }
-      if (this.finalTranscript.length + interim.length > 1000) {
-        this.finalTranscript = this.finalTranscript.substring(0, 1000 - interim.length);
-        interim = '';
+    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
+      if (result.length > 1000) {
+        this.userMessage = result.substring(0, 1000);
         this.voiceRecognitionService.stopRecognition();
         alert('Llegaste a la cantidad límite de caracteres');
+      } else {
+        this.userMessage = result;
       }
-      this.userMessage = this.finalTranscript + interim;
-      this.moveCaretToEnd();
       this.scrollToEnd();
     });
 
@@ -94,7 +90,6 @@ export class VideoChatComponent implements OnInit {
   toggleVoiceRecognition() {
     this.errorMessage = '';
     if (this.isRecording) {
-      this.finalTranscript += this.userMessage.substring(this.finalTranscript.length);
       this.voiceRecognitionService.stopRecognition();
     } else {
       this.voiceRecognitionService.startRecognition();
@@ -103,9 +98,10 @@ export class VideoChatComponent implements OnInit {
 
   showNextQuestion() {
     if (this.currentIndex < this.preguntas.length) {
+      this.resetMessageState();
       const question = this.preguntas[this.currentIndex].pregunta;
       const messageId = `typewriter-${this.messages.length}`;
-      this.botTyping = true;
+      this.botTyping = false;
       this.messages.push({
         id: this.messages.length,
         type: 'bot',
@@ -127,7 +123,7 @@ export class VideoChatComponent implements OnInit {
     new Typed(elementId, {
       strings: [text],
       typeSpeed: 35,
-      showCursor: false,
+      showCursor: true,
       onComplete: () => {
         this.botTyping = false;
         this.scrollToBottom();
@@ -205,5 +201,11 @@ export class VideoChatComponent implements OnInit {
       icon: icon,
       confirmButtonText: 'OK'
     });
+  }
+
+  private resetMessageState() {
+    this.userMessage = '';
+    this.finalTranscript = '';
+    this.voiceRecognitionService.resetRecognitionBuffer();
   }
 }

@@ -1,14 +1,14 @@
 {
-  "name": "zeta",
+  "name": "landing-entrevistador",
   "version": "0.0.0",
-  "homepage": "https://webiots.co.in/zeta/",
+  "homepage": "https://webiots.co.in/landing-entrevistador/",
   "scripts": {
     "ng": "ng",
     "start": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng serve",
-    "build": "ng build --base-href=/zeta/",
+    "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "run-build": "lite-server --baseDir='dist/zeta'"
+    "run-build": "lite-server --baseDir='dist/landing-entrevistador'"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +23,7 @@
     "@angular/platform-browser": "^17.0.6",
     "@angular/platform-browser-dynamic": "^17.0.6",
     "@angular/router": "^17.0.6",
+    "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@fortawesome/angular-fontawesome": "^0.14.0",
     "@fortawesome/fontawesome-svg-core": "^6.1.2",
     "@fortawesome/free-regular-svg-icons": "^6.1.2",
