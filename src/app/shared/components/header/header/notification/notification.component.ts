@@ -1,25 +1,28 @@
-import { Component, OnInit, OnDestroy, NgZone } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { SseService } from 'src/app/shared/services/domain/sse.service';
+import { Component, OnInit, OnDestroy, NgZone } from "@angular/core";
+import { Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { SseService } from "src/app/shared/services/domain/sse.service";
 
 @Component({
-  selector: 'app-notification',
-  templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  selector: "app-notification",
+  templateUrl: "./notification.component.html",
+  styleUrls: ["./notification.component.scss"],
 })
 export class NotificationComponent implements OnInit, OnDestroy {
-
   private eventsSubscription: Subscription;
   notifications: any[] = [];
   badgeCount = 0;
 
-  constructor(private sseService: SseService, private router: Router, private zone: NgZone) { }
+  constructor(
+    private sseService: SseService,
+    private router: Router,
+    private zone: NgZone
+  ) {}
 
   ngOnInit() {
     this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
-      next: event => this.handleEvent(event),
-      error: error => console.error(error)
+      next: (event) => this.handleEvent(event),
+      error: (error) => console.error(error),
     });
   }
 
@@ -29,13 +32,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
     let idEntrevista = "";
     try {
       const parsedMensaje = JSON.parse(mensaje);
-      idEntrevista = parsedMensaje.idEntrevista || mensaje; 
+      idEntrevista = parsedMensaje.idEntrevista || mensaje;
     } catch (e) {
       idEntrevista = mensaje;
     }
 
-    if (typeof idEntrevista === 'string') {
-      idEntrevista = idEntrevista.replace(/^"|"$/g, '');
+    if (typeof idEntrevista === "string") {
+      idEntrevista = idEntrevista.replace(/^"|"$/g, "");
     }
 
     this.zone.run(() => {
@@ -44,8 +47,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
         message: this.getMessage(tipo),
         url: tipo,
         idEntrevista: idEntrevista,
-        sender: 'Kori Thomas',
-        time: new Date().toLocaleTimeString()
+        sender: "Kori Thomas",
+        time: new Date().toLocaleTimeString(),
       });
       this.badgeCount = this.notifications.length;
     });
@@ -53,17 +56,24 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   getMessage(tipo: string): string {
     switch (tipo) {
-      case 'PG': return 'Tu entrevista está lista!';
-      case 'FG': return 'Tu feedback está listo!';
-      default: return 'Nuevo mensaje!';
+      case "PG":
+        return "Tu entrevista está lista!";
+      case "FG":
+        return "Tu feedback está listo!";
+      case "HG":
+        return "Tu hoja de vida esta listo!";
+      default:
+        return "Nuevo mensaje!";
     }
   }
 
   getNotificationLink(notification: any) {
-    if (notification.url === 'PG' || notification.url === 'FG') {
-      return ['/zona-entrevista', notification.idEntrevista];
+    if (notification.url === "PG" || notification.url === "FG") {
+      return ["/zona-entrevista", notification.idEntrevista];
+    } else if (notification.url === "HG") {
+      return ["/profile"];
     } else {
-      return ['#'];
+      return ["#"];
     }
   }
 
@@ -80,7 +90,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   removeNotification(notification: any) {
-    this.notifications = this.notifications.filter(n => n !== notification);
+    this.notifications = this.notifications.filter((n) => n !== notification);
     this.badgeCount = this.notifications.length;
   }
 
