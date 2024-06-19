@@ -1,35 +1,37 @@
-// MODULOS
-import { NgModule } from '@angular/core';
+import  { NgModule } from '@angular/core';
+var routingAnimation = localStorage.getItem('animate') 
 import { RouterModule, Routes } from '@angular/router';
-
-// COMPONENTES
-import { LoginComponent } from '@core/components/login/login.component';
-import { RegistroComponent } from '@core/components/registro/registro.component';
-import { RutasNoVisiblesGuard } from '@core/guards/rutas-no-visibles-guard.guard';
-import { PerfilComponent } from '@shared/components/perfil/perfil.component';
-import { ErrorComponent } from '@core/components/error/error.component';
-
+import { ContentComponent } from './shared/components/layout/content/content.component';
+import { content } from "./shared/routes/routes/routers";
+import { FullComponent } from './shared/components/layout/full/full.component';
+import { full } from './shared/routes/full';
 const routes: Routes = [
-  { path: "", redirectTo: "/home", pathMatch: "full" },
   {
-    path: "home",
-    loadChildren: () =>
-      import("./feature/inicio/landing.module").then((mod) => mod.LandingModule),
+    path: '',
+    redirectTo: 'inicio',
+    pathMatch: 'full' 
   },
   {
-    path: "zona-entrevista",
-    loadChildren: () =>
-      import("./feature/zona-entrevista/zona-entrevista.module").then((mod) => mod.ZonaEntrevistaModule),
+    path: '',
+    component: ContentComponent,
+    children: content
   },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'registro', component: RegistroComponent },
-  { path: 'error', component: ErrorComponent, canActivate: [ RutasNoVisiblesGuard ] },
+  {
+    path: '',
+    component: FullComponent,
+    children: full
+  },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  imports: [RouterModule.forRoot(routes ,{
+    anchorScrolling: 'enabled',
+    scrollPositionRestoration: 'enabled',
+})],
   exports: [RouterModule]
 })
-
 export class AppRoutingModule { }

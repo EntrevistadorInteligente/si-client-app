@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrls: ['./footer.component.scss']
 })
+export class FooterComponent implements OnInit {
+  public today: number = Date.now();
+  
+  constructor() { }
 
-export class FooterComponent {
+  ngOnInit(): void {
+  }
 
-  email = 'entrevistador@gmail.com';
-  activo: string = "home";
-
-  constructor() {}
+  
 
 }

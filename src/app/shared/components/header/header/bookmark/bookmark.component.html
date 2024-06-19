@@ -1,0 +1,70 @@
+<div class="notification-box">
+  <svg-icon src="assets/svgIcon/bookmarks.svg"></svg-icon>   
+ </div>
+<div class="onhover-show-div bookmark-flip" [class.active]="bookmarkFlip || bookmark">
+   <div class="flip-card">
+     <div class="flip-card-inner" [class.flipped]="bookmarkFlip">
+       <div class="front dropdown-title">
+         <h3 class="mb-3">Bookmark</h3>
+         <ul class="bookmark-dropdown pb-0">
+           <li class="p-0">
+             <div class="row">
+               <ng-container *ngFor="let item of bookmarkItems">
+                 <div class="col-4 text-center">
+                   <div class="bookmark-content">
+                     <div class="bookmark-icon">
+                        <svg-icon src="assets/svgIcon/{{item.icon}}.svg"></svg-icon>   
+                      </div>
+                      <a placement="top" [ngbTooltip]="item?.title" [routerLink]=item?.path routerLinkActive="item?.active">
+                        <h5 class="mt-2">{{item.title}}</h5>
+                      </a>
+                  </div>
+                </div>
+              </ng-container>
+               
+             </div>
+           </li>
+           <li class="text-center" (click)="flipBookMark()"><a class="flip-btn btn btn-primary" id="flip-btn" href="javascript:void(0)">Add New Bookmark</a></li>
+         </ul>
+       </div>
+       <div class="back dropdown-title">
+         <ul>
+           <li>
+             <div class="bookmark-dropdown flip-back-content">
+               <input type="text" [(ngModel)]="text" [ngModelOptions]="{standalone: true}"
+               (keyup)="searchTerm(text)" placeholder="search...">
+               <div class="Typeahead-menu custom-scrollbar" [class.is-open]="searchResult" *ngIf="menuItems?.length"
+               id="boomark-search-outer">          
+                   <div class="ProfileCard u-cf" *ngFor="let item of menuItems | slice:0:8">
+                      <div class="ProfileCard-avatar">
+                       <svg-icon src="assets/svgIcon/{{item.icon}}.svg"></svg-icon>   
+                      </div>
+                      <div class="ProfileCard-details">
+                         <div class="ProfileCard-realName">
+                            <a [routerLink]="item?.path" class="realname" (click)="removeFix()">{{item?.title}}</a>
+                            <span class="pull-right" (click)="addToBookmark(item)">
+                               <a>
+                                  <i class="fa fa-star-o f-18" [class.starred]="item.bookmark"></i>
+                               </a>
+                            </span>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+                <div class="Typeahead-menu" [class.is-open]="searchResultEmpty">
+                  <div class="tt-dataset tt-dataset-0">
+                    <div class="EmptyMessage">
+                      Opps!! There are no result found.
+                    </div>
+                  </div>
+                </div>
+             </div>
+           </li>
+           <li (click)="flipBookMark()">
+            <a class="f-w-700 d-block flip-back" id="flip-back">Back</a>
+           </li>
+         </ul>
+       </div>
+     </div>
+   </div>
+</div>

@@ -1,0 +1,386 @@
+//According settings
+$card-padding: 30px;
+$card-margin-bottom: 30px;
+$card-border-width: 0px;
+$card-border-color: $light-color;
+$card-border-radious: 8px;
+$card-box-shadow: 0 0 10px 0 rgba(68, 102, 242, 0.05);
+$card-header-font-weight: 600;
+$card-header-bg-color: $white;
+$card-header-font-size: 18px;
+$card-header-font-transform: uppercase;
+$card-header-font-color: $theme-body-font-color;
+$card-header-span-size: 12px;
+$card-header-span-color: $theme-body-sub-title-color;
+$card-body-bg-color: $transparent-color;
+$card-footer-bg-color: $white;
+
+/**=====================
+     71. Faq CSS start
+==========================**/
+.faq-wrap {
+  .default-according {
+    .card {
+      .card-header {
+        .btn-link {
+          padding-left: 48px !important;
+        }
+      }
+    }
+  }
+}
+.faq-widgets {
+  align-items: center;
+  .media-body {
+    h5 {
+      font-weight: 600;
+      color: $white;
+    }
+    p {
+      font-size: 14px;
+      padding-right: 20px;
+      color: rgba($white, 0.7);
+    }
+  }
+  svg {
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+  }
+}
+.header-faq {
+  h5 {
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+  margin-bottom: 30px;
+}
+.faq-articles {
+  h6 {
+    font-size: 16px;
+  }
+  p {
+    color: $light-text;
+  }
+}
+.features-faq {
+  .card-footer{
+    ngb-rating{
+      float: right;
+      color: $primary-color;
+      span{
+        font-size: 17px;
+      }
+    }
+  }
+  &.product-box{
+    &:hover{
+      .product-hover{
+        border-radius: 10px 10px 0 0;
+      }
+    }
+  }
+  .faq-image {
+    img {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      width: 100%;
+    }
+  }
+  .rating{
+    li{
+      + li{
+        margin-left: 3px;
+      }
+    }
+  }
+  .card-body,
+  .card-footer {
+    padding: 20px;
+  }
+  .card-footer {
+    border-top: 1px solid $light-gray;
+  }
+  .card-body {
+    h6 {
+      font-weight: 600;
+      font-size: 18px;
+    }
+    p {
+      font-size: 14px;
+      color: $light-text;
+    }
+  }
+  ul {
+    li {
+      display: inline-block;
+    }
+  }
+}
+.faq-accordion {
+  margin-bottom: 30px;
+  .faq-accor {
+    .card {
+      margin-bottom: 0;
+    }
+  }
+  &.default-according {
+    .card {
+      .faq-header {
+        padding: 20px !important;
+        border-bottom: 1px solid $light-gray;
+      }
+    }
+    .card-mb-faq {
+      margin-bottom: 30px !important;
+    }
+  }
+  p {
+    color: $light-text;
+  }
+  .card {
+    .btn-link {
+      display: flex;
+      position: relative;
+      padding-left: 50px !important;
+      padding-right: 35px !important;
+      svg {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 17px;
+        left: 20px;
+      }
+    }
+  }
+  .faq-header {
+    position: relative;
+    svg {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+    span {
+      margin-top: 3px;
+    }
+  }
+  .faq-body {
+    padding: 20px !important;
+  }
+
+  label {
+    font-weight: 500;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+}
+.latest-articles {
+  p {
+    color: $light-text;
+  }
+}
+
+.faq-title {
+  margin: 30px 0;
+  h6 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: unset;
+  }
+}
+.faq-form {
+  position: relative;
+  .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 9px;
+    width: 16px;
+    height: 16px;
+  }
+}
+.navigation-btn {
+  margin-bottom: 20px;
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
+.navigation-option {
+  ul {
+    li {
+      position: relative;
+      padding: 10px 10px 10px 0;
+      &:hover {
+        background-color: rgba($primary-color, 0.05);
+        a {
+          color: $primary-color;
+        }
+      }
+      a {
+        padding-left: 40px;
+        color: $light-text;
+        font-weight: 500;
+        svg {
+          position: absolute;
+          width: 15px;
+          height: 15px;
+          top: 12px;
+          left: 15px;
+        }
+      }
+    }
+  }
+}
+.updates-faq {
+  width: 40px;
+  height: 40px;
+  border: 1px solid $primary-color;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+.updates-bottom-time {
+  p {
+    margin-bottom: 2px;
+    font-weight: 600;
+    + p {
+      color: $light-text;
+    }
+  }
+}
+.updates-faq-main {
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.default-according {
+  .card {
+    .card-header {
+      padding: 0 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .faq-accordion {
+    margin-bottom: 30px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .faq-accordion {
+    .faq-header {
+      padding: 20px !important;
+      h5 {
+        font-size: 20px;
+      }
+      svg {
+        right: 20px;
+        top: 20px;
+        width: 20px;
+        height: auto;
+      }
+    }
+  }
+  .navigation-option {
+    ul {
+      li {
+        padding: 10px 10px 10px 0;
+        a {
+          svg {
+            top: 12px;
+          }
+        }
+      }
+    }
+  }
+  .navigation-btn,
+  .updates-faq-main {
+    margin-bottom: 20px;
+  }
+  .updates-faq {
+    width: 35px;
+    height: 35px;
+    margin-right: 20px;
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+@media only screen and (max-width: 767px) {
+  .xs-mt-search {
+    margin-top: 30px;
+  }
+  .featured-tutorial {
+    .card-body,
+    .card-footer {
+      padding: 20px;
+    }
+  }
+
+  .updates-faq {
+    width: 30px;
+    height: 30px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .faq-accordion {
+    &.default-according {
+      .card-mb-faq {
+        margin-bottom: 15px !important;
+      }
+    }
+  }
+  .xs-mt-search {
+    margin-top: 0px;
+  }
+  .faq-widgets {
+    svg {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      opacity: 0.1;
+      top: 10px;
+      right: 20px;
+    }
+  }
+  .faq-title {
+    margin: 15px 0;
+    h6 {
+      font-size: 16px;
+    }
+  }
+  .header-faq {
+    margin-bottom: 15px;
+  }
+  .faq-accordion {
+    margin-bottom: 0px;
+    .faq-header {
+      padding: 15px !important;
+      .pull-right {
+        float: right;
+      }
+    }
+  }
+  .navigation-btn,
+  .updates-faq-main {
+    margin-bottom: 15px;
+  }
+}
+
+/**=====================
+     71. Faq CSS end
+==========================**/

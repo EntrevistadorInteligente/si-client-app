@@ -1,0 +1,746 @@
+// crypto chart
+.crypto-chart {
+  .card-header {
+    .media {
+      align-items: center;
+      .media-body {
+        display: flex;
+        align-items: center;
+        .coin-logo-img {
+          width: 40px;
+          height: 40px;
+          border-radius: 5px;
+          margin-right: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          svg {
+            display: flex;
+          }
+        }
+        .coin-logo-img.bg-light-primary {
+          svg {
+            fill: var(--theme-deafult);
+          }
+        }
+        .coin-logo-img.bg-light-secondary {
+          svg {
+            fill: var(--theme-secondary);
+          }
+        }
+        h5 {
+          font-size: 20px;
+          margin-right: 10px;
+        }
+        span {
+          font-size: 14px;
+          font-weight: 500;
+          color: $dark;
+        }
+      }
+      .media-end {
+        text-align: center;
+
+        h6 {
+          color: rgba($dark, 0.8);
+          font-weight: 600;
+          font-size: 15px;
+          margin-bottom: 4px;
+        }
+        span {
+          font-size: 10px;
+          padding: 7px 10px;
+          svg {
+            vertical-align: bottom;
+            height: 10px;
+            width: 10px;
+            padding: 0;
+            margin-right: 2px;
+          }
+        }
+      }
+    }
+  }
+  .crypto-dashborad-chart {
+    margin-bottom: -20px;
+  }
+}
+// trading activities
+.trading-activities {
+  table {
+    tbody {
+      tr {
+        &:first-child {
+          td {
+            padding-top: 0;
+          }
+        }
+        &:last-child {
+          td {
+            padding-bottom: 0;
+          }
+        }
+        td {
+          .media {
+            align-items: center;
+            svg {
+              width: 20px;
+              height: 20px;
+              display: flex;
+              margin-right: 5px;
+            }
+            .table-box-img {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 35px;
+              height: 35px;
+              background-color: $light-2;
+              border-radius: 5px;
+              margin-right: 15px;
+              svg {
+                margin-right: 0;
+              }
+            }
+            .table-box-img.bg-light-primary {
+              svg {
+                fill: var(--theme-deafult);
+              }
+            }
+            .table-box-img.bg-light-secondary {
+              svg {
+                fill: var(--theme-secondary);
+              }
+            }
+          }
+          &:first-child {
+            padding-left: 0;
+          }
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+// cripto notification
+.cripto-notification {
+  table {
+    tr {
+      &:first-child {
+        td {
+          padding-top: 0;
+        }
+      }
+      &:last-child {
+        td {
+          padding-bottom: 0;
+        }
+      }
+      td {
+        padding-top: 17px;
+        padding-bottom: 17px;
+        &:first-child {
+          padding-left: 0;
+          min-width: 305px;
+        }
+        &:last-child {
+          padding-right: 0;
+          text-align: right;
+        }
+        .media {
+          .square-box {
+            margin-right: 15px;
+          }
+          .media-body {
+            h5 {
+              font-size: 13px;
+              color: rgba($dark, 0.8);
+            }
+            p {
+              color: $light-1;
+              font-size: 12px;
+              font-weight: 400;
+              margin-bottom: 11px;
+              line-height: 1.2;
+            }
+          }
+        }
+      }
+    }
+  }
+  .media {
+    .media-body {
+      .notification-chart-sec {
+        display: flex;
+        align-items: flex-start;
+        width: 120px;
+        min-width: 100px;
+        overflow: hidden;
+        #notification-chart {
+          margin-right: 10px;
+          height: 40px;
+          margin-bottom: -16px;
+        }
+      }
+    }
+  }
+}
+// cripto chat
+.cripto-chat {
+  .chat {
+    .square-box {
+      width: 38px;
+      height: 35px;
+    }
+    .msg-box {
+      padding: 10px;
+      font-size: 12px;
+      font-weight: 400;
+      max-width: 60%;
+    }
+    .left-side-chat {
+      margin-bottom: 22px;
+      .msg-box {
+        background-color: var(--theme-deafult);
+        color: $white;
+        border-radius: 0px 8px 8px 8px;
+        margin-left: 15px;
+      }
+      .img-msg-box {
+        img {
+          margin-left: 10px;
+        }
+      }
+    }
+    .right-side-chat {
+      text-align: right;
+      margin-bottom: 22px;
+      .msg-box {
+        background-color: $body-color;
+        color: $light-1;
+        text-align: right;
+        float: right;
+        border-radius: 8px 0 8px 8px;
+        margin-right: 15px;
+        img {
+          width: 12px;
+          height: 12px;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .input-group {
+    .form-control {
+      font-size: 12px;
+      &::placeholder {
+        color: $light-1;
+      }
+      &:focus {
+        box-shadow: none;
+      }
+    }
+    .input-group-text {
+      padding: 10px;
+      svg {
+        width: 18px;
+        height: auto;
+      }
+    }
+  }
+}
+// candlestick chart
+.candlestick-chart {
+  position: relative;
+  #candlestick-chart {
+    margin-left: -15px;
+  }
+  .candlestick-detail {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-align: right;
+    h3 {
+      font-size: 22px;
+      color: $dark;
+    }
+    h4 {
+      font-weight: 500;
+      font-size: 15px;
+      color: $light-1;
+    }
+  }
+}
+// buy-sell
+.buy-sell {
+  .card-header {
+    .media {
+      align-items: center;
+      ul {
+        background-color: $body-color;
+        border-radius: 5px;
+        max-width: 174px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0;
+        li {
+          display: inline-block;
+          a {
+            padding: 10px 30px;
+            line-height: 1;
+            color: $primary-color;
+            &.active {
+              color: $white;
+            }
+          }
+        }
+      }
+      .media-end {
+        h5 {
+          font-size: 15px;
+          color: $light-1;
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+  .buy-sell-form {
+    .btn {
+      a {
+        color: $white;
+      }
+    }
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 20px;
+      label {
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 14px;
+        letter-spacing: 0.5px;
+        margin-bottom: 0;
+        color: rgba($dark, 0.8);
+      }
+      .input-group {
+        background-color: $body-color;
+        border-radius: 5px;
+        margin-top: 15px;
+        input {
+          background-color: transparent;
+          border: none;
+          letter-spacing: 1px;
+          color: $light-1;
+          font-size: 15px;
+          font-weight: 500;
+          padding: 12px 15px;
+          &:focus {
+            box-shadow: none;
+          }
+        }
+        .input-group-text {
+          border: none;
+          letter-spacing: 1px;
+          color: $light-1;
+          font-size: 15px;
+          font-weight: 500;
+        }
+      }
+      .convert-img {
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 5px;
+        svg {
+          fill: var(--theme-deafult);
+        }
+      }
+      .dropdown {
+        .dropdown-menu {
+          right: 0;
+        }
+        .dropdown-toggle {
+          background-color: $white;
+          padding: 6px 10px;
+          width: 80px;
+          line-height: 1;
+          font-size: 10px;
+          font-weight: 500;
+          box-sizing: border-box;
+          border-radius: 5px;
+          margin-bottom: 5px;
+          position: relative;
+          color: var(--theme-deafult);
+          border: 1px solid var(--theme-deafult);
+          display: block;
+          margin-left: auto;
+
+          &:hover,
+          &:focus {
+            background-color: var(--theme-deafult);
+            color: $white !important;
+          }
+        }
+      }
+      .btn {
+        margin-top: 40px;
+        width: 100%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1600px) and (min-width: 1366px) {
+  .crypto-chart {
+    .card-header {
+      .media {
+        .media-body {
+          .coin-logo-img {
+            width: 30px;
+            height: 30px;
+            img {
+              width: 14px;
+            }
+          }
+          h5 {
+            display: inline-block;
+            font-size: 18px;
+          }
+          span {
+            display: inline-block;
+            font-size: 12px;
+          }
+        }
+        .media-end {
+          h6 {
+            font-size: 12px;
+          }
+          span {
+            padding: 5px 7px;
+          }
+        }
+      }
+    }
+  }
+  .cripto-chat {
+    .chat {
+      .left-side-chat,
+      .right-side-chat {
+        margin-bottom: 28px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1550px) {
+  .cripto-chat {
+    .chat {
+      .msg-box {
+        max-width: 85%;
+      }
+    }
+  }
+  .buy-sell {
+    .buy-sell-form {
+      .form-group {
+        margin-bottom: 24px;
+      }
+    }
+  }
+  .cripto-notification {
+    table {
+      tr {
+        td {
+          padding-top: 14px;
+          padding-bottom: 14px;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1469px) {
+  .cripto-chat {
+    .chat {
+      .left-side-chat,
+      .right-side-chat {
+        margin-bottom: 18px;
+      }
+    }
+  }
+  .crypto-chart {
+    .card-header {
+      .media {
+        .media-end {
+          span {
+            padding: 4px;
+          }
+        }
+        .media-body {
+          .coin-logo-img {
+            margin-right: 5px;
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+          h5 {
+            margin-right: 4px;
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1365px) and (min-width: 1200px) {
+  .crypto-chart {
+    .card-header {
+      padding: 20px 14px;
+      .media {
+        .media-end {
+          text-align: right;
+          h6 {
+            font-size: 13px;
+          }
+        }
+        .media-body {
+          span {
+            display: none;
+          }
+          h5 {
+            font-size: 16px;
+          }
+          .coin-logo-img {
+            width: 30px;
+            height: 30px;
+          }
+        }
+      }
+    }
+  }
+  .crypto-dash {
+    .ongoing-project {
+      table {
+        tbody {
+          tr {
+            td {
+              &:first-child {
+                padding-top: 14px;
+                padding-bottom: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  .buy-sell {
+    .buy-sell-form {
+      .form-group {
+        .btn {
+          margin-top: 34px;
+        }
+      }
+    }
+  }
+  .cripto-notification {
+    table {
+      tr {
+        td {
+          padding-top: 20px;
+          padding-bottom: 20px;
+        }
+      }
+    }
+  }
+  .crypto-dash {
+    .dash-lg-50 {
+      max-width: 50%;
+      flex: 0 0 50%;
+    }
+  }
+  .cripto-chat {
+    .chat {
+      .msg-box {
+        max-width: 90%;
+      }
+      .left-side-chat,
+      .right-side-chat {
+        margin-bottom: 14px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 1365px) {
+  .buy-sell {
+    .card-header {
+      .media {
+        ul {
+          max-width: 150px;
+          li {
+            a {
+              padding: 10px 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1199px) {
+  .cripto-chat {
+    .chat {
+      .msg-box {
+        max-width: 34%;
+      }
+    }
+  }
+}
+@media (max-width: 991px) {
+  .buy-sell {
+    .buy-sell-form {
+      .form-group {
+        .btn {
+          margin-top: 20px;
+        }
+      }
+    }
+    .card-header {
+      .media {
+        ul {
+          max-width: 75px;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 767px) {
+  .cripto-chat {
+    .chat {
+      .msg-box {
+        max-width: 60%;
+      }
+    }
+  }
+  .buy-sell {
+    .card-header {
+      .media {
+        ul {
+          max-width: fit-content;
+        }
+      }
+    }
+  }
+}
+@media (max-width: 575px) {
+  .crypto-chart {
+    .card-header {
+      .media {
+        .media-body {
+          .coin-logo-img {
+            width: 30px;
+            height: 30px;
+            img {
+              width: 18px;
+            }
+          }
+          h5 {
+            font-size: 18px;
+          }
+        }
+        .media-end {
+          h6 {
+            font-size: 14px;
+          }
+          span {
+            padding: 5px 8px;
+          }
+        }
+      }
+    }
+  }
+  .buy-sell {
+    .card-header {
+      .media {
+        ul {
+          li {
+            a {
+              padding: 8px 20px;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+    .buy-sell-form {
+      .form-group {
+        margin-bottom: 15px;
+        .btn {
+          margin-top: 25px;
+          padding-top: 8px;
+          padding-bottom: 8px;
+          font-size: 12px;
+        }
+        .input-group {
+          input {
+            padding: 10px 12px;
+            font-size: 12px;
+          }
+          .input-group-text {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 420px) {
+  .buy-sell {
+    .card-header {
+      .media {
+        display: block;
+        ul {
+          width: fit-content;
+          margin-bottom: 10px;
+          li {
+            width: fit-content;
+          }
+        }
+      }
+    }
+  }
+  .cripto-chat {
+    .chat {
+      .msg-box {
+        max-width: 100%;
+      }
+    }
+    .input-group {
+      .input-group-text {
+        img {
+          width: 18px;
+          height: 18px;
+        }
+      }
+      .input-group-text {
+        svg {
+          width: 14px;
+        }
+      }
+    }
+  }
+  .candlestick-chart {
+    .candlestick-detail {
+      top: 20px;
+      right: 20px;
+      h3 {
+        font-size: 18px;
+      }
+      h4 {
+        font-size: 14px;
+      }
+    }
+  }
+}

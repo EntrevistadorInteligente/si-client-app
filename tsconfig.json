@@ -5,49 +5,29 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
+    "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
     "sourceMap": true,
     "declaration": false,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization":false,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "useDefineForClassFields": false,
     "lib": [
       "ES2022",
       "dom"
-    ],
-    "paths": {
-      "@core/*": [
-        "src/app/core/*"
-      ],
-      "@core-service/*": [
-        "src/app/core/services/*"
-      ],
-      "@inicio/*": [
-        "src/app/feature/inicio/*"
-      ],
-      "@zona-entrevista/*": [
-        "src/app/feature/zona-entrevista/*"
-      ],
-      "@shared/*": [
-        "src/app/shared/*"
-      ]
-    }
+    ]
   },
-
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-
   }
 }

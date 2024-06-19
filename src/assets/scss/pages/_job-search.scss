@@ -1,0 +1,378 @@
+
+/**=====================
+     72. Job CSS start
+==========================**/
+.filter-cards-view{
+  .job-filter{
+    &:first-child{
+      margin-bottom: 30px;
+    }
+  }
+  .checkbox-animated{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+  p{
+    color: $light-text;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    font-size: 13px;
+  }
+  .filter-view-group{
+    margin-bottom:10px;
+  }
+}
+.location-checkbox{
+  span{
+    font-size: 12px;
+    color: $light-1;
+    padding-left: 33px;
+  }
+}
+.job-accordion{
+  .card{
+    margin-bottom: 30px;
+  }
+  .btn-block {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+.job-sidebar{
+  .job-toggle{
+    display: none;
+    width: fit-content;
+  }
+  label{
+    font-size: 14px;
+  }
+}
+.job-search{
+  .form-control[type=file]{
+    padding: 6px 12px;
+  }
+  p{
+    margin-top: 20px;
+    color: $light-text;
+  }
+  .media{
+    .media-body{
+      h6{
+        margin-bottom: 3px;
+        font-size: 16px;
+        span{
+          font-size: 13px;                   
+          font-weight: normal;
+          &.badge{
+            color: $white;
+            font-weight: 600;
+          }
+        }
+        .btn{
+          font-weight: 600;
+        }
+      }
+      p{
+        margin-top: 0;
+        margin-bottom: 0;        
+        font-weight: 500;
+        display: inline-block;       
+      }
+      ul{
+        &.rating{
+          margin-left:10px;
+          display: inline-block;
+          li{
+            display: inline-block;            
+            letter-spacing: -2px;
+            + li{
+              margin-left: 4px;
+            }
+          }
+        }
+      }
+      .job-apply-btn{
+        position: absolute;
+        top: 30px;
+        right: 30px;
+      }
+    }
+  }
+  .job-description{
+    margin-top: 20px;
+    border-top: 1px solid $light-gray;
+    padding-top: 20px;
+    h6{
+      font-weight: 600;
+      font-size: 16px;
+    }
+    p{
+      margin-top: 0;
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+    }
+    ul{
+      list-style-type: disc;
+      list-style-position: inside;
+      li{
+        margin-bottom: 10px;
+        cursor: pointer;
+        color: $light-text;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        &:hover{
+          color:$primary-color;
+        }
+      }
+    }
+    .theme-form{
+      margin-top: 20px;
+      margin-bottom: 30px;
+      border-bottom: 1px solid $light-semi-gray;
+      .row{
+        div[class^="col-"]{
+            + div[class^="col-"]{
+            .select2-container{
+              margin-top: 14px;
+              max-width: 100%;
+            }
+          }
+          .job-select2{
+            ~ .select2-container{
+              margin-top: 0 !important;
+            }
+          }
+          .input-group{
+            .datepicker-here{
+              font-size:14px;
+              border:1px solid $light-gray;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.select2-container {
+  .select2-selection--single {
+    border-radius: 0.25rem !important;
+    border-color: $light-gray !important;   
+    height: 40px !important;
+    padding: 5px;
+  }
+}
+.job-pagination{
+  margin-bottom: 30px;
+  nav{
+    ul{
+      justify-content: center;
+    }
+  }
+}
+@media only screen and (max-width: 1366px){
+  .xl-mt-job{
+    margin-bottom: 20px;
+  }
+}
+
+
+@media only screen and (max-width: 1400px) and (min-width:1200px){
+  .job-search {
+    .media {
+      .media-body {
+        .job-apply-btn{
+          position:unset;
+          width: fit-content;
+          margin-top:5px;
+          display:block;
+        }
+      }
+    }
+  }
+  .file-content{
+    .folder{
+      .folder-box{
+        padding: 12px;
+      }
+    }
+  }  
+}
+
+
+@media only screen and (max-width: 991px) {
+  .filter-cards-view{
+    padding: 20px !important;
+    .job-filter{
+      &:first-child{
+        margin-bottom: 20px;
+      }
+    }
+    .checkbox-animated{
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+  .job-accordion{
+    .animate-chk{
+      padding: 20px !important;
+    }
+  }
+  .job-search{
+    p {
+      margin-top:15px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 767px){
+  .job-search {
+    .media {
+      .media-body {
+        .job-apply-btn{
+          position: unset;
+          display: block;
+          width: fit-content;
+          margin-top: 5px;
+        }
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 575px) {
+  .filter-cards-view{
+    padding: 15px !important;
+    .job-filter{
+      &:first-child{
+        margin-bottom: 15px;
+      }
+    }
+    .checkbox-animated{
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+  .job-accordion{
+    .animate-chk{
+      padding: 15px !important;
+    }
+  }
+  .job-search{    
+    p {
+      margin-top:10px;     
+      text-align:center;
+      font-size: 13px;
+    }
+    .media {
+      display: block;
+      text-align: center;
+      .media-body{
+        text-align: center;
+        .job-apply-btn{
+          margin-left: auto;
+          margin-right: auto;
+        }
+        h6{         
+          margin-bottom:unset;
+          .pull-right{
+            float: none;           
+            display: inline-block;
+            margin-left: 15px; 
+          }          
+          span.badge{
+            font-size: 10px;
+            padding: 5px;
+          }
+          a{           
+            margin-bottom:10px;
+          }
+        }
+        p{         
+          span{
+            + span{
+              display: block;
+            }
+          }
+        }
+      }
+      img{
+        margin-bottom: 15px;
+      }
+      .m-r-20{
+        margin-right: 0;
+      }
+    }
+    .job-description {
+      margin-top: 15px;
+      padding-top: 15px;
+      label{
+        display: block;
+        text-align: left !important;
+      }
+      .select2-container{
+        width:100% !important;
+      }
+      .theme-form {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        .row{
+          div[class^="col-"]{
+            + div[class^="col-"]{
+              .select2-container{
+                margin-top: 2px;
+              }
+            }
+          }
+        }
+        .xs-mt-period{
+          margin-top: 15px;
+        }
+        
+      }
+    }
+    .card-footer{
+      padding:20px;
+    }
+  }
+  .job-pagination{
+    margin-bottom: 15px;
+  }
+  .xl-mt-job {
+    margin-bottom: 15px;
+  }
+
+
+
+}
+
+
+@media only screen and (max-width: 420px){ 
+  .job-search {
+    .media {
+      .media-body {
+        h6 {
+          span.badge{
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .job-search{
+    .job-description{
+      .btn{
+        padding: 6px 12px;
+      }
+    }
+  }
+}
+
+/**=====================
+     72. Job CSS end
+==========================**/

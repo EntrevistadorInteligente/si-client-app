@@ -1,0 +1,109 @@
+/**=====================
+    104. Calenader basic CSS Start
+==========================**/
+#menu{
+    #menu-navi{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      border-bottom: 1px solid $light-gray;
+    
+      .render-range{
+          font-size: 22px;
+          font-weight: 600;
+      }
+      .menu-navi-right{
+          >button{
+              display: inline-block;
+              #calendarTypeName{
+                  margin: 0 6px;
+              }
+          }
+          .move-btn{
+              display: inline-block;
+          }
+      }
+  
+    }
+   
+  }
+  #lnb{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+
+    .lnb-calendars-d1{
+        display: inline-block;
+        .lnb-calendars-item{
+            display: inline-block;
+            margin-right: 8px;
+            font-size: 12px;
+
+        label{
+            input[type='checkbox']+span{
+                vertical-align: middle;
+                margin-right: 4px;
+            }
+          }
+        }
+        
+    }
+    .lnb-calendars-item{
+        display: inline-block;
+    }
+  }
+
+  @media screen and  (max-width: 1300px){
+    #lnb{
+        display: block;
+        .lnb-new-schedule{
+            button{
+                display: block;
+            
+               
+            }
+        }
+        .lnb-calendars{
+            padding-top: 10px;
+            .lnb-calendars-d1{
+                display: block;
+                text-align: right;
+                >.lnb-calendars-item{
+                    float: right;
+                    margin-left: 8px;
+                    margin-right: unset;
+                }
+            }
+            >.lnb-calendars-item{
+                float: right;
+                display: block;
+                width: 100%;
+                text-align: right;
+            }
+        }
+    }
+  }
+
+  @media screen and  (max-width: 480px){
+    #menu-navi{
+        display: block !important;
+
+        .menu-navi-left{
+            width: auto;
+            display: inline-block;
+            padding-bottom: 20px;
+        }
+        .render-range{
+            display: inline-block;
+            float: right;
+        
+        }
+    }
+  }
+
+
+/**=====================
+    104. Calenader basic CSS Start
+==========================**/

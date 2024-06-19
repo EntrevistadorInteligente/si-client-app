@@ -1,41 +1,40 @@
-import { Component, OnInit } from '@angular/core';
-import { NetworkService } from '@core/service/network/network.service';
-import { OfflineService } from '@core/service/offline/offline.service';
-import { AuthService } from '@shared/service/auth/auth.service';
+import { Component, HostBinding, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { LoadingBarService } from '@ngx-loading-bar/core';
 import { KeycloakService } from 'keycloak-angular';
+import { AuthService } from './shared/services/auth/auth.service';
+import { OfflineService } from './shared/services/offline/offline.service';
+import { NetworkService } from './shared/services/network/network.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent implements OnInit {
 
-  title = 'landing entrevistador';
-  username: string;
   isLogged: boolean;
   isAdmin: boolean;
   online: boolean = true;
   offlineMessage: string = '';
 
-  constructor(
+  constructor(@Inject(PLATFORM_ID) private platformId: Object,
+    private loader: LoadingBarService,
     private networkService: NetworkService,
     private offlineService: OfflineService,
     private keycloakService: KeycloakService,
-    private authService:AuthService
-  ) {
+    private authService:AuthService) {
+    
   }
-
   ngOnInit(): void {
-    this.networkService.online$.subscribe((online) => {
+    this.networkService.online$.subscribe((online: any) => {
       this.online = online;
       if (online) {
         this.offlineMessage = '';
       }
     });
 
-    this.offlineService.offlineMessage$.subscribe((message) => {
+    this.offlineService.offlineMessage$.subscribe((message: any) => {
       this.offlineMessage = message;
     });
 
@@ -56,8 +55,19 @@ export class AppComponent implements OnInit {
       this.isLogged = isLogged;
     });
   }
+
+
+  @HostBinding('@.disabled')
+  public animationsDisabled = false;
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet?.activatedRouteData?.['animation'];
+  }
+
+
+  toggleAnimations() {
+    this.animationsDisabled = !this.animationsDisabled;
+  }
+
   
 }
-
-
-

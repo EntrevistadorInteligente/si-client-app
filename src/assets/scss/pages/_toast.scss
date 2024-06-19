@@ -1,0 +1,66 @@
+    /**=====================
+        Toast CSS Start
+    ==========================**/
+    .toast{
+       
+       
+
+            .btn-close{
+                width: 5px;
+                height: 5px;
+            } 
+    }
+    .toast-section{
+        .basic-toast{
+            .toast{
+                &:not(.showing){
+                    &:not(.show){
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+        .live-toast{
+            .dmo{
+                z-index: 12;
+            }
+        }
+        .placement-toast{
+            .bd-example-toasts{
+                min-height: 200px;
+                 .toast{
+                    &:not(.showing){
+                        &:not(.show){
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+    .defaul-show-toast{
+        .toast-header{
+          strong{
+            &.left{
+              margin-right: auto;
+            }
+          }
+        }
+    }
+
+
+    .toast-section{
+        .card-body{
+          .toast-body{
+            padding: .75rem 25px .75rem .75rem;
+          }
+        }
+      
+      }
+
+    /**=====================
+        Toast CSS end
+    ==========================**/

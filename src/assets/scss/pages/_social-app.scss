@@ -1,0 +1,457 @@
+/**=====================
+     79. social app css start
+==========================**/
+.social-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  ul {
+    border-bottom: none !important;
+    margin-bottom: 0;
+    li {
+      a.nav-link {
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        background-color: rgba($primary-color, 0.05);
+        svg {
+          width: 15px;
+          height: 15px;
+          margin-right: 5px;
+          color: $primary-color;
+        }
+        &:hover {
+          border-color: transparent !important;
+        }
+        &.active {
+          background-color: $primary-color !important;
+          color: $white !important;
+          svg {
+            color: $white;
+          }
+        }
+      }
+      &:nth-child(n + 2) {
+        margin-left: 20px;
+      }
+    }
+  }
+  .input-group {
+    width: 280px;
+    .form-control {
+      background-color: rgba($primary-color, 0.08);
+      border-color: $light-gray;
+      height: 40px;
+      padding-left: 13px;
+      font-size: 14px;
+    }
+    .input-group-text {
+      background-color: $primary-color;
+      i {
+        color: $white;
+      }
+    }
+  }
+}
+.social-network {
+  span {
+    margin-bottom: 10px;
+    display: block;
+  }
+}
+.social-list {
+  .media {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .media-body {
+      a {
+        color: $light-text;
+      }
+      span {
+        font-weight: 600;
+        color: $theme-body-font-color;
+      }
+      &:hover {
+        a {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+.photos {
+  margin-bottom: -10px;
+  ul {
+    li {
+      display: inline-block;
+      margin-right: 10px;
+      margin-bottom: 10px;
+      width: 65px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+.new-users-social {
+  margin-bottom: 30px;
+  .media {
+    img {
+      width: 58px;
+    }
+    .media-body {
+      margin-top: 10px;
+    }
+  }
+  svg {
+    circle {
+      color: $light-text;
+    }
+  }
+}
+.like-content {
+  span {
+    i {
+      font-size: 14px;
+    }
+  }
+}
+.timeline-content {
+  p {
+    margin-top: 30px;
+    color: $light-text;
+  }
+  .comment-number {
+    i {
+      color: $light-text;
+      margin-right: 20px;
+    }
+  }
+  .comments-box {
+    margin-top: 30px;
+    .input-group {
+      margin-top: 6px;
+      .input-txt-bx {
+        &::placeholder {
+          color: $light-text;
+        }
+      }
+      .input-group-append {
+        .btn {
+          i {
+            font-size: 20px;
+            display: flex;
+            color: $light-text;
+          }
+        }
+      }
+      .input-group-text {
+        background-color: $primary-color;
+        padding: 10px;
+        img {
+          width: 22px;
+          height: 22px;
+        }
+      }
+    }
+  }
+}
+.social-chat {
+  margin-top: 30px;
+  span {
+    span {
+      font-weight: normal;
+      color: $light-text;
+      font-size: 12px;
+    }
+  }
+  .media-body {
+    padding: 30px;
+    border: 1px solid $light-gray;
+    position: relative;
+    p {
+      margin-top: 5px;
+    }
+    &:before {
+      content: "";
+      position: absolute;
+      top: 19px;
+      right: 100%;
+      border: 7px solid transparent;
+      border-right: 7px solid $semi-dark;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      top: 19px;
+      right: 100%;
+      border: 7px solid transparent;
+      border-right: 7px solid $white;
+    }
+  }
+  .your-msg,
+  .other-msg {
+    margin-bottom: 30px;
+  }
+  .other-msg {
+    margin-left: 40px;
+  }
+}
+.socialprofile {
+  span {
+    color: $light-text;
+  }
+  h5 {
+    margin-bottom: 10px;
+  }
+  .social-btngroup {
+    margin: 15px 0;
+    .btn-primary-light {
+      background-color: $body-color;
+    }
+  }
+  .likes-profile {
+    h5 {
+      span {
+        color: $theme-body-font-color;
+      }
+    }
+  }
+  .social-group {
+    margin-top: 15px;
+  }
+}
+.social-status {
+  form {
+    .form-group {
+      .form-control-social {
+        border: 1px solid $light-gray;
+        padding-left: 15px;
+        margin-bottom: 30px;
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+      }
+    }
+  }
+  .media {
+    position: relative;
+    margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    .social-status {
+      content: "";
+      position: absolute;
+      width: 12px;
+      height: 12px;
+      background-color: $white;
+      bottom: 0;
+      left: 35px;
+      border-radius: 100%;
+    }
+    .social-online {
+      border: 3px solid $success-color;
+    }
+    .social-busy {
+      border: 3px solid $warning-color;
+    }
+    .social-offline {
+      border: 3px solid $semi-dark;
+    }
+    .media-body {
+      p {
+        color: $light-text;
+        font-size: 13px;
+        margin-bottom: 5px;
+      }
+      span {
+        + span {
+          color: $light-text;
+        }
+      }
+      .light-span {
+        color: $light-text;
+      }
+    }
+  }
+}
+.social-app-profile {
+  .custom-card {
+    .profile-details {
+      h4 {
+        margin-top: 10px;
+        margin-bottom: 0;
+      }
+    }
+    .card-footer {
+      h3 {
+        margin-bottom: 0;
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.social-header {
+  h5 {
+    span {
+      &:first-child {
+        line-height: 1.48;
+      }
+      svg {
+        circle {
+          color: $light-text;
+        }
+      }
+    }
+  }
+}
+.details-about {
+  div[class*="col-"]{
+    &:nth-child(n+3){
+      margin-top: 10px;
+    }
+  }
+  .your-details {
+    h6 {
+      font-size: 14px;
+    }
+    p {
+      color: $light-text;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+  }
+}
+.avatar-showcase {
+  .friend-pic {
+    margin-right: 8px;
+    margin-bottom: 10px;
+  }
+  .pepole-knows {
+    ul {
+      li {
+        display: inline-block;
+        margin-right: 21px;
+        margin-bottom: 10px;
+        &:last-child {
+          margin-right: 0;
+        }
+        .add-friend {
+          h6 {
+            margin-top: 3px;
+          }
+          span {
+            margin-bottom: 5px;
+            margin-top: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+.activity-log {
+  .my-activity {
+    + .my-activity {
+      margin-top: 15px;
+    }
+    h6 {
+      margin-bottom: 15px;
+      font-size: 14px;
+    }
+    p {
+      margin-bottom: 5px;
+      color: $light-text;
+      span {
+        svg {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+  }
+}
+.social-app-profile {
+  .card {
+    .socialprofile {
+      h5 {
+        margin-bottom: 5px;
+        font-weight: 600;
+        font-size: 16px;
+      }
+      h4 {
+        font-size: 20px;
+      }
+      h6 {
+        margin-bottom: unset;
+      }
+      span {
+        font-size: 12px;
+        .badge {
+          font-size: 10px;
+          padding: 2px 3px;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .social-app-profile {
+    .card {
+      .socialprofile {
+        h4 {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .social-app-profile {
+    .custom-card {
+      .card-footer {
+        h3 {
+          font-size: 18px;
+        }
+      }
+    }
+  }
+  .customers {
+    ul {
+      li {
+        img {
+          width: 25px !important;
+        }
+      }
+    }
+  }
+  .socialprofile {
+    .social-group {
+      margin-top: 10px;
+    }
+  }
+  .photos {
+    ul {
+      li {
+        width: 49px;
+      }
+    }
+  }
+  .new-users-social {
+    .media {
+      img {
+        width: 50px;
+      }
+    }
+  }
+}
+/**=====================
+     79. social app CSS end
+==========================**/

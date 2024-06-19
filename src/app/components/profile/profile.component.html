@@ -1,0 +1,39 @@
+<app-breadcrumb
+  [title]="'Profile'"
+  [items]="['Profile']"
+  [active_item]="'Profile'"
+></app-breadcrumb>
+<div class="container-fluid">
+  <div class="edit-profile">
+    <div class="row">
+      <div class="col-xl-4">
+        <app-dropdown-cv
+          (eventoEnviarFile)="handleCargarFile($event)"
+        ></app-dropdown-cv>
+      </div>
+      <div class="col-xl-8">
+        @if (hojaDeVida) {
+          <app-edit-profile
+            [hojaDeVida]="hojaDeVida"
+            (EnviarhojaDeVida)="corregitHojaDeVida($event)"
+          ></app-edit-profile>
+        } @else {
+          <div class="card">
+            <div class="card-body">
+              <div
+                class="alert alert-light inverse alert-dismissible fade show"
+                role="alert"
+              >
+                <app-feather-icon [icon]="'alert-triangle'"></app-feather-icon>
+                <p>
+                  Cargue su CV para poder modificar los datos de su perfil y
+                  acceder a las entrevistas
+                </p>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

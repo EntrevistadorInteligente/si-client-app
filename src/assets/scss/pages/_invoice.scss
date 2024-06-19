@@ -1,0 +1,191 @@
+/**========================
+    88.  Invoice CSS Start
+=============================**/
+.invoice {
+  h3 {
+    font-size: 28px;
+    font-weight: 400;
+  }
+  h4 {
+    font-size: 24px;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  #project {
+    h6 {
+      font-weight: 500;
+    }
+  }
+  p {
+    color: $light-text;
+    font-size: 14px;
+  }
+  label {
+    font-weight: 500;
+  }
+  .invo-header {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid $light-gray;
+  }
+  .table-striped {
+    tbody {
+      tr {
+        &:nth-of-type(odd) {
+          background-color: rgba($primary-color, 0.05);
+          --bs-table-accent-bg: unset;
+        }
+        h6 {
+          text-transform: capitalize;
+          color: $primary-color;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  .invo-profile {
+    margin-bottom: 15px;
+  }
+}
+
+@media only screen and (max-width: 1199px) {
+  .invoice {
+    h4 {
+      margin-bottom: 0px;
+    }
+    h3 {
+      margin-bottom: 0px;
+    }
+    .invo-header {
+      .media-left {
+        img {
+          width: 55% !important;
+        }
+      }
+    }
+    .invo-profile {
+      .media {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $light-gray;
+      }
+    }
+    .text-md-end {
+      text-align: right !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .invoice {
+    .card {
+      .card-body {
+        padding: 20px;
+      }
+    }
+    #project {
+      h6 {
+        font-size: 16px;
+      }
+    }
+    h4 {
+      font-size: 20px;
+    }
+    h3 {
+      font-size: 20px;
+    }
+    .table-striped {
+      tbody {
+        tr {
+          h6 {
+            font-size: 16px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    table {
+      td {
+        min-width: 150px;
+        &:first-child {
+          min-width: 280px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .invoice {
+    .invo-pal {
+      margin-top: 15px;
+      text-align: left !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  .invoice {
+    .media {
+      align-items: unset;
+      .media-left {
+        .img-60 {
+          width: 70px !important;
+        }
+      }
+    }
+    h4 {
+      font-size: 18px;
+    }
+    h3 {
+      font-size: 14px;
+    }
+    p {
+      font-size: 13px;
+    }
+    #project {
+      h6 {
+        font-size: 13px;
+      }
+    }
+    .invo-header {
+      .media-body {
+        text-align: right;
+      }
+    }
+    .text-xs-center {
+      margin-top: 20px;
+      text-align: center !important;
+    }
+    .text-md-end {
+      text-align: left;
+    }
+  }
+}
+@media only screen and (max-width: 420px) {
+  .invoice {
+    .invo-header {
+      .media-left {
+        img {
+          width: 50% !important;
+        }
+      }
+    }
+    .invo-profile {
+      .media {
+        display: block;
+        .media-body {
+          margin-left: 0 !important;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
+
+/**========================
+    88.  Invoice CSS endp
+==========================**/

@@ -1,0 +1,261 @@
+/**=====================
+     09. Error-page  CSS Start
+==========================**/
+.error-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  text-align: center;
+  &.maintenance-bg {
+    background-image: url(../../images/other-images/maintenance-bg.jpg);
+    background-blend-mode: overlay;
+  }
+  .maintenance-icons{
+    li{
+      i{
+        color: rgba($primary-color , 0.5);
+        font-size: 50px;
+        animation: rotate-effect 40s infinite linear reverse;
+      }
+      &:nth-child(2){
+        i{
+          font-size: 100px;
+          margin-left: 110px;
+          margin-top: -25px;
+          animation: rotate-effect 40s linear infinite reverse;
+        }
+      }
+      &:nth-child(3){
+        i{
+          animation: rotate-effect 30s infinite linear;
+          font-size: 150px;
+          margin-top: -85px;
+          margin-right: 120px;
+        }
+      }
+    }
+  }
+  .maintenance-heading {
+    margin-top: 70px;
+    .headline {
+      font-size: 99px;
+      font-weight: 900;
+      letter-spacing: 10px;
+      color: $secondary-color;
+      z-index: 2;
+      position: relative;
+      margin-top: -70px;
+    }
+  }
+  .error-heading {
+    margin-top: 115px;
+    .headline {
+      font-size: 285px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-top: -130px;
+    }
+  }
+  .sub-content {
+    font-size: 18px;
+    color: $light-text;
+    letter-spacing: 1px;
+    font-weight: normal;
+    line-height: 35px;
+    z-index: 3;
+    position: relative;
+    margin-top: 30px;
+    margin-bottom: 0;
+    font-weight:600;
+  }
+  .btn{
+    margin-top: 40px;
+  }
+
+}
+.error{
+  margin: 70px 0 100px;
+  color:$black;
+  .error-title{
+    font-size: 9.5rem;
+    color:$white;
+    text-shadow: 6px 6px 7px rgba(0, 0, 0, 0.32);
+  }
+  .line-bottom{
+    width: 10%;
+    height: 5px;
+    background-color: $warning-color;
+    border: none;
+  }
+  .c-white{
+    color:$white;
+  }
+  .error-btn{
+    text-align: center;
+  }
+  .padd{
+    padding: 10px 30px 10px 30px;
+  }
+  .btn-back-home{
+    background-color:$light-gray;
+    color:$black;
+
+    &:hover{
+      background-color:$warning-color;
+      color:$white;
+      box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.21);
+    }
+  }
+  .btn-adnc-serc{
+    background-color:$dark-color;
+    color:$white;
+    &:hover{
+      background-color:$warning-color;
+      color:$white;
+      box-shadow: 0 20px 35px 0 rgba(0, 0, 0, 0.21);
+
+    }
+  }
+}
+
+.maintenance-sec{
+  .error-wrapper {
+    .maintenance-heading {
+      .headline{
+        margin-bottom:0;
+      }
+    }
+    .sub-content{
+      margin-top: 15px;
+    }
+  }
+}
+
+/**=====================
+     09. Error-page CSS Ends
+==========================**/
+.error-page1{
+  @keyframes wheel-rotate {
+    50% {
+      transform: rotate(360deg);
+      animation-timing-function: cubic-bezier(0.55,0.085,0.68,0.53);
+    }
+    100% {
+      transform: rotate(960deg);
+    }
+  }
+  @keyframes bicycle-run {
+    0% {
+      transform: translateX(-1300px);
+    }
+    50% {
+      transform: translateX(0);
+      animation-timing-function: cubic-bezier(0.47,0,0.745,0.715);
+    }
+    100% {
+      transform: translateX(1300px);
+    }
+  }
+  @keyframes move-1 {
+    0% {
+      transform: translateY(-10px);
+    }
+    50% {
+      transform: translateX(0);     
+    }
+    100% {
+      transform: translateY(-10px);
+    }
+  }
+  .danger-color{
+    fill:$danger-color;
+  }
+  .warning-color{
+    fill: $warning-color; 
+  }
+  .primary-color{
+    fill:$primary-color;
+    &.opacity-05{
+      fill:rgba($primary-color,0.5);
+    }
+  }
+  .secondary-color{
+    fill: $secondary-color;
+    &.opacity-o6{
+      opacity: 0.6;  
+    }
+    &.opacity-o4{
+      opacity: 0.4;       
+    }
+    &.lighten-5{
+      fill:darken($secondary-color, 5%);      
+    }
+  }
+  .svg-wrraper{
+    margin-bottom:35px;
+    svg{
+      &.svg-45{
+        width: 45%;
+      }
+      
+      &.svg-60{
+        width: 60%;
+      }
+      &.svg-40{
+        width: 40%;
+      }
+    }
+  }
+  .wheel {
+    animation: wheel-rotate 6s ease infinite;
+    transform-origin: center;
+    transform-box: fill-box;   
+  }
+  .bicycle {
+    animation: bicycle-run 15s ease infinite;
+  }
+  .circle {
+    animation: circle-anim ease infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+    perspective: 0;
+  }
+  .rocket,.jacket-man{
+    animation:move-1 6s linear infinite ;
+  }
+  h2{
+    font-weight:700;
+    text-transform:capitalize;
+  }
+  .btn-primary-gradien{
+    color:$white;
+    font-weight:700;
+  }
+}
+
+
+
+
+@media (max-width:767px){
+  .error-page1 {
+    h2{
+      font-size:22px;
+    }
+  }
+}
+
+
+@media (max-width:575px){
+  .error-page1{
+    .svg-wrraper{
+      margin-bottom:10px;
+      svg{
+        &.svg-40{
+          width:50%;
+        }
+      }
+    }
+  }
+}
+

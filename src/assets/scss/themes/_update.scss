@@ -1,0 +1,314 @@
+@import "../utils/variables";
+
+// popover
+.popover {
+  border: none;
+  -webkit-box-shadow: 0 0 20px rgba($primary-color, 0.1);
+  box-shadow: 0 0 20px rgba($primary-color, 0.1);
+  .popover-header {
+    background-color: $theme-medium-color;
+    color: $primary-color;
+    border-bottom: none;
+  }
+  .popover-body {
+    color: rgba(43, 43, 43, 0.7);
+  }
+}
+
+// tooltip css start
+.tooltip {
+  &.bs-tooltip-top {
+    .tooltip-arrow {
+      &:before {
+        border-top-color: $theme-medium-color;
+      }
+    }
+  }
+  &.bs-tooltip-bottom {
+    .tooltip-arrow {
+      &:before {
+        border-bottom-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  &.bs-tooltip-start {
+    .tooltip-arrow {
+      &:before {
+        border-left-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  &.bs-tooltip-end {
+    .tooltip-arrow {
+      &:before {
+        border-right-color: $theme-medium-color;
+        border-top-color: transparent;
+      }
+    }
+  }
+  .tooltip-inner {
+    background-color: $theme-medium-color;
+    color: $primary-color;
+  }
+  .tooltip-arrow {
+    &:before {
+      border-top-color: $theme-medium-color;
+    }
+  }
+}
+
+// tooltip css end
+.support-table{
+  table{
+    tbody{
+      tr{
+        td{
+          &:nth-last-child(3){
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+// dropdown css start
+.dropdown-basic {
+  .dropdown {
+    .dropdown-content {
+      a {
+        padding: 6px 16px;
+        color: $dark-editor-document;
+        opacity: 0.6;
+        font-size: 13px;
+        border-top: 1px solid $light-semi-gray;
+        background: $white;
+        &:hover {
+          background-color: $white;
+        }
+      }
+      .dropdown-header {
+        padding: 8px 16px;
+        font-weight: 400;
+        color: $dark-color;
+        font-size: 13px;
+      }
+    }
+  }
+  .dropup {
+    .dropup-content {
+      top: auto;
+    }
+  }
+}
+// dropdown css end
+// accordian css start
+.default-according {
+  .card {
+    .card-header {
+      padding: 0;
+      border: none;
+      border-radius: 0;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      &.bg-primary,
+      &.bg-secondary {
+        .btn {
+          border-color: $transparent-color;
+        }
+      }
+      i {
+        position: initial;
+        font-size: 20px;
+        display: inline-block;
+        vertical-align: text-bottom;
+        margin-right: 5px;
+      }
+      h5 {
+        margin-top: 0;
+      }
+      .btn-link {
+        font-size: 16px;
+        padding: 16px 20px;
+        padding-left: 22px !important;
+        width: 100%;
+        text-align: left;
+        letter-spacing: 0.7px;
+        border: 1px solid $light-semi-gray;
+        border-radius: 0;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        text-decoration: none;
+      }
+    }
+    .card-body {
+      padding: 15px 20px;
+      line-height: 22px;
+      font-size: 13px;
+      border-color: $light-semi-gray;
+      border-radius: 0;
+      border-bottom-left-radius: 15px;
+      border-bottom-right-radius: 15px;
+      color: $dark-color;
+    }
+  }
+}
+
+// accordian css end
+
+// tab-bootstrap css start
+.nav-tabs {
+  border-bottom-color: $light-semi-gray;
+  .nav-bottom {
+    .nav-item {
+      .nav-link.active {
+        border-color: $light-semi-gray;
+      }
+    }
+  }
+}
+.nav-tabs {
+  .nav-item {
+    &.show {
+      .nav-link {
+        font-weight: 500;
+      }
+    }
+  }
+  .nav-link {
+    color: $dark-color;
+    &.active {
+      font-weight: 500;
+      border-radius: 4px;
+    }
+  }
+  &.nav-bottom {
+    .nav-item {
+      .nav-link {
+        &.active {
+          border-color: $light-gray $light-gray #fff;
+        }
+      }
+    }
+  }
+}
+.dropdown-menu {
+  -webkit-box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+  box-shadow: 0 0 20px rgba(89, 102, 122, 0.1);
+  border: none;
+  padding: 0;
+  .dropdown-item {
+    color: #2b2b2b;
+    opacity: 0.6;
+    font-size: 13px;
+    padding: 6px 12px;
+    border-top: 1px solid $light-semi-gray;
+    background: $white;
+    &:hover {
+      background-color: $white;
+    }
+  }
+  .dropdown-divider {
+    margin: 0;
+    border-top: 1px solid #cccccc;
+  }
+}
+// tab-bootstrap css end
+
+.border-tab {
+  .nav-tabs {
+    .nav-item {
+      .nav-link {
+        &.active {
+          border-bottom: 2px solid $primary-color;
+        }
+        &.show {
+          border-bottom: 2px solid $primary-color;
+        }
+        &:focus {
+          border-bottom: 2px solid $primary-color;
+        }
+      }
+    }
+  }
+}
+.tabbed-card {
+  .nav-tabs {
+    .nav-item {
+      .nav-link {
+        top: 17px;
+      }
+    }
+  }
+}
+.timeliny {
+  .timeliny-dot::before {
+    font-size: $btn-lg-font-size;
+  }
+}
+.form-builder-header-1,
+.form-builder-2-header {
+  background-color: #f7f6ff;
+  .nav-primary {
+    .nav-link {
+      color: $dark-color;
+      font-weight: 400;
+      &.active {
+        color: $white;
+      }
+    }
+  }
+  h6 {
+    margin-bottom: 0;
+    font-weight: 400;
+    line-height: 2.2;
+  }
+}
+.component {
+  .input-group {
+    .btn {
+      line-height: 2;
+      text-transform: capitalize;
+    }
+  }
+}
+.form-builder {
+  .drag-box {
+    fieldset {
+      margin-top: 0;
+    }
+  }
+}
+.login-card {
+  .login-main {
+    .theme-form {
+      label {
+        font-size: $body-font-size;
+      }
+      .show-hide {
+        top: 50%;
+      }
+    }
+  }
+}
+// faq css end
+.job-filter {
+  .faq-form {
+    .form-control {
+      font-size: 14px;
+      border-color: $light-gray;
+    }
+    .search-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+// scrollable css start
+
+.scrollable-para p {
+  color: #4e5666;
+  font-size: 16px;
+}

@@ -1,0 +1,398 @@
+/**=====================
+    Typography css start
+==========================**/
+//Custom css Start
+body {
+  font-size: $body-font-size;
+  overflow-x: hidden;
+  font-family: $font-roboto;
+  color: $dark;
+}
+ul {
+  padding-left: $ul-padding-left;
+  list-style-type: none;
+  margin-bottom: 0;
+}
+* a {
+  color: var(--theme-deafult);
+  text-decoration: none;
+  letter-spacing: 1px;
+}
+a {
+  &:hover {
+    text-decoration: none;
+    color: var(--theme-deafult);
+  }
+  &[class*="badge-"] {
+    &:hover {
+      color: $white;
+    }
+  }
+}
+.btn {
+  font-size: 14px;
+  font-weight: 500;
+}
+*.btn:focus {
+  box-shadow: $btn-focus-box-shadow !important;
+}
+h1,
+.h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+h2,
+.h2 {
+  font-size: 24px;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+h3,
+.h3 {
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+h4,
+.h4 {
+  font-size: 18px;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+h5,
+.h5 {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+h6,
+.h6 {
+  letter-spacing: 0.5px;
+  font-weight: 400;
+}
+p {
+  font-size: $paragraph-font-size;
+  line-height: $paragraph-line-height;
+  letter-spacing: $paragraph-letter-spacing;
+}
+code {
+  color: $code-tag-color !important;
+  background-color: $code-tag-bg-color;
+  padding: $code-tag-padding;
+  margin: $code-tag-margin;
+  border-radius: $code-tag-border-radious;
+}
+.media {
+  display: flex;
+  align-items: flex-start;
+  .media-body {
+    flex: 1;
+  }
+}
+blockquote {
+  border-left: $blockquote-border;
+  padding: $blockquote-padding;
+}
+.figure {
+  &.text-center {
+    blockquote {
+      border: none !important;
+    }
+  }
+  &.text-end {
+    blockquote {
+      border-left: none !important;
+      border-right: $blockquote-border;
+    }
+  }
+}
+.row {
+  > div {
+    position: relative;
+  }
+}
+.left-side-header {
+  .Typeahead-menu {
+    position: absolute;
+  }
+}
+:focus {
+  outline: none;
+}
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+svg {
+  vertical-align: baseline;
+}
+input {
+  &:focus {
+    outline-color: $transparent-color;
+  }
+}
+label {
+  margin-bottom: 0.5rem;
+}
+.media-widgets {
+  .media-body {
+    margin-bottom: 30px;
+  }
+}
+//Custom css End
+//Typography css start
+.typography {
+  h1,
+  .h1,
+  h2,
+  .h2,
+  h3,
+  .h3,
+  h4,
+  .h4,
+  h5,
+  .h5,
+  h6,
+  .h6 {
+    margin: 20px 0;
+    margin-top: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  small {
+    padding-left: $small-tag-padding;
+    color: $small-tag-color;
+  }
+}
+pre {
+  background-color: $pre-tag-bg-color;
+  padding: $pre-tag-padding;
+}
+//Typography css end
+.owl-theme {
+  .owl-dots {
+    .owl-dot {
+      span {
+        background: lighten($primary-color, 20%);
+      }
+      &.active,
+      &:hover {
+        span {
+          background: var(--theme-deafult);
+        }
+      }
+    }
+  }
+  .owl-nav {
+    &.disabled {
+      & + .owl-dots {
+        margin-bottom: -10px;
+        margin-top: 25px;
+      }
+    }
+  }
+}
+.click2edit {
+  & ~ .note-editor {
+    &.note-frame {
+      margin-bottom: 30px;
+    }
+  }
+}
+.note-editor {
+  &.note-frame {
+    border-color: $light-color;
+  }
+}
+.note-editor {
+  &.note-frame {
+    border-color: $light-color;
+  }
+}
+// modal page
+.modal {
+  .modal-body {
+    .card {
+      box-shadow: none !important;
+    }
+  }
+}
+.modal-dialog {
+  .modal-content {
+    .modal-body {
+      p {
+        a {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+.modal-content{
+  background-color: $white;
+  border: 1px solid rgba($black , 0.2);
+}
+.modal-header{
+  padding: 1rem 1rem;
+  border-bottom: 1px solid #dee2e6;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+.modal-body{
+  padding: 1rem;
+}
+.modal-footer{
+  padding: 0.75rem;
+  border-top: 1px solid #dee2e6;
+  border-bottom-right-radius: calc(0.3rem - 1px);
+  border-bottom-left-radius: calc(0.3rem - 1px);
+  > *{
+    margin: .25rem;
+  }
+}
+// index page notify
+.alert-theme {
+  button {
+    top: 45px !important;
+    right: 20px !important;
+    color: var(--theme-deafult);
+  }
+  span {
+    + span {
+      + span {
+        background-color: $white;
+        color: var(--theme-deafult);
+        border-radius: 4px;
+        box-shadow: 0 2px 14px -3px rgba($black, 0.2);
+      }
+    }
+  }
+  i {
+    padding: 20px;
+    padding-right: 0 !important;
+    margin-right: 20px !important;
+  }
+  .progress {
+    margin-top: -2px !important;
+    height: 2px;
+    width: 100%;
+    .progress-bar {
+      background-color: var(--theme-deafult);
+    }
+  }
+}
+.alert-copy {
+  border: 1px solid var(--theme-deafult);
+  line-height: 1;
+  display: inline-block;
+  width: 300px;
+  color: $white;
+  background-color: var(--theme-deafult);
+  .close {
+    box-shadow: none;
+    color: $white;
+    line-height: 1.4;
+    font-weight: 100;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+.ace-editor {
+  height: 400px;
+  width: 100%;
+}
+.editor-toolbar {
+  width: 100% !important;
+  &.fullscreen {
+    z-index: 100;
+  }
+}
+.CodeMirror {
+  top: 0 !important;
+}
+.CodeMirror-fullscreen {
+  top: 50px !important;
+}
+fieldset {
+  .bootstrap-touchspin-postfix,
+  .bootstrap-touchspin-prefix {
+    border-radius: 0;
+    padding: 0.4rem 0.75rem;
+  }
+  .input-group-lg {
+    .touchspin {
+      height: 50px;
+    }
+  }
+}
+.f1 .f1-steps .f1-step .f1-step-icon {
+  padding: 12px;
+}
+.form-inline .form-group {
+  display: flex;
+}
+.input-group-text {
+  i {
+    line-height: 1.5;
+  }
+}
+// animated modal css
+.animated-modal {
+  .animated-modal-md-mb {
+    label {
+      font-weight: 500;
+    }
+  }
+  .form-select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+  }
+}
+.listing {
+  ol {
+    margin-bottom: 0;
+  }
+  dl {
+    margin-bottom: 0;
+
+    dd {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+// tap-top
+.tap-top {
+  text-align: center;
+  cursor: pointer;
+  display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 5;
+  color: $white;
+  background: var(--theme-deafult);
+  border: none;
+  padding: 7px;
+  box-shadow: 0 0 10px var(--theme-deafult);
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  &:hover {
+    transition: all 0.3s ease;
+    opacity: 1;
+  }
+  svg {
+    width: 20px;
+  }
+}
+/**=====================
+    Typography css Ends
+==========================**/

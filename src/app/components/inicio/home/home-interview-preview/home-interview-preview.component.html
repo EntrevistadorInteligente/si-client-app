@@ -1,0 +1,98 @@
+<h1 class="title">Muestra de ejemplos de Entrevistas</h1>
+@if (stateEntrevista !== StateEnum.show) {
+  <div class="container text-center mb-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <ng-select
+        class="custom"
+        *ngIf="perfiles$ | async as perfiles"
+        [items]="(perfiles$ | async)!"
+        bindLabel="perfilEmpresa"
+        placeholder="Seleccionar Perfil"
+        bindValue="perfilEmpresa"
+        [(ngModel)]="selectedPerfil"
+      >
+      </ng-select>
+
+      <button
+        type="button"
+        class="btn btn-lg btn-info mb-1 ms-3"
+        (click)="onCargarPreguntas($event)"
+        [attr.disabled]="!selectedPerfil ? true : null"
+      >
+        Empezar
+      </button>
+    </div>
+  </div>
+}
+<div class="preguntas_preview">
+  @switch (iniciandoMuestra) {
+    @case (stateEntrevista === StateEnum.load) {
+      @if (stateEntrevista === StateEnum.load) {
+        <div class="carga_preguntas">
+          <div class="loader-box">
+            <div class="loader-1"></div>
+          </div>
+        </div>
+      }
+    }
+    @case (stateEntrevista === StateEnum.show) {
+      <div class="card">
+        <div class="card-body">
+          <ul ngbNav #nav1="ngbNav" [activeId]="1" class="nav-tabs border-tab">
+            <li
+              *ngFor="let pregunta of preguntasMuestra; let i = index"
+              [ngbNavItem]="i + 1"
+            >
+              <a ngbNavLink>Pregunta {{ i + 1 }}</a>
+              <ng-template ngbNavContent>
+                <h3>{{ pregunta.pregunta }}</h3>
+
+                <p class="h4 txt-primary">Respuesta:</p>
+                <textarea
+                  rows="5"
+                  cols="30"
+                  class="form-control mb-2"
+                  pInputTextarea
+                  placeholder="Respuesta"
+                  [(ngModel)]="preguntasMuestra[i].respuesta"
+                >
+                </textarea>
+                <div class="alert alert-info" role="alert">
+                  <h4 class="alert-heading">Feedback:</h4>
+                  <p>{{ pregunta.feedback }}</p>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav1" class="mt-4"></div>
+        </div>
+      </div>
+      <button
+        type="button"
+        class="btn btn-lg btn-info mb-2 ms-3"
+        (click)="submitAnswers()"
+      >
+        <span class="fw-bold">Enviar</span>
+      </button>
+    }
+    @case (stateEntrevista === StateEnum.error) {
+      <div class="card">
+        <div class="card-body">
+          <div
+            class="alert alert-danger inverse alert-dismissible fade show"
+            role="alert"
+          >
+            <app-feather-icon [icon]="'alert-circle'"></app-feather-icon>
+            <p>
+              <b
+                >No se encontro información en este perfil, intentelo más
+                tarde</b
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    }
+    @default {}
+  }
+</div>

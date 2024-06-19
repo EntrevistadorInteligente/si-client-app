@@ -1,0 +1,99 @@
+/**=====================
+    57. breadcrumb CSS Start
+==========================**/
+.breadcrumb-colored{
+	padding: 12px 16px;
+	border-radius: 4px;
+	li{
+		a{
+			color: $white;
+		}
+		&.active{
+			color: $white;
+			opacity: 0.7;
+			font-weight: 300;
+		}
+	}
+	.breadcrumb-item{
+		&:before{
+			color: $breadcrumb-ancher-color;
+			
+		}
+	}
+	.breadcrumb-item.txt-dark{
+		&:before{
+			color: $breadcrumb-ancher-dark-color;
+		}
+	}
+}
+.bg-dark{
+	&.breadcrumb-colored{
+		margin-bottom: 0 !important;
+	}
+}
+.bg-light{
+	&.breadcrumb-colored{
+		.breadcrumb-item{
+			color: $theme-body-font-color;
+			&::before{
+				color: $theme-body-font-color;
+			}
+		}
+		li{
+			a{
+				color: $theme-body-font-color;
+			}
+		}
+	}
+}
+.breadcrumb-icon {
+	--bs-breadcrumb-divider: '>';
+
+	li {
+		display: inline-block;
+	}
+}
+
+.breadcrumb-no-divider {
+	--bs-breadcrumb-divider: '';
+}
+.breadcrumb-item{
+	&.active{
+		text-transform: capitalize;
+	}
+}
+
+.default-bootstrap-breadcrumb-section{
+	.card-body{
+		ol{
+			&:last-child{
+				margin-bottom:-2px;
+			}
+		}
+	}
+}
+
+
+.breadcrumb-span .card{
+	.card-header{
+		span{
+			font-size: 16px;
+		}
+	}
+}
+
+// Font Size Small For Mobile View
+
+@media only screen and (max-width: 320px){
+	.breadcrumb-span .card{
+		.card-header{
+			span{
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+/**=====================
+57. breadcrumb CSS ends
+==========================**/
