@@ -25,11 +25,9 @@ export class ContentComponent implements OnInit {
   onResize(event: any) {
     this.screenwidth = event.target.innerWidth;
 
-    if (this.screenwidth < 991) {
-      return (this.layout.config.settings.sidebar = "compact-wrapper");
-    } else {
-      return (this.layout.config.settings.sidebar = this.layout.config.settings.sidebar || "horizontal-wrapper");
-    }
+    const sidebar = this.screenwidth < 991 ? "compact-wrapper" : this.layout.config.settings.sidebar || "horizontal-wrapper";
+    this.layout.config.settings.sidebar = sidebar;
+    return sidebar;
   }
 
   ngAfterViewInit() {
@@ -69,7 +67,7 @@ export class ContentComponent implements OnInit {
 
   @HostListener("window:scroll", [])
   scrollHandler() {
-    let number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    let number = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (window.location.pathname == "/page-layout/hide-nav-scroll") {
       if (number > 600) {
         this.show = true;
