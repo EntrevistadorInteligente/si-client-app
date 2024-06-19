@@ -27,6 +27,7 @@ export class DropdownCvComponent implements OnInit {
   handleClickCargar(): void {
     if (this.files.length > 0) {
       this.eventoEnviarFile.emit(this.files[0]);
+      this.onRemove(this.files[0]);
     } else {
       this.danger();
       // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje de error en la UI

@@ -3,7 +3,7 @@
     <h5>Cargar Hoja de Vida</h5>
   </div>
   <div class="card-body">
-    <ngx-dropzone (change)="onSelect($event)" [multiple]="false">
+    <ngx-dropzone accept=".pdf" (change)="onSelect($event)" [multiple]="false">
       <ngx-dropzone-label>
         <div>
           <div class="dz-message needsclick">
