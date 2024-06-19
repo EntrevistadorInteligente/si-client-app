@@ -1,6 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
 import * as data from '../../../../shared/data/animation/ribbons';
+import Swal from 'sweetalert2';
+import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
 
 @Component({
   selector: 'app-paso-4',
@@ -8,7 +10,7 @@ import * as data from '../../../../shared/data/animation/ribbons';
   styleUrl: './paso-4.component.scss'
 })
 
-export class Paso4Component implements OnInit  {
+export class Paso4Component implements OnInit {
 
   @ViewChild('divpregunta') divpregunta!: ElementRef;
   @ViewChild('pfeedback') pfeedback!: ElementRef;
@@ -23,10 +25,11 @@ export class Paso4Component implements OnInit  {
   maxPagesToShow: number = 5;
   isVisibleAnswer: boolean = false;
 
-  constructor(private feedbackService: FeedbackService) { }
+  constructor(private feedbackService: FeedbackService,
+    private integradorService: IntegradorService) { }
 
   ngOnInit(): void {
-    this.obtenerFeedback(this.idEntrevista);    
+    this.obtenerFeedback(this.idEntrevista);
     this.adjustMargin();
   }
 
@@ -35,14 +38,14 @@ export class Paso4Component implements OnInit  {
   }
 
   obtenerFeedback(entrevistaId: string): void {
-    this.feedbackService.obtenerFeedback(entrevistaId).subscribe(
-      feedback => {
+    this.feedbackService.obtenerFeedback(entrevistaId).subscribe({
+      next: feedback => {
         this.feedbackItems = feedback;
       },
-      error => {
+      error: error => {
         console.error(error);
       }
-    );
+    });
   }
 
   changePage(index: number): void {
@@ -78,12 +81,59 @@ export class Paso4Component implements OnInit  {
       const containerHeight = this.divpregunta.nativeElement.offsetHeight;
       const screenWidth = window.innerWidth;
 
-      this.pfeedback.nativeElement.style.marginTop = screenWidth <= 400 ?  `${containerHeight / 2.7}%` : `${containerHeight / 2}px`;
+      this.pfeedback.nativeElement.style.marginTop = screenWidth <= 400 ? `${containerHeight / 2.7}%` : `${containerHeight / 2}px`;
 
     }, 400);
   }
 
   mostrarRespuestas() {
     this.isVisibleAnswer = !this.isVisibleAnswer;
+  }
+
+  withCancelled() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: 'Estas seguro?',
+      text: "¡Una vez terminada, no podrás ver este feedback e iniciarás una nueva entrevista!",
+      showCancelButton: true,
+      confirmButtonText: 'OK',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true
+    }).then((result: any) => {
+      if (result.value) {
+        // Llama al servicio y luego refresca la pantalla
+        this.integradorService.terminarEntrevistaEnCurso(this.idEntrevista).subscribe({
+          next: (response) => {
+            if (response) {
+              swalWithBootstrapButtons.fire(
+                'Terminada!',
+                'Ahora puedes generar una nueva entrevista.',
+                'success'
+              ).then(() => {
+                window.location.reload();
+              });
+              }
+          },
+          error: (error) => {
+            console.error(error)
+            swalWithBootstrapButtons.fire(
+              'Error',
+              'Hubo un problema al terminar la entrevista.',
+              'error'
+            );
+          
+          } 
+          
+        });
+        
+      }
+    });
   }
 }

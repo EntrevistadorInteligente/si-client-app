@@ -13,6 +13,7 @@ import { RespuestaComentarioDto } from "../../model/respuesta-dto";
   providedIn: "root",
 })
 export class FeedbackService {
+
   feedbackURL = environment.feedbackURL;
 
   constructor(
@@ -93,7 +94,6 @@ export class FeedbackService {
       )
     );
   }
-
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
     headers = headers.set("Content-Type", "application/json");

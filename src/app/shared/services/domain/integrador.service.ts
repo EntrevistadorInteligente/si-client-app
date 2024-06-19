@@ -125,6 +125,21 @@ export class IntegradorService {
     );
   }
 
+  
+  public terminarEntrevistaEnCurso(idEntrevista:string): Observable<any> {
+    return from(this.getHeaders()).pipe(
+      switchMap((headers) =>
+        this.httpClient.put(
+          `${this.orquestadorURL}${this.entrevista}/${idEntrevista}/terminar`,
+          undefined,
+          { headers }
+        )
+      )
+    );
+  }
+
+
+
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');

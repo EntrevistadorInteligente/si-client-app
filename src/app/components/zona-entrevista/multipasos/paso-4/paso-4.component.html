@@ -9,10 +9,11 @@
                 <div #divpregunta class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
                 <p #pfeedback>{{ feedback.feedback }}</p>
                 <hr>
-                <button (click)="mostrarRespuestas()" [ngClass]="{'active': isVisibleAnswer}" class="btn btn-primary">                  
+                <button (click)="mostrarRespuestas()" [ngClass]="{'active': isVisibleAnswer}" class="btn btn-primary mr-3">
                   <p *ngIf="isVisibleAnswer">Ocultar respuestas <i class="fa fa-eye-slash"></i></p>
                   <p *ngIf="!isVisibleAnswer">Ver tus respuestas <i class="fa fa-eye"></i></p>
                 </button>
+                <button class="btn btn-warning sweet-5 boton-entrevista" type="button" (click)="withCancelled()">Iniciar nueva entrevista</button>
                 <div class="card card-response" [ngClass]="{'content-visible': isVisibleAnswer, 'content-hidden': !isVisibleAnswer}">
                   <div class="card-header pb-0">
                     <p class="h3 txt-primary"><small>Tu respuesta</small></p>

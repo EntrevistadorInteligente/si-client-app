@@ -101,7 +101,7 @@ export class VideoChatComponent implements OnInit {
       this.resetMessageState();
       const question = this.preguntas[this.currentIndex].pregunta;
       const messageId = `typewriter-${this.messages.length}`;
-      this.botTyping = false;
+      this.botTyping = true;
       this.messages.push({
         id: this.messages.length,
         type: 'bot',

@@ -82,7 +82,6 @@ export class AuthService {
   async getToken() {
     try {
       const token = await this.keycloakService.getToken();
-      console.info('token', token);
       return token;
     } catch (error) {
       console.error('Failed to get token', error);
