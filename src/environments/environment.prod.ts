@@ -1,15 +1,15 @@
 export const environment = {
   production: true,
     // OAUTH MODULE -- DEL APP MODULE
-    oauthModuleUrl: 'https://gateway.pruebas-entrevistador-inteligente.site/api/*',
+    urlBase: 'https://keycloak.kahop.com/',
 
     // INTEGRADOR SERVICE
-    orquestadorURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1',
+    orquestadorURL: 'https://gw.kahop.com/api/orquestador/v1',
   
     // FEEDBACK SERVICE
-    feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
+    feedbackURL: 'https://gw.kahop.com/api/administrador-entrevista/v1',
   
     // FEEDBACK SERVICE
-    notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1'
+    notifcacionesURL: 'https://gw.kahop.com/api/notificaciones/v1'
   
 };

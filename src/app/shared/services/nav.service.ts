@@ -60,9 +60,9 @@ export class NavService {
   }
 
   MENUITEMS: Menu[] = [
-    { path: "/inicio", icon: "buttons", title: "inicio", type: "link" },
-    { path: "/zona-entrevista", icon: "buttons", title: "zona-entrevista", type: "link" },
-    { path: "/profile", icon: "buttons", title: "profile", type: "link" },
+    { path: "/es/entrevistas/inicio", icon: "buttons", title: "inicio", type: "link" },
+    { path: "/es/entrevistas/zona-entrevista", icon: "buttons", title: "zona-entrevista", type: "link" },
+    { path: "/es/entrevistas/perfil", icon: "buttons", title: "perfil", type: "link" },
   ];
   
   items = new BehaviorSubject<Menu[]>(this.MENUITEMS);

@@ -14,7 +14,7 @@ export const content: Routes = [
     canActivateChild: [canActivateChild]
   },
   {
-    path: "profile",
+    path: "perfil",
     loadChildren: () =>
       import("../../../components/profile/profile.module").then((mod) => mod.ProfileModule),
     canActivate: [canActivate],

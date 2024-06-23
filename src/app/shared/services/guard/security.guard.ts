@@ -16,11 +16,11 @@ export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnap
       if (isLogged) {
         return true;
       } else {
-        return router.createUrlTree(['/inicio']);
+        return router.createUrlTree(['/es/entrevistas/inicio']);
       }
     }),
     catchError(() => {
-      return of(router.createUrlTree(['/inicio']));
+      return of(router.createUrlTree(['/es/entrevistas/inicio']));
     })
   );
 };
