@@ -6,11 +6,11 @@
           <div class="row chat-box">
             <div class="col chat-right-aside">
               <div class="chat">
-                <div class="media chat-header clearfix"><img class="rounded-circle" src="assets/images/user/8.jpg" alt="">
+                <div class="media chat-header clearfix"><img class="rounded-circle" src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png" alt="">
                   <div class="media-body">
                     <div class="about">
                       <div class="name">Kori Thomas  <span class="font-primary f-12">{{botTyping?escribiendo:vacio}}</span></div>
-                      <div class="status digits">Last Seen 3:55 PM</div>
+                      <div class="status digits">Última conexión {{lastSeenBootTyping}}</div>
                     </div>
                   </div>
                 </div>
@@ -25,8 +25,8 @@
                             <ul>
                               <li *ngFor="let message of messages" [ngClass]="{'clearfix': message.type === 'user'}">
                                 <div class="message" [ngClass]="{'my-message': message.type === 'bot', 'other-message pull-right': message.type === 'user'}">
-                                  <img class="rounded-circle float-start chat-user-img img-30" *ngIf="message.type === 'bot'" src="assets/images/user/8.jpg" alt="">
-                                  <img class="rounded-circle float-end chat-user-img img-30" *ngIf="message.type === 'user'" src="assets/images/user/3.png" alt="">
+                                  <img class="rounded-circle float-start chat-user-img img-30" *ngIf="message.type === 'bot'" src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png" alt="">
+                                  <img class="rounded-circle float-end chat-user-img img-30" *ngIf="message.type === 'user'" src="assets/img/perfil.jpg" alt="">
                                   <div class="message-data" [ngClass]="{'text-end': message.type === 'user'}">
                                     <span class="message-data-time">{{message.time}}</span>
                                   </div>
@@ -55,7 +55,7 @@
                                 <div class="smiley-box bg-primary">
                                   <div class="picker"><img src="assets/images/smiley.png" alt=""></div>
                                 </div>
-                                <div class="input-group text-box">
+                                
                                   <input class="form-control input-txt-bx" 
                                          id="message-to-send" 
                                          #messageInput
@@ -74,12 +74,12 @@
                                    <i [ngClass]="isRecording ? 'fa fa-stop' : 'fa fa-microphone'" 
                                       style="font-size: 1.5rem"></i>
                                  </button>
-                                  <button class="btn btn-primary input-group-text" 
+                                  <button class="btn btn-primary" 
                                           type="button" 
                                           (click)="sendMessage()" 
-                                          [disabled]="botTyping || interviewFinished">Enviar</button>                         
+                                          [disabled]="botTyping || interviewFinished"><i class="fa fa-send"></i></button>                         
                                 </div>                          
-                              </div>
+                              
                             </div>
                           </div> 
                         </div>

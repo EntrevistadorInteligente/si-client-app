@@ -90,7 +90,7 @@ export class Paso4Component implements OnInit {
     this.isVisibleAnswer = !this.isVisibleAnswer;
   }
 
-  withCancelled() {
+  withFeedback() {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: 'btn btn-success',
@@ -98,42 +98,42 @@ export class Paso4Component implements OnInit {
       },
       buttonsStyling: false,
     });
-
+  
     swalWithBootstrapButtons.fire({
-      title: 'Estas seguro?',
-      text: "¡Una vez terminada, no podrás ver este feedback e iniciarás una nueva entrevista!",
+      title: 'Terminar entrevista',
+      text: "¡Una vez terminada, no podrás ver el feedback tu entrevista en proceso nuevamente e iniciarás una nueva entrevista!",
+      input: 'textarea',
+      inputPlaceholder: 'Por favor danos tu feedback sobre el proceso de preparación de la entrevista, esto nos ayudará a mejorar nuestra aplicación. Tu opinión es muy importante para nosotros (opcional)',
       showCancelButton: true,
-      confirmButtonText: 'OK',
+      confirmButtonText: 'Terminar entrevista',
       cancelButtonText: 'Cancelar',
       reverseButtons: true
     }).then((result: any) => {
-      if (result.value) {
-        // Llama al servicio y luego refresca la pantalla
-        this.integradorService.terminarEntrevistaEnCurso(this.idEntrevista).subscribe({
+      if (result.isConfirmed) {
+        const feedback = result.value || ''; 
+        this.integradorService.terminarEntrevistaEnCurso(this.idEntrevista, feedback).subscribe({
           next: (response) => {
             if (response) {
               swalWithBootstrapButtons.fire(
-                'Terminada!',
-                'Ahora puedes generar una nueva entrevista.',
+                'Entrevista terminada!',
+                'Gracias por tu feedback. Ahora puedes generar una nueva entrevista.',
                 'success'
               ).then(() => {
                 window.location.reload();
               });
-              }
+            }
           },
           error: (error) => {
-            console.error(error)
+            console.error(error);
             swalWithBootstrapButtons.fire(
               'Error',
               'Hubo un problema al terminar la entrevista.',
               'error'
             );
-          
-          } 
-          
+          }
         });
-        
       }
     });
   }
+  
 }

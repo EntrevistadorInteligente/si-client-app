@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { VistaPreviaEntrevistaDto } from 'src/app/shared/model/vista-previa-entrevista-dto';
@@ -12,35 +12,18 @@ import { FormularioDto } from 'src/app/shared/model/formulario-dto';
   templateUrl: './paso-2.component.html',
   styleUrls: ['./paso-2.component.scss']
 })
-export class Paso2Component {
+export class Paso2Component implements OnInit {
 
   @Output() formularioCompleto = new EventEmitter<boolean>();
   preguntas!: VistaPreviaEntrevistaDto[];
   form: FormGroup;
   public loading = true;
   isLoading: boolean;
+  remainingCharacters: number = 5000;
 
-  paises: any[] = [
-    { nombre: "Argentina" },
-    { nombre: "Bolivia" },
-    { nombre: "Brasil" },
-    { nombre: "Chile" },
-    { nombre: "Colombia" },
-    { nombre: "Costa Rica" },
-    { nombre: "Cuba" },
-    { nombre: "Ecuador" },
-    { nombre: "El Salvador" },
-    { nombre: "Guatemala" },
-    { nombre: "Honduras" },
-    { nombre: "México" },
-    { nombre: "Nicaragua" },
-    { nombre: "Panamá" },
-    { nombre: "Paraguay" },
-    { nombre: "Perú" },
-    { nombre: "República Dominicana" },
-    { nombre: "Uruguay" },
-    { nombre: "Venezuela" }
-  ];
+  paises: any[] = [];
+  selectedCountry: any = null;
+  showDropdown: boolean = false;
 
   constructor(private fb: FormBuilder,
               private integradorService: IntegradorService,
@@ -56,13 +39,33 @@ export class Paso2Component {
       this.form = this.fb.group(formData);
     } else {
       this.form = this.fb.group({
-        empresa: ['', Validators.required],
-        perfil: ['', Validators.required],
-        seniority: ['', Validators.required],
+        empresa: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
+        perfil: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
+        seniority: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
         pais: ['', Validators.required],
-        descripcionVacante: ['', Validators.required]
+        descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]]
       });
     }
+
+    this.loadCountries();
+  }
+
+  loadCountries() {
+    this.paisService.getCountries().subscribe(data => {
+      this.paises = data.map(country => ({
+        nombre: country.translations.spa.common
+      })).sort((a, b) => a.nombre.localeCompare(b.nombre));
+    });
+  }
+
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
+  }
+
+  selectCountry(pais: { nombre: any; }) {
+    this.selectedCountry = pais;
+    this.form.value.pais.setValue(pais.nombre);
+    this.showDropdown = false;
   }
 
   submit(): void {
@@ -105,15 +108,6 @@ export class Paso2Component {
     }
   }
 
-  loadCountries() {
-    this.paisService.getCountries().subscribe(data => {
-      this.paises = data.map(country => ({
-        name: country.name.common,
-        code: country.cca2
-      }));
-    });
-  }
-
   alert(title: string, text: string, icon: SweetAlertIcon) {
     Swal.fire({
       title: title,
@@ -121,6 +115,10 @@ export class Paso2Component {
       icon: icon,
       confirmButtonText: 'Ok'
     });
+  }
+
+  updateCharacterCount() {
+    this.remainingCharacters = 5000 - this.form.get('descripcionVacante')?.value.length;
   }
 
   ngOnDestroy() {

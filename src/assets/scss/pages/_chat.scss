@@ -132,10 +132,13 @@
         }
       }
       .chat-message {
-        padding: 20px;
-        border-top: 1px solid $light-body-bg-color;
-        width: 100%;
+        position: absolute;
         bottom: 0;
+        width: 95%;
+        padding: 10px;
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+        box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
         .smiley-box{
           background: $light-semi-gray;
           padding: 10px;
@@ -494,6 +497,17 @@
     }
   }
 }
+
+@media(max-width:550px){
+  .chat-box .chat-right-aside .chat .chat-message {
+    position: relative;
+    width: 100%;
+    .smiley-box{
+      display: none;
+    }
+}
+}
+
 @media(max-width:360px){
   .chat-box{
     .chat-menu{

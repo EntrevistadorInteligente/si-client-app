@@ -8,20 +8,20 @@
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label" for="empresa">Empresa <span class="text-danger">*</span></label>
-         <input type="text" class="form-control is-invalid" id="empresa" placeholder="Empresa" formControlName="empresa" required>
-         <div class="invalid-feedback" *ngIf="form.get('empresa')?.invalid && form.get('empresa')?.touched">Este campo es obligatorio.</div> 
+          <input type="text" class="form-control" id="empresa" placeholder="Empresa" formControlName="empresa" required maxlength="100" pattern="^[a-zA-Z0-9\s]+$">
+          <div class="invalid-feedback" *ngIf="form.get('empresa')?.invalid && form.get('empresa')?.touched">Este campo es obligatorio y no debe contener caracteres especiales.</div>
         </div>
         <div class="col-md-6">
-          <label class="form-label" for="perfil">Perfil <span class="text-danger">*</span></label> 
-          <input type="text" class="form-control is-invalid" id="perfil" placeholder="Perfil" formControlName="perfil" required>
-          <div class="invalid-feedback" *ngIf="form.get('perfil')?.invalid && form.get('perfil')?.touched">Este campo es obligatorio.</div>
+          <label class="form-label" for="perfil">Perfil <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="perfil" placeholder="Perfil" formControlName="perfil" required maxlength="100" pattern="^[a-zA-Z0-9\s]+$">
+          <div class="invalid-feedback" *ngIf="form.get('perfil')?.invalid && form.get('perfil')?.touched">Este campo es obligatorio y no debe contener caracteres especiales.</div>
         </div>
       </div>
       <div class="row g-3">
         <div class="col-md-6">
           <label class="form-label" for="seniority">Seniority <span class="text-danger">*</span></label>
-         <input type="text" class="form-control is-invalid" id="seniority" placeholder="Seniority" formControlName="seniority" required>
-         <div class="invalid-feedback" *ngIf="form.get('seniority')?.invalid && form.get('seniority')?.touched">Este campo es obligatorio.</div>
+          <input type="text" class="form-control" id="seniority" placeholder="Seniority" formControlName="seniority" required maxlength="50" pattern="^[a-zA-Z0-9\s]+$">
+          <div class="invalid-feedback" *ngIf="form.get('seniority')?.invalid && form.get('seniority')?.touched">Este campo es obligatorio y no debe contener caracteres especiales.</div>
         </div>
         <div class="col-md-6">
           <label class="form-label" for="pais">Seleccione país <span class="text-danger">*</span></label>
@@ -34,10 +34,10 @@
       </div>
       <div class="row g-3">
         <label class="form-label" for="descripcionVacante">Descripción de la vacante <span class="text-danger">*</span></label>
-          
         <div class="col-md-12">
-         <textarea class="form-control is-invalid" id="descripcionVacante" rows="9" formControlName="descripcionVacante" placeholder="Ingrese la descripción de la vacante" required></textarea>
-         <div class="invalid-feedback" *ngIf="form.get('descripcionVacante')?.invalid && form.get('descripcionVacante')?.touched">Este campo es obligatorio.</div>
+          <textarea class="form-control" id="descripcionVacante" rows="9" formControlName="descripcionVacante" placeholder="Ingrese la descripción de la vacante" required maxlength="5000" (input)="updateCharacterCount()"></textarea>
+          <div class="invalid-feedback" *ngIf="form.get('descripcionVacante')?.invalid && form.get('descripcionVacante')?.touched">Este campo es obligatorio.</div>
+          <div class="text-muted">Caracteres restantes: {{ remainingCharacters }}</div>
         </div>
       </div>
       <button class="btn btn-primary mt-3" type="submit" [disabled]="form.invalid">Enviar</button>

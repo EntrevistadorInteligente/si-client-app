@@ -13,7 +13,7 @@
                   <p *ngIf="isVisibleAnswer">Ocultar respuestas <i class="fa fa-eye-slash"></i></p>
                   <p *ngIf="!isVisibleAnswer">Ver tus respuestas <i class="fa fa-eye"></i></p>
                 </button>
-                <button class="btn btn-warning sweet-5 boton-entrevista" type="button" (click)="withCancelled()">Iniciar nueva entrevista</button>
+                <button class="btn btn-warning sweet-5 boton-entrevista" type="button" (click)="withFeedback()">Iniciar nueva entrevista</button>
                 <div class="card card-response" [ngClass]="{'content-visible': isVisibleAnswer, 'content-hidden': !isVisibleAnswer}">
                   <div class="card-header pb-0">
                     <p class="h3 txt-primary"><small>Tu respuesta</small></p>

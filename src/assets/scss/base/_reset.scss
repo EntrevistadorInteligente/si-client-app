@@ -530,7 +530,7 @@ $fb;
   border-color: var(--theme-deafult) !important;
   position: relative;
   z-index: 9;
-  overflow: hidden;
+  overflow: visible;
 
   &.disabled,
   &:disabled {

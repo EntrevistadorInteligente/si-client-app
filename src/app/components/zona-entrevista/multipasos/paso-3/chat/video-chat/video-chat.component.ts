@@ -24,13 +24,14 @@ export class VideoChatComponent implements OnInit {
   public messages: any[] = [];
   public userMessage: string = '';
   public botTyping: boolean = false;
-  public escribiendo = "Typing...";
+  public escribiendo = "Escribiendo...";
   public vacio = "";
   public interviewFinished: boolean = false;
   public currentTime: string = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   errorMessage: string = '';
   isRecording: boolean = false;
   private finalTranscript: string = '';
+  public lastSeenBootTyping: string = '';
 
   constructor(private integradorService: FeedbackService,
               private speechService: SpeechService,
@@ -38,7 +39,7 @@ export class VideoChatComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerPreguntas(this.idEntrevista);
-
+    this.lastSeenBootTyping = this.currentTime;
     this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
       if (result.length > 1000) {
         this.userMessage = result.substring(0, 1000);
@@ -102,11 +103,13 @@ export class VideoChatComponent implements OnInit {
       const question = this.preguntas[this.currentIndex].pregunta;
       const messageId = `typewriter-${this.messages.length}`;
       this.botTyping = true;
+      let typingTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      this.lastSeenBootTyping = typingTime;
       this.messages.push({
         id: this.messages.length,
         type: 'bot',
         text: question,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        time: typingTime  
       });
 
       setTimeout(() => {
@@ -137,6 +140,7 @@ export class VideoChatComponent implements OnInit {
       text: text,
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     });
+    
     this.scrollToBottom(); 
   }
 
@@ -150,8 +154,8 @@ export class VideoChatComponent implements OnInit {
   }
 
   sendMessage() {
+    this.voiceRecognitionService.stopRecognition();
     if (this.userMessage.trim() === '' || this.botTyping || this.interviewFinished) return;
-
     this.addUserMessage(this.userMessage);
     this.respuestas[this.currentIndex].respuesta = this.userMessage;
     this.userMessage = '';
