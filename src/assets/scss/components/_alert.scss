@@ -87,11 +87,6 @@
     &:last-child {
       margin-bottom: 0;
     }
-    app-feather-icon{
-      & ~ p {
-        padding-left: 20px;
-      }
-    }
     svg {
       width: 14px;
       height: 14px;
@@ -194,13 +189,7 @@ $alert-color: $primary-color, $secondary-color, $success-color, $danger-color,
       color: $dark-color;
     }
   }
-  .alert-light.inverse{
-    app-feather-icon{
-      svg{
-        color: $black;
-      }
-    }
-  }
+
   .alert-#{$var}.inverse {
     &:before {
       top: 16px;
@@ -218,24 +207,6 @@ $alert-color: $primary-color, $secondary-color, $success-color, $danger-color,
     padding: 13px 20px 13px 65px;
     border-color: nth($alert-color, $i);
     color: $theme-body-font-color;
-
-    app-feather-icon, i {
-      padding: 17px 20px;
-      display: inline-block;
-      background-color: nth($alert-color, $i);
-      color: $white;
-      border-radius: 3px 0 0 3px;
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 100%;
-    }
-    app-feather-icon{
-      padding: 17px 28px;
-      svg{
-        left: 19px;
-      }
-    }
     .btn-close {
       filter: unset;
       top: -3px;

@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Mixins
 // --------------------------
 
@@ -11,14 +13,14 @@
 
 @mixin icon-themify-icons() {
   font-family: 'themify';
-speak: none;
-font-style: normal;
-font-weight: normal;
-font-variant: normal;
-text-transform: none;
-line-height: 1;
--webkit-font-smoothing: antialiased;
--moz-osx-font-smoothing: grayscale;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   *margin-right: .3em; // fixes ie7 issues
 }
 
@@ -27,7 +29,6 @@ line-height: 1;
   -moz-border-radius: $radius;
   border-radius: $radius;
 }
-
 
 @mixin icon-stack($width: 2em, $height: 2em, $top-font-size: 1em, $base-font-size: 2em) {
   .icon-stack {
@@ -50,7 +51,7 @@ line-height: 1;
     }
     .icon-stack-base {
       font-size: $base-font-size;
-      *line-height: #{$height / $base-font-size}em;
+      *line-height: #{math.div($height, $base-font-size)}em;
     }
   }
 }

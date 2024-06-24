@@ -11,7 +11,7 @@
 </div>
 <nav class="sidebar-main">
   <div class="left-arrow" id="left-arrow" [class.d-none]="leftArrowNone" (click)="scrollToLeft()">
-    <app-feather-icon [icon]="'arrow-left'"></app-feather-icon>
+    <i class="icon-arrow-left"></i>
   </div>
   <div id="sidebar-menu" [ngStyle]="{ marginLeft:  margin + 'px'}">
     <ul class="sidebar-links custom-scrollbar" id="scroll">
@@ -134,8 +134,5 @@
         <h4>Necesitas ayuda ?</h4><a class="txt" href="https://discord.gg/hVMFUJEdK4">Únete a la comunidad</a><a class="btn btn-secondary" href="https://github.com/EntrevistadorInteligente">Repositorio</a>
       </div>
     </div> 
-  </div>
-  <div class="right-arrow" id="right-arrow" [class.d-none]="rightArrowNone" (click)="scrollToRight()">
-    <app-feather-icon [icon]="'arrow-right'"></app-feather-icon>
   </div>
 </nav>

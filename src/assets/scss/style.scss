@@ -15,10 +15,6 @@
   --theme-deafult: #6362e7;
   --theme-secondary: #ffc500;
 }
-@import "vendors/whether-icon";
-// @import "vendors/font-awesome/variables";
-@import "./vendors/chartist/chartist-settings";
-@import "./vendors/chartist/chartist";
 @import "vendors/icofont"; 
 @import "vendors/themify";
 @import "vendors/font-awesome.scss";
@@ -73,42 +69,16 @@
 
 //	*** pages ***
 
-@import "pages/blog.scss";
-@import "pages/bookmark-app.scss";
-@import "pages/cart.scss";
-@import "pages/chart.scss";
 @import "pages/chat.scss";
-@import "pages/checkout.scss";
 @import "pages/comingsoon.scss";
-@import "pages/contacts.scss";
-@import "pages/dashboard_2.scss";
-@import "pages/dashboard_default.scss";
-@import "pages/_crypto-dashboard";
-@import "pages/ecommerce.scss";
-@import "pages/email-application.scss";
-//@import "pages/errorpage.scss";
 @import "pages/faq.scss";
 @import "pages/file.scss";
-@import "pages/gallery.scss";
-@import "pages/job-search.scss";
-@import "pages/knowledgebase.scss";
 @import "pages/language.scss";
-@import "pages/learning.scss";
-@import "pages/login.scss";
 @import "pages/megaoption.scss";
-@import "pages/order-history.scss";
 @import "pages/page.scss";
-@import "pages/pricing.scss";
 @import "pages/progress.scss";
 @import "pages/projectlist.scss";
 @import "pages/social-app.scss";
-@import "pages/task.scss";
-@import "pages/invoice";
-@import "pages/timeline-v.scss";
-@import "pages/timeliny.scss";
-@import "pages/user-profile.scss";
-@import "pages/toast.scss";
-// @import "pages/calender-basic";
 @import "pages/steps";
 
 

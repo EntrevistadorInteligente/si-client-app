@@ -1,11 +1,12 @@
+@use 'sass:math';
+
 $ti-font-path: "../../../fonts/themify" !default;
 
 $borderColor: #eeeeee !default;
 $iconMuted: #eeeeee !default;
 $iconLight: white !default;
 $iconDark: #333333 !default;
-$icons-li-width: (30em/14);
-
+$icons-li-width: math.div(30em, 14);
 
 $wand : "\e600";
 $volume : "\e601";
@@ -25,7 +26,6 @@ $shopping-cart-full : "\e60e";
 $settings : "\e60f";
 $search : "\e610";
 $zoom-in : "\e611";
-$zoom-out : "\e612";
 $cut : "\e613";
 $ruler : "\e614";
 $ruler-pencil : "\e615";

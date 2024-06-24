@@ -1,3 +1,4 @@
+@use 'sass:math';
 
 [class^="icon-"],
 [class*=" icon-"] {
@@ -14,7 +15,7 @@
 /* makes the font 33% larger relative to the icon container */
 .icon-large:before {
   vertical-align: -10%;
-  font-size: (4em/3);
+  font-size: math.div(4em, 3);
 }
 
 /* makes sure icons active on rollover in links */
@@ -30,11 +31,11 @@ a {
 [class*=" icon-"] {
   &.icon-fixed-width {
     display: inline-block;
-    width: (16em/14);
+    width: math.div(16em, 14);
     text-align: right;
-    padding-right: (4em/14);
+    padding-right: math.div(4em, 14);
     &.icon-large {
-      width: (20em/14);
+      width: math.div(20em, 14);
     }
   }
 }

@@ -122,12 +122,6 @@ html[dir="rtl"] {
       .email-app-sidebar{
         .main-menu {
           > li{
-            .badge-light{
-              app-feather-icon{
-                margin-right: unset;
-                margin-left: 5px;
-              }
-            }
             .badge{
               padding: 5px 6px 3px 8px;
             }
@@ -1995,16 +1989,6 @@ html[dir="rtl"] {
       .activity-line {
         left: unset;
         right: 46px;
-      }
-    }
-  }
-  .card-body {
-    .alert {
-      app-feather-icon{
-        & ~ p {
-          padding-left: unset;
-          padding-right: 20px;
-        }
       }
     }
   }

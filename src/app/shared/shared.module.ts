@@ -7,12 +7,10 @@ import { ContentComponent } from "./components/layout/content/content.component"
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 
 import { NavService } from "./services/nav.service";
-import { FeatherIconComponent } from "./components/feather-icon/feather-icon.component";
 import { RouterModule } from "@angular/router";
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 import { TapToTopComponent } from "./components/tap-to-top/tap-to-top.component";
 import { FooterComponent } from "./components/footer/footer.component";
-import { BookmarkComponent } from "./components/header/header/bookmark/bookmark.component";
 import { NotificationComponent } from "./components/header/header/notification/notification.component";
 import { MaximizeComponent } from "./components/header/header/maximize/maximize.component";
 import { AccountComponent } from "./components/header/header/account/account.component";
@@ -34,11 +32,9 @@ import { ChatService } from "./services/chat/chat.service";
     HeaderComponent,
     ContentComponent,
     SidebarComponent,
-    FeatherIconComponent,
     BreadcrumbComponent,
     TapToTopComponent,
     FooterComponent,
-    BookmarkComponent,
     NotificationComponent,
     MaximizeComponent,
     AccountComponent,
@@ -53,7 +49,6 @@ import { ChatService } from "./services/chat/chat.service";
   exports: [RouterModule, 
     BreadcrumbComponent, 
     TapToTopComponent, 
-    FeatherIconComponent, 
     ContentComponent, 
     LoaderComponent, 
     NgbModule, 
