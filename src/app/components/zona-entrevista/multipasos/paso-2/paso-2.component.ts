@@ -26,26 +26,21 @@ export class Paso2Component implements OnInit {
   showDropdown: boolean = false;
 
   constructor(private fb: FormBuilder,
-              private integradorService: IntegradorService,
-              private loaderService: LoaderService,
-              private paisService: PaisService) { }
+    private integradorService: IntegradorService,
+    private loaderService: LoaderService,
+    private paisService: PaisService) { }
 
   ngOnInit() {
     this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-    const savedFormData = localStorage.getItem('formData');
-    
-    if (savedFormData) {
-      const formData = JSON.parse(savedFormData);
-      this.form = this.fb.group(formData);
-    } else {
-      this.form = this.fb.group({
-        empresa: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
-        perfil: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
-        seniority: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
-        pais: ['', Validators.required],
-        descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]]
-      });
-    }
+
+    this.form = this.fb.group({
+      empresa: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
+      perfil: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
+      seniority: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
+      pais: ['', Validators.required],
+      descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]]
+    });
+
 
     this.loadCountries();
   }
@@ -69,8 +64,8 @@ export class Paso2Component implements OnInit {
   }
 
   submit(): void {
-    this.loaderService.show();   
-    if (this.form.valid) {      
+    this.loaderService.show();
+    if (this.form.valid) {
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
         perfil: this.form.value.perfil,
@@ -80,9 +75,9 @@ export class Paso2Component implements OnInit {
       };
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe({
         next: data => {
-          this.preguntas = data;          
-          this.loaderService.hide();       
-          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');   
+          this.preguntas = data;
+          this.loaderService.hide();
+          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');
         },
         error: err => {
           this.loaderService.hide();
@@ -101,7 +96,6 @@ export class Paso2Component implements OnInit {
           }
         }
       });
-      localStorage.removeItem('formData');
       this.formularioCompleto.emit(true);
     } else {
       this.formularioCompleto.emit(false);
@@ -121,10 +115,4 @@ export class Paso2Component implements OnInit {
     this.remainingCharacters = 5000 - this.form.get('descripcionVacante')?.value.length;
   }
 
-  ngOnDestroy() {
-    if (this.form.valid) {
-      const formData = JSON.stringify(this.form.value);
-      localStorage.setItem('formData', formData);
-    }
-  }
 }

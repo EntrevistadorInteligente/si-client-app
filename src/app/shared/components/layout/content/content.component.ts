@@ -1,5 +1,4 @@
 import { Component, HostListener, OnInit } from "@angular/core";
-import * as feather from "feather-icons";
 import { ActivatedRoute, RouterOutlet } from "@angular/router";
 import { NavService } from "src/app/shared/services/nav.service";
 import { LayoutService } from "src/app/shared/services/layout/layout.service";
@@ -31,9 +30,7 @@ export class ContentComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
-      feather.replace();
-    });
+  
   }
 
   public getRouterOutletState(outlet: any) {

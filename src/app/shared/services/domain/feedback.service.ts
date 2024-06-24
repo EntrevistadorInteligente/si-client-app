@@ -57,9 +57,7 @@ export class FeedbackService {
       return of(cachedData.data);
     } else {
       return this.httpClient
-        .get<
-          FeedbackComentarioDto[]
-        >(`${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`)
+        .get<FeedbackComentarioDto[]>(`${this.feedbackURL}/muestra/preguntas?perfil=${perfil}`)
         .pipe(
           tap((response) =>
             this.localdata.saveToLocalStorage(perfil, response)
