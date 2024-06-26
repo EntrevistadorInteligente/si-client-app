@@ -1,3 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
 @import "assets/scss/app.scss";
 @import "~@ng-select/ng-select/themes/default.theme.css";
+
+.alert.inverse .feather-icon{
+    padding: 17px 28px;
+    display: inline-block;
+    background-color: #6362e7;
+    color: #fff;
+    border-radius: 3px 0 0 3px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+  }
+  
+  .alert.inverse .feather-icon i{
+    left: 20px;
+    height: 14px;
+    position: absolute;
+    top: 16px;
+    margin-right: 0px;
+    vertical-align: middle;
+  }
+  
+  .alert.inverse .feather-icon ~ p {
+    padding-left: 20px;
+  }
+
+  .alert.inverse.alert-secondary .feather-icon{
+    background-color: #ffc500;
+    color: #fff;
+  }
+
+  .alert.inverse.alert-success .feather-icon{
+    background-color: #7dc006;
+    color: #fff;
+  }
+
+  .alert.inverse.alert-info .feather-icon{
+    background-color: #1d97ff;
+    color: #fff;
+  }
+
+  .alert.inverse.alert-warning .feather-icon{
+    background-color: #ff8819;
+    color: #fff;
+  }
+
+  .alert.inverse.alert-danger .feather-icon{
+    background-color: #e52727;
+    color: #fff;
+  }
+
+  .alert.inverse.alert-light .feather-icon{
+    background-color: #f4f4f4;
+    color: #000;
+  }
+
+  .alert.inverse.alert-dark .feather-icon{
+    background-color: #2c323f;
+    color: #fff;
+  }
