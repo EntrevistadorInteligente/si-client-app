@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { VistaPreviaEntrevistaDto } from 'src/app/shared/model/vista-previa-entrevista-dto';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
-import { LoaderService } from 'src/app/shared/services/domain/loader.service';
 import { PaisService } from 'src/app/shared/services/domain/pais.service';
 import { FormularioDto } from 'src/app/shared/model/formulario-dto';
 
@@ -27,12 +26,9 @@ export class Paso2Component implements OnInit {
 
   constructor(private fb: FormBuilder,
     private integradorService: IntegradorService,
-    private loaderService: LoaderService,
     private paisService: PaisService) { }
 
   ngOnInit() {
-    this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
-
     this.form = this.fb.group({
       empresa: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
       perfil: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
@@ -64,7 +60,6 @@ export class Paso2Component implements OnInit {
   }
 
   submit(): void {
-    this.loaderService.show();
     if (this.form.valid) {
       const formulario: FormularioDto = {
         empresa: this.form.value.empresa,
@@ -76,11 +71,9 @@ export class Paso2Component implements OnInit {
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe({
         next: data => {
           this.preguntas = data;
-          this.loaderService.hide();
           this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');
         },
         error: err => {
-          this.loaderService.hide();
           switch (err.error.codigo) {
             case 'E001':
               this.alert('Error', 'No se pueden generar más entrevistas.', 'error');

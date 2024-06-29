@@ -16,11 +16,12 @@ export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnap
       if (isLogged) {
         return true;
       } else {
-        return router.createUrlTree(['/es/entrevistas/inicio']);
+        // Pasar un estado adicional indicando que fue redirigido por el guard
+        return router.createUrlTree(['/es/entrevistas/inicio'], { queryParams: { redirected: 'true' } });
       }
     }),
     catchError(() => {
-      return of(router.createUrlTree(['/es/entrevistas/inicio']));
+      return of(router.createUrlTree(['/es/entrevistas/inicio'], { queryParams: { redirected: 'true' } }));
     })
   );
 };

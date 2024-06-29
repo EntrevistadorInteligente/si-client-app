@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, forkJoin, of } from 'rxjs';
 import { InterviewState } from 'src/app/shared/model/interview-state';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
-import { LoaderService } from 'src/app/shared/services/domain/loader.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
@@ -21,11 +20,9 @@ export class ZonaEntrevistaComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, 
               private entrevistaService: IntegradorService, 
-              private router: Router,
-              private loaderService: LoaderService) { }
+              private router: Router) { }
 
   ngOnInit() {
-    this.loaderService.isLoading$.subscribe(isLoading => this.isLoading = isLoading);
     this.route.params.subscribe((params: { [x: string]: string; }) => {
       this.idEntrevista = params['idEntrevista'];
       if (this.idEntrevista) {
@@ -60,9 +57,6 @@ export class ZonaEntrevistaComponent implements OnInit {
           this.isIntermediate = estado.isIntermediate;
           this.loadingMessage = estado.loadingMessage;
           this.idEntrevista = estadoEntrevista.idEntrevista;
-        } else {
-          this.loaderService.hide();
-          // Manejar aquí un modal para aceptar que ya tienen una entrevista en proceso
         }
       } else {
         this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
@@ -86,10 +80,6 @@ export class ZonaEntrevistaComponent implements OnInit {
           this.loadingMessage = estado.loadingMessage;
           this.idEntrevista = response.idEntrevista;
         }
-        else {
-          this.loaderService.hide();
-          //manjear aqui un modal para aceptar que ya tienen una entrevista en proceso   
-        } 
       },
       error: (error) => console.error(error)
     });

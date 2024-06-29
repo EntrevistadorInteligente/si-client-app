@@ -26,6 +26,7 @@ import { FeedbackService } from "./services/domain/feedback.service";
 import { IntegradorService } from "./services/domain/integrador.service";
 import { LocaldataService } from "./services/domain/localdata.service";
 import { ChatService } from "./services/chat/chat.service";
+import { LoaderHttpComponent } from "./components/loader-http/loader-http.component";
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { ChatService } from "./services/chat/chat.service";
     AccountComponent,
     ModeComponent,
     LoaderComponent,
+    LoaderHttpComponent,
     FullComponent,
     SearchComponent,
     SearchCustomizeComponent,
@@ -50,7 +52,8 @@ import { ChatService } from "./services/chat/chat.service";
     BreadcrumbComponent, 
     TapToTopComponent, 
     ContentComponent, 
-    LoaderComponent, 
+    LoaderComponent,
+    LoaderHttpComponent,
     NgbModule, 
     AngularSvgIconModule]
 
