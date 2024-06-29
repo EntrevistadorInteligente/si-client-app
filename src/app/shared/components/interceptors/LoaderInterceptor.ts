@@ -1,3 +1,4 @@
+// loader.interceptor.ts
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -12,15 +13,24 @@ import { LoaderService } from '../../services/domain/loader.service';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
+  private readonly delay = 1000; // 1 segundo
+
   constructor(private loaderService: LoaderService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
-    this.loaderService.show();
+    let loaderTimeout: any;
 
-    return next.handle(req).pipe(
+    const handle = next.handle(req).pipe(
       finalize(() => {
+        clearTimeout(loaderTimeout);
         this.loaderService.hide();
       })
     );
+
+    loaderTimeout = setTimeout(() => {
+      this.loaderService.show();
+    }, this.delay);
+
+    return handle;
   }
 }

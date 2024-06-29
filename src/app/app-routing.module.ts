@@ -7,8 +7,13 @@ import { full } from './shared/routes/full';
 
 const routes: Routes = [
   {
+    path: '',
+    redirectTo: '/es/entrevistas/inicio',
+    pathMatch: 'full' 
+  },
+  {
     path: 'es/entrevistas',
-    redirectTo: 'es/entrevistas/inicio',
+    redirectTo: '/es/entrevistas/inicio',
     pathMatch: 'full' 
   },
   {
