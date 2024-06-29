@@ -51,7 +51,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
         time: new Date().toLocaleTimeString(),
       });
       this.badgeCount = this.notifications.length;
+
+      // Reproduce el sonido de notificación
+      this.playNotificationSound();
     });
+  }
+
+  playNotificationSound() {
+    const audio = new Audio("assets/audio/sonido_notificacion.mp3");
+    audio.play();
   }
 
   getMessage(tipo: string): string {
