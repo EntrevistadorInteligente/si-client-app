@@ -25,17 +25,8 @@
       </div>
     </div>
   }
-  <div class="preguntas_preview">
+  <div *ngIf="iniciandoMuestra" class="preguntas_preview">
     @switch (iniciandoMuestra) {
-      @case (stateEntrevista === StateEnum.load) {
-        @if (stateEntrevista === StateEnum.load) {
-          <div class="carga_preguntas">
-            <div class="loader-box">
-              <div class="loader-1"></div>
-            </div>
-          </div>
-        }
-      }
       @case (stateEntrevista === StateEnum.show) {
         <div class="card">
           <div class="card-body">
