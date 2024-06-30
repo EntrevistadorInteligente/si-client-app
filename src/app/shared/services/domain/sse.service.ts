@@ -29,7 +29,6 @@ export class SseService {
     const eventSource = new EventSource(url);
 
     eventSource.onmessage = event => {
-      console.log('Received event:', event.data );
       this.zone.run(() => {
         const data = JSON.parse(event.data) as NotifiacionDto;
         if (data.tipo === TipoNotificacionEnum.NOTIFICACION_FRONT) {

@@ -16,9 +16,10 @@ import { initializer } from "./app-init";
 import { LoaderInterceptor } from "./shared/components/interceptors/LoaderInterceptor";
 import { HttpErrorInterceptor } from "./shared/components/interceptors/HttpErrorInterceptor";
 import { OfflineInterceptor } from "./shared/components/interceptors/OfflineInterceptor";
+import { TermsAndConditionsComponent } from "./components/terms-and-conditions/terms-and-conditions.component";
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,TermsAndConditionsComponent],
   imports: [
     BrowserModule, 
     FormsModule, 

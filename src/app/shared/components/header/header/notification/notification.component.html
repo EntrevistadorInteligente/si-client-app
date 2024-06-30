@@ -14,11 +14,12 @@
     <h3>Notification</h3>
     <a class="f-right" href="javascript:void(0)"> <i data-feather="bell"></i></a>
   </div>
+
   <ul class="custom-scrollbar">
     <li *ngFor="let notification of notifications; trackBy: trackById" class="notification-item" (click)="navigateToNotification(notification)">
       <div class="media">
         <div class="notification-img bg-light-success">
-          <img src="assets/images/avtar/chinese.png" alt="">
+          <img class="rounded-circle float-start chat-user-img img-30" src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png" alt="">
         </div>
         <div class="media-body">
           <h5>

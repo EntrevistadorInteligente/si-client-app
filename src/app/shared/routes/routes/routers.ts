@@ -1,5 +1,6 @@
 import { Routes } from "@angular/router"; 
 import { canActivate, canActivateChild } from '../../services/guard/security.guard';
+import { TermsAndConditionsComponent } from "src/app/components/terms-and-conditions/terms-and-conditions.component";
 
 export const content: Routes = [
   {
@@ -19,5 +20,6 @@ export const content: Routes = [
       import("../../../components/profile/profile.module").then((mod) => mod.ProfileModule),
     canActivate: [canActivate],
     canActivateChild: [canActivateChild]
-  }
+  },
+  { path: 'terminos', component: TermsAndConditionsComponent },
 ];
