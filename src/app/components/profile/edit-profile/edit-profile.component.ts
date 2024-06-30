@@ -33,24 +33,19 @@ export class EditProfileComponent {
 
   ngOnInit() {
     this.inicializarHojaDeVida();
-
-    // Suscribirse a los cambios en los controles del formulario
     this.subscriptions.push(
       this.perfilForm.valueChanges.subscribe((val) => {
-        console.log("Formulario ha cambiado", val);
         this.estaEditado = true;
       })
     );
   }
 
   ngOnDestroy() {
-    // Desuscribirse de todas las suscripciones cuando el componente se destruya
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["hojaDeVida"] && changes["hojaDeVida"].currentValue) {
-      console.log("HojaDeVidaDto recibido:", this.hojaDeVida);
       this.normalizarHojaDeVida();
     } else {
       console.log("HojaDeVidaDto no recibido o vacío.");

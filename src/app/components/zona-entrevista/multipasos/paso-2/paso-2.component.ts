@@ -34,7 +34,8 @@ export class Paso2Component implements OnInit {
       perfil: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
       seniority: ['', [Validators.required, Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9\\s]+$')]],
       pais: ['', Validators.required],
-      descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]]
+      descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]],
+      terminosYCondiciones: [false, Validators.requiredTrue]
     });
 
 

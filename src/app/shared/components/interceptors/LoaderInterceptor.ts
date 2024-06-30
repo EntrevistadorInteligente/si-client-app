@@ -13,7 +13,7 @@ import { LoaderService } from '../../services/domain/loader.service';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-  private readonly delay = 1000; // 1 segundo
+  private readonly delay = 0; // 1 segundo
 
   constructor(private loaderService: LoaderService) {}
 

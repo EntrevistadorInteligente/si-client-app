@@ -8,7 +8,7 @@ export const environment = {
     urlBase: 'https://keycloak.pruebas-entrevistador-inteligente.site/',
 
     // INTEGRADOR SERVICE
-    orquestadorURL: 'http://localhost:8765/api/orquestador/v1',
+    orquestadorURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1',
   
     // FEEDBACK SERVICE
     feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
