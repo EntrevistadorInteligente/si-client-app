@@ -24,3 +24,8 @@
 .boton-entrevista {
   margin-left: 10px; /* Puedes ajustar el valor según el espacio que necesites */
 }
+
+.swal2-textarea.placeholder-color::-webkit-input-placeholder {
+  color: #f00 !important;
+  opacity: 1 !important;
+}

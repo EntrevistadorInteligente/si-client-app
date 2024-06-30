@@ -61,3 +61,17 @@
     background-color: #2c323f;
     color: #fff;
   }
+
+
+body .dark-only .ng-value-label.ng-star-inserted {
+    color: #f4f4f4 !important;
+  }
+
+body .dark-only.ng-select .ng-select-container .ng-value-container .ng-input>input {
+    color: #f4f4f4 !important;
+  }
+
+  .swal2-textarea.placeholder-color::-webkit-input-placeholder {
+    color: #343a40 !important;
+    opacity: 1 !important;
+  }
