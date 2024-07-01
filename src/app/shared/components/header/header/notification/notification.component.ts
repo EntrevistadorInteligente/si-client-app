@@ -13,14 +13,14 @@ export class NotificationComponent implements OnInit, OnDestroy {
   notifications: any[] = [];
   badgeCount = 0;
   private audio: HTMLAudioElement;
-  private localStorageKey = 'notifications';
+  private localStorageKey = "notifications";
 
   constructor(
     private sseService: SseService,
     private router: Router,
     private zone: NgZone
   ) {
-    this.audio = new Audio('assets/sounds/notification.wav');
+    this.audio = new Audio("assets/sounds/notification.wav");
     this.audio.load();
   }
 
@@ -59,13 +59,15 @@ export class NotificationComponent implements OnInit, OnDestroy {
       });
       this.badgeCount = this.notifications.length;
       this.playNotificationSound();
-      this.saveNotificationsToLocalStorage(); 
+      this.saveNotificationsToLocalStorage();
     });
   }
 
   playNotificationSound() {
     this.audio.currentTime = 0;
-    this.audio.play().catch(error => console.error('Error playing sound:', error));
+    this.audio
+      .play()
+      .catch((error) => console.error("Error playing sound:", error));
   }
 
   getMessage(tipo: string): string {
@@ -99,7 +101,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       window.location.reload();
     } else {
       this.router.navigate(link).then(() => {
-        this.removeNotification(notification); 
+        this.removeNotification(notification);
       });
     }
   }
@@ -107,13 +109,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   removeNotification(notification: any) {
     this.notifications = this.notifications.filter((n) => n !== notification);
     this.badgeCount = this.notifications.length;
-    this.saveNotificationsToLocalStorage(); 
+    this.saveNotificationsToLocalStorage();
   }
 
   markAllAsRead() {
     this.notifications = [];
     this.badgeCount = 0;
-    this.saveNotificationsToLocalStorage(); 
+    this.saveNotificationsToLocalStorage();
   }
 
   loadNotificationsFromLocalStorage() {
@@ -125,7 +127,10 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   saveNotificationsToLocalStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.notifications));
+    localStorage.setItem(
+      this.localStorageKey,
+      JSON.stringify(this.notifications)
+    );
   }
 
   ngOnDestroy() {

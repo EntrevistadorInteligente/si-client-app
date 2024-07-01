@@ -1,22 +1,27 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import * as data from '../../../../shared/data/animation/ribbons';
-import Swal from 'sweetalert2';
-import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { FeedbackService } from "src/app/shared/services/domain/feedback.service";
+import * as data from "../../../../shared/data/animation/ribbons";
+import Swal from "sweetalert2";
+import { IntegradorService } from "src/app/shared/services/domain/integrador.service";
 
 @Component({
-  selector: 'app-paso-4',
-  templateUrl: './paso-4.component.html',
-  styleUrl: './paso-4.component.scss'
+  selector: "app-paso-4",
+  templateUrl: "./paso-4.component.html",
+  styleUrl: "./paso-4.component.scss",
 })
-
 export class Paso4Component implements OnInit {
+  @ViewChild("divpregunta") divpregunta!: ElementRef;
+  @ViewChild("pfeedback") pfeedback!: ElementRef;
 
-  @ViewChild('divpregunta') divpregunta!: ElementRef;
-  @ViewChild('pfeedback') pfeedback!: ElementRef;
-
-  public ribbon = data.ribbons
-  public ribbonColor = data.ribbonColor
+  public ribbon = data.ribbons;
+  public ribbonColor = data.ribbonColor;
   @Input() idEntrevista: string;
   feedbackItems: any[] = [];
   paginationSide = "center";
@@ -25,8 +30,10 @@ export class Paso4Component implements OnInit {
   maxPagesToShow: number = 5;
   isVisibleAnswer: boolean = false;
 
-  constructor(private feedbackService: FeedbackService,
-    private integradorService: IntegradorService) { }
+  constructor(
+    private feedbackService: FeedbackService,
+    private integradorService: IntegradorService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerFeedback(this.idEntrevista);
@@ -34,17 +41,20 @@ export class Paso4Component implements OnInit {
   }
 
   get currentFeedback() {
-    return this.feedbackItems.slice(this.currentIndex, this.currentIndex + this.pageSize);
+    return this.feedbackItems.slice(
+      this.currentIndex,
+      this.currentIndex + this.pageSize
+    );
   }
 
   obtenerFeedback(entrevistaId: string): void {
     this.feedbackService.obtenerFeedback(entrevistaId).subscribe({
-      next: feedback => {
+      next: (feedback) => {
         this.feedbackItems = feedback;
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -71,7 +81,7 @@ export class Paso4Component implements OnInit {
     return Array.from({ length: end - start }, (_, i) => start + i + 1);
   }
 
-  @HostListener('window:resize')
+  @HostListener("window:resize")
   onResize() {
     this.adjustMargin();
   }
@@ -81,8 +91,10 @@ export class Paso4Component implements OnInit {
       const containerHeight = this.divpregunta.nativeElement.offsetHeight;
       const screenWidth = window.innerWidth;
 
-      this.pfeedback.nativeElement.style.marginTop = screenWidth <= 400 ? `${containerHeight / 2.7}%` : `${containerHeight / 2}px`;
-
+      this.pfeedback.nativeElement.style.marginTop =
+        screenWidth <= 400
+          ? `${containerHeight / 2.7}%`
+          : `${containerHeight / 2}px`;
     }, 400);
   }
 
@@ -93,47 +105,54 @@ export class Paso4Component implements OnInit {
   withFeedback() {
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger",
+        input: "placeholder-color",
       },
       buttonsStyling: false,
     });
-  
-    swalWithBootstrapButtons.fire({
-      title: 'Terminar entrevista',
-      text: "¡Una vez terminada, no podrás ver el feedback tu entrevista en proceso nuevamente e iniciarás una nueva entrevista!",
-      input: 'textarea',
-      inputPlaceholder: 'Por favor danos tu feedback sobre el proceso de preparación de la entrevista, esto nos ayudará a mejorar nuestra aplicación. Tu opinión es muy importante para nosotros (opcional)',
-      showCancelButton: true,
-      confirmButtonText: 'Terminar entrevista',
-      cancelButtonText: 'Cancelar',
-      reverseButtons: true
-    }).then((result: any) => {
-      if (result.isConfirmed) {
-        const feedback = result.value || ''; 
-        this.integradorService.terminarEntrevistaEnCurso(this.idEntrevista, feedback).subscribe({
-          next: (response) => {
-            if (response) {
-              swalWithBootstrapButtons.fire(
-                'Entrevista terminada!',
-                'Gracias por tu feedback. Ahora puedes generar una nueva entrevista.',
-                'success'
-              ).then(() => {
-                window.location.reload();
-              });
-            }
-          },
-          error: (error) => {
-            console.error(error);
-            swalWithBootstrapButtons.fire(
-              'Error',
-              'Hubo un problema al terminar la entrevista.',
-              'error'
-            );
-          }
-        });
-      }
-    });
+
+    swalWithBootstrapButtons
+      .fire({
+        title: "Terminar entrevista",
+        text: "¡Una vez terminada, no podrás ver el feedback tu entrevista en proceso nuevamente e iniciarás una nueva entrevista!",
+        input: "textarea",
+        inputPlaceholder:
+          "Por favor danos tu feedback sobre el proceso de preparación de la entrevista, esto nos ayudará a mejorar nuestra aplicación. Tu opinión es muy importante para nosotros (opcional)",
+        showCancelButton: true,
+        confirmButtonText: "Terminar entrevista",
+        cancelButtonText: "Cancelar",
+        reverseButtons: true,
+      })
+      .then((result: any) => {
+        if (result.isConfirmed) {
+          const feedback = result.value || "";
+          this.integradorService
+            .terminarEntrevistaEnCurso(this.idEntrevista, feedback)
+            .subscribe({
+              next: (response) => {
+                if (response) {
+                  swalWithBootstrapButtons
+                    .fire(
+                      "Entrevista terminada!",
+                      "Gracias por tu feedback. Ahora puedes generar una nueva entrevista.",
+                      "success"
+                    )
+                    .then(() => {
+                      window.location.reload();
+                    });
+                }
+              },
+              error: (error) => {
+                console.error(error);
+                swalWithBootstrapButtons.fire(
+                  "Error",
+                  "Hubo un problema al terminar la entrevista.",
+                  "error"
+                );
+              },
+            });
+        }
+      });
   }
-  
 }

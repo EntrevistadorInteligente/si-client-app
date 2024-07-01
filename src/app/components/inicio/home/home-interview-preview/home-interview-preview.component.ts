@@ -21,6 +21,7 @@ export class HomeInterviewPreviewComponent implements OnInit {
   previoFeedback: FeedbackComentarioDto[] = [];
   selectedPerfil?: any;
   iniciandoMuestra: boolean = false;
+  public isLogged: boolean = false;
 
   constructor(
     private integradorService: IntegradorService,
@@ -29,7 +30,12 @@ export class HomeInterviewPreviewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.cargarListaPerfiles();
+    this.authService.isLogged$.subscribe((isLogged) => {
+      this.isLogged = isLogged;
+      if (!isLogged) {
+        this.cargarListaPerfiles();
+      }
+    });
   }
 
   cargarListaPerfiles(): void {
