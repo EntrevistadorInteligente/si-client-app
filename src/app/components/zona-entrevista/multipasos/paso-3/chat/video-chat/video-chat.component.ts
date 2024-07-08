@@ -1,20 +1,28 @@
-import { Component, ElementRef, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { PreguntaComentarioDto } from 'src/app/shared/model/pregunta-comentario-dto';
-import { RespuestaComentarioDto } from 'src/app/shared/model/respuesta-dto';
-import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import { SpeechService } from 'src/app/shared/services/chat/speech.service';
-import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.service';
-import Typed from 'typed.js';
-import Swal, { SweetAlertIcon } from 'sweetalert2';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+  Output,
+  EventEmitter,
+} from "@angular/core";
+import { PreguntaComentarioDto } from "src/app/shared/model/pregunta-comentario-dto";
+import { RespuestaComentarioDto } from "src/app/shared/model/respuesta-dto";
+import { FeedbackService } from "src/app/shared/services/domain/feedback.service";
+import { SpeechService } from "src/app/shared/services/chat/speech.service";
+import { RecordVoiceService } from "src/app/shared/services/domain/record-voice.service";
+import Typed from "typed.js";
+import Swal, { SweetAlertIcon } from "sweetalert2";
 
 @Component({
-  selector: 'app-video-chat',
-  templateUrl: './video-chat.component.html',
-  styleUrls: ['./video-chat.component.scss']
+  selector: "app-video-chat",
+  templateUrl: "./video-chat.component.html",
+  styleUrls: ["./video-chat.component.scss"],
 })
 export class VideoChatComponent implements OnInit {
-  @ViewChild('chatHistory') private chatHistory: ElementRef;
-  @ViewChild('messageInput') private messageInput: ElementRef;
+  @ViewChild("chatHistory") private chatHistory: ElementRef;
+  @ViewChild("messageInput") private messageInput: ElementRef;
   @Input() idEntrevista: string;
   @Output() respuestasEntrevista = new EventEmitter<RespuestaComentarioDto[]>();
 
@@ -22,59 +30,84 @@ export class VideoChatComponent implements OnInit {
   public respuestas: RespuestaComentarioDto[] = [];
   public currentIndex: number = 0;
   public messages: any[] = [];
-  public userMessage: string = '';
+  public userMessage: string = "";
   public botTyping: boolean = false;
   public escribiendo = "Escribiendo...";
   public vacio = "";
   public interviewFinished: boolean = false;
-  public currentTime: string = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  errorMessage: string = '';
+  public currentTime: string = new Date().toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  errorMessage: string = "";
   isRecording: boolean = false;
-  private finalTranscript: string = '';
-  public lastSeenBootTyping: string = '';
+  private finalTranscript: string = "";
+  public lastSeenBootTyping: string = "";
+  private resizeObserver: ResizeObserver;
 
-  constructor(private integradorService: FeedbackService,
-              private speechService: SpeechService,
-              private voiceRecognitionService: RecordVoiceService) { }
+  constructor(
+    private integradorService: FeedbackService,
+    private speechService: SpeechService,
+    private voiceRecognitionService: RecordVoiceService
+  ) {}
 
   ngOnInit(): void {
     this.obtenerPreguntas(this.idEntrevista);
     this.lastSeenBootTyping = this.currentTime;
-    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
-      if (result.length > 1000) {
-        this.userMessage = result.substring(0, 1000);
-        this.voiceRecognitionService.stopRecognition();
-        alert('Llegaste a la cantidad límite de caracteres');
-      } else {
-        this.userMessage = result;
-      }
-      this.scrollToEnd();
-    });
+    this.voiceRecognitionService
+      .getSpeechResult()
+      .subscribe((result: string) => {
+        if (result.length > 1000) {
+          this.userMessage = result.substring(0, 1000);
+          this.voiceRecognitionService.stopRecognition();
+          alert("Llegaste a la cantidad límite de caracteres");
+        } else {
+          this.userMessage = result;
+        }
+        this.scrollToEnd();
+      });
 
-    this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
-      this.isRecording = status;
-    });
+    this.voiceRecognitionService
+      .getRecordingStatus()
+      .subscribe((status: boolean) => {
+        this.isRecording = status;
+      });
 
-    this.voiceRecognitionService.getRecognitionError().subscribe((error: string) => {
-      this.errorMessage = `Error: ${error}`;
+    this.voiceRecognitionService
+      .getRecognitionError()
+      .subscribe((error: string) => {
+        this.errorMessage = `Error: ${error}`;
+      });
+  }
+
+  ngAfterViewInit(): void {
+    this.resizeObserver = new ResizeObserver(() => {
+      this.adjustTextareaHeight();
     });
+    this.resizeObserver.observe(this.messageInput.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
   }
 
   obtenerPreguntas(entrevistaId: string): void {
     this.integradorService.obtenerPreguntas(entrevistaId).subscribe({
-      next: preguntas => {
+      next: (preguntas) => {
         this.preguntas = preguntas;
-        this.respuestas = preguntas.map(p => ({
+        this.respuestas = preguntas.map((p) => ({
           idPregunta: p.idPregunta,
-          respuesta: ''
+          respuesta: "",
         }));
         setTimeout(() => {
           this.showNextQuestion();
         }, 2000);
       },
-      error: error => {
+      error: (error) => {
         console.error(error);
-      }
+      },
     });
   }
 
@@ -89,7 +122,7 @@ export class VideoChatComponent implements OnInit {
   }
 
   toggleVoiceRecognition() {
-    this.errorMessage = '';
+    this.errorMessage = "";
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
     } else {
@@ -103,13 +136,16 @@ export class VideoChatComponent implements OnInit {
       const question = this.preguntas[this.currentIndex].pregunta;
       const messageId = `typewriter-${this.messages.length}`;
       this.botTyping = true;
-      let typingTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      let typingTime = new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
       this.lastSeenBootTyping = typingTime;
       this.messages.push({
         id: this.messages.length,
-        type: 'bot',
+        type: "bot",
         text: question,
-        time: typingTime  
+        time: typingTime,
       });
 
       setTimeout(() => {
@@ -130,46 +166,61 @@ export class VideoChatComponent implements OnInit {
       onComplete: () => {
         this.botTyping = false;
         this.scrollToBottom();
-      }
+      },
     });
   }
 
   addBotMessage(text: string) {
     this.messages.push({
-      type: 'bot',
+      type: "bot",
       text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     });
-    
-    this.scrollToBottom(); 
+
+    this.scrollToBottom();
   }
 
   addUserMessage(text: string) {
     this.messages.push({
-      type: 'user',
+      type: "user",
       text: text,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      time: new Date().toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
     });
     this.scrollToBottom();
   }
 
   sendMessage() {
     this.voiceRecognitionService.stopRecognition();
-    if (this.userMessage.trim() === '' || this.botTyping || this.interviewFinished) return;
+    if (
+      this.userMessage.trim() === "" ||
+      this.botTyping ||
+      this.interviewFinished
+    )
+      return;
     this.addUserMessage(this.userMessage);
     this.respuestas[this.currentIndex].respuesta = this.userMessage;
-    this.userMessage = '';
-    this.finalTranscript = '';
+    this.userMessage = "";
+    this.finalTranscript = "";
     this.currentIndex++;
 
     setTimeout(() => {
       this.showNextQuestion();
     }, 500);
+    this.resetTextarea();
   }
 
   endInterview() {
     this.interviewFinished = true;
-    this.currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    this.currentTime = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   }
 
   finalizeInterview() {
@@ -178,8 +229,9 @@ export class VideoChatComponent implements OnInit {
 
   scrollToBottom(): void {
     try {
-      this.chatHistory.nativeElement.scrollTop = this.chatHistory.nativeElement.scrollHeight;
-    } catch (err) { }
+      this.chatHistory.nativeElement.scrollTop =
+        this.chatHistory.nativeElement.scrollHeight;
+    } catch (err) {}
   }
 
   onInput(event: Event): void {
@@ -191,11 +243,12 @@ export class VideoChatComponent implements OnInit {
       this.userMessage = input.value;
       this.finalTranscript = this.userMessage;
     }
+    this.adjustTextareaHeight();
   }
 
   onPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    this.alert('Alerta', '¿En una entrevista harás eso?', 'warning');
+    this.alert("Alerta", "¿En una entrevista harás eso?", "warning");
   }
 
   alert(title: string, text: string, icon: SweetAlertIcon) {
@@ -203,13 +256,24 @@ export class VideoChatComponent implements OnInit {
       title: title,
       text: text,
       icon: icon,
-      confirmButtonText: 'OK'
+      confirmButtonText: "OK",
     });
   }
 
   private resetMessageState() {
-    this.userMessage = '';
-    this.finalTranscript = '';
+    this.userMessage = "";
+    this.finalTranscript = "";
     this.voiceRecognitionService.resetRecognitionBuffer();
+  }
+
+  resetTextarea(): void {
+    this.messageInput.nativeElement.value = "";
+    this.adjustTextareaHeight();
+  }
+
+  adjustTextareaHeight(): void {
+    const textarea = this.messageInput.nativeElement;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
 }

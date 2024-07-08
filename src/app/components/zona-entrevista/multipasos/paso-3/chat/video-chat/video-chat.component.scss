@@ -17,6 +17,14 @@
     color: white;
     animation: recordingAnimation 1s infinite;
   }
+
+  .d-flex-chat{
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: row;
+  }
   
   @keyframes recordingAnimation {
     0% { background-color: #dc3545; }
