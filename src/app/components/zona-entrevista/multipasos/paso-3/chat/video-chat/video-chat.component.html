@@ -111,7 +111,7 @@
                               {{ userMessage.length }}/1000
                             </div>
                             <div class="row">
-                              <div class="col-xl-12 d-flex">
+                              <div class="col-xl-12 d-flex d-flex-chat">
                                 <div class="smiley-box bg-primary">
                                   <div class="picker">
                                     <img
@@ -136,29 +136,31 @@
                                   rows="1"
                                   style="resize: none; overflow: hidden"
                                 ></textarea>
-                                <button
-                                  class="btn btn-success"
-                                  type="button"
-                                  [disabled]="botTyping || interviewFinished"
-                                  (click)="toggleVoiceRecognition()"
-                                >
-                                  <i
-                                    [ngClass]="
-                                      isRecording
-                                        ? 'fa fa-stop'
-                                        : 'fa fa-microphone'
-                                    "
-                                    style="font-size: 1.5rem"
-                                  ></i>
-                                </button>
-                                <button
-                                  class="btn btn-primary"
-                                  type="button"
-                                  (click)="sendMessage()"
-                                  [disabled]="botTyping || interviewFinished"
-                                >
-                                  <i class="fa fa-send"></i>
-                                </button>
+                                <div class="btn-group ms-2">
+                                  <button
+                                    class="btn btn-success"
+                                    type="button"
+                                    [disabled]="botTyping || interviewFinished"
+                                    (click)="toggleVoiceRecognition()"
+                                  >
+                                    <i
+                                      [ngClass]="
+                                        isRecording
+                                          ? 'fa fa-stop'
+                                          : 'fa fa-microphone'
+                                      "
+                                      style="font-size: 1.5rem"
+                                    ></i>
+                                  </button>
+                                  <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    (click)="sendMessage()"
+                                    [disabled]="botTyping || interviewFinished"
+                                  >
+                                    <i class="fa fa-send"></i>
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
