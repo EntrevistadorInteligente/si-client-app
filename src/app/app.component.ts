@@ -42,16 +42,23 @@ export class AppComponent implements OnInit {
     this.subscribeToLoginChanges();
   }
 
-  private checkLogin(): void {
-    const isLoggedIn = this.keycloakService.isLoggedIn();
-    const isTokenExpired = this.keycloakService.isTokenExpired();
-      if (isLoggedIn && !isTokenExpired) {
-        this.isLogged = isLoggedIn;
-        this.authService.setIsLogged(this.isLogged);
-      }else {
+  private checkLogin() {
+    try {
+      const isLoggedIn = this.keycloakService.isLoggedIn();
+      
+      if (isLoggedIn) {
+        const isTokenExpired = this.keycloakService.isTokenExpired();
+        this.isLogged = !isTokenExpired;
+      } else {
         this.isLogged = false;
-        this.authService.setIsLogged(this.isLogged);
       }
+      
+      this.authService.setIsLogged(this.isLogged);
+    } catch (error) {
+      console.error('Error checking login status:', error);
+      this.isLogged = false;
+      this.authService.setIsLogged(this.isLogged);
+    }
   }
 
   private subscribeToLoginChanges(): void {
