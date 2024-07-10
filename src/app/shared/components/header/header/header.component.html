@@ -22,7 +22,7 @@
         <app-search-customize></app-search-customize>
       </li>
   
-      <li class="onhover-dropdown">
+      <li *ngIf="isLogged" class="onhover-dropdown">
         <app-notification></app-notification>
       </li>
       <li class="maximize">

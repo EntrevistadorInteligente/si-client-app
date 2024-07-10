@@ -44,8 +44,12 @@ export class AppComponent implements OnInit {
 
   private checkLogin(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();
-      if (isLoggedIn) {
+    const isTokenExpired = this.keycloakService.isTokenExpired();
+      if (isLoggedIn && !isTokenExpired) {
         this.isLogged = isLoggedIn;
+        this.authService.setIsLogged(this.isLogged);
+      }else {
+        this.isLogged = false;
         this.authService.setIsLogged(this.isLogged);
       }
   }

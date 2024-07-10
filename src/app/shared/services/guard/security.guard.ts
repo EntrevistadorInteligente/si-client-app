@@ -10,13 +10,12 @@ export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnap
 ) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-
+  authService.scheduleTokenRefresh();  
   return authService.isLogged$.pipe(
     map((isLogged: boolean) => {
       if (isLogged) {
         return true;
       } else {
-        // Pasar un estado adicional indicando que fue redirigido por el guard
         return router.createUrlTree(['/es/entrevistas/inicio'], { queryParams: { redirected: 'true' } });
       }
     }),

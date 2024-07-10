@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { LayoutService } from 'src/app/shared/services/layout/layout.service';
 import { NavService } from 'src/app/shared/services/nav.service';
 
@@ -9,8 +10,12 @@ import { NavService } from 'src/app/shared/services/nav.service';
 })
 export class HeaderComponent implements OnInit {
   public dark: boolean;
+  isLogged: boolean = false;
+
   collapseSidebar: boolean = true;
-    constructor(private navServices: NavService, public layout: LayoutService) {
+    constructor(private navServices: NavService, public layout: LayoutService, 
+      private authService: AuthService
+    ) {
       this.dark = this.layout.config.settings.layout_version == 'dark-only';
   }
 
@@ -28,7 +33,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.authService.isLogged$.subscribe(isLogged => {
+      this.isLogged = isLogged;
+    });
   }
  
   

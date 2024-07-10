@@ -11,22 +11,24 @@ export class AuthService {
   private tokenExpiryTime: number;
 
   constructor(private keycloakService: KeycloakService) {
-    this.scheduleTokenRefresh();
+
   }
 
-  private scheduleTokenRefresh(): void {
+  public scheduleTokenRefresh(): void {
     const token = this.keycloakService.getKeycloakInstance()?.tokenParsed;
     if (token && token.exp) {
       this.tokenExpiryTime = token.exp * 1000;
       const expiresIn = this.tokenExpiryTime - Date.now();
-      setTimeout(() => this.refreshToken(), expiresIn - 60000); 
+      if (expiresIn < 60000) {
+        this.refreshToken();
+      }
+      
     }
   }
 
-  private async refreshToken(): Promise<void> {
+  public async refreshToken(): Promise<void> {
     try {
       await this.keycloakService.updateToken(70);
-      this.scheduleTokenRefresh();
     } catch (error) {
       console.error('Failed to refresh token', error);
       this.logout();
@@ -37,7 +39,6 @@ export class AuthService {
   getLoggedUser() {
     try {
       let userDetails = this.keycloakService.getKeycloakInstance().idTokenParsed;
-      console.log(userDetails);
       return userDetails;
     }
     catch(e) {
@@ -64,6 +65,10 @@ export class AuthService {
 
   login(): void {
     this.keycloakService.login();
+  }
+
+  isTokenExpired() {
+    return this.keycloakService.isTokenExpired();
   }
 
   get isLogged$(): Observable<boolean> {
