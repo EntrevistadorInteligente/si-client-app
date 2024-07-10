@@ -52,7 +52,6 @@ export class ProfileComponent implements OnInit {
   }
 
   handleCargarFile(file: File): void {
-    console.log(file);
     this.integradorService.cargarHojaDeVida(file).subscribe({
       next: (hojaDeVidaResponse) => {
         if (hojaDeVidaResponse != null) {
