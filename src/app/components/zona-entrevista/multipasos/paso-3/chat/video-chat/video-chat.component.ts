@@ -275,6 +275,7 @@ export class VideoChatComponent implements OnInit {
 
   finalizeInterview() {
     this.respuestasEntrevista.emit(this.respuestas);
+    localStorage.removeItem('chatHistory');
   }
 
   scrollToBottom(): void {
