@@ -47,7 +47,6 @@ export class VideoChatComponent implements OnInit {
 
   public respuestasHistorial: RespuestaComentarioDto[] = [];
   isHistoryLoaded: boolean = false;
-  mostrarBotMessage: boolean = false;
 
   constructor(
     private integradorService: FeedbackService,
@@ -206,7 +205,7 @@ export class VideoChatComponent implements OnInit {
     });
   }
 
-  insertMessageInTypewriter(): void {
+  private insertMessageInTypewriter(): void {
     this.messages.forEach(message => {
       if (message.type === 'bot') {
         const typewriterElement = document.getElementById(
@@ -217,6 +216,7 @@ export class VideoChatComponent implements OnInit {
         }
       }
     });
+    this.scrollToBottom();
   }
 
   addBotMessage(text: string) {
@@ -341,7 +341,6 @@ export class VideoChatComponent implements OnInit {
     const chatData = localStorage.getItem('chatHistory');
     if (chatData) {
       this.isHistoryLoaded = true;
-      this.mostrarBotMessage = true;
       const parsedData = JSON.parse(chatData);
       this.messages = parsedData.messages || [];
       this.respuestasHistorial = parsedData.respuestas || [];
