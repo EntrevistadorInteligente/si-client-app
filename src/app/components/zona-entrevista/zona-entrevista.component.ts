@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, forkJoin, of } from 'rxjs';
+import { catchError, finalize, forkJoin, of } from 'rxjs';
 import { InterviewState } from 'src/app/shared/model/interview-state';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
+import { LoaderService } from 'src/app/shared/services/domain/loader.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
@@ -14,7 +15,7 @@ export class ZonaEntrevistaComponent implements OnInit {
 
   currentStep: number = 0;
   idEntrevista: string;
-  isLoading: boolean;
+  isLoading: boolean = false;
   isIntermediate: boolean = false;
   loadingMessage: string = '';
 
@@ -23,6 +24,7 @@ export class ZonaEntrevistaComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
+    this.isLoading = true;
     this.route.params.subscribe((params: { [x: string]: string; }) => {
       this.idEntrevista = params['idEntrevista'];
       if (this.idEntrevista) {
@@ -40,15 +42,23 @@ export class ZonaEntrevistaComponent implements OnInit {
         this.currentStep = estado.step;
         this.isIntermediate = estado.isIntermediate;
         this.loadingMessage = estado.loadingMessage;
+        
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
+      complete: () => this.isLoading = false
     });
   }
 
   validarEstadoUsuario() {
     forkJoin({
-      hojaDeVida: this.entrevistaService.obtenerHojaDeVida().pipe(catchError(error => of(null))),
-      estadoEntrevista: this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().pipe(catchError(error => of(null)))
+      hojaDeVida: this.entrevistaService.obtenerHojaDeVida()
+      .pipe(catchError(error => of(null))),
+      estadoEntrevista: this.entrevistaService.obtenerEstadoEntrevistaPorUsuario()
+      .pipe(catchError(error => of(null)))
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+        }))
     }).subscribe(({ hojaDeVida, estadoEntrevista }) => {
       if (hojaDeVida?.uuid) {
         if (estadoEntrevista) {
@@ -61,7 +71,6 @@ export class ZonaEntrevistaComponent implements OnInit {
       } else {
         this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
       }
-      this.isLoading = false;
     }, (error) => this.handleError(error));
   }
 
@@ -69,22 +78,6 @@ export class ZonaEntrevistaComponent implements OnInit {
     console.error(error);
     // Aquí puedes manejar los errores de manera global, mostrar notificaciones, etc.
   }
-
-  obtenerEstadoEntrevistaPorUsuario() {    
-    this.entrevistaService.obtenerEstadoEntrevistaPorUsuario().subscribe({
-      next: (response) => {          
-        if(response){
-          const estado = this.getStepFromEstado(response.estadoEntrevista);
-          this.currentStep = estado.step;
-          this.isIntermediate = estado.isIntermediate;
-          this.loadingMessage = estado.loadingMessage;
-          this.idEntrevista = response.idEntrevista;
-        }
-      },
-      error: (error) => console.error(error)
-    });
-  }
-
 
   getStepFromEstado(estado: string): InterviewState {
     switch (estado) {

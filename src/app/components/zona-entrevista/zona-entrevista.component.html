@@ -1,4 +1,4 @@
 <app-breadcrumb [title]="'Zona Entrevista'" [items]="['Zona Entrevista']" [active_item]="'Zona Entrevista'"></app-breadcrumb>
 
-<app-multipasos class="my-4" [currentStep]="currentStep" [idEntrevista]="idEntrevista" 
+<app-multipasos *ngIf="!isLoading" class="my-4" [currentStep]="currentStep" [idEntrevista]="idEntrevista" 
 [isIntermediate]="isIntermediate" [loadingMessage]="loadingMessage"></app-multipasos>
