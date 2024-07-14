@@ -55,10 +55,6 @@ export class ZonaEntrevistaComponent implements OnInit {
       .pipe(catchError(error => of(null))),
       estadoEntrevista: this.entrevistaService.obtenerEstadoEntrevistaPorUsuario()
       .pipe(catchError(error => of(null)))
-      .pipe(
-        finalize(() => {
-          this.isLoading = false;
-        }))
     }).subscribe(({ hojaDeVida, estadoEntrevista }) => {
       if (hojaDeVida?.uuid) {
         if (estadoEntrevista) {
@@ -71,6 +67,7 @@ export class ZonaEntrevistaComponent implements OnInit {
       } else {
         this.alertConfirm('Alto', 'Debes cargar una hoja de vida para continuar', 'warning');
       }
+      this.isLoading = false;
     }, (error) => this.handleError(error));
   }
 
