@@ -1,0 +1,138 @@
+<!-- Page Sidebar Start-->
+<div class="logo-wrapper">
+  <a routerLink='/'>
+    <img class="img-fluid for-light" src="assets/img/Logo-EI.png" alt="">
+    <img class="img-fluid for-dark" src="assets/img/Logo-EI.png" alt="">
+    Entrevistador
+  </a>
+  <div class="back-btn" (click)="sidebarToggle()">
+    <i class="fa fa-angle-left"></i>
+  </div>
+</div>
+<nav class="sidebar-main">
+  <div class="left-arrow" id="left-arrow" [class.d-none]="leftArrowNone" (click)="scrollToLeft()">
+    <i class="icon-arrow-left"></i>
+  </div>
+  <div id="sidebar-menu" [ngStyle]="{ marginLeft:  margin + 'px'}">
+    <ul class="sidebar-links custom-scrollbar" id="scroll">
+      <li class="back-btn">
+        <a href="javascript:void(0)">
+          <img class="img-fluid" src="assets/images/logo/logo-icon.png" alt="">
+        </a>
+        <div class="mobile-back text-end" (click)="sidebarToggle()">
+          <span>Back</span>
+          <i class="fa fa-angle-right ps-2" aria-hidden="true"></i>
+        </div>
+      </li>
+      <li [class]="menuItem.headTitle1 ? 'sidebar-main-title' : 'sidebar-list'" 
+      *ngFor="let menuItem of menuItems" [ngClass]="{active: menuItem.active}">
+        <label class="badge badge-{{menuItem.badgeType}}" *ngIf="menuItem.badgeType && menuItem.badgeValue">{{menuItem.badgeValue}}</label>
+        <!-- Sub -->
+        <a href="javascript:void(0)" class="sidebar-link sidebar-title"
+            [class.link-nav]="!menuItem.children"
+            [ngClass]="{active: menuItem.active}"
+            *ngIf="menuItem.type === 'sub'" (click)="toggletNavActive(menuItem)">
+              <svg-icon src="assets/svgIcon/{{menuItem.icon}}.svg"></svg-icon>
+              <span>{{menuItem.title }}</span>
+              <div class="according-menu">
+                <i class="fa fa-angle-{{menuItem.active ? 'down' : 'right'}} pull-right" *ngIf="menuItem.children"></i>
+              </div>
+        </a>
+        <!-- Link -->
+        <a [routerLink]="!menuItem.type ? null : [menuItem.path]" routerLinkActive="active" class="sidebar-link sidebar-title"
+        [class.link-nav]="!menuItem.children"
+        [ngClass]="{active: menuItem.active}"
+        *ngIf="menuItem.type === 'link'">
+           <svg-icon src="assets/svgIcon/{{menuItem.icon}}.svg"></svg-icon>
+          <span (click)="close()">{{menuItem.title }}</span>
+          <div class="according-menu">
+            <i class="fa fa-angle-{{menuItem.active ? 'down' : 'right'}} pull-right" *ngIf="menuItem.children"></i>
+          </div>
+        </a>
+        <!-- External Link -->
+        <a href="{{ !menuItem.type ? null : menuItem.path }}" class="sidebar-link sidebar-title"
+          [class.link-nav]="!menuItem.children" 
+          [ngClass]="{active: menuItem.active}"
+          *ngIf="menuItem.type === 'extLink'">
+          <svg-icon src="assets/svgIcon/{{menuItem.icon}}.svg"></svg-icon>
+          <span>{{menuItem.title}}</span>
+          <div class="according-menu">
+            <i class="fa fa-angle-{{menuItem.active ? 'down' : 'right'}} pull-right" *ngIf="menuItem.children"></i>
+          </div>
+        </a>
+        <!-- External Tab Link -->
+        <a href="{{ !menuItem.type ? null : menuItem.path }}" target="_blank" class="sidebar-link sidebar-title"
+            [class.link-nav]="!menuItem.children"  
+            [ngClass]="{active: menuItem.active}" 
+            *ngIf="menuItem.type === 'extTabLink'">
+            <svg-icon src="assets/svgIcon/{{menuItem.icon}}.svg"></svg-icon>
+          <span>{{menuItem.title }}</span>
+          <div class="according-menu">
+            <i class="fa fa-angle-{{menuItem.active ? 'down' : 'right'}} pull-right" *ngIf="menuItem.children"></i>
+          </div>
+        </a>
+        <!-- 2nd Level Menu -->
+        <ul class="sidebar-submenu" [ngClass]="{active: menuItem.active}"
+          [ngClass]="{'menu-open': menuItem.active, 'menu-close': !menuItem.active }" *ngIf="menuItem.children"
+          [style.display]="menuItem.active ? 'block' : 'none'">
+          <li *ngFor="let childrenItem of menuItem.children" [ngClass]="{active: childrenItem.active}">
+            <!-- Sub -->
+            <a class="submenu-title" href="javascript:void(0)" *ngIf="childrenItem.type === 'sub'" (click)="toggletNavActive(childrenItem)">
+              <span>{{childrenItem.title}}</span>
+              <div class="according-menu">
+                <i class="fa fa-angle-{{childrenItem.active ? 'down' : 'right'}} pull-right"
+                  *ngIf="childrenItem.children"></i>
+              </div>
+            </a>
+            <!-- Link -->
+            <a [routerLink]="!childrenItem.type ? null : [childrenItem.path]" *ngIf="childrenItem.type === 'link'"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <span >{{childrenItem.title}}</span>
+              <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+            </a>
+            <!-- External Link -->
+            <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" *ngIf="childrenItem.type === 'extLink'"
+              routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+              <span >{{childrenItem.title}}</span>
+              <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+            </a>
+            <!-- External Tab Link -->
+            <a class="submenu-title" href="{{ !childrenItem.type ? null : childrenItem.path }}" target="_blank"
+              *ngIf="childrenItem.type === 'extTabLink'">
+              <span >{{childrenItem.title}}</span>
+              <i class="fa fa-angle-down pull-right" *ngIf="childrenItem.children"></i>
+            </a>
+            <!-- 3rd Level Menu -->
+            <ul class="nav-sub-childmenu submenu-content" *ngIf="childrenItem.children"
+              [ngClass]="{active: childrenItem.active}"
+              [ngClass]="{'menu-open': childrenItem.active, 'menu-close': !childrenItem.active }"
+              [style.display]="childrenItem.active ? 'block' : 'none'">
+              <li *ngFor="let childrenSubItem of childrenItem.children" [ngClass]="{active: childrenSubItem.active}">
+                <!-- Link -->
+                <a [routerLink]="!childrenSubItem.type ? null : [childrenSubItem.path]"
+                *ngIf="childrenSubItem.type === 'link'" routerLinkActive="active"  [routerLinkActiveOptions]="{exact: true}">
+                  <span> {{childrenSubItem.title}}</span>
+                </a>
+                <!-- External Link -->
+                <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}"
+                  *ngIf="childrenSubItem.type === 'extLink'" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact: true}">
+                  <span>{{childrenSubItem.title}}</span>
+                </a>
+                 <!-- External Tab Link -->
+                 <a href="{{ !childrenSubItem.type ? null : childrenSubItem.path }}" target="_blank"
+                 *ngIf="childrenSubItem.type === 'extTabLink'">
+                 <span (click)="close()">{{childrenSubItem.title}}</span>
+               </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <div class="sidebar-img-section">
+      <div class="sidebar-img-content"><img class="img-fluid" src="assets/images/side-bar.png" alt="">
+        <h4>Necesitas ayuda ?</h4><a class="txt" href="https://discord.gg/hVMFUJEdK4">Únete a la comunidad</a><a class="btn btn-secondary" href="https://github.com/EntrevistadorInteligente">Repositorio</a>
+      </div>
+    </div> 
+  </div>
+</nav>

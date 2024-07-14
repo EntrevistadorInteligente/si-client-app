@@ -1,0 +1,198 @@
+/**=====================
+     51. Search CSS Start
+==========================**/
+.search-page {
+  .search-form {
+    input {
+      &:focus {
+        outline: none;
+      }
+    }
+    .form-group {
+      position: relative;
+      border-radius: 50px;
+      overflow: hidden;
+      .input-group-text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        border-radius: 20px;
+        border-color: $primary-color;
+        background-color: $primary-color;
+        padding: 0 20px;
+        i {
+          color: $white;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .info-block {
+    + .info-block {
+      padding-top: 30px;
+      border-top: 1px solid $light-gray;
+      margin-top: 30px;
+    }
+  }
+  .border-tab.nav-tabs {
+    align-items: left;
+    justify-content: end;
+    .nav-item {
+      width: auto;
+    }
+  }
+  .search-links {
+    h6 {
+      margin-bottom: 0;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  }
+  p {
+    margin-bottom: 0;
+    color: $light-text;
+  }
+  ul.search-info {
+    > li {
+      display: inline-block;
+      font-size: 12px;
+      line-height: 1;
+      color: #586082;
+      + li {
+        border-left: 1px solid lighten($dark-color, 50%);
+        padding-left: 8px;
+        margin-left: 8px;
+      }
+      i {
+        color: $warning-color;
+      }
+    }
+    .rating {
+      li {
+        display: inline-block;
+      }
+    }
+  }
+  #video-links {
+    .embed-responsive + .embed-responsive {
+      margin-top: 30px;
+    }
+  }
+
+  .search-vid-block {
+    > div {
+      &:nth-child(n + 2) {
+        margin-top: 30px;
+      }
+    }
+  }
+}
+.search-list {
+  margin-bottom: 30px;
+  width: auto;
+  display: flex;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid $primary-color;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+  .nav-item {
+    background-color: rgba($primary-color, 0.1);
+    .nav-link {
+      border: none;
+      padding: 0.7rem 1.5rem;
+      opacity: 0.5;
+      &.active {
+        background-color: rgba($primary-color, 0.1);
+        opacity: 1;
+      }
+    }
+    &.show,
+    &.active {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+}
+
+@media (max-width: 1660px) {
+  .search-page {
+    .search-vid-block {
+      margin-top: 30px;
+      & div {
+        &:nth-child(n + 2) {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .search-page {
+    .search-banner {
+      margin-top: 30px;
+      .card {
+        margin-bottom: unset;
+      }
+    }
+  }
+  .search-page {
+    .search-vid-block {
+      margin-top: 20px;
+      & div {
+        &:nth-child(n + 2) {
+          margin-top: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .search-page {
+    .search-links {
+      h6 {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 575px) {
+  .search-page {
+    .search-form {
+      .form-group {
+        input {
+          padding: 8px 8px 8px 60px;
+        }
+        .input-group-text {
+          padding: 0 15px;
+        }
+      }
+    }
+    .info-block {
+      + .info-block {
+        margin-top: 15px;
+        padding-top: 15px;
+      }
+    }
+  }
+  .search-list {
+    display: inline-flex;
+    margin-bottom: 15px;
+    .nav-item {
+      display: inline-block;
+      margin-bottom: 5px;
+      .nav-link {
+        padding: 8px 20px;
+      }
+    }
+  }
+}
+
+/**=====================
+    51. Search CSS Ends
+==========================**/

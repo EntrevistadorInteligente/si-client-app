@@ -1,0 +1,92 @@
+/**=====================
+   19. Mega option CSS Start
+==========================**/
+.btn.btn-primary {
+  z-index: 0;
+}
+.mega-inline {
+  margin-bottom: -30px;
+  display: flex;
+  .card {
+    border: 1px solid $light-gray;
+    box-shadow: 0 0 11px 5px $light-gray;
+  }
+  .mega-title-badge {
+    display: table;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .media {
+    .radio {
+      margin-left: 3px;
+    }
+  }
+}
+.mega-vertical {
+  display: flex;
+  flex-wrap: wrap;
+  .card {
+    box-shadow: 0 0 11px 5px $common-shadow-color;
+  }
+  .mega-title-badge {
+    display: table;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .media {
+    .radio {
+      margin-left: 3px;
+    }
+  }
+}
+.mega-title {
+  font-weight: 600;
+}
+.mega-horizontal {
+  display: flex;
+  flex-wrap: wrap;
+  .card {
+    border: 1px solid #f3f3f3;
+    box-shadow: 0 0 11px 5px $common-shadow-color;
+  }
+  .mega-title-badge {
+    display: table;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .media {
+    .radio {
+      margin-left: 3px;
+    }
+  }
+}
+.plain-style {
+  .card {
+    box-shadow: none;
+    border: none;
+  }
+}
+.border-style {
+  .card {
+    box-shadow: none;
+    border: 1px solid $light-gray;
+  }
+}
+.offer-style {
+  .card {
+    box-shadow: none;
+    border: 1px dashed $light-gray;
+  }
+}
+.rating-star-wrapper {
+  color: #797979;
+}
+/**=====================
+     19. Mega option CSS Ends
+==========================**/

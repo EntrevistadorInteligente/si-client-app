@@ -1,0 +1,69 @@
+.title {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+h1 {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  align-items: center;
+  font-size: 26px;
+}
+
+.preguntas_preview {
+    display: block;
+    margin: auto;
+  }
+  
+  .carga_preguntas{
+    display: flex;
+    justify-content: center;
+  }
+
+  @media  (max-width: 575px) {
+    .ng-select.custom{
+      width: 90%;
+    }
+  }
+
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    .ng-select.custom{
+      width: 90%;
+    }
+  }
+  
+  /* Tabletas y teléfonos en modo horizontal */
+  @media (min-width: 768px) and (max-width: 991.98px) {
+    .preguntas_preview {
+      width: 90vw;
+    }
+    .ng-select.custom{
+      width: 60%;
+    }
+  }
+  
+  /* Tabletas grandes y pantallas pequeñas de laptops */
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+    .preguntas_preview {
+      width: 70vw;
+    }
+    .ng-select.custom{
+      width: 40%;
+    }
+  }
+  
+  /* Laptops grandes y pantallas de escritorio */
+  @media (min-width: 1200px) {
+    .preguntas_preview {
+      width: 60vw;
+    }
+    .ng-select.custom{
+      width: 30%;
+    }
+  }
+  

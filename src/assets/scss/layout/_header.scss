@@ -1,0 +1,183 @@
+/*======= Page Header css Start ======= */
+/*======= Page Header css ends  ======= */
+
+
+/**======Main Header css Start ======**/
+.offcanvas,
+.offcanvas-bookmark {
+  .page-wrapper {
+    .page-body-wrapper {
+      .page-body {
+        position: relative;
+        filter: blur(5px) grayscale(100%);
+      }
+    }
+  }
+}
+
+.toggle-sidebar {
+  .status_toggle{
+    svg-icon{
+      height: 24px;
+    }
+    path{
+      stroke: var(--theme-deafult) !important;
+      fill: rgba($primary-color, 0.25);
+    }
+  }
+  cursor: pointer; 
+  &:hover {
+    &:before {
+      height: 40px;
+      width: 40px;
+      transform: scale(1);
+      transition: all 0.3s ease;
+    }
+
+    >svg {
+      color: var(--theme-deafult) !important;
+      stroke: var(--theme-deafult) !important;
+    }
+  }
+}
+
+.onhover-dropdown {
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    .onhover-show-div {
+      @extend %for-animated-hover-box;
+    }
+  }
+}
+
+.onhover-show-div {
+  top: 80px;
+  position: absolute;
+  z-index: 8;
+  background-color: $white;
+  transition: all linear 0.3s;
+  @extend %for-animated-hover;
+
+  li {
+    a {
+      svg {
+        margin-top: 0 !important;
+        stroke: $theme-body-font-color !important;
+        path, line{
+          stroke: $theme-body-font-color !important;
+        }
+      }
+    } 
+  }
+}
+/**======Main Header css Ends ======**/
+/*=======Mega menu css start=======*/
+.mega-menu {
+  .default-according {
+    .card {
+      .btn-link {
+        font-weight: 500;
+        color: gray;
+      }
+
+      .card-body {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .onhover-show-div {
+    width: 1500px;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  div {
+    >div {
+      a {
+        margin-bottom: 0px;
+        display: inline-block;
+        color: $theme-body-sub-title-color;
+      }
+    }
+  }
+
+  .list-unstyled {
+    div {
+      a {
+        padding: 8px 35px 8px 0;
+        transition: $sidebar-transition;
+
+        &:hover {
+          padding: 8px 35px 8px 10px;
+          transition: $sidebar-transition;
+        }
+      }
+    }
+  }
+}
+
+/*=======Mega menu css end=======*/
+
+/**=====================
+    05. Header CSS Ends
+==========================**/
+
+
+
+/**=====================
+    05. new css for left side header strat 
+==========================**/
+.left-side-header{
+  display: flex;
+  a{
+    color: $dark;
+    display: flex;
+    align-items: center;
+    svg {
+      vertical-align: middle;
+    }
+  } 
+
+  .input-group{
+    margin-left: 25px;
+    span{
+    background: transparent;
+    border-right: none;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;    
+    border-color: #D8E0FF!important;
+    padding-left: 20px;
+      svg{
+        height: 18px;
+        width: 18px;
+        stroke: $dark;
+      }
+    }
+    input{
+      border: 1px solid #D8E0FF;
+      box-sizing: border-box;
+      border-radius: 25px; 
+      max-width: 100%;
+      margin-left: 18px;
+      border-left: none;
+      padding: 10px 0;
+      background-color: transparent;
+      font-size: 16px;
+    &:focus{
+      outline-color: #D8E0FF;
+      box-shadow: none;
+    }
+    }
+
+  }
+
+ 
+}
+/**=====================
+    05. new css for right side header strat 
+==========================**/

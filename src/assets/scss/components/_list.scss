@@ -1,0 +1,66 @@
+/**=====================
+     17. List CSS Start
+==========================**/
+.list-group-item.active {
+	background-color: var(--theme-deafult);
+	border-color: var(--theme-deafult);
+}
+.vertical-tab {
+	.nav-tabs {
+	  display: inline-block;
+	  width: 28%;
+	  margin-right: 2%;
+	  margin-bottom: 0;
+	  .nav-item {
+		border: 1px solid rgba($black, 0.125);
+		+ .nav-item {
+		  border-top: none;
+		}
+		&:last-child {
+		  border-bottom: none;
+		  .nav-link {
+			border-bottom-left-radius: 4px;
+			border-bottom-right-radius: 4px;
+		  }
+		}
+	  }
+	  .nav-link {
+		padding: 6px 14px;
+		color: $theme-body-font-color;
+		border: none;
+		border-radius: 0;
+		&.active {
+		  color: $white;
+		  background-color: var(--theme-deafult);
+		  border-radius: 0;
+		}
+	  }
+	}
+	.tab-content {
+	  display: inline-block;
+	  width: 70%;
+	  vertical-align: top;
+	}
+  }
+.list-group{
+	.flex-column{
+		li{
+			+ li{
+				a{
+					border-top: 0;
+				}
+			}
+		}
+	}
+	i{
+		margin-right: $list-group-margin;
+	}
+	img{
+		height: 40px;
+		width: 40px;
+		margin-right: $list-group-margin;
+	}
+}
+/**=====================
+     17. List CSS Ends
+==========================**/

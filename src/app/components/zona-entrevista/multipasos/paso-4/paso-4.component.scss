@@ -1,0 +1,26 @@
+.ribbon-clip {
+  height: auto;
+  width: 100%;
+}
+
+.card-response {
+  box-shadow: none;
+  overflow: hidden;
+  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+  max-height: 0;
+  padding: 0 20px;
+}
+
+.content-visible {
+  max-height: 500px; /* Ajusta esto según la altura máxima esperada */
+  padding: 20px;
+}
+
+.content-hidden {
+  max-height: 0;
+  padding: 0 20px;
+}
+
+.boton-entrevista {
+  margin-left: 10px; /* Puedes ajustar el valor según el espacio que necesites */
+}

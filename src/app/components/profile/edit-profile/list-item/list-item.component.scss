@@ -1,0 +1,34 @@
+.h5-colapse{
+    white-space: normal;
+    flex: 1;
+  }
+
+.new-item{
+  height: 45px!important;
+  margin-bottom: 10px!important;
+}
+
+.card-header.header-flex{
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-header.non-flex {
+  display: block;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.card-header.non-flex .h5-colapse,
+.card-header.non-flex .fixed-size-btn {
+  display: block;
+  margin: 0 auto 10px auto;
+}
+  
+
+@media only screen and (max-width: 991.98px){
+    .todo-list-wrapper #todo-list li .task-container .ajuste {
+        min-width: 0 !important;
+    }
+}

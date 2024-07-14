@@ -1,0 +1,86 @@
+/**=====================
+     48. Form Wizard CSS Start
+==========================**/
+/*Form Wizard One Start*/
+
+.form-wizard {
+  .tab {
+    display: none;
+  }
+
+  .btn-mb {
+    margin-bottom: 30px;
+  }
+
+  .step {
+    height: 10px;
+    width: 10px;
+    margin: 0 2px;
+    background-color: var(--theme-deafult);
+    border: none;
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+
+    &.active {
+      opacity: 1;
+    }
+
+    &.finish {
+      background-color: var(--theme-secondary);
+    }
+  }
+}
+// form wizard 2
+aw-wizard-navigation-bar {
+  &.horizontal {
+    &.large-filled-symbols {
+      ul {
+        &.steps-indicator {
+          li {
+            &.done,
+            &.current {
+              .step-indicator {
+                color: $white;
+              }
+            }
+          }
+        }
+      }
+    }
+    ul {
+      &.steps-indicator {
+        &.steps-4 {
+          padding-bottom: 30px !important;
+          li {
+            p {
+              color: $theme-font-color;
+              margin-top: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+  ul {
+    &.steps-indicator {
+      p{
+        color: $theme-font-color !important;
+      }
+      i {
+        vertical-align: middle;
+        height: 15px;
+      }
+    }
+  }
+}
+aw-wizard-navigation-bar{
+  &.horizontal.large-filled-symbols{
+    ul.steps-indicator{
+      padding: 60px 0 20px 0 !important;
+    }
+  }
+} 
+/**=====================
+    48. Form Wizard CSS Ends
+==========================**/

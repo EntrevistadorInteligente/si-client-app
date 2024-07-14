@@ -1,0 +1,94 @@
+<div #cardContainer class="card border">
+  <div class="card-header header-flex">
+    <h5 class="h5-colapse">{{ title }}</h5>
+    <button
+      class="btn btn-primary"
+      style="min-width: 68px"
+      (click)="visible = true"
+    >
+      <i class="icon-plus"></i> Agregar
+    </button>
+  </div>
+  <div class="card-body pt-0">
+    <div class="todo">
+      <div class="todo-list-wrapper">
+        <div class="todo-list-container">
+          <!-- <div class="mark-all-tasks">
+            <div class="todo-list-footer ms-2">
+              <div class="add-task-btn-wrapper">
+                <span class="add-task-btn">
+                  <button class="btn btn-primary" (click)="visible = true">
+                    <i class="icon-plus"></i> Agregar
+                  </button>
+                </span>
+              </div>
+            </div>
+          </div> -->
+
+          <div class="todo-list-body">
+            <ul id="todo-list">
+              <li class="task" *ngFor="let item of items; let i = index">
+                <div class="task-container">
+                  <h6
+                    class="task-label ajuste"
+                    style="font-size: 15px !important"
+                  >
+                    {{ item.name }}
+                  </h6>
+                  <div class="d-flex">
+                    <span
+                      class="task-action-btn"
+                      style="min-width: 23px !important"
+                    >
+                      <span
+                        class="action-box large delete-btn"
+                        title="Delete Task"
+                        (click)="taskDeleted(i)"
+                        ><i class="icon"><i class="icon-trash"></i></i>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="todo-list-footer mt-2">
+            <div class="new-task-wrapper" [ngClass]="{ visible: visible }">
+              <textarea
+                class="textfield new-item"
+                name="todo"
+                id="new-task"
+                [(ngModel)]="text"
+                rows="1"
+                [class.border-danger]="red_border"
+              ></textarea>
+              <span
+                class="btn btn-danger cancel-btn"
+                id="close-task-panel"
+                (click)="visible = false"
+                >Cerrar</span
+              >
+              <span
+                class="btn btn-success ms-3 add-new-task-btn"
+                id="add-task"
+                (click)="
+                  addTask({
+                    text: text,
+                  })
+                "
+                >Agregar Item</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="notification-popup hide">
+        <p><span class="task"></span><span class="notification-text"></span></p>
+      </div>
+    </div>
+  </div>
+  <!-- <ul class="list-group list-group-flush pt-2 pb-2">
+        <li class="list-group-item">Cras justo odio</li>
+        
+      </ul> -->
+</div>

@@ -1,0 +1,144 @@
+@if (hojaDeVidaExist) {
+  <form [formGroup]="perfilForm" class="card">
+    <div class="card-header pb-0">
+      <h4 class="card-title mb-0">Detalles de Cuenta</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="mb-3">
+            <label class="form-label" for="nombreCompleto"
+              >Nombre Completo</label
+            >
+            <input
+              class="form-control"
+              type="text"
+              formControlName="nombre"
+              placeholder="Ingresa tu nombre"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <label class="form-label" for="perfil">Perfil</label>
+            <input
+              class="form-control"
+              formControlName="perfil"
+              type="text"
+              placeholder="Ingresa tu perfil laboral"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <label class="form-label" for="seniority">Seniority</label>
+            <input
+              class="form-control"
+              formControlName="seniority"
+              type="text"
+              placeholder="Ingresa tu seniority"
+            />
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Tecnologias Principales'"
+              [items]="perfilForm.get('tecnologiasPrincipales')?.value"
+              [fieldName]="'tecnologiasPrincipales'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Habilidades Tecnicas'"
+              [items]="perfilForm.get('habilidadesTecnicas')?.value"
+              [fieldName]="'habilidadesTecnicas'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Experiencias Laborales'"
+              [items]="perfilForm.get('experienciasLaborales')?.value"
+              [fieldName]="'experienciasLaborales'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Certificaciones'"
+              [items]="perfilForm.get('certificaciones')?.value"
+              [fieldName]="'certificaciones'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Proyectos'"
+              [items]="perfilForm.get('proyectos')?.value"
+              [fieldName]="'proyectos'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+          <div class="mb-3">
+            <app-list-item
+              [title]="'Otra Habilidades'"
+              [items]="perfilForm.get('otrasHabilidades')?.value"
+              [fieldName]="'otrasHabilidades'"
+              (itemsChange)="onItemsChange($event)"
+            ></app-list-item>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="mb-3">
+            <label class="form-label" for="nivelIngles">Ingles</label>
+            <input
+              class="form-control"
+              formControlName="nivelIngles"
+              type="text"
+              placeholder="Company"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-end">
+      <button
+        class="btn btn-primary"
+        type="button"
+        [disabled]="!estaEditado"
+        (click)="handleClickCorregir()"
+      >
+        Update Profile
+      </button>
+    </div>
+  </form>
+} @else {
+  <div class="card">
+    <div class="card-body">
+      <div
+        class="alert alert-light inverse alert-dismissible fade show"
+        role="alert"
+      >
+        <div class="feather-icon">
+          <i class="fa fa-exclamation-triangle"></i>
+        </div>
+        <p>
+          Cargue su CV para poder modificar los datos de su perfil y acceder a
+          las entrevistas
+        </p>
+      </div>
+    </div>
+  </div>
+}
