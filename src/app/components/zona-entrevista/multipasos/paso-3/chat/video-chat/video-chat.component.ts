@@ -45,7 +45,7 @@ export class VideoChatComponent implements OnInit {
   private finalTranscript: string = '';
   public lastSeenBootTyping: string = '';
   private resizeObserver: ResizeObserver;
-  private username: string = 'username';
+  private nameChatHistory: string = 'username_chatHistory';
 
   public respuestasHistorial: RespuestaComentarioDto[] = [];
   isHistoryLoaded: boolean = false;
@@ -58,7 +58,7 @@ export class VideoChatComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.username = this.authService.getUsername();
+    this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
     this.loadChatHistory();
     this.obtenerPreguntas(this.idEntrevista);
     this.lastSeenBootTyping = this.currentTime;
@@ -279,7 +279,7 @@ export class VideoChatComponent implements OnInit {
 
   finalizeInterview() {
     this.respuestasEntrevista.emit(this.respuestas);
-    localStorage.removeItem('chatHistory');
+    localStorage.removeItem(this.nameChatHistory);
   }
 
   scrollToBottom(): void {
@@ -339,14 +339,11 @@ export class VideoChatComponent implements OnInit {
       currentIndex: this.currentIndex,
       interviewFinished: this.interviewFinished,
     };
-    localStorage.setItem(
-      `${this.username}_chatHistory`,
-      JSON.stringify(chatData)
-    );
+    localStorage.setItem(this.nameChatHistory, JSON.stringify(chatData));
   }
 
   private loadChatHistory() {
-    const chatData = localStorage.getItem(`${this.username}_chatHistory`);
+    const chatData = localStorage.getItem(this.nameChatHistory);
     if (chatData) {
       this.isHistoryLoaded = true;
       const parsedData = JSON.parse(chatData);

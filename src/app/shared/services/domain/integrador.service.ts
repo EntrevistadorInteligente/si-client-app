@@ -10,7 +10,7 @@ import { HojaDeVidaDto } from '../../model/hoja-de-vida-dto';
 import { EstadoEntrevistaDto } from '../../model/feedback-dto copy';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IntegradorService {
   orquestadorURL = environment.orquestadorURL;
@@ -36,7 +36,7 @@ export class IntegradorService {
 
   public listAut(): Observable<VistaPreviaEntrevistaDto[]> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) =>
+      switchMap(headers =>
         this.httpClient.get<VistaPreviaEntrevistaDto[]>(
           `${this.orquestadorURL}/preguntas`,
           { headers }
@@ -46,8 +46,9 @@ export class IntegradorService {
   }
 
   public crearSolicitudEntrevista(formulario: FormularioDto): Observable<any> {
+    localStorage.removeItem(`${this.authService.getUsername()}_chatHistory`);
     return from(this.getHeaders()).pipe(
-      switchMap((headers) =>
+      switchMap(headers =>
         this.httpClient.post(
           `${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.authService.getUsername()}`,
           formulario,
@@ -59,7 +60,7 @@ export class IntegradorService {
 
   public obtenerHojaDeVida(): Observable<HojaDeVidaDto> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) => {
+      switchMap(headers => {
         const username = this.authService.getUsername();
         return this.httpClient.get<HojaDeVidaDto>(
           `${this.orquestadorURL}${this.hojaDeVida}/${username}`,
@@ -71,7 +72,7 @@ export class IntegradorService {
 
   public corregirHojaDeVida(formulario: HojaDeVidaDto): Observable<any> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) =>
+      switchMap(headers =>
         this.httpClient.put(
           `${this.orquestadorURL}${this.hojaDeVida}/${formulario.uuid}`,
           formulario,
@@ -83,7 +84,7 @@ export class IntegradorService {
 
   public cargarHojaDeVida(file: File): Observable<any> {
     return from(this.getHeadersSinContent()).pipe(
-      switchMap((headers) => {
+      switchMap(headers => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append(
@@ -104,7 +105,7 @@ export class IntegradorService {
 
   public obtenerEstadoEntrevistaPorUsuario(): Observable<EstadoEntrevistaDto> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) => {
+      switchMap(headers => {
         const username = this.authService.getUsername();
         return this.httpClient.get<EstadoEntrevistaDto>(
           `${this.orquestadorURL}${this.entrevista}?username=${username}`,
@@ -114,9 +115,11 @@ export class IntegradorService {
     );
   }
 
-  public obtenerEstadoEntrevista(idEntrevista: string): Observable<EstadoEntrevistaDto> {
+  public obtenerEstadoEntrevista(
+    idEntrevista: string
+  ): Observable<EstadoEntrevistaDto> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) =>
+      switchMap(headers =>
         this.httpClient.get<EstadoEntrevistaDto>(
           `${this.orquestadorURL}${this.entrevista}/${idEntrevista}`,
           { headers }
@@ -125,10 +128,12 @@ export class IntegradorService {
     );
   }
 
-  
-  public terminarEntrevistaEnCurso(idEntrevista: string, mensaje: string): Observable<any> {
+  public terminarEntrevistaEnCurso(
+    idEntrevista: string,
+    mensaje: string
+  ): Observable<any> {
     return from(this.getHeaders()).pipe(
-      switchMap((headers) =>
+      switchMap(headers =>
         this.httpClient.put(
           `${this.orquestadorURL}${this.entrevista}/${idEntrevista}/terminar`,
           { mensaje },
@@ -137,8 +142,6 @@ export class IntegradorService {
       )
     );
   }
-
-
 
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
