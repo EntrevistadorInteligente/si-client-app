@@ -10,7 +10,7 @@ export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnap
 ) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  authService.scheduleTokenRefresh();  
+  //authService.scheduleTokenRefresh();  
   return authService.isLogged$.pipe(
     map((isLogged: boolean) => {
       if (isLogged) {

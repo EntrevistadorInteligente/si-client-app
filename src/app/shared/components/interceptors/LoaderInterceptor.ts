@@ -22,7 +22,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
     let loaderTimeout: any;
-    this.authService.scheduleTokenRefresh();  
+    //this.authService.scheduleTokenRefresh();  
 
     const handle = next.handle(req).pipe(
       finalize(() => {

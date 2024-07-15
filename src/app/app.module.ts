@@ -11,12 +11,14 @@ import { LoadingBarModule } from "@ngx-loading-bar/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
-import { KeycloakService } from "keycloak-angular";
 import { initializer } from "./app-init";
 import { LoaderInterceptor } from "./shared/components/interceptors/LoaderInterceptor";
 import { HttpErrorInterceptor } from "./shared/components/interceptors/HttpErrorInterceptor";
 import { OfflineInterceptor } from "./shared/components/interceptors/OfflineInterceptor";
 import { TermsAndConditionsComponent } from "./components/terms-and-conditions/terms-and-conditions.component";
+import { OAuthModule } from "angular-oauth2-oidc";
+
+
 
 @NgModule({
   declarations: [AppComponent,TermsAndConditionsComponent],
@@ -30,7 +32,8 @@ import { TermsAndConditionsComponent } from "./components/terms-and-conditions/t
     OverlayModule, 
     LoadingBarModule, 
     BrowserAnimationsModule, 
-    HttpClientModule],
+    HttpClientModule,
+    OAuthModule.forRoot()],
     providers: [
       {
         provide: HTTP_INTERCEPTORS,
@@ -46,13 +49,6 @@ import { TermsAndConditionsComponent } from "./components/terms-and-conditions/t
         provide: HTTP_INTERCEPTORS,
         useClass: LoaderInterceptor,
         multi: true,
-      },
-      KeycloakService,
-      {
-        provide: APP_INITIALIZER,
-        useFactory: initializer,
-        multi: true,
-        deps: [KeycloakService]
       }
     ],
   bootstrap: [AppComponent],

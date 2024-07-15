@@ -14,6 +14,7 @@ export const content: Routes = [
     canActivate: [canActivate],
     canActivateChild: [canActivateChild]
   },
+  
   {
     path: "perfil",
     loadChildren: () =>
