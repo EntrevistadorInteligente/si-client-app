@@ -7,5 +7,5 @@ export const authCodeFlowConfig: AuthConfig = {
   responseType: 'code',
   strictDiscoveryDocumentValidation: false,
   scope: 'openid profile email offline_access',
-
+  sessionChecksEnabled: true,
 };  

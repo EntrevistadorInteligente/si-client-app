@@ -14,7 +14,7 @@ export class AuthService {
   }
   
   logout() {
-    this.oauthService.logOut();
+    this.oauthService.revokeTokenAndLogout();
   }
 
   getUsername() {

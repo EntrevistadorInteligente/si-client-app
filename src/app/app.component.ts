@@ -27,18 +27,19 @@ export class AppComponent implements OnInit {
 
   private configureOAuth() {
     this.oauthService.configure(authCodeFlowConfig);
-    this.oauthService.loadDiscoveryDocumentAndLogin();
-    //this.oauthService.setupAutomaticSilentRefresh();
+    this.oauthService.loadDiscoveryDocument().then(()=> {
+        this.authService.setIsLogged(true);
+    });
+    this.oauthService.events
+    .pipe(filter((e) => e.type === 'token_received'))
+    .subscribe((_) => {
+      this.oauthService.loadUserProfile()
+    });
+    this.oauthService.setupAutomaticSilentRefresh();
   }
 
   ngOnInit(): void {
-    //this.checkLogin();
-    //this.subscribeToLoginChanges();
-  }
-
-  private checkLogin() {
-    this.isLogged = this.oauthService.hasValidAccessToken();
-    this.authService.setIsLogged(this.isLogged);
+    this.subscribeToLoginChanges();
   }
 
   private subscribeToLoginChanges(): void {
