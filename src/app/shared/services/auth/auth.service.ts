@@ -1,29 +1,33 @@
 import { Injectable } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  constructor(private oauthService: OAuthService) { }
+
   login() {
-    throw new Error('Method not implemented.');
+    this.oauthService.initLoginFlow();
   }
-  logout() {
-    throw new Error('Method not implemented.');
-  }
-  getUsername() {
-    return "";
-  }
-  getToken() {
-    return "";
-  }
-
   
-  private isLoggedSubject = new BehaviorSubject<boolean>(false);
-
-  constructor() {
-
+  logout() {
+    this.oauthService.logOut();
   }
+
+  getUsername() {
+    const claims = this.oauthService.getIdentityClaims();
+    if (!claims) return null;
+    return claims['email'];
+  }
+
+  getToken() {
+    return this.oauthService.getAccessToken();
+  }
+
+  private isLoggedSubject = new BehaviorSubject<boolean>(false);
 
   get isLogged$(): Observable<boolean> {
     return this.isLoggedSubject.asObservable();
@@ -32,7 +36,6 @@ export class AuthService {
   setIsLogged(isLogged: boolean) {
     return this.isLoggedSubject.next(isLogged);
   }
-
 
 }
 
