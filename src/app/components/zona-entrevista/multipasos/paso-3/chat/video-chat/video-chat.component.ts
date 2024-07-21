@@ -16,6 +16,8 @@ import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.
 import Typed from 'typed.js';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
+import { ChatBotService } from 'src/app/shared/services/domain/chat-bot.service';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-video-chat',
   templateUrl: './video-chat.component.html',
@@ -46,103 +48,121 @@ export class VideoChatComponent implements OnInit {
   public lastSeenBootTyping: string = '';
   private resizeObserver: ResizeObserver;
   private nameChatHistory: string = 'username_chatHistory';
-
+  private lastAssistantResponse: string = '';
+  private lastUserResponse: string = '';
   public respuestasHistorial: RespuestaComentarioDto[] = [];
   isHistoryLoaded: boolean = false;
+  isFirstInteraction:boolean = true;;
 
   constructor(
     private integradorService: FeedbackService,
     private speechService: SpeechService,
     private voiceRecognitionService: RecordVoiceService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private ChatBotService: ChatBotService
+  ) { }
 
   ngOnInit(): void {
     this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
     this.loadChatHistory();
-    this.obtenerPreguntas(this.idEntrevista);
     this.lastSeenBootTyping = this.currentTime;
-    this.voiceRecognitionService
-      .getSpeechResult()
-      .subscribe((result: string) => {
-        if (result.length > 1000) {
-          this.userMessage = result.substring(0, 1000);
-          this.voiceRecognitionService.stopRecognition();
-          alert('Llegaste a la cantidad límite de caracteres');
-        } else {
-          this.userMessage = result;
+  
+    if (this.isFirstInteraction) {
+      forkJoin([
+        this.integradorService.obtenerPreguntas(this.idEntrevista),
+        this.ChatBotService.generarIntroduction()
+      ]).subscribe({
+        next: ([preguntas, introduccion]) => {
+          this.processInitialData(preguntas, introduccion.response);
+        },
+        error: error => {
+          console.error(error);
         }
-        this.scrollToEnd();
       });
-
-    this.voiceRecognitionService
-      .getRecordingStatus()
-      .subscribe((status: boolean) => {
-        this.isRecording = status;
+    } else {
+      this.integradorService.obtenerPreguntas(this.idEntrevista).subscribe({
+        next: preguntas => {
+          this.processInitialData(preguntas, "this.getStoredIntroduction()");
+        },
+        error: error => {
+          console.error(error);
+        }
       });
-
-    this.voiceRecognitionService
-      .getRecognitionError()
-      .subscribe((error: string) => {
-        this.errorMessage = `Error: ${error}`;
-      });
-  }
-
-  ngAfterViewInit(): void {
-    this.resizeObserver = new ResizeObserver(() => {
-      this.adjustTextareaHeight();
+    }
+  
+    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
+      if (result.length > 1000) {
+        this.userMessage = result.substring(0, 1000);
+        this.voiceRecognitionService.stopRecognition();
+        alert('Llegaste a la cantidad límite de caracteres');
+      } else {
+        this.userMessage = result;
+      }
+      this.scrollToEnd();
     });
-    this.resizeObserver.observe(this.messageInput.nativeElement);
+  
+    this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
+      this.isRecording = status;
+    });
+  
+    this.voiceRecognitionService.getRecognitionError().subscribe((error: string) => {
+      this.errorMessage = `Error: ${error}`;
+    });
   }
 
-  ngOnDestroy(): void {
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
+  processInitialData(preguntas: any, introduccion: string): void {
+    this.preguntas = preguntas;
+    this.lastAssistantResponse = introduccion;
+  
+    const respuestasIniciales = preguntas.map((p: { idPregunta: any; }) => ({
+      idPregunta: p.idPregunta,
+      respuesta: '',
+    }));
+    this.respuestas = respuestasIniciales;
+  
+    if (this.respuestasHistorial.length === 0) {
+      this.respuestasHistorial = respuestasIniciales;
+    } else {
+      this.respuestas = preguntas.map((p: { idPregunta: string; }) => {
+        const historial = this.respuestasHistorial.find(
+          r => r.idPregunta === p.idPregunta
+        );
+        return {
+          idPregunta: p.idPregunta,
+          respuesta: historial ? historial.respuesta : '',
+        };
+      });
+    }
+  
+    if (this.isFirstInteraction) {
+      this.resetMessageState();
+      this.processAssistantResponse(this.lastAssistantResponse)
+      return;
+    }
+
+    if (this.isHistoryLoaded) {
+      if (
+        this.messages.length > 0 &&
+        this.messages[this.messages.length - 1].type === 'bot'
+      ) {
+        this.isHistoryLoaded = false;
+        this.insertMessageInTypewriter();
+      } else {
+        setTimeout(() => {
+          this.showNextQuestion();
+        }, 2000);
+      }
+    } else {
+      setTimeout(() => {
+        this.showNextQuestion();
+      }, 2000);
     }
   }
-
+  
   obtenerPreguntas(entrevistaId: string): void {
     this.integradorService.obtenerPreguntas(entrevistaId).subscribe({
       next: preguntas => {
-        this.preguntas = preguntas;
-        const respuestasIniciales = preguntas.map(p => ({
-          idPregunta: p.idPregunta,
-          respuesta: '',
-        }));
-
-        this.respuestas = respuestasIniciales;
-
-        if (this.respuestasHistorial.length === 0) {
-          this.respuestasHistorial = respuestasIniciales;
-        } else {
-          this.respuestas = preguntas.map(p => {
-            const historial = this.respuestasHistorial.find(
-              r => r.idPregunta === p.idPregunta
-            );
-            return {
-              idPregunta: p.idPregunta,
-              respuesta: historial ? historial.respuesta : '',
-            };
-          });
-        }
-
-        if (this.isHistoryLoaded) {
-          if (
-            this.messages.length > 0 &&
-            this.messages[this.messages.length - 1].type === 'bot'
-          ) {
-            this.isHistoryLoaded = false;
-            this.insertMessageInTypewriter();
-          } else {
-            setTimeout(() => {
-              this.showNextQuestion();
-            }, 2000);
-          }
-        } else {
-          setTimeout(() => {
-            this.showNextQuestion();
-          }, 2000);
-        }
+        this.processInitialData(preguntas, this.lastAssistantResponse);
       },
       error: error => {
         console.error(error);
@@ -173,28 +193,45 @@ export class VideoChatComponent implements OnInit {
     if (this.currentIndex < this.preguntas.length) {
       this.resetMessageState();
       const question = this.preguntas[this.currentIndex].pregunta;
-      const messageId = `typewriter-${this.messages.length}`;
-      this.botTyping = true;
-      let typingTime = new Date().toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      });
-      this.lastSeenBootTyping = typingTime;
-      this.messages.push({
-        id: this.messages.length,
-        type: 'bot',
-        text: question,
-        time: typingTime,
-      });
-      this.saveChatHistory();
-      setTimeout(() => {
-        this.initTypedEffect(`#${messageId}`, question);
-        this.speechService.start(question, 1);
-        this.scrollToBottom();
-      }, 0);
+
+      this.ChatBotService.getQuestionChatBotInterview(question,
+        this.lastUserResponse, this.lastAssistantResponse).subscribe({
+          next: data => {
+            this.processAssistantResponse(data.response);
+          },
+          error: err => {
+            console.error(err);
+            this.processAssistantResponse(question);
+          }
+        });
+
     } else {
       this.endInterview();
     }
+  }
+
+  processAssistantResponse(response: string) {
+    this.lastAssistantResponse = response;
+
+    const messageId = `typewriter-${this.messages.length}`;
+    this.botTyping = true;
+    let typingTime = new Date().toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+    this.lastSeenBootTyping = typingTime;
+    this.messages.push({
+      id: this.messages.length,
+      type: 'bot',
+      text: this.lastAssistantResponse,
+      time: typingTime,
+    });
+    this.saveChatHistory();
+    setTimeout(() => {
+      this.initTypedEffect(`#${messageId}`, this.lastAssistantResponse);
+      this.speechService.start(this.lastAssistantResponse, 1);
+      this.scrollToBottom();
+    }, 0);
   }
 
   initTypedEffect(elementId: string, text: string) {
@@ -257,11 +294,15 @@ export class VideoChatComponent implements OnInit {
     )
       return;
     this.addUserMessage(this.userMessage);
-    this.respuestas[this.currentIndex].respuesta = this.userMessage;
-    this.respuestasHistorial[this.currentIndex].respuesta = this.userMessage;
+    this.lastUserResponse = this.userMessage;
+    if(this.isFirstInteraction){
+      this.respuestas[this.currentIndex].respuesta = this.userMessage;
+      this.respuestasHistorial[this.currentIndex].respuesta = this.userMessage;
+      this.currentIndex++;
+    }
+
     this.userMessage = '';
     this.finalTranscript = '';
-    this.currentIndex++;
     this.saveChatHistory();
     setTimeout(() => {
       this.showNextQuestion();
@@ -286,7 +327,7 @@ export class VideoChatComponent implements OnInit {
     try {
       this.chatHistory.nativeElement.scrollTop =
         this.chatHistory.nativeElement.scrollHeight;
-    } catch (err) {}
+    } catch (err) { }
   }
 
   onInput(event: Event): void {
@@ -345,6 +386,7 @@ export class VideoChatComponent implements OnInit {
   private loadChatHistory() {
     const chatData = localStorage.getItem(this.nameChatHistory);
     if (chatData) {
+      this.isFirstInteraction = false;
       this.isHistoryLoaded = true;
       const parsedData = JSON.parse(chatData);
       this.messages = parsedData.messages || [];
@@ -353,4 +395,18 @@ export class VideoChatComponent implements OnInit {
       this.interviewFinished = parsedData.interviewFinished || false;
     }
   }
+
+  ngAfterViewInit(): void {
+    this.resizeObserver = new ResizeObserver(() => {
+      this.adjustTextareaHeight();
+    });
+    this.resizeObserver.observe(this.messageInput.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+  }
+
 }
