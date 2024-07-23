@@ -3457,7 +3457,7 @@
       &.disabled {
         & + .owl-dots {
           margin-bottom: -10px;
-          margin-top: 15px;
+          margin-top: 0px;
         }
       }
     }
@@ -8680,6 +8680,7 @@
       .card-header {
         .btn-link {
           padding: 12px !important;
+          font-size: 14px !important;
           font-size: 15px;
         }
       }

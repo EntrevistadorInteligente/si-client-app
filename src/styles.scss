@@ -1,4 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 @import "assets/scss/app.scss";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 
@@ -78,4 +80,9 @@ body .dark-only .text-secondary{
   .swal2-textarea.placeholder-color::-webkit-input-placeholder {
     color: #343a40 !important;
     opacity: 1 !important;
+  }
+
+  body .dark-only .page-wrapper .default-according .card .btn-link.style-color {
+    border: 1px solid #6362e7!important;
+    border-bottom: none!important;
   }

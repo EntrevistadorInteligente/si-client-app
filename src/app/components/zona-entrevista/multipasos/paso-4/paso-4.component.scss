@@ -4,16 +4,16 @@
 }
 
 .card-response {
+  transition: max-height 0.5s ease-out;
+}
+.card-response {
   box-shadow: none;
   overflow: hidden;
-  transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+  transition: max-height 0.5s ease-out;
   max-height: 0;
-  padding: 0 20px;
 }
-
 .content-visible {
   max-height: 500px; /* Ajusta esto según la altura máxima esperada */
-  padding: 20px;
 }
 
 .content-hidden {
@@ -24,3 +24,42 @@
 .boton-entrevista {
   margin-left: 10px; /* Puedes ajustar el valor según el espacio que necesites */
 }
+.ribbon-wrapper{
+  padding-top: 0px!important;
+}
+
+.default-according .card .btn-link {
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9)!important;
+}
+
+@media (max-width: 600px) {
+  .ribbon {
+    line-height: 1.5; /* Reduce el espacio entre líneas */
+    padding-top: 5px; /* Reduce el espacio superior */
+    padding-bottom: 5px; /* Reduce el espacio inferior */
+  }
+}
+
+.feedback-container{
+  position: relative;
+  top: 100%;
+}
+
+// @keyframes slideInOut {
+//   0% {
+//     transform: translate3d(0px, 0px, 0px);
+//   }
+//   50% {
+//     transform: translate3d(25px, 0px, 0px);
+//   }
+//   100% {
+//     transform: translate3d(0px, 0px, 0px);
+//   }
+// }
+
+// .carousel-animate {
+//   animation: slideInOut 0.7s ease-in-out forwards;
+// }
+
+

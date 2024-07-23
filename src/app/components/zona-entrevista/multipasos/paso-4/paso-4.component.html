@@ -1,56 +1,68 @@
-<div class="card">  
-  <div class="card-body">
-    <div *ngFor="let feedback of currentFeedback">      
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="{{ribbon[0].ribbonClass}}">
-              <div class="card-body">
-                <div #divpregunta class="ribbon ribbon-{{ribbon[0].colors}} {{ribbon[0].labelClass}} h5"> {{ feedback.pregunta }}</div>
-                <p #pfeedback>{{ feedback.feedback }}</p>
-                <hr>
-                <button (click)="mostrarRespuestas()" [ngClass]="{'active': isVisibleAnswer}" class="btn btn-primary mr-3">
-                  <p *ngIf="isVisibleAnswer">Ocultar respuestas <i class="fa fa-eye-slash"></i></p>
-                  <p *ngIf="!isVisibleAnswer">Ver tus respuestas <i class="fa fa-eye"></i></p>
-                </button>
-                <button class="btn btn-warning sweet-5 boton-entrevista" type="button" (click)="withFeedback()">Iniciar nueva entrevista</button>
-                <div class="card card-response" [ngClass]="{'content-visible': isVisibleAnswer, 'content-hidden': !isVisibleAnswer}">
-                  <div class="card-header pb-0">
-                    <p class="h3 txt-primary"><small>Tu respuesta</small></p>
-                  </div>
-                  <div class="card-body">                    
-                    <p>{{ feedback.respuesta }}</p>
+<div class="card">
+  <div #carouselContainer class="card-body">
+    @if (feedbackItems.length > 0) {
+      <owl-carousel-o #carousel [options]="optionsCustom">
+        <ng-container *ngFor="let feedback of feedbackItems">
+          <ng-template carouselSlide>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="{{ ribbon[0].ribbonClass }}">
+                    <div class="card-body">
+                      <div
+                        #divpregunta
+                        class="ribbon ribbon-{{ ribbon[0].colors }} {{
+                          ribbon[0].labelClass
+                        }} h5">
+                        {{ feedback.pregunta }}
+                      </div>
+                      <p #pfeedback>
+                        {{ feedback.feedback }}
+                      </p>
+                      <hr />
+
+                      <div class="default-according style-1">
+                        <div class="card">
+                          <div class="card-header">
+                            <h5 class="mb-0">
+                              <button
+                                class="btn btn-link bg-primary collapsed"
+                                (click)="isCollapsed = !isCollapsed"
+                                [attr.aria-expanded]="!isCollapsed"
+                                aria-controls="collapseExample">
+                                <i class="fa fa-question-circle"></i> ¿Cuál fue
+                                tu respuesta?
+                              </button>
+                            </h5>
+                          </div>
+                          <div
+                            class="collapse"
+                            id="collapseBasic"
+                            [collapse]="isCollapsed"
+                            [isAnimated]="true">
+                            <div class="card-body">
+                              <p class="h5">
+                                {{ feedback.respuesta }}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>  
-    </div>  
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    }
+    <button
+      class="btn btn-warning sweet-5 boton-entrevista mt-2"
+      type="button"
+      (click)="withFeedback()">
+      Iniciar nueva entrevista
+      <i class="fa fa-chevron-circle-right"></i>
+    </button>
   </div>
 </div>
-
-<ng-container>
-  <nav class="m-b-30" aria-label="Page navigation example">
-    <ul class="pagination justify-content-{{paginationSide}} pagination-primary">
-      <li class="page-item" [class.disabled]="currentIndex === 0">
-        <a class="page-link" (click)="changePage(currentIndex - 1)" aria-label="Previous">
-          <span aria-hidden="true">«</span>
-          <span class="sr-only">Previous</span>
-        </a>
-      </li>
-
-      <li *ngFor="let page of pages" class="page-item" [class.active]="currentIndex === page - 1">
-        <a class="page-link" (click)="changePage(page - 1)">{{ page }}</a>
-      </li>
-
-      <li class="page-item" [class.disabled]="currentIndex >= totalPages - 1">
-        <a class="page-link" (click)="changePage(currentIndex + 1)" aria-label="Next">
-          <span aria-hidden="true">»</span>
-          <span class="sr-only">Next</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
-</ng-container>
