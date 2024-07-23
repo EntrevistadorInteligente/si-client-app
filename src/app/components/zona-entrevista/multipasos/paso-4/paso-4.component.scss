@@ -28,17 +28,70 @@
   padding-top: 0px!important;
 }
 
+.ribbon-custom {
+  padding: 0 20px;
+  height: 30px;
+  position: relative;
+  line-height: 30px;
+  clear: left;
+  top: 12px;
+  left: 0px;
+  color: #fff;
+  z-index: 2;
+}
+
+.ribbon-custom-clip {
+  left: -45px;
+  top: -8px;
+  height: auto;
+  width: 103%;
+}
+
+.ribbon-primary.ribbon-custom-clip:before {
+  border-color: rgba(0, 0, 0, 0);
+  border-top-color: #3736e0;
+  border-right-color: #3736e0;
+}
+.ribbon-custom-clip:before {
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  width: 0;
+  height: 0;
+  content: "";
+  border: 7px solid rgba(0, 0, 0, 0);
+  border-top-color: #2c323f;
+  border-right-color: #2c323f;
+}
+
 .default-according .card .btn-link {
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9)!important;
 }
+@media (max-width: 1180px) {
+  .ribbon-custom-clip {
+    width: 106%!important;
+  } 
+}
+
+@media only screen and (max-width: 991.98px){
+  .ribbon-custom-clip {
+    left: -35px!important;
+    top: -8px!important;
+    width: 105%!important;
+  }  
+}
 
 @media (max-width: 600px) {
-  .ribbon {
+  .ribbon-custom  {
     line-height: 1.5; /* Reduce el espacio entre líneas */
     padding-top: 5px; /* Reduce el espacio superior */
     padding-bottom: 5px; /* Reduce el espacio inferior */
   }
+
+  .ribbon-custom-clip {
+    width: 110%!important;
+  } 
 }
 
 .feedback-container{

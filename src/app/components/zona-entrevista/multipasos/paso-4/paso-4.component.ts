@@ -1,7 +1,6 @@
 import {
   Component,
   ElementRef,
-  HostListener,
   Input,
   OnInit,
   QueryList,
@@ -9,7 +8,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
-import * as data from '../../../../shared/data/animation/ribbons';
 import Swal from 'sweetalert2';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
 import { FeedbackComentarioDto } from 'src/app/shared/model/feedback-dto';
@@ -21,19 +19,10 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
   styleUrl: './paso-4.component.scss',
 })
 export class Paso4Component implements OnInit {
-  @ViewChildren('divpregunta') ribbons: QueryList<ElementRef>;
-  @ViewChildren('pfeedback') feedbacks: QueryList<ElementRef>;
-  public ribbon = data.ribbons;
-  public ribbonColor = data.ribbonColor;
   public isCollapsed = true;
 
   @Input() idEntrevista: string;
   feedbackItems: FeedbackComentarioDto[] = [];
-  paginationSide = 'center';
-  currentIndex: number = 0;
-  pageSize: number = 1;
-  maxPagesToShow: number = 5;
-  isVisibleAnswer: boolean = false;
 
   optionsCustom: OwlOptions = {
     items: 1,
@@ -107,7 +96,6 @@ export class Paso4Component implements OnInit {
       next: (feedback: FeedbackComentarioDto[]) => {
         this.feedbackItems = feedback;
         console.log('feedback', this.feedbackItems);
-        this.adjustMargin();
         this.animateCarousel();
       },
       error: error => {
@@ -117,30 +105,6 @@ export class Paso4Component implements OnInit {
   }
 
   ngAfterViewInit() {}
-
-  @HostListener('window:resize')
-  onResize() {
-    this.adjustMargin();
-  }
-
-  private adjustMargin() {
-    setTimeout(() => {
-      const screenWidth = window.innerWidth;
-
-      this.ribbons.forEach((divpregunta, index) => {
-        const containerHeight = divpregunta.nativeElement.offsetHeight;
-        const pfeedback = this.feedbacks.toArray()[index];
-
-        if (pfeedback) {
-          pfeedback.nativeElement.style.marginTop = `${containerHeight}px`;
-        }
-      });
-    }, 400);
-  }
-
-  mostrarRespuestas() {
-    this.isVisibleAnswer = !this.isVisibleAnswer;
-  }
 
   withFeedback() {
     const swalWithBootstrapButtons = Swal.mixin({

@@ -7,20 +7,16 @@
             <div class="container-fluid">
               <div class="row">
                 <div class="col-sm-12">
-                  <div class="{{ ribbon[0].ribbonClass }}">
+                  <div class="card">
                     <div class="card-body">
                       <div
-                        #divpregunta
-                        class="ribbon ribbon-{{ ribbon[0].colors }} {{
-                          ribbon[0].labelClass
-                        }} h5">
+                        class="ribbon-custom ribbon-custom-clip ribbon-primary h5">
                         {{ feedback.pregunta }}
                       </div>
-                      <p #pfeedback>
+                      <p>
                         {{ feedback.feedback }}
                       </p>
                       <hr />
-
                       <div class="default-according style-1">
                         <div class="card">
                           <div class="card-header">
