@@ -18,6 +18,8 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 import { ChatBotService } from 'src/app/shared/services/domain/chat-bot.service';
 import { forkJoin } from 'rxjs';
+import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
+import { EntrevistaUsuarioDto } from 'src/app/shared/model/entrevista-usuario-dto';
 @Component({
   selector: 'app-video-chat',
   templateUrl: './video-chat.component.html',
@@ -53,13 +55,15 @@ export class VideoChatComponent implements OnInit {
   public respuestasHistorial: RespuestaComentarioDto[] = [];
   isHistoryLoaded: boolean = false;
   isFirstInteraction:boolean = true;;
+  private entrevistaUsuario:EntrevistaUsuarioDto
 
   constructor(
-    private integradorService: FeedbackService,
+    private feedbackService: FeedbackService,
     private speechService: SpeechService,
     private voiceRecognitionService: RecordVoiceService,
     private authService: AuthService,
-    private ChatBotService: ChatBotService
+    private chatBotService: ChatBotService,
+    private integradorService: IntegradorService
   ) { }
 
   ngOnInit(): void {
@@ -69,20 +73,23 @@ export class VideoChatComponent implements OnInit {
   
     if (this.isFirstInteraction) {
       forkJoin([
-        this.integradorService.obtenerPreguntas(this.idEntrevista),
-        this.ChatBotService.generarIntroduction()
+        this.feedbackService.obtenerPreguntas(this.idEntrevista),
+        this.chatBotService.generarIntroduction(),
+        this.integradorService.obtenerEntrevistaEnProceso(this.idEntrevista)
       ]).subscribe({
-        next: ([preguntas, introduccion]) => {
-          this.processInitialData(preguntas, introduccion.response);
+        next: ([preguntas, introduccion, entrevista]) => {
+          this.entrevistaUsuario = entrevista;
+          this.lastAssistantResponse = introduccion.response;
+          this.processInitialData(preguntas);
         },
         error: error => {
           console.error(error);
         }
       });
     } else {
-      this.integradorService.obtenerPreguntas(this.idEntrevista).subscribe({
+      this.feedbackService.obtenerPreguntas(this.idEntrevista).subscribe({
         next: preguntas => {
-          this.processInitialData(preguntas, "this.getStoredIntroduction()");
+          this.processInitialData(preguntas);
         },
         error: error => {
           console.error(error);
@@ -90,37 +97,17 @@ export class VideoChatComponent implements OnInit {
       });
     }
   
-    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
-      if (result.length > 1000) {
-        this.userMessage = result.substring(0, 1000);
-        this.voiceRecognitionService.stopRecognition();
-        alert('Llegaste a la cantidad límite de caracteres');
-      } else {
-        this.userMessage = result;
-      }
-      this.scrollToEnd();
-    });
-  
-    this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
-      this.isRecording = status;
-    });
-  
-    this.voiceRecognitionService.getRecognitionError().subscribe((error: string) => {
-      this.errorMessage = `Error: ${error}`;
-    });
+    this.initVoiceRecognition();
   }
 
-  processInitialData(preguntas: any, introduccion: string): void {
+  processInitialData(preguntas: any): void {
     this.preguntas = preguntas;
-    this.lastAssistantResponse = introduccion;
-  
-    const respuestasIniciales = preguntas.map((p: { idPregunta: any; }) => ({
-      idPregunta: p.idPregunta,
-      respuesta: '',
-    }));
-    this.respuestas = respuestasIniciales;
-  
     if (this.respuestasHistorial.length === 0) {
+      const respuestasIniciales = preguntas.map((p: { idPregunta: any; }) => ({
+        idPregunta: p.idPregunta,
+        respuesta: '',
+      }));
+      this.respuestas = respuestasIniciales;
       this.respuestasHistorial = respuestasIniciales;
     } else {
       this.respuestas = preguntas.map((p: { idPregunta: string; }) => {
@@ -158,15 +145,25 @@ export class VideoChatComponent implements OnInit {
       }, 2000);
     }
   }
-  
-  obtenerPreguntas(entrevistaId: string): void {
-    this.integradorService.obtenerPreguntas(entrevistaId).subscribe({
-      next: preguntas => {
-        this.processInitialData(preguntas, this.lastAssistantResponse);
-      },
-      error: error => {
-        console.error(error);
-      },
+
+  private initVoiceRecognition() {
+    this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
+      if (result.length > 1000) {
+        this.userMessage = result.substring(0, 1000);
+        this.voiceRecognitionService.stopRecognition();
+        alert('Llegaste a la cantidad límite de caracteres');
+      } else {
+        this.userMessage = result;
+      }
+      this.scrollToEnd();
+    });
+
+    this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
+      this.isRecording = status;
+    });
+
+    this.voiceRecognitionService.getRecognitionError().subscribe((error: string) => {
+      this.errorMessage = `Error: ${error}`;
     });
   }
 
@@ -194,8 +191,10 @@ export class VideoChatComponent implements OnInit {
       this.resetMessageState();
       const question = this.preguntas[this.currentIndex].pregunta;
 
-      this.ChatBotService.getQuestionChatBotInterview(question,
-        this.lastUserResponse, this.lastAssistantResponse).subscribe({
+      this.chatBotService.getQuestionChatBotInterview(question,
+        this.lastUserResponse, 
+        this.lastAssistantResponse,
+        this.entrevistaUsuario).subscribe({
           next: data => {
             this.processAssistantResponse(data.response);
           },
@@ -295,7 +294,7 @@ export class VideoChatComponent implements OnInit {
       return;
     this.addUserMessage(this.userMessage);
     this.lastUserResponse = this.userMessage;
-    if(this.isFirstInteraction){
+    if(!this.isFirstInteraction){
       this.respuestas[this.currentIndex].respuesta = this.userMessage;
       this.respuestasHistorial[this.currentIndex].respuesta = this.userMessage;
       this.currentIndex++;
@@ -303,7 +302,6 @@ export class VideoChatComponent implements OnInit {
 
     this.userMessage = '';
     this.finalTranscript = '';
-    this.saveChatHistory();
     setTimeout(() => {
       this.showNextQuestion();
     }, 500);
@@ -393,6 +391,18 @@ export class VideoChatComponent implements OnInit {
       this.respuestasHistorial = parsedData.respuestas || [];
       this.currentIndex = parsedData.currentIndex || 0;
       this.interviewFinished = parsedData.interviewFinished || false;
+
+      const lastMessage = this.messages[this.messages.length];
+      const beforeLastMessage = this.messages[this.messages.length - 1];
+
+      if(lastMessage.type==='bot'){
+        this.lastAssistantResponse=lastMessage;
+        this.lastUserResponse=beforeLastMessage;
+      }else{
+        this.lastAssistantResponse=beforeLastMessage;
+        this.lastUserResponse=lastMessage;
+      }
+
     }
   }
 
