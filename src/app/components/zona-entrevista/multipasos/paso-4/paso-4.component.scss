@@ -22,7 +22,19 @@
 }
 
 .boton-entrevista {
-  margin-left: 10px; /* Puedes ajustar el valor según el espacio que necesites */
+  padding: 12px 15px;
+  span{
+    letter-spacing: 1px;
+    font-family: Roboto;
+    text-transform: capitalize;
+  }
+  i{
+    margin-left: 10px;
+    vertical-align: bottom;
+    float: none;
+    font-size: 1.5rem;
+    transition: all .3s ease;
+  }
 }
 .ribbon-wrapper{
   padding-top: 0px!important;
@@ -74,6 +86,12 @@
   } 
 }
 
+@media (min-width: 992px) {
+  .boton-entrevista{
+    margin-right: 10px; /* Puedes ajustar el valor según el espacio que necesites */
+  }
+}
+
 @media only screen and (max-width: 991.98px){
   .ribbon-custom-clip {
     left: -35px!important;
@@ -98,6 +116,8 @@
   position: relative;
   top: 100%;
 }
+
+
 
 // @keyframes slideInOut {
 //   0% {

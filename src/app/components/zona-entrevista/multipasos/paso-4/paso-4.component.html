@@ -1,47 +1,43 @@
-<div class="card">
-  <div #carouselContainer class="card-body">
+<div #carouselContainer class="card">
+  <div class="card-body">
     @if (feedbackItems.length > 0) {
       <owl-carousel-o #carousel [options]="optionsCustom">
         <ng-container *ngFor="let feedback of feedbackItems">
-          <ng-template carouselSlide>
+          <ng-template carouselSlide style="width: 100%">
             <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div
-                        class="ribbon-custom ribbon-custom-clip ribbon-primary h5">
-                        {{ feedback.pregunta }}
+              <div class="card">
+                <div class="card-body">
+                  <div
+                    class="ribbon-custom ribbon-custom-clip ribbon-primary h5">
+                    {{ feedback.pregunta }}
+                  </div>
+                  <p>
+                    {{ feedback.feedback }}
+                  </p>
+                  <hr />
+                  <div class="default-according style-1">
+                    <div class="card">
+                      <div class="card-header">
+                        <h5 class="mb-0">
+                          <button
+                            class="btn btn-link bg-primary collapsed"
+                            (click)="isCollapsed = !isCollapsed"
+                            [attr.aria-expanded]="!isCollapsed"
+                            aria-controls="collapseExample">
+                            <i class="fa fa-question-circle"></i> ¿Cuál fue tu
+                            respuesta?
+                          </button>
+                        </h5>
                       </div>
-                      <p>
-                        {{ feedback.feedback }}
-                      </p>
-                      <hr />
-                      <div class="default-according style-1">
-                        <div class="card">
-                          <div class="card-header">
-                            <h5 class="mb-0">
-                              <button
-                                class="btn btn-link bg-primary collapsed"
-                                (click)="isCollapsed = !isCollapsed"
-                                [attr.aria-expanded]="!isCollapsed"
-                                aria-controls="collapseExample">
-                                <i class="fa fa-question-circle"></i> ¿Cuál fue
-                                tu respuesta?
-                              </button>
-                            </h5>
-                          </div>
-                          <div
-                            class="collapse"
-                            id="collapseBasic"
-                            [collapse]="isCollapsed"
-                            [isAnimated]="true">
-                            <div class="card-body">
-                              <p class="h5">
-                                {{ feedback.respuesta }}
-                              </p>
-                            </div>
-                          </div>
+                      <div
+                        class="collapse"
+                        id="collapseBasic"
+                        [collapse]="isCollapsed"
+                        [isAnimated]="true">
+                        <div class="card-body">
+                          <p class="h5">
+                            {{ feedback.respuesta }}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -53,12 +49,15 @@
         </ng-container>
       </owl-carousel-o>
     }
-    <button
-      class="btn btn-warning sweet-5 boton-entrevista mt-2"
-      type="button"
-      (click)="withFeedback()">
-      Iniciar nueva entrevista
-      <i class="fa fa-chevron-circle-right"></i>
-    </button>
+    <div
+      class="d-flex justify-content-lg-end justify-content-md-center justify-content-center">
+      <button
+        class="btn btn-warning sweet-5 boton-entrevista mt-2"
+        type="button"
+        (click)="withFeedback()">
+        <span>Iniciar nueva entrevista</span>
+        <i class="icofont icofont-robot"></i>
+      </button>
+    </div>
   </div>
 </div>

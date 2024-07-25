@@ -5,13 +5,15 @@ import {
   OnInit,
   QueryList,
   Renderer2,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
 import Swal from 'sweetalert2';
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
 import { FeedbackComentarioDto } from 'src/app/shared/model/feedback-dto';
-import { OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselComponent, OwlOptions } from 'ngx-owl-carousel-o';
+import { CarouselService } from 'ngx-owl-carousel-o/lib/services/carousel.service';
 
 @Component({
   selector: 'app-paso-4',
@@ -20,6 +22,12 @@ import { OwlOptions } from 'ngx-owl-carousel-o';
 })
 export class Paso4Component implements OnInit {
   public isCollapsed = true;
+  // @ViewChildren('carousel')
+  // public carousel: QueryList<CarouselComponent>;
+  // @ViewChild('carouselContainer')
+  // public carouselContainer: ElementRef;
+
+  // private resizeObserver: ResizeObserver;
 
   @Input() idEntrevista: string;
   feedbackItems: FeedbackComentarioDto[] = [];
@@ -27,18 +35,17 @@ export class Paso4Component implements OnInit {
   optionsCustom: OwlOptions = {
     items: 1,
     loop: true,
-    margin: 10,
+    margin: 30,
     autoWidth: true,
     autoHeight: true,
-    nav: false,
+    stagePadding: 50,
+    nav: true,
+    navText: [
+      "<i class='icofont icofont-curved-left'></i>",
+      "<i class='icofont icofont-curved-right'></i>",
+    ],
     responsive: {
       0: {
-        items: 1,
-      },
-      600: {
-        items: 1,
-      },
-      1000: {
         items: 1,
       },
     },
@@ -96,7 +103,7 @@ export class Paso4Component implements OnInit {
       next: (feedback: FeedbackComentarioDto[]) => {
         this.feedbackItems = feedback;
         console.log('feedback', this.feedbackItems);
-        this.animateCarousel();
+        //this.animateCarousel();
       },
       error: error => {
         console.error(error);
@@ -104,7 +111,35 @@ export class Paso4Component implements OnInit {
     });
   }
 
-  ngAfterViewInit() {}
+  // ngAfterViewInit(): void {
+  //   this.resizeObserver = new ResizeObserver(entries => {
+  //     for (let entry of entries) {
+  //       if (entry.target === this.carouselContainer.nativeElement) {
+  //         this.refreshCarousel();
+  //       }
+  //     }
+  //   });
+
+  //   this.resizeObserver.observe(this.carouselContainer.nativeElement);
+  // }
+
+  // ngOnDestroy(): void {
+  //   if (this.resizeObserver) {
+  //     this.resizeObserver.disconnect();
+  //   }
+  // }
+
+  // refreshCarousel(): void {
+  //   setTimeout(() => {
+  //     this.carousel.forEach(c => {
+  //       const anyService = c as any;
+  //       const carouselService = anyService.carouselService as CarouselService;
+  //       console.log('resize owl');
+  //       carouselService.refresh();
+  //     });
+  //   }, 200);
+  //   console.log('resize');
+  // }
 
   withFeedback() {
     const swalWithBootstrapButtons = Swal.mixin({

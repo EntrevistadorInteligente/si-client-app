@@ -86,3 +86,63 @@ body .dark-only .text-secondary{
     border: 1px solid #6362e7!important;
     border-bottom: none!important;
   }
+
+  body .dark-only{
+    .owl-carousel.owl-theme{
+      .owl-nav{
+        .owl-prev, .owl-next{
+          &:hover{
+            i{
+              color: rgba(255, 255, 255, 0.9);
+              transition: color 0.3s ease-out;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+  .owl-carousel.owl-theme{
+    .owl-nav{
+      position: absolute;
+      top: 18%;
+      left: 0;
+      right: 0;
+      padding: 0;
+      .owl-prev, .owl-next {
+        position: absolute;
+        height: 100px;
+        color: inherit;
+        background: none;
+        border: none;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+
+        &:hover{
+          i{
+            color: #526069;
+            transition: color 0.3s ease-out;
+          }
+          
+        }
+  
+        i {
+          display: inline-block; /* Asegura que el elemento puede ser escalado */
+          height: 50px; /* Altura deseada */
+          color: #98a6ad;
+          font-size: 3rem;
+          transition: color 0.3s ease-out;
+          
+        }
+      }
+      .owl-prev{
+        left: -33px;
+      }
+      .owl-next{
+        right:-33px;
+      }
+    }
+  }
