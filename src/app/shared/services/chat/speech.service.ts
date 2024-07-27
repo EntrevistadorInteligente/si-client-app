@@ -16,6 +16,12 @@ export class SpeechService {
     voice: 'Google español',
   };
 
+  initialize() {
+    // Método para preparar la síntesis de voz
+    const utterance = new SpeechSynthesisUtterance('');
+    this.synthesis.speak(utterance);
+  }
+
   start(text: string, rate = 1) {
     const textToSpeech = new SpeechSynthesisUtterance(text);
     textToSpeech.lang = this.routeData.langTo;

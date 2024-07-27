@@ -69,6 +69,7 @@ export class VideoChatComponent implements OnInit {
   ngOnInit(): void {
     this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
     this.loadChatHistory();
+    this.speechService.initialize();
     this.lastSeenBootTyping = this.currentTime;
   
     if (this.isFirstInteraction) {
@@ -87,8 +88,12 @@ export class VideoChatComponent implements OnInit {
         }
       });
     } else {
-      this.feedbackService.obtenerPreguntas(this.idEntrevista).subscribe({
-        next: preguntas => {
+      forkJoin([
+        this.feedbackService.obtenerPreguntas(this.idEntrevista),
+        this.integradorService.obtenerEntrevistaEnProceso(this.idEntrevista)
+      ]).subscribe({
+        next: ([preguntas, entrevista]) => {
+          this.entrevistaUsuario = entrevista;
           this.processInitialData(preguntas);
         },
         error: error => {
@@ -187,6 +192,7 @@ export class VideoChatComponent implements OnInit {
   }
 
   showNextQuestion() {
+    this.isFirstInteraction = false;
     if (this.currentIndex < this.preguntas.length) {
       this.resetMessageState();
       const question = this.preguntas[this.currentIndex].pregunta;
@@ -230,7 +236,7 @@ export class VideoChatComponent implements OnInit {
       this.initTypedEffect(`#${messageId}`, this.lastAssistantResponse);
       this.speechService.start(this.lastAssistantResponse, 1);
       this.scrollToBottom();
-    }, 0);
+    }, 500);
   }
 
   initTypedEffect(elementId: string, text: string) {
@@ -392,15 +398,15 @@ export class VideoChatComponent implements OnInit {
       this.currentIndex = parsedData.currentIndex || 0;
       this.interviewFinished = parsedData.interviewFinished || false;
 
-      const lastMessage = this.messages[this.messages.length];
-      const beforeLastMessage = this.messages[this.messages.length - 1];
+      const lastMessage = this.messages[this.messages.length - 1];
+      const beforeLastMessage = this.messages[this.messages.length - 2];
 
       if(lastMessage.type==='bot'){
-        this.lastAssistantResponse=lastMessage;
-        this.lastUserResponse=beforeLastMessage;
+        this.lastAssistantResponse=lastMessage.text;
+        this.lastUserResponse=beforeLastMessage.text;
       }else{
-        this.lastAssistantResponse=beforeLastMessage;
-        this.lastUserResponse=lastMessage;
+        this.lastAssistantResponse=beforeLastMessage.text;
+        this.lastUserResponse=lastMessage.text;
       }
 
     }

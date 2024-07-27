@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { from, Observable, switchMap } from 'rxjs';
 import { EntrevistaUsuarioDto } from '../../model/entrevista-usuario-dto';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class ChatBotService {
     private authService: AuthService
   ) {}
 
-  feedbackURL = 'http://localhost:3000/chat';
+  feedbackURL = environment.chatURL;
 
   public getQuestionChatBotInterview(
     currentQuestion: string,
