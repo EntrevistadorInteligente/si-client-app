@@ -25,7 +25,8 @@ import { UsersChatsComponent } from './paso-3/chat/chat-app/users-chats/users-ch
 import { VideoChatComponent } from './paso-3/chat/video-chat/video-chat.component';
 import { ChatMenuComponent } from './paso-3/chat/chat-menu/chat-menu.component';
 import { WaitingAreaComponent } from './waiting-area/waiting-area.component';
-
+import { CarouselModule } from 'ngx-owl-carousel-o';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 @NgModule({
   declarations: [
     MultipasosComponent,
@@ -36,7 +37,7 @@ import { WaitingAreaComponent } from './waiting-area/waiting-area.component';
     VideoChatComponent,
     UsersChatsComponent,
     ChatMenuComponent,
-    WaitingAreaComponent
+    WaitingAreaComponent,
   ],
 
   imports: [
@@ -56,7 +57,9 @@ import { WaitingAreaComponent } from './waiting-area/waiting-area.component';
     FieldsetModule,
     InputTextModule,
     StepperModule,
-    DividerModule
+    DividerModule,
+    CarouselModule,
+    CollapseModule.forRoot(),
   ],
 
   exports: [
@@ -64,9 +67,8 @@ import { WaitingAreaComponent } from './waiting-area/waiting-area.component';
     Paso2Component,
     Paso3Component,
     Paso4Component,
-    WaitingAreaComponent
+    WaitingAreaComponent,
   ],
-  providers: [MessageService]
+  providers: [MessageService],
 })
-
-export class MultipasosModule { }
+export class MultipasosModule {}
