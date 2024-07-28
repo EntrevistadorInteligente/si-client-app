@@ -1,13 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, from, switchMap } from 'rxjs';
-import { VistaPreviaEntrevistaDto } from '../../model/vista-previa-entrevista-dto';
 import { AuthService } from '../auth/auth.service';
 import { environment } from 'src/environments/environment';
 import { Perfil } from '../../model/interfaces-perfil';
 import { FormularioDto } from '../../model/formulario-dto';
 import { HojaDeVidaDto } from '../../model/hoja-de-vida-dto';
-import { EstadoEntrevistaDto } from '../../model/feedback-dto copy';
+import { EstadoEntrevistaDto } from '../../model/estado-entreviosta-dto';
+import { EntrevistaUsuarioDto } from '../../model/entrevista-usuario-dto';
 
 @Injectable({
   providedIn: 'root',
@@ -22,26 +22,10 @@ export class IntegradorService {
     private authService: AuthService
   ) {}
 
-  public list(): Observable<VistaPreviaEntrevistaDto[]> {
-    return this.httpClient.get<VistaPreviaEntrevistaDto[]>(
-      `${this.orquestadorURL}/public/preguntas`
-    );
-  }
 
   public listPerfiles(): Observable<Perfil[]> {
     return this.httpClient.get<Perfil[]>(
       `${this.orquestadorURL}/entrevistador/public/perfiles`
-    );
-  }
-
-  public listAut(): Observable<VistaPreviaEntrevistaDto[]> {
-    return from(this.getHeaders()).pipe(
-      switchMap(headers =>
-        this.httpClient.get<VistaPreviaEntrevistaDto[]>(
-          `${this.orquestadorURL}/preguntas`,
-          { headers }
-        )
-      )
     );
   }
 
@@ -121,7 +105,7 @@ export class IntegradorService {
     return from(this.getHeaders()).pipe(
       switchMap(headers =>
         this.httpClient.get<EstadoEntrevistaDto>(
-          `${this.orquestadorURL}${this.entrevista}/${idEntrevista}`,
+          `${this.orquestadorURL}${this.entrevista}/${idEntrevista}/estado`,
           { headers }
         )
       )
@@ -143,6 +127,19 @@ export class IntegradorService {
     );
   }
 
+  public obtenerEntrevistaEnProceso(
+    idEntrevista: string
+  ): Observable<EntrevistaUsuarioDto> {
+    return from(this.getHeaders()).pipe(
+      switchMap(headers =>
+        this.httpClient.get<EntrevistaUsuarioDto>(
+          `${this.orquestadorURL}${this.entrevista}/${idEntrevista}`,
+          { headers }
+        )
+      )
+    );
+  }
+  
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');

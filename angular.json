@@ -19,7 +19,8 @@
           "options": {
             "allowedCommonJsDependencies": [],
             "outputPath": "dist/landing-entrevistador",
-            "baseHref": "/",
+            "baseHref": "/es/entrevistas/",
+            "deployUrl": "/es/entrevistas/",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",

@@ -27,6 +27,7 @@ import { IntegradorService } from "./services/domain/integrador.service";
 import { LocaldataService } from "./services/domain/localdata.service";
 import { ChatService } from "./services/chat/chat.service";
 import { LoaderHttpComponent } from "./components/loader-http/loader-http.component";
+import { ChatBotService } from "./services/domain/chat-bot.service";
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { LoaderHttpComponent } from "./components/loader-http/loader-http.compon
     SearchCustomizeComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, AngularSvgIconModule.forRoot()],
-  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService],
+  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService, ChatBotService],
   exports: [RouterModule, 
     BreadcrumbComponent, 
     TapToTopComponent, 

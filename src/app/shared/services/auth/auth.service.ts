@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,13 @@ export class AuthService {
   }
 
   login(): void {
-    this.keycloakService.login();
+    this.keycloakService.login({
+      redirectUri: window.location.origin + '/es/entrevistas/zona-entrevista'
+    }).then(() => {
+        this.isLoggedSubject.next(true);
+    }).catch(error => {
+      console.error('Error durante el login:', error);
+    });
   }
 
   isTokenExpired() {
@@ -80,8 +87,12 @@ export class AuthService {
   }
 
   async logout() {
-    await this.keycloakService.logout();
-    this.isLoggedSubject.next(false);
+    this.keycloakService.logout(environment.landingApp).then(() => {
+        this.isLoggedSubject.next(false);
+    }).catch(error => {
+      console.error('Error durante el login:', error);
+    });
+   
   }
 
   async getToken() {

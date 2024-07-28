@@ -10,6 +10,10 @@ export const environment = {
     feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
   
     // FEEDBACK SERVICE
-    notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1'
+    notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1',
+
+    chatURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/chats/v1',
+
+    landingApp: 'https://www.pruebas-entrevistador-inteligente.site/es/pagina-principal/',
   
 };

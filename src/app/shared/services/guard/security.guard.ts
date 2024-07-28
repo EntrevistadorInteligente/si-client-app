@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@a
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => Observable<boolean | UrlTree> = (
   route: ActivatedRouteSnapshot,
@@ -11,16 +12,18 @@ export const canActivate: (route: ActivatedRouteSnapshot, state: RouterStateSnap
   const authService = inject(AuthService);
   const router = inject(Router);
   authService.scheduleTokenRefresh();  
-  return authService.isLogged$.pipe(
+  return authService?.isLogged$.pipe(
     map((isLogged: boolean) => {
       if (isLogged) {
         return true;
       } else {
-        return router.createUrlTree(['/es/entrevistas/inicio'], { queryParams: { redirected: 'true' } });
+        window.location.href = `${environment.landingApp}`;
+        return false;
       }
     }),
     catchError(() => {
-      return of(router.createUrlTree(['/es/entrevistas/inicio'], { queryParams: { redirected: 'true' } }));
+      window.location.href = `${environment.landingApp}`;
+      return of(false);
     })
   );
 };

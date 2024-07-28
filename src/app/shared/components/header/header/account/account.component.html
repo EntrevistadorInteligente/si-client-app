@@ -2,8 +2,7 @@
   <svg-icon src="assets/svgIcon/account.svg"></svg-icon>   
 </div>
 <ul class="profile-dropdown onhover-show-div">
-  <li><i class="fa fa-user"></i><a href="es/entrevistas/perfil"><span> Perfil</span></a></li>
+  <li><i class="fa fa-user"></i><a href="/perfil"><span> Perfil</span></a></li>
   <li><i class="fa fa-cogs"></i><a href="#"><span> Settings</span></a></li>
-  <li *ngIf="!isLogged"><i class="fa fa-sign-in"></i><a (click)="login()"> Iniciar sesión</a></li>
   <li *ngIf="isLogged"><i class="fa fa-sign-out"></i><a (click)="logout()"> Cerrar sesión</a></li>
 </ul>

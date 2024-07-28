@@ -101,7 +101,7 @@ export class ZonaEntrevistaComponent implements OnInit {
       confirmButtonText: "Cargar hoja de vida"
     }).then((result) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/es/entrevistas/perfil']);
+        this.router.navigate(['/perfil']);
       }
     });
   }

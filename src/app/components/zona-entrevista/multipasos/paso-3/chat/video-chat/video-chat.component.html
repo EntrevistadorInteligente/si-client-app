@@ -131,7 +131,6 @@
                                   [(ngModel)]="userMessage"
                                   (keyup.enter)="sendMessage()"
                                   (input)="onInput($event)"
-                                  (paste)="onPaste($event)"
                                   [disabled]="botTyping || interviewFinished"
                                   rows="1"
                                   style="resize: none; overflow: hidden"
