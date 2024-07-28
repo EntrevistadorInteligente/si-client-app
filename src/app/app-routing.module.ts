@@ -8,27 +8,27 @@ import { full } from './shared/routes/full';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/es/entrevistas/inicio',
+    redirectTo: '/zona-entrevista',
     pathMatch: 'full' 
   },
   {
-    path: 'es/entrevistas',
-    redirectTo: '/es/entrevistas/inicio',
+    path: '',
+    redirectTo: '/zona-entrevista',
     pathMatch: 'full' 
   },
   {
-    path: 'es/entrevistas',
+    path: '',
     component: ContentComponent,
     children: content
   },
   {
-    path: 'es/entrevistas',
+    path: '',
     component: FullComponent,
     children: full
   },
   {
     path: '**',
-    redirectTo: 'es/entrevistas'
+    redirectTo: ''
   }
 ];
 

@@ -64,7 +64,14 @@ export class AuthService {
   }
 
   login(): void {
-    this.keycloakService.login();
+    this.keycloakService.login({
+      redirectUri: window.location.origin + '/es/entrevistas/zona-entrevista'
+    }).then(() => {
+        this.isLoggedSubject.next(true);
+    }).catch(error => {
+      console.error('Error durante el login:', error);
+      // Manejar el error apropiadamente
+    });
   }
 
   isTokenExpired() {
@@ -80,8 +87,13 @@ export class AuthService {
   }
 
   async logout() {
-    await this.keycloakService.logout();
-    this.isLoggedSubject.next(false);
+    this.keycloakService.logout("http://localhost:4321/es/pagina-principal/").then(() => {
+        this.isLoggedSubject.next(false);
+    }).catch(error => {
+      console.error('Error durante el login:', error);
+      // Manejar el error apropiadamente
+    });
+   
   }
 
   async getToken() {

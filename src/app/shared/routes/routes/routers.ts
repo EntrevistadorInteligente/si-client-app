@@ -1,12 +1,9 @@
 import { Routes } from "@angular/router"; 
 import { canActivate, canActivateChild } from '../../services/guard/security.guard';
 import { TermsAndConditionsComponent } from "src/app/components/terms-and-conditions/terms-and-conditions.component";
+import { LoginComponent } from "src/app/components/login/login.component";
 
 export const content: Routes = [
-  {
-    path: "inicio",
-    loadChildren: () => import("../../../components/inicio/inicio.module").then((m) => m.InicioModule),
-  },
   {
     path: "zona-entrevista",
     loadChildren: () =>
@@ -21,5 +18,6 @@ export const content: Routes = [
     canActivate: [canActivate],
     canActivateChild: [canActivateChild]
   },
+  { path: 'login', component: LoginComponent },
   { path: 'terminos', component: TermsAndConditionsComponent },
 ];

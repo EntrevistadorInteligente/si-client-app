@@ -16,7 +16,9 @@ export const environment = {
     // FEEDBACK SERVICE
     notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1',
         // FEEDBACK SERVICE
-    chatURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/chats/v1'
+    chatURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/chats/v1',
+
+    landingApp: 'http://localhost:4321/es/pagina-principal',
   
 };
 

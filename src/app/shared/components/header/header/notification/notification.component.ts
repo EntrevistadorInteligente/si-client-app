@@ -85,9 +85,9 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   getNotificationLink(notification: any) {
     if (notification.url === "PG" || notification.url === "FG") {
-      return ["/es/entrevistas/zona-entrevista", notification.idEntrevista];
+      return ["/zona-entrevista", notification.idEntrevista];
     } else if (notification.url === "HG") {
-      return ["/es/entrevistas/perfil"];
+      return ["/perfil"];
     } else {
       return ["#"];
     }

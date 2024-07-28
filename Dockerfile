@@ -6,6 +6,6 @@ RUN npm install
 RUN npm run build
 ### STAGE 2: Run ###
 FROM nginx:alpine
-COPY --from=build app/dist/landing-entrevistador /usr/share/nginx/html
+COPY --from=build app/dist/landing-entrevistador /usr/share/nginx/html/es/entrevistas
 COPY ./nginx.conf /etc/nginx/conf.d/nginx.conf
 EXPOSE 8888

@@ -90,7 +90,7 @@ export class ProfileComponent implements OnInit {
       reverseButtons: true
     }).then((result: { isConfirmed: any; dismiss: any; }) => {
       if (result.isConfirmed) {
-        this.router.navigate(['/es/entrevistas/zona-entrevista']);
+        this.router.navigate(['/zona-entrevista']);
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         swalWithBootstrapButtons.fire({
           title: "Operación cancelada",
