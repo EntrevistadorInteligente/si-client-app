@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +71,6 @@ export class AuthService {
         this.isLoggedSubject.next(true);
     }).catch(error => {
       console.error('Error durante el login:', error);
-      // Manejar el error apropiadamente
     });
   }
 
@@ -87,11 +87,10 @@ export class AuthService {
   }
 
   async logout() {
-    this.keycloakService.logout("http://localhost:4321/es/pagina-principal/").then(() => {
+    this.keycloakService.logout(environment.landingApp).then(() => {
         this.isLoggedSubject.next(false);
     }).catch(error => {
       console.error('Error durante el login:', error);
-      // Manejar el error apropiadamente
     });
    
   }

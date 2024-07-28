@@ -18,7 +18,7 @@ export const environment = {
         // FEEDBACK SERVICE
     chatURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/chats/v1',
 
-    landingApp: 'http://localhost:4321/es/pagina-principal',
+    landingApp: 'http://localhost:4321/es/pagina-principal/',
   
 };
 
