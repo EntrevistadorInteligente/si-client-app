@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, of, tap } from 'rxjs';
+import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
 import { ChatBotService } from './chat-bot.service';
 import { FeedbackService } from './feedback.service';
 import { IntegradorService } from './integrador.service';
@@ -50,10 +50,14 @@ export class EntrevistaService {
   private loadNewInterview(idEntrevista: string): Observable<any> {
     return forkJoin([
       this.feedbackService.obtenerPreguntas(idEntrevista),
-      this.chatBotService.generarIntroduction(),
       this.integradorService.obtenerEntrevistaEnProceso(idEntrevista)
     ]).pipe(
-      tap(([preguntas, introduccion, entrevista]) => {
+      switchMap(([preguntas, entrevista]) => {
+        return this.chatBotService.generarIntroduction(entrevista).pipe(
+          map(introduccion => ({preguntas, entrevista, introduccion}))
+        );
+      }),
+      tap(({preguntas, entrevista, introduccion}) => {
         this.preguntas = preguntas;
         this.entrevistaUsuario = entrevista;
         this.lastAssistantResponse = introduccion.response;

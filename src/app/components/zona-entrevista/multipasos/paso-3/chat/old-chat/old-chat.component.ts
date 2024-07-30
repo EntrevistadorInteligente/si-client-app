@@ -75,7 +75,7 @@ export class OldChatComponent implements OnInit {
     if (this.isFirstInteraction) {
       forkJoin([
         this.feedbackService.obtenerPreguntas(this.idEntrevista),
-        this.chatBotService.generarIntroduction(),
+        this.chatBotService.generarIntroduction(this.entrevistaUsuario),
         this.integradorService.obtenerEntrevistaEnProceso(this.idEntrevista)
       ]).subscribe({
         next: ([preguntas, introduccion, entrevista]) => {

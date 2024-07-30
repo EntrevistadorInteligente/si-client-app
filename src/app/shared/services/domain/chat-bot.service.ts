@@ -47,10 +47,14 @@ export class ChatBotService {
     );
   }
 
-  public generarIntroduction(): Observable<any> {
-    const candidateName = 'Jamilton Quintero';
-    const jobTitle = 'Senior Java Full Stack Developer';
-    const companyName = 'EPAM Systems';
+  public generarIntroduction( entrevistaUsuarioDto: EntrevistaUsuarioDto): Observable<any> {
+    const candidateName = this.authService.getUsername();
+    const jobTitle =
+      entrevistaUsuarioDto.seniorityEmpresa +
+      ' ' +
+      entrevistaUsuarioDto.perfilEmpresa;
+    const companyName = entrevistaUsuarioDto.empresa;
+ 
     const request = {
       candidateName,
       jobTitle,
