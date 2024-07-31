@@ -8,11 +8,12 @@ import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AudioChatComponent } from './chat/audio-chat/audio-chat.component';
+import { VideoChatComponent } from './chat/video-chat/video-chat.component';
 
 
 
 @NgModule({
-  declarations: [TextoChatComponent, AudioChatComponent],
+  declarations: [TextoChatComponent, VideoChatComponent, AudioChatComponent],
   imports: [
     CommonModule,
     InputTextModule,

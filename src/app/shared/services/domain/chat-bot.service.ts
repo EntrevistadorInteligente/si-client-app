@@ -69,6 +69,17 @@ export class ChatBotService {
     );
   }
 
+  public getHeygenAccesToken(): Observable<any> {
+
+    return from(this.getHeaders()).pipe(
+      switchMap(headers =>
+        this.httpClient.post(`${this.feedbackURL}/heygen/get-access-token`, undefined, {
+          headers,
+        })
+      )
+    );
+  }
+
   private async getHeaders(): Promise<HttpHeaders> {
     let headers = new HttpHeaders();
     headers = headers.set('Content-Type', 'application/json');

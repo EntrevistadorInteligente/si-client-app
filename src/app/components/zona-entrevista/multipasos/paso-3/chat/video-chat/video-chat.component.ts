@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BaseEntrevistaComponent } from '../../base-entrevista/base-entrevista.component';
 import { EntrevistaService } from 'src/app/shared/services/domain/entrevista.service';
 import { Configuration, NewSessionData, StreamingAvatarApi } from '@heygen/streaming-avatar';
+import { ChatBotService } from 'src/app/shared/services/domain/chat-bot.service';
 
 @Component({
   selector: 'app-video-chat',
@@ -21,7 +22,9 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   isLoadingSession: boolean = false;
   debug: string = '';
 
-  constructor(entrevistaService: EntrevistaService) {
+  constructor(entrevistaService: EntrevistaService,
+    private chatBotService: ChatBotService,
+  ) {
     super(entrevistaService);
   }
 
@@ -30,7 +33,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.initializeAvatar();
   }
 
-  showNextQuestion(): void {
+   showNextQuestion(): void {
     this.botTyping = true;
     this.entrevistaService.getNextQuestion().subscribe({
       next: async (question) => {
@@ -41,10 +44,9 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
         }
 
         await this.speakQuestion(question);
-        this.processAssistantResponse(question);
       },
       error: (err) => {
-        console.error(err);
+        this.debug = `Error al obtener la siguiente pregunta: ${err}`;
         this.botTyping = false;
       }
     });
@@ -59,11 +61,14 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
             sessionId: this.sessionData.sessionId
           }
         });
+        this.processAssistantResponse(question);
       } catch (error) {
-        console.error("Error making avatar speak:", error);
-        this.debug = "Error making avatar speak.";
+        this.debug = `Error al hacer hablar al avatar: ${error}`;
       }
+    } else {
+      this.debug = 'No hay una sesión activa para el avatar';
     }
+    this.botTyping = false;
   }
 
   
@@ -88,15 +93,20 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   async initializeAvatar() {
-    const accessToken = await this.fetchAccessToken();
-    this.avatar = new StreamingAvatarApi(
-      new Configuration({ accessToken: accessToken })
-    );
-  }
-  async fetchAccessToken(): Promise<string> {
-    // Implementa la lógica para obtener el token de acceso
-    // Esto podría ser una llamada a tu backend
-    return 'MDdlYzkyNjljY2M2NDQyZjg1ZTAwYjQxMDQ2OWZkMGYtMTcyMjM5NzAxMA==';
+    this.chatBotService.getHeygenAccesToken().subscribe({
+      next: (res:any) => {
+    
+        this.avatar = new StreamingAvatarApi(
+          new Configuration({ accessToken: res.token })
+        );
+        //this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
+      },
+      error: (err: any) => {
+        console.error('error: ', err);
+        
+        //this.alert('Error', 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.', 'error');
+      },
+    });
   }
 
   async startSession() {
@@ -105,8 +115,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
       const res = await this.avatar.createStartAvatar({
         newSessionRequest: {
           quality: "medium",
-          avatarName: "AVATAR_ID", // Reemplaza con el ID de avatar adecuado
-          voice: { voiceId: "VOICE_ID" } // Reemplaza con el ID de voz adecuado
+          avatarName: "Tyler-insuit-20220721", // Reemplaza con el ID de avatar adecuado
+          voice: { voiceId: "d62a0ce960434056b25c058bc4fa2509" } // Reemplaza con el ID de voz adecuado
         }
       });
       this.sessionData = res;

@@ -11,4 +11,5 @@ export class AudioChatComponent {
     this.isFullscreen = false;
     // Aquí puedes emitir un evento para cerrar el componente si es necesario
   }
+  
 }
