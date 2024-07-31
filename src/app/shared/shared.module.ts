@@ -28,6 +28,7 @@ import { LocaldataService } from "./services/domain/localdata.service";
 import { ChatService } from "./services/chat/chat.service";
 import { LoaderHttpComponent } from "./components/loader-http/loader-http.component";
 import { ChatBotService } from "./services/domain/chat-bot.service";
+import { EntrevistaService } from "./services/domain/entrevista.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { ChatBotService } from "./services/domain/chat-bot.service";
     SearchCustomizeComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, AngularSvgIconModule.forRoot()],
-  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService, ChatBotService],
+  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService, ChatBotService,EntrevistaService],
   exports: [RouterModule, 
     BreadcrumbComponent, 
     TapToTopComponent, 

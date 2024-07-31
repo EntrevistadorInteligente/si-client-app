@@ -1,0 +1,183 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col call-chat-body">
+      <div class="card">
+        <div class="card-body p-0">
+          <div class="row chat-box">
+            <div class="col chat-right-aside">
+              <div class="chat">
+                <div class="media chat-header clearfix">
+                  <img
+                    class="rounded-circle"
+                    src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png"
+                    alt=""
+                  />
+                  <div class="media-body">
+                    <div class="about">
+                      <div class="name">
+                        Kori Thomas
+                        <span class="font-primary f-12">{{
+                          botTyping ? escribiendo : vacio
+                        }}</span>
+                      </div>
+                      <div class="status digits">
+                        Última conexión {{ lastSeenBootTyping }}
+                      </div>
+                    </div>
+                  </div>
+                  <ul class="list-inline float-start chat-menu-icons">             
+                    <li class="list-inline-item"><a (click)="openAudioChat()"><i class="icon-headphone-alt"></i></a></li>
+                    <li class="list-inline-item"><a (click)="openVideoChat()"><i class="icon-video-camera"></i></a></li>
+                  </ul>
+                </div>
+                <!-- chat-header end-->
+                <!-- chat-history start-->
+                <div class="chat-history">
+                  <div class="row">
+                    <div class="col text-center pe-0 call-content">
+                      <div>
+                        <div class="chat">
+                          <div
+                            class="chat-history chat-msg-box custom-scrollbar"
+                            #chatHistory
+                          >
+                            <ul>
+                              <li
+                                *ngFor="let message of messages; let i = index"
+                                [ngClass]="{
+                                  clearfix: message.type === 'user',
+                                }"
+                              >
+                                <div
+                                  class="message"
+                                  [ngClass]="{
+                                    'my-message': message.type === 'bot',
+                                    'other-message pull-right':
+                                      message.type === 'user',
+                                  }"
+                                >
+                                  <img
+                                    class="rounded-circle float-start chat-user-img img-30"
+                                    *ngIf="message.type === 'bot'"
+                                    src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png"
+                                    alt=""
+                                  />
+                                  <img
+                                    class="rounded-circle float-end chat-user-img img-30"
+                                    *ngIf="message.type === 'user'"
+                                    src="assets/img/perfil.jpg"
+                                    alt=""
+                                  />
+                                  <div
+                                    class="message-data"
+                                    [ngClass]="{
+                                      'text-end': message.type === 'user',
+                                    }"
+                                  >
+                                    <span class="message-data-time">{{
+                                      message.time
+                                    }}</span>
+                                  </div>
+                                  <div
+                                    *ngIf="message.type === 'bot'"
+                                    [id]="'typewriter-' + i"
+                                  ></div>
+                                  <div *ngIf="message.type === 'user'">
+                                    {{ message.text }}
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+
+                            <div
+                              *ngIf="interviewFinished"
+                              class="interview-finished"
+                            >
+                              <div class="message my-message">
+                                <div class="message-data">
+                                  <span class="message-data-time">{{
+                                    currentTime
+                                  }}</span>
+                                </div>
+                                Tu entrevista ha terminado. Gracias por
+                                participar.
+                                <button
+                                  class="btn btn-danger mt 1"
+                                  (click)="finalizeInterview()"
+                                >
+                                  Solicitar feedback
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="chat-message clearfix">
+                            <div class="character-counter">
+                              {{ userMessage.length }}/1000
+                            </div>
+                            <div class="row">
+                              <div class="col-xl-12 d-flex d-flex-chat">
+                                <div class="smiley-box bg-primary">
+                                  <div class="picker">
+                                    <img
+                                      src="assets/images/smiley.png"
+                                      alt=""
+                                    />
+                                  </div>
+                                </div>
+
+                                <textarea
+                                  class="form-control input-txt-bx text-area"
+                                  id="message-to-send"
+                                  #messageInput
+                                  type="text"
+                                  name="message-to-send"
+                                  placeholder="Escribe tu respuesta..."
+                                  
+                                  (keyup.enter)="sendMessage()"
+                                  (input)="onInput($event)"
+                                  [disabled]="botTyping || interviewFinished"
+                                  rows="1"
+                                  style="resize: none; overflow: hidden"
+                                ></textarea>
+                                <div class="btn-group ms-2">
+                                  <button
+                                    class="btn btn-success"
+                                    type="button"
+                                    [disabled]="botTyping || interviewFinished"
+                                    (click)="toggleVoiceRecognition()"
+                                  >
+                                    <i
+                                      [ngClass]="
+                                        isRecording
+                                          ? 'fa fa-stop'
+                                          : 'fa fa-microphone'
+                                      "
+                                      style="font-size: 1.5rem"
+                                    ></i>
+                                  </button>
+                                  <button
+                                    class="btn btn-primary"
+                                    type="button"
+                                    (click)="sendMessage()"
+                                    [disabled]="botTyping || interviewFinished"
+                                  >
+                                    <i class="fa fa-send"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- chat-history end-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

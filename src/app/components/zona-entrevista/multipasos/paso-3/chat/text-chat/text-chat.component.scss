@@ -1,0 +1,34 @@
+.btn_microphone {
+    position: relative;
+    background-color: #f8f9fa;
+    border: none;
+    color: #343a40;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn_microphone:hover {
+    background-color: #e9ecef;
+  }
+  
+  .btn_microphone.recording {
+    background-color: #dc3545;
+    color: white;
+    animation: recordingAnimation 1s infinite;
+  }
+
+  .d-flex-chat{
+    flex-wrap: nowrap;
+    align-content: space-between;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: row;
+  }
+  
+  @keyframes recordingAnimation {
+    0% { background-color: #dc3545; }
+    50% { background-color: #c82333; }
+    100% { background-color: #dc3545; }
+  }
+  
