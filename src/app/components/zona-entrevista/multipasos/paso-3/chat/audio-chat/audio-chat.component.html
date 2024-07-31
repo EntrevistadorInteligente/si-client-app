@@ -1,0 +1,12 @@
+<div class="audio-chat-container" [class.fullscreen]="isFullscreen">
+    <div *ngIf="isFullscreen" class="audio-chat-content">
+       
+        <h2>Bienvenido a tu entrevista por Audio</h2>
+        <p>Prepárate para una experiencia interactiva única.</p>
+        <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
+    </div>
+
+    <div *ngIf="!isFullscreen" class="audio-chat-interface">
+        <!-- AQUI VA TU LOGICA -->
+    </div>
+</div>

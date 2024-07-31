@@ -9,6 +9,7 @@ import Typed from 'typed.js';
 import { VideoChatComponent } from '../video-chat/video-chat.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MaximizeService } from 'src/app/shared/services/domain/maximize.service';
+import { AudioChatComponent } from '../audio-chat/audio-chat.component';
 
 @Component({
   selector: 'app-text-chat',
@@ -247,7 +248,32 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   openAudioChat(): void {
-    this.alert('Alerta', 'Funcionalidad no disponible', 'info');
+       // Primero, abre el modal
+       const modalRef = this.modalService.open(AudioChatComponent, { 
+        size: 'xl',
+        backdrop: 'static',
+        keyboard: false
+      });
+  
+      // Luego, cambia a pantalla completa
+      this.maximizeService.toggleFullScreen();
+  
+      modalRef.result.then(
+        (result) => {
+          console.log('Modal cerrado');
+          // Asegúrate de salir del modo pantalla completa si es necesario
+          if (this.maximizeService.navServices.fullScreen) {
+            this.maximizeService.toggleFullScreen();
+          }
+        },
+        (reason) => {
+          console.log('Modal descartado');
+          // Asegúrate de salir del modo pantalla completa si es necesario
+          if (this.maximizeService.navServices.fullScreen) {
+            this.maximizeService.toggleFullScreen();
+          }
+        }
+      );
   }
 
   openVideoChat(): void {

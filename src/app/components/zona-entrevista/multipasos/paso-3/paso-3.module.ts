@@ -7,11 +7,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AudioChatComponent } from './chat/audio-chat/audio-chat.component';
 
 
 
 @NgModule({
-  declarations: [TextoChatComponent],
+  declarations: [TextoChatComponent, AudioChatComponent],
   imports: [
     CommonModule,
     InputTextModule,
