@@ -12,7 +12,6 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
 import { TapToTopComponent } from "./components/tap-to-top/tap-to-top.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { NotificationComponent } from "./components/header/header/notification/notification.component";
-import { MaximizeComponent } from "./components/header/header/maximize/maximize.component";
 import { AccountComponent } from "./components/header/header/account/account.component";
 import { ModeComponent } from "./components/header/header/mode/mode.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
@@ -29,6 +28,7 @@ import { ChatService } from "./services/chat/chat.service";
 import { LoaderHttpComponent } from "./components/loader-http/loader-http.component";
 import { ChatBotService } from "./services/domain/chat-bot.service";
 import { EntrevistaService } from "./services/domain/entrevista.service";
+import { MaximizeService } from "./services/domain/maximize.service";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,6 @@ import { EntrevistaService } from "./services/domain/entrevista.service";
     TapToTopComponent,
     FooterComponent,
     NotificationComponent,
-    MaximizeComponent,
     AccountComponent,
     ModeComponent,
     LoaderComponent,
@@ -49,7 +48,8 @@ import { EntrevistaService } from "./services/domain/entrevista.service";
     SearchCustomizeComponent,
   ],
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, NgbModule, AngularSvgIconModule.forRoot()],
-  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, ChatService, ChatBotService,EntrevistaService],
+  providers: [NavService, DecimalPipe, IntegradorService, FeedbackService, LocaldataService, 
+    ChatService, ChatBotService,EntrevistaService, MaximizeService],
   exports: [RouterModule, 
     BreadcrumbComponent, 
     TapToTopComponent, 

@@ -26,7 +26,9 @@
         <app-notification></app-notification>
       </li>
       <li class="maximize">
-      <app-maximize></app-maximize>
+        <a class="text-dark" (click)="maximize()">
+          <svg-icon src="assets/svgIcon/maximize.svg"></svg-icon>  
+        </a>        
       </li>
       <li class="profile-nav onhover-dropdown pe-0 py-0 me-0">
         <app-account></app-account>

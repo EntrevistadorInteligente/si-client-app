@@ -1,1 +1,27 @@
-<p>video-chat works!</p>
+<div class="video-chat-container" [class.fullscreen]="isFullscreen">
+    <div *ngIf="isFullscreen" class="video-chat-content">
+        <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
+        <h2>Bienvenido a tu entrevista por video</h2>
+        <p>Prepárate para una experiencia interactiva única.</p>
+        <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
+    </div>
+
+    <div *ngIf="!isFullscreen" class="video-chat-interface">
+        <video #mediaStream autoplay playsinline width="500"></video>
+      
+        <div *ngIf="!stream">
+          <button (click)="startSession()" [disabled]="isLoadingSession">
+            {{ isLoadingSession ? 'Iniciando...' : 'Iniciar Sesión' }}
+          </button>
+        </div>
+      
+        <div *ngIf="stream">
+          <button (click)="showNextQuestion()" [disabled]="botTyping">
+            Siguiente Pregunta
+          </button>
+          <button (click)="endSession()">Finalizar Sesión</button>
+        </div>
+      
+        <p class="debug">{{ debug }}</p>
+    </div>
+</div>
