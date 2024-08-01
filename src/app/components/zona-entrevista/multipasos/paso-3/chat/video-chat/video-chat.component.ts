@@ -21,6 +21,12 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   avatar: StreamingAvatarApi;
   isLoadingSession: boolean = false;
   debug: string = '';
+  remainingTime: string = '10:00';
+  private timerInterval: any;
+  @ViewChild('userVideo') userVideo: ElementRef<HTMLVideoElement>;
+  userStream: MediaStream | undefined;
+  circumference = 2 * Math.PI * 45;
+  dashOffset = 0;
 
   constructor(entrevistaService: EntrevistaService,
     private chatBotService: ChatBotService,
@@ -33,7 +39,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.initializeAvatar();
   }
 
-   showNextQuestion(): void {
+  showNextQuestion(): void {
     this.botTyping = true;
     this.entrevistaService.getNextQuestion().subscribe({
       next: async (question) => {
@@ -71,7 +77,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.botTyping = false;
   }
 
-  
+
   processAssistantResponse(response: string): void {
     // Implementación específica para video chat
   }
@@ -87,15 +93,15 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     throw new Error('Method not implemented.');
   }
 
+  // Modifica el método closeFullscreen para iniciar el temporizador
   closeFullscreen() {
     this.isFullscreen = false;
-    // Aquí puedes emitir un evento para cerrar el componente si es necesario
   }
 
   async initializeAvatar() {
     this.chatBotService.getHeygenAccesToken().subscribe({
-      next: (res:any) => {
-    
+      next: (res: any) => {
+
         this.avatar = new StreamingAvatarApi(
           new Configuration({ accessToken: res.token })
         );
@@ -103,7 +109,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
       },
       error: (err: any) => {
         console.error('error: ', err);
-        
+
         //this.alert('Error', 'Ocurrió un error al enviar la entrevista. Por favor, inténtelo de nuevo más tarde.', 'error');
       },
     });
@@ -112,16 +118,19 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   async startSession() {
     this.isLoadingSession = true;
     try {
+      this.startTimer(10 * 60); // 10 minutos
       const res = await this.avatar.createStartAvatar({
         newSessionRequest: {
           quality: "medium",
-          avatarName: "Tyler-insuit-20220721", // Reemplaza con el ID de avatar adecuado
-          voice: { voiceId: "d62a0ce960434056b25c058bc4fa2509" } // Reemplaza con el ID de voz adecuado
+          avatarName: "Tyler-insuit-20220721",
+          voice: { voiceId: "d62a0ce960434056b25c058bc4fa2509" }
         }
       });
       this.sessionData = res;
       this.stream = this.avatar.mediaStream;
       this.setupMediaStream();
+      this.startTimer(10 * 60);
+      this.startUserCamera();
     } catch (error) {
       console.error("Error starting avatar session:", error);
       this.debug = "Error starting the session.";
@@ -148,8 +157,62 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     }
   }
 
+  startTimer(duration: number) {
+    let timer = duration;
+    const totalTime = duration;
+    this.timerInterval = setInterval(() => {
+      const minutes = Math.floor(timer / 60);
+      const seconds = timer % 60;
+
+      this.remainingTime =
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+        (seconds < 10 ? "0" + seconds : seconds);
+
+      this.dashOffset = this.circumference * (1 - timer / totalTime);
+
+      if (--timer < 0) {
+        clearInterval(this.timerInterval);
+        this.endSession();
+      }
+    }, 1000);
+  }
+
+  async startUserCamera() {
+    if (!this.userVideo) {
+      console.error('User video element not found');
+      return;
+    }
+  
+    const hasPermission = await this.checkCameraPermission();
+    if (!hasPermission) {
+      console.error('Camera permission not granted');
+      return;
+    }
+  
+    try {
+      this.userStream = await navigator.mediaDevices.getUserMedia({ video: true });
+      this.userVideo.nativeElement.srcObject = this.userStream;
+    } catch (err) {
+      console.error('Error accessing user camera:', err);
+    }
+  }
+
+  async checkCameraPermission(): Promise<boolean> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      stream.getTracks().forEach(track => track.stop());
+      return true;
+    } catch (err) {
+      console.error('Camera permission not granted:', err);
+      return false;
+    }
+  }
+
   ngOnDestroy() {
     this.endSession();
+    if (this.userStream) {
+      this.userStream.getTracks().forEach(track => track.stop());
+    }
   }
 
 }

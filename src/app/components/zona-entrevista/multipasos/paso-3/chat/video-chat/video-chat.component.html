@@ -1,27 +1,39 @@
 <div class="video-chat-container" [class.fullscreen]="isFullscreen">
-    <div *ngIf="isFullscreen" class="video-chat-content">
-        <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
-        <h2>Bienvenido a tu entrevista por video</h2>
-        <p>Prepárate para una experiencia interactiva única.</p>
-        <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
-    </div>
+  <div *ngIf="isFullscreen" class="video-chat-content">
+      <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
+      <h2>Bienvenido a tu entrevista por video</h2>
+      <p>Prepárate para una experiencia interactiva única.</p>
+      <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
+  </div>
 
-    <div *ngIf="!isFullscreen" class="video-chat-interface">
-        <video #mediaStream autoplay playsinline width="500"></video>
-      
-        <div *ngIf="!stream">
-          <button (click)="startSession()" [disabled]="isLoadingSession">
-            {{ isLoadingSession ? 'Iniciando...' : 'Iniciar Sesión' }}
-          </button>
-        </div>
-      
-        <div *ngIf="stream">
-          <button (click)="showNextQuestion()" [disabled]="botTyping">
-            Siguiente Pregunta
-          </button>
-          <button (click)="endSession()">Finalizar Sesión</button>
-        </div>
-      
-        <p class="debug">{{ debug }}</p>
+  <div *ngIf="!isFullscreen" class="video-chat-interface">
+    <div class="timer">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#ddd" stroke-width="10" />
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#f00" stroke-width="10"
+                [style.strokeDasharray]="circumference"
+                [style.strokeDashoffset]="dashOffset"
+                transform="rotate(-90 50 50)" />
+      </svg>
+      <span>{{remainingTime}}</span>
     </div>
+      <div class="user-camera">
+        <video #userVideo autoplay playsinline></video>
+      </div>
+
+      <div class="controls">
+          <button *ngIf="!stream" (click)="startSession()" [disabled]="isLoadingSession" class="control-button">
+              {{ isLoadingSession ? 'Iniciando...' : 'Iniciar Sesión' }}
+          </button>
+          
+          <button *ngIf="stream" (click)="showNextQuestion()" [disabled]="botTyping" class="control-button">
+              Siguiente Pregunta
+          </button>
+          <button *ngIf="stream" (click)="endSession()" class="control-button">
+              Finalizar Sesión
+          </button>
+      </div>
+      
+      <p class="debug">{{ debug }}</p>
+  </div>
 </div>
