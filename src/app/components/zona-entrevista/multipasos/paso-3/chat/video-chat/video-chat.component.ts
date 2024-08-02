@@ -3,6 +3,8 @@ import { BaseEntrevistaComponent } from '../../base-entrevista/base-entrevista.c
 import { EntrevistaService } from 'src/app/shared/services/domain/entrevista.service';
 import { Configuration, NewSessionData, StreamingAvatarApi } from '@heygen/streaming-avatar';
 import { ChatBotService } from 'src/app/shared/services/domain/chat-bot.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-video-chat',
@@ -20,22 +22,28 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   sessionData: NewSessionData | undefined;
   avatar: StreamingAvatarApi;
   isLoadingSession: boolean = false;
-  debug: string = '';
   remainingTime: string = '10:00';
   private timerInterval: any;
   @ViewChild('userVideo') userVideo: ElementRef<HTMLVideoElement>;
   userStream: MediaStream | undefined;
   circumference = 2 * Math.PI * 45;
   dashOffset = 0;
+  private peerConnection: RTCPeerConnection;
+  private sessionId: string;
+  token:string
+  private nameChatHistory: string;
 
   constructor(entrevistaService: EntrevistaService,
     private chatBotService: ChatBotService,
+    private http: HttpClient,
+    private authService: AuthService,
   ) {
     super(entrevistaService);
   }
 
   override ngOnInit() {
     super.ngOnInit();
+    this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
     this.initializeAvatar();
   }
 
@@ -52,13 +60,13 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
         await this.speakQuestion(question);
       },
       error: (err) => {
-        this.debug = `Error al obtener la siguiente pregunta: ${err}`;
+        console.log('Error getting next question:', err);
         this.botTyping = false;
       }
     });
   }
 
-  async speakQuestion(question: string) {
+  /*async speakQuestion(question: string) {
     if (this.sessionData) {
       try {
         await this.avatar.speak({
@@ -69,25 +77,61 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
         });
         this.processAssistantResponse(question);
       } catch (error) {
-        this.debug = `Error al hacer hablar al avatar: ${error}`;
+        console.log('Error speaking question:', error);
+      }
+    } 
+    this.botTyping = false;
+  }*/
+
+  async speakQuestion(question: string) {
+    if (this.sessionId) {
+      try {
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        });
+
+        const body = {
+          session_id: this.sessionId,
+          text: question
+        };
+
+        const response: any = await this.http.post('https://api.heygen.com/v1/streaming.task', body, { headers }).toPromise();
+
+        console.log('Speak task response:', response);
+        this.processAssistantResponse(question);
+      } catch (error) {
+        console.error('Error speaking question:', error);
       }
     } else {
-      this.debug = 'No hay una sesión activa para el avatar';
+      console.error('No active session');
     }
+    
     this.botTyping = false;
   }
 
-
   processAssistantResponse(response: string): void {
-    // Implementación específica para video chat
+    this.messages = this.entrevistaService.getMessages();
+    this.entrevistaService.addAssistantResponse(response);
+    this.entrevistaService.saveChatHistory(this.nameChatHistory);
+  }
+  handleUserResponse(response: string): void {
+    this.entrevistaService.addUserResponse(response);
+    this.messages = this.entrevistaService.getMessages();
+    this.userMessage = '';
+    this.showNextQuestion();
+    this.entrevistaService.saveChatHistory(this.nameChatHistory);
   }
 
-  handleUserResponse(response: string): void {
-    // Implementación específica para video chat
-  }
 
   override handleHistoryLoaded(): void {
-    throw new Error('Method not implemented.');
+    if (this.messages.length > 0 && this.messages[this.messages.length - 1].type === 'user') {
+      setTimeout(() => {
+        this.showNextQuestion();
+      }, 500);
+    } else {
+      
+    }
   }
   override sendMessage(): void {
     throw new Error('Method not implemented.');
@@ -105,6 +149,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
         this.avatar = new StreamingAvatarApi(
           new Configuration({ accessToken: res.token })
         );
+        this.token = res.token;
         //this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
       },
       error: (err: any) => {
@@ -119,31 +164,53 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.isLoadingSession = true;
     try {
       this.startTimer(10 * 60); // 10 minutos
-      const res = await this.avatar.createStartAvatar({
+      /*const res = await this.avatar.createStartAvatar({
         newSessionRequest: {
           quality: "medium",
           avatarName: "Tyler-insuit-20220721",
           voice: { voiceId: "d62a0ce960434056b25c058bc4fa2509" }
         }
       });
+
+
       this.sessionData = res;
       this.stream = this.avatar.mediaStream;
-      this.setupMediaStream();
+      this.setupMediaStream();*/
+
+        // Create a new session
+        const sessionData: any = await this.createNewSession();
+        const data = sessionData.data;
+        this.sessionId = data.session_id;
+        const remoteSdp = data.sdp;
+  
+        // Set up WebRTC
+        await this.setupWebRTC(remoteSdp);
+
       this.startTimer(10 * 60);
       this.startUserCamera();
     } catch (error) {
       console.error("Error starting avatar session:", error);
-      this.debug = "Error starting the session.";
     }
     this.isLoadingSession = false;
   }
 
-  setupMediaStream() {
+  /*setupMediaStream() {
     if (this.stream && this.mediaStream) {
       this.mediaStream.nativeElement.srcObject = this.stream;
       this.mediaStream.nativeElement.onloadedmetadata = () => {
         this.mediaStream.nativeElement.play();
       };
+    }
+  }*/
+
+  setupMediaStream() {
+    if (this.stream && this.mediaStream && this.mediaStream.nativeElement) {
+      this.mediaStream.nativeElement.srcObject = this.stream;
+      this.mediaStream.nativeElement.onloadedmetadata = () => {
+        this.mediaStream.nativeElement.play().catch(e => console.error("Error playing video:", e));
+      };
+    } else {
+      console.error("Media stream or video element not available");
     }
   }
 
@@ -215,4 +282,138 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     }
   }
 
+  private async createNewSession() {
+    const asd = this.token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    return this.http.post('https://api.heygen.com/v1/streaming.new', 
+      {
+          quality: "high",
+          avatar_id: "josh_lite3_20230714",
+          voice: {voice_id: 'd62a0ce960434056b25c058bc4fa2509'},
+        }, 
+      { headers }
+    ).toPromise();
+  }
+
+  private async setupWebRTC(remoteSdp: RTCSessionDescriptionInit) {
+    this.peerConnection = new RTCPeerConnection();
+  
+    this.peerConnection.ontrack = (event) => {
+      if (!this.stream) {
+        this.stream = new MediaStream();
+      }
+      this.stream.addTrack(event.track);
+      this.setupMediaStream();
+    };
+  
+    this.peerConnection.onicecandidate = (event) => {
+      if (event.candidate) {
+        this.sendIceCandidate(event.candidate);
+      }
+    };
+  
+    // Set the remote description first (this is the offer from the server)
+    await this.peerConnection.setRemoteDescription(new RTCSessionDescription(remoteSdp));
+  
+    // Create an answer
+    const answer = await this.peerConnection.createAnswer();
+    await this.peerConnection.setLocalDescription(answer);
+  
+    // Send the answer back to the server
+    await this.sendAnswer(answer);
+  }
+
+  private async sendAnswer(answer: RTCSessionDescriptionInit) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+  
+    return this.http.post(`https://api.heygen.com/v1/streaming.start`, 
+      { 
+        session_id: this.sessionId, 
+        sdp: answer
+      }, 
+      { headers }
+    ).toPromise();
+  }
+
+  private async sendIceCandidate(candidate: RTCIceCandidate) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.token}`
+    });
+
+    return this.http.post('https://api.heygen.com/v1/streaming.ice', 
+      { 
+        session_id: this.sessionId, 
+        candidate: candidate 
+      }, 
+      { headers }
+    ).toPromise();
+  }
+
+  async requestPermissions() {
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+      this.closeFullscreen();
+      this.startImmersiveExperience();
+    } catch (error) {
+      console.error('Error al solicitar permisos:', error);
+      alert('No se pudo acceder a la cámara y/o micrófono. Se iniciará el modo chat.');
+      //this.startChatMode();
+    }
+  }
+  startImmersiveExperience() {
+    this.initializeVoiceDetection();
+    // Iniciar la entrevista
+    this.showNextQuestion();
+  }
+
+  initializeVoiceDetection() {
+    let recognition = new (window as any).webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+  
+    let silenceTimer: any;
+    let transcript = '';
+  
+    recognition.onresult = (event: any) => {
+      clearTimeout(silenceTimer);
+      
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          transcript += event.results[i][0].transcript;
+        }
+      }
+  
+      // Actualizar la UI para mostrar que se está escuchando
+      this.updateListeningUI(true);
+  
+      silenceTimer = setTimeout(() => {
+        if (transcript.trim() !== '') {
+          this.handleUserResponse(transcript);
+          transcript = '';
+        }
+        this.updateListeningUI(false);
+      }, 1500); // Ajusta este valor según necesites
+    };
+  
+    recognition.onerror = (event: any) => {
+      console.error('Error en el reconocimiento de voz:', event.error);
+      this.updateListeningUI(false);
+    };
+  
+    recognition.start();
+  }
+
+  updateListeningUI(isListening: boolean) {
+    // Actualizar la UI para mostrar si se está escuchando o no
+    // Por ejemplo, cambiar un icono o mostrar un indicador visual
+  }
+  
 }

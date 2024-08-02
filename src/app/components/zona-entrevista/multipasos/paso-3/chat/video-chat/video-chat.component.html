@@ -3,10 +3,11 @@
       <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
       <h2>Bienvenido a tu entrevista por video</h2>
       <p>Prepárate para una experiencia interactiva única.</p>
-      <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
+      <button (click)="requestPermissions()" class="start-button">Comenzar entrevista</button>
   </div>
 
   <div *ngIf="!isFullscreen" class="video-chat-interface">
+    <video #mediaStream autoplay playsinline></video>
     <div class="timer">
       <svg viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="45" fill="none" stroke="#ddd" stroke-width="10" />
@@ -33,7 +34,5 @@
               Finalizar Sesión
           </button>
       </div>
-      
-      <p class="debug">{{ debug }}</p>
   </div>
 </div>
