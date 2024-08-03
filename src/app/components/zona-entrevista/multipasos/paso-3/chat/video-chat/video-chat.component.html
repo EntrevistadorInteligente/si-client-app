@@ -22,17 +22,75 @@
         <video #userVideo autoplay playsinline></video>
       </div>
 
-      <div class="controls">
-          <button *ngIf="!stream" (click)="startSession()" [disabled]="isLoadingSession" class="control-button">
-              {{ isLoadingSession ? 'Iniciando...' : 'Iniciar Sesión' }}
-          </button>
+        <div class="controls">
           
-          <button *ngIf="stream" (click)="showNextQuestion()" [disabled]="botTyping" class="control-button">
-              Siguiente Pregunta
+            <button
+            *ngIf="interviewFinished"
+            class="btn btn-danger mt 1"
+            (click)="closeInterview()"
+          >
+            Solicitar feedback
           </button>
-          <button *ngIf="stream" (click)="endSession()" class="control-button">
-              Finalizar Sesión
-          </button>
+
+          <div *ngIf="stream" class="chat-message clearfix">
+            <div *ngIf="!interviewFinished" >
+            <div class="character-counter">
+              {{ userMessage.length }}/1000
+            </div>
+            <div class="row">
+              <div class="col-xl-12 d-flex d-flex-chat">
+                <textarea
+                  class="form-control input-txt-bx text-area"
+                  id="message-to-send"
+                  #messageInput
+                  type="text"
+                  name="message-to-send"
+                  placeholder="Escribe tu respuesta..."
+                  [(ngModel)]="userMessage"
+                  (keyup.enter)="sendMessage()"
+                  (paste)="onPaste($event)"
+                  (input)="onInput($event)"
+                  [disabled]="botTyping || interviewFinished"
+                  rows="1"
+                  style="resize: none; overflow: hidden"
+                ></textarea>
+                <div class="btn-group ms-2">
+                  <button
+                    class="btn btn-success"
+                    type="button"
+                    [disabled]="botTyping || interviewFinished"
+                    (click)="toggleVoiceRecognition()"
+                  >
+                    <i
+                      [ngClass]="
+                        isRecording
+                          ? 'fa fa-stop'
+                          : 'fa fa-microphone'
+                      "
+                      style="font-size: 1.5rem"
+                    ></i>
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="sendMessage()"
+                    [disabled]="botTyping || interviewFinished"
+                  >
+                    <i class="fa fa-send"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
       </div>
   </div>
+</div>
+
+
+<div class="loader-overlay" *ngIf="isLoading">
+   
+  <div class="loader-container loader-box">
+      <div class="loader-8"></div>
+    </div>
 </div>

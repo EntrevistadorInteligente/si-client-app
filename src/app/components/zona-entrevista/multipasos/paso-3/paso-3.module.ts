@@ -6,9 +6,9 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { DialogModule } from 'primeng/dialog';
 import { ToastModule } from 'primeng/toast';
-import { ReactiveFormsModule } from '@angular/forms';
 import { AudioChatComponent } from './chat/audio-chat/audio-chat.component';
 import { VideoChatComponent } from './chat/video-chat/video-chat.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,6 +19,7 @@ import { VideoChatComponent } from './chat/video-chat/video-chat.component';
     InputTextModule,
     InputTextareaModule,
     ReactiveFormsModule,
+    FormsModule,
     SharedModule,
     DialogModule,
     ToastModule,

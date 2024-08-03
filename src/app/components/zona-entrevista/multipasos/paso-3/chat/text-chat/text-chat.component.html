@@ -9,7 +9,7 @@
                 <div class="media chat-header clearfix">
                   <img
                     class="rounded-circle"
-                    src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png"
+                    src="assets/images/user/preview_target_small.jpg"
                     alt=""
                   />
                   <div class="media-body">
@@ -26,7 +26,6 @@
                     </div>
                   </div>
                   <ul class="list-inline float-start chat-menu-icons">             
-                    <li class="list-inline-item"><a (click)="openAudioChat()"><i class="icon-headphone-alt"></i></a></li>
                     <li class="list-inline-item"><a (click)="openVideoChat()"><i class="icon-video-camera"></i></a></li>
                   </ul>
                 </div>
@@ -59,7 +58,7 @@
                                   <img
                                     class="rounded-circle float-start chat-user-img img-30"
                                     *ngIf="message.type === 'bot'"
-                                    src="https://admin.pixelstrap.com/zeta/assets/images/user/2.png"
+                                    src="assets/images/user/preview_target_small.jpg"
                                     alt=""
                                   />
                                   <img
@@ -103,14 +102,14 @@
                                 participar.
                                 <button
                                   class="btn btn-danger mt 1"
-                                  (click)="finalizeInterview()"
+                                  (click)="closeInterview()"
                                 >
                                   Solicitar feedback
                                 </button>
                               </div>
                             </div>
                           </div>
-                          <div class="chat-message clearfix">
+                          <div disable="interviewFinished" class="chat-message clearfix">
                             <div class="character-counter">
                               {{ userMessage.length }}/1000
                             </div>
@@ -125,20 +124,21 @@
                                   </div>
                                 </div>
 
-                                <textarea
-                                  class="form-control input-txt-bx text-area"
-                                  id="message-to-send"
-                                  #messageInput
-                                  type="text"
-                                  name="message-to-send"
-                                  placeholder="Escribe tu respuesta..."
-                                  
-                                  (keyup.enter)="sendMessage()"
-                                  (input)="onInput($event)"
-                                  [disabled]="botTyping || interviewFinished"
-                                  rows="1"
-                                  style="resize: none; overflow: hidden"
-                                ></textarea>
+                                <textarea 
+                                class="form-control input-txt-bx text-area" 
+                                id="message-to-send" 
+                                #messageInput
+                                type="text" 
+                                name="message-to-send" 
+                                placeholder="Escribe tu respuesta..." 
+                                [(ngModel)]="userMessage" 
+                                (paste)="onPaste($event)" 
+                                (keyup.enter)="sendMessage()" 
+                                (input)="onInput($event)" 
+                                [disabled]="botTyping || interviewFinished" 
+                                rows="1"
+                                style="resize: none; overflow-y: hidden;"
+                              ></textarea>
                                 <div class="btn-group ms-2">
                                   <button
                                     class="btn btn-success"

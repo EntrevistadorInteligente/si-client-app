@@ -30,11 +30,11 @@ export class IntegradorService {
   }
 
   public crearSolicitudEntrevista(formulario: FormularioDto): Observable<any> {
-    localStorage.removeItem(`${this.authService.getUsername()}_chatHistory`);
+    localStorage.removeItem(`${this.authService.getEmail()}_chatHistory`);
     return from(this.getHeaders()).pipe(
       switchMap(headers =>
         this.httpClient.post(
-          `${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.authService.getUsername()}`,
+          `${this.orquestadorURL}${this.entrevista}/solicitudes-entrevistas?username=${this.authService.getEmail()}`,
           formulario,
           { headers }
         )
@@ -45,7 +45,7 @@ export class IntegradorService {
   public obtenerHojaDeVida(): Observable<HojaDeVidaDto> {
     return from(this.getHeaders()).pipe(
       switchMap(headers => {
-        const username = this.authService.getUsername();
+        const username = this.authService.getEmail();
         return this.httpClient.get<HojaDeVidaDto>(
           `${this.orquestadorURL}${this.hojaDeVida}/${username}`,
           { headers }
@@ -73,7 +73,7 @@ export class IntegradorService {
         formData.append('file', file);
         formData.append(
           'username',
-          new Blob([this.authService.getUsername()], {
+          new Blob([this.authService.getEmail()], {
             type: 'application/json',
           })
         );
@@ -90,7 +90,7 @@ export class IntegradorService {
   public obtenerEstadoEntrevistaPorUsuario(): Observable<EstadoEntrevistaDto> {
     return from(this.getHeaders()).pipe(
       switchMap(headers => {
-        const username = this.authService.getUsername();
+        const username = this.authService.getEmail();
         return this.httpClient.get<EstadoEntrevistaDto>(
           `${this.orquestadorURL}${this.entrevista}?username=${username}`,
           { headers }
