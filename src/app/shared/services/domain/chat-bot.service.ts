@@ -22,7 +22,7 @@ export class ChatBotService {
     lastAssistantResponse: string,
     entrevistaUsuarioDto: EntrevistaUsuarioDto
   ): Observable<any> {
-    const candidateName = this.authService.getUsername();
+    const candidateName = this.authService.getFirstGivenName();
     const jobTitle =
       entrevistaUsuarioDto.seniorityEmpresa +
       ' ' +
@@ -48,7 +48,7 @@ export class ChatBotService {
   }
 
   public generarIntroduction( entrevistaUsuarioDto: EntrevistaUsuarioDto): Observable<any> {
-    const candidateName = this.authService.getUsername();
+    const candidateName = this.authService.getFirstGivenName();
     const jobTitle =
       entrevistaUsuarioDto.seniorityEmpresa +
       ' ' +
@@ -63,6 +63,46 @@ export class ChatBotService {
     return from(this.getHeaders()).pipe(
       switchMap(headers =>
         this.httpClient.post(`${this.feedbackURL}/generate-intro`, request, {
+          headers,
+        })
+      )
+    );
+  }
+
+  public getCloseInterview(
+    lastUserResponse: string,
+    lastAssistantResponse: string,
+    entrevistaUsuarioDto: EntrevistaUsuarioDto
+  ): Observable<any> {
+    const candidateName = this.authService.getFirstGivenName();
+    const jobTitle =
+      entrevistaUsuarioDto.seniorityEmpresa +
+      ' ' +
+      entrevistaUsuarioDto.perfilEmpresa;
+    const companyName = entrevistaUsuarioDto.empresa;
+
+    const request = {
+      lastUserResponse,
+      lastAssistantResponse,
+      candidateName,
+      jobTitle,
+      companyName,
+    };
+
+    return from(this.getHeaders()).pipe(
+      switchMap(headers =>
+        this.httpClient.post(`${this.feedbackURL}/generate-close`, request, {
+          headers,
+        })
+      )
+    );
+  }
+
+  public getHeygenAccesToken(): Observable<any> {
+
+    return from(this.getHeaders()).pipe(
+      switchMap(headers =>
+        this.httpClient.post(`${this.feedbackURL}/heygen/get-access-token`, undefined, {
           headers,
         })
       )

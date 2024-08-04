@@ -61,10 +61,12 @@ export abstract class BaseEntrevistaComponent implements OnInit {
       hour: '2-digit',
       minute: '2-digit',
     });
+    
   }
 
-  finalizeInterview(): void {
+  finalizeInterview(nameChatHistory:any): void {
     this.respuestasEntrevista.emit(this.entrevistaService.getRespuestas());
+    localStorage.removeItem(nameChatHistory);
   }
 
   abstract sendMessage(): void;

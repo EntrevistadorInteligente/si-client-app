@@ -1,27 +1,96 @@
 <div class="video-chat-container" [class.fullscreen]="isFullscreen">
-    <div *ngIf="isFullscreen" class="video-chat-content">
-        <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
-        <h2>Bienvenido a tu entrevista por video</h2>
-        <p>Prepárate para una experiencia interactiva única.</p>
-        <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
-    </div>
+  <div *ngIf="isFullscreen" class="video-chat-content">
+      <img [src]="avatarUrl" alt="Avatar" class="avatar-image">
+      <h2>Bienvenido a tu entrevista por video</h2>
+      <p>Prepárate para una experiencia interactiva única.</p>
+      <button (click)="requestPermissions()" class="start-button">Comenzar entrevista</button>
+  </div>
 
-    <div *ngIf="!isFullscreen" class="video-chat-interface">
-        <video #mediaStream autoplay playsinline width="500"></video>
-      
-        <div *ngIf="!stream">
-          <button (click)="startSession()" [disabled]="isLoadingSession">
-            {{ isLoadingSession ? 'Iniciando...' : 'Iniciar Sesión' }}
+  <div *ngIf="!isFullscreen" class="video-chat-interface">
+    <video #mediaStream autoplay playsinline></video>
+    <div class="timer">
+      <svg viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#ddd" stroke-width="10" />
+        <circle cx="50" cy="50" r="45" fill="none" stroke="#f00" stroke-width="10"
+                [style.strokeDasharray]="circumference"
+                [style.strokeDashoffset]="dashOffset"
+                transform="rotate(-90 50 50)" />
+      </svg>
+      <span>{{remainingTime}}</span>
+    </div>
+      <div class="user-camera">
+        <video #userVideo autoplay playsinline></video>
+      </div>
+
+        <div class="controls">
+          
+            <button
+            *ngIf="interviewFinished"
+            class="btn btn-danger mt 1"
+            (click)="closeInterview()"
+          >
+            Solicitar feedback
           </button>
-        </div>
-      
-        <div *ngIf="stream">
-          <button (click)="showNextQuestion()" [disabled]="botTyping">
-            Siguiente Pregunta
-          </button>
-          <button (click)="endSession()">Finalizar Sesión</button>
-        </div>
-      
-        <p class="debug">{{ debug }}</p>
+
+          <div *ngIf="stream" class="chat-message clearfix">
+            <div *ngIf="!interviewFinished" >
+            <div class="character-counter">
+              {{ userMessage.length }}/1000
+            </div>
+            <div class="row">
+              <div class="col-xl-12 d-flex d-flex-chat">
+                <textarea
+                  class="form-control input-txt-bx text-area"
+                  id="message-to-send"
+                  #messageInput
+                  type="text"
+                  name="message-to-send"
+                  placeholder="Escribe tu respuesta..."
+                  [(ngModel)]="userMessage"
+                  (keyup.enter)="sendMessage()"
+                  (paste)="onPaste($event)"
+                  (input)="onInput($event)"
+                  [disabled]="botTyping || interviewFinished"
+                  rows="1"
+                  style="resize: none; overflow: hidden"
+                ></textarea>
+                <div class="btn-group ms-2">
+                  <button
+                    class="btn btn-success"
+                    type="button"
+                    [disabled]="botTyping || interviewFinished"
+                    (click)="toggleVoiceRecognition()"
+                  >
+                    <i
+                      [ngClass]="
+                        isRecording
+                          ? 'fa fa-stop'
+                          : 'fa fa-microphone'
+                      "
+                      style="font-size: 1.5rem"
+                    ></i>
+                  </button>
+                  <button
+                    class="btn btn-primary"
+                    type="button"
+                    (click)="sendMessage()"
+                    [disabled]="botTyping || interviewFinished"
+                  >
+                    <i class="fa fa-send"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="loader-overlay" *ngIf="isLoading">
+   
+  <div class="loader-container loader-box">
+      <div class="loader-8"></div>
     </div>
 </div>

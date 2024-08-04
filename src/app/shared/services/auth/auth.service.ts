@@ -48,8 +48,17 @@ export class AuthService {
     }
   }
 
-  getUsername() {
+  getEmail() {
     return this.keycloakService.getUsername();
+  }
+
+  getFirstGivenName() {
+    const loggedUser = this.getLoggedUser();
+    if (loggedUser && loggedUser['given_name']) {
+      const firstName = loggedUser['given_name'].split(' ')[0];
+      return firstName;
+    }
+    return undefined;
   }
 
   isLoggedIn() {
