@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BaseEntrevistaComponent } from '../../base-entrevista/base-entrevista.component';
 import { EntrevistaService } from 'src/app/shared/services/domain/entrevista.service';
 import { ChatBotService } from 'src/app/shared/services/domain/chat-bot.service';
@@ -21,6 +21,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
 
   @ViewChild('mediaStream') mediaStream: ElementRef<HTMLVideoElement>;
   @ViewChild('messageInput') private messageInput: ElementRef;
+  @ViewChild('userVideo') userVideo: ElementRef<HTMLVideoElement>;
 
   stream: MediaStream | undefined;
   sessionData: any;
@@ -30,8 +31,9 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   dashOffset: number;
   circumference = 282.7433388230814;
   modalRef: NgbActiveModal;
-  
-  @ViewChild('userVideo') userVideo: ElementRef<HTMLVideoElement>;
+  private finalTranscript: string = '';
+
+
   userStream: MediaStream | undefined;
 
   private peerConnection: RTCPeerConnection;
@@ -47,7 +49,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     private authService: AuthService,
     private voiceRecognitionService: RecordVoiceService,
     private timerService: TimerService,
-    private activeModal: NgbActiveModal
+    private activeModal: NgbActiveModal,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     super(entrevistaService);
   }
@@ -72,6 +75,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.isFromChat = false;
     this.entrevistaService.getNextQuestion().subscribe({
       next: async (question) => {
+        this.resetMessageState();
         if (this.entrevistaService.isInterviewFinished()) {
           this.botTyping = false;
           this.isLoading = false;
@@ -99,6 +103,12 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     });
   }
 
+  private resetMessageState() {
+    this.userMessage = '';
+    this.finalTranscript = '';
+    this.voiceRecognitionService.resetRecognitionBuffer();
+  }
+
   async speakQuestion(question: string) {
     if (this.sessionId) {
       try {
@@ -112,7 +122,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
           text: question
         };
 
-        const response: any = await this.http.post('https://api.heygen.com/v1/streaming.task', body, { headers }).toPromise();
+         await this.http.post('https://api.heygen.com/v1/streaming.task', body, { headers }).toPromise();
 
         if(!this.isFromChat){
           this.processAssistantResponse(question);
@@ -138,6 +148,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.entrevistaService.addUserResponse(response);
     this.messages = this.entrevistaService.getMessages();
     this.userMessage = '';
+    this.finalTranscript = '';
     this.showNextQuestion();
     this.entrevistaService.saveChatHistory(this.nameChatHistory);
   }
@@ -176,16 +187,19 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   resetTextarea(): void {
-    this.messageInput.nativeElement.value = '';
-    this.adjustTextareaHeight();
+    const textarea = this.messageInput.nativeElement;
+    textarea.value = '';
+    this.userMessage = '';
+    this.adjustTextareaHeight(textarea);
   }
 
-  adjustTextareaHeight(): void {
-    const textarea = this.messageInput.nativeElement;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+  adjustTextareaHeight(element: HTMLTextAreaElement): void {
+    element.style.height = 'auto';
+    element.style.height = (element.scrollHeight) + 'px';
+    element.scrollTop = element.scrollHeight;
   }
-  // Modifica el método closeFullscreen para iniciar el temporizador
+
+
   closeFullscreen() {
     this.isFullscreen = false;
   }
@@ -298,6 +312,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
       this.userStream.getTracks().forEach(track => track.stop());
       this.endSession();
     }
+    this.endSession();
   }
 
   private async createNewSession() {
@@ -385,7 +400,6 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     } catch (error) {
       console.error('Error al solicitar permisos:', error);
       alert('No se pudo acceder a la cámara y/o micrófono. Se iniciará el modo chat.');
-      //this.startChatMode();
     }
   }
 
@@ -399,6 +413,10 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
         this.userMessage = result;
       }
 
+      const textarea = this.messageInput.nativeElement;
+      textarea.value = this.userMessage;
+      this.adjustTextareaHeight(textarea);
+      this.changeDetectorRef.detectChanges();
     });
 
     this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
@@ -413,6 +431,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   toggleVoiceRecognition() {
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
+      const textarea = this.messageInput.nativeElement;
+      this.adjustTextareaHeight(textarea);
     } else {
       this.voiceRecognitionService.startRecognition();
     }

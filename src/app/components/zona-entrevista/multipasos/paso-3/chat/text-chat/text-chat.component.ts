@@ -105,6 +105,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.entrevistaService.addUserResponse(response);
     this.messages = this.entrevistaService.getMessages();
     this.userMessage = '';
+    this.finalTranscript = '';
     this.showNextQuestion();
     this.saveChatHistory();
   }
@@ -113,7 +114,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.botTyping = true;
     this.entrevistaService.getNextQuestion().subscribe({
       next: question => {
-
+        this.resetMessageState();
         if (this.entrevistaService.isInterviewFinished()) {
           this.entrevistaService.getClose().subscribe({
             next: async (close) => {
@@ -140,6 +141,12 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
         this.botTyping = false;
       }
     });
+  }
+
+  private resetMessageState() {
+    this.userMessage = '';
+    this.finalTranscript = '';
+    this.voiceRecognitionService.resetRecognitionBuffer();
   }
 
   handleHistoryLoaded(): void {
@@ -178,8 +185,9 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   adjustTextareaHeight(element: HTMLTextAreaElement): void {
     element.style.height = 'auto';
     element.style.height = (element.scrollHeight) + 'px';
+    this.scrollToBottom();
+    element.scrollTop = element.scrollHeight;
   }
-
 
   private initVoiceRecognition() {
     this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
@@ -191,6 +199,11 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
         this.userMessage = result;
       }
       this.scrollToEnd();
+
+      const textarea = this.messageInput.nativeElement;
+      textarea.value = this.userMessage;
+      this.adjustTextareaHeight(textarea);
+      this.changeDetectorRef.detectChanges();
     });
 
     this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
@@ -211,11 +224,12 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.errorMessage = '';
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
+      const textarea = this.messageInput.nativeElement;
+      this.adjustTextareaHeight(textarea);
     } else {
       this.voiceRecognitionService.startRecognition();
     }
   }
-
 
   scrollToBottom(): void {
     try {
@@ -246,14 +260,6 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
       icon: icon,
       confirmButtonText: 'OK',
     });
-  }
-
-  ngAfterViewInit(): void {
-    const textarea = this.messageInput.nativeElement;
-    const observer = new MutationObserver(() => {
-      this.adjustTextareaHeight(textarea);
-    });
-    observer.observe(textarea, { attributes: true, childList: true, characterData: true, subtree: true });
   }
 
   ngOnDestroy(): void {
