@@ -891,7 +891,7 @@
         }
 
         .logo-wrapper,
-        .logo-icon-wrapper {
+        .Logo-EI-wrapper {
           display: none;
         }
 
@@ -1297,7 +1297,7 @@
           box-shadow: 0 0 21px 0 rgba($semi-dark, 0.1);
           height: 100vh;
           .logo-wrapper,
-          .logo-icon-wrapper {
+          .Logo-EI-wrapper {
             padding: 20px 30px;
             img {
               height: 35px;
@@ -1307,7 +1307,7 @@
             }
           }
 
-          .logo-icon-wrapper {
+          .Logo-EI-wrapper {
             display: none;
           }
           &.close_icon {
@@ -1359,7 +1359,7 @@
                 display: block;
               }
 
-              .logo-icon-wrapper {
+              .Logo-EI-wrapper {
                 display: none;
               }
             }
@@ -1984,7 +1984,7 @@
       display: none;
     }
 
-    .logo-icon-wrapper {
+    .Logo-EI-wrapper {
       display: block;
       text-align: center;
       padding: 24px 30px;
@@ -2247,7 +2247,7 @@
       display: none;
     }
 
-    .logo-icon-wrapper {
+    .Logo-EI-wrapper {
       display: block;
       text-align: center;
       padding: 27px 30px;

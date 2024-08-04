@@ -57,6 +57,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
 
   override ngOnInit() {
     super.ngOnInit();
+    this.interviewFinished = this.entrevistaService.isInterviewFinished();
+    this.resetMessageState();
     this.nameChatHistory = `${this.authService.getEmail()}_chatHistory`;
     this.initializeAvatar();
     this.timerService.time$.subscribe(time => {
@@ -66,8 +68,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.timerService.dashOffset$.subscribe(offset => {
       this.dashOffset = offset;
     });
-
-    this.interviewFinished = this.entrevistaService.isInterviewFinished();
+   
+   
   }
 
   showNextQuestion(): void {
@@ -167,7 +169,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     } else {
       this.isFromChat = true;
       setTimeout(() => {
-          this.speakQuestion("Continuemos con tu entrevista, ya que la habías dejado a medias. La última pregunta que te hice fue: " + lastMessage.text);
+          this.speakQuestion("Continuemos con tu entrevista. La última pregunta que te hice fue: " + lastMessage.text);
           this.isLoading = false;
       }, 1000);
       
@@ -308,6 +310,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
 
   ngOnDestroy() {
     this.timerService.stopTimer();
+    this.resetMessageState();
     if (this.userStream) {
       this.userStream.getTracks().forEach(track => track.stop());
       this.endSession();
@@ -432,6 +435,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
       const textarea = this.messageInput.nativeElement;
+      this.resetMessageState();
       this.adjustTextareaHeight(textarea);
     } else {
       this.voiceRecognitionService.startRecognition();
@@ -464,7 +468,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   closeInterview(){
-    this.modalRef.close(); 
+    this.modalRef.close();
+    this.resetMessageState();
     this.finalizeInterview(this.nameChatHistory);
   }
 

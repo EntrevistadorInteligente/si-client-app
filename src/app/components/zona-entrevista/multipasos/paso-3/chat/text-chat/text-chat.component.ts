@@ -264,6 +264,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
 
   ngOnDestroy(): void {
     if (this.resizeObserver) {
+      this.resetMessageState();
       this.resizeObserver.disconnect();
     }
   }
@@ -285,6 +286,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
         // Asegúrate de salir del modo pantalla completa si es necesario
         if (this.maximizeService.navServices.fullScreen) {
           this.maximizeService.toggleFullScreen();
+          this.resetMessageState();
         }
       },
       (reason) => {
@@ -344,6 +346,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
             // Asegúrate de salir del modo pantalla completa si es necesario
             if (this.maximizeService.navServices.fullScreen) {
               this.maximizeService.toggleFullScreen();
+              this.resetMessageState();
             }
           },
           (reason) => {
@@ -370,6 +373,7 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   
   closeInterview(){
     this.finalizeInterview(this.nameChatHistory);
+    this.resetMessageState();
   }
 
   @HostListener('window:resize')
