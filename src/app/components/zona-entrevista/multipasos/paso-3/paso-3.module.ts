@@ -9,8 +9,6 @@ import { ToastModule } from 'primeng/toast';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AudioChatComponent } from './chat/audio-chat/audio-chat.component';
 
-
-
 @NgModule({
   declarations: [TextoChatComponent, AudioChatComponent],
   imports: [
@@ -22,7 +20,6 @@ import { AudioChatComponent } from './chat/audio-chat/audio-chat.component';
     DialogModule,
     ToastModule,
   ],
-  exports: [TextoChatComponent 
-  ],
+  exports: [TextoChatComponent],
 })
-export class Paso3Module { }
+export class Paso3Module {}
