@@ -25,6 +25,9 @@
     align-items: flex-end;
     flex-direction: row;
   }
+  .character-counter{
+    text-align: center;
+  }
   
   @keyframes recordingAnimation {
     0% { background-color: #dc3545; }
