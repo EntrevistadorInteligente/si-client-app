@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MultipasosComponent } from './multipasos.component';
-import { MessageService, SharedModule } from 'primeng/api';
+import { MessageService} from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { DialogModule } from 'primeng/dialog';
@@ -24,6 +24,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { Paso3Module } from './paso-3/paso-3.module';
 import { Paso3Component } from './paso-3/paso-3.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [
     MultipasosComponent,

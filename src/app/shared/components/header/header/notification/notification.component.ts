@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy, NgZone } from "@angular/core";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
+import { filter, Subscription, switchMap, tap } from "rxjs";
+import { TipoNotificacionEnum } from "src/app/shared/model/tipo-notificacion.enum";
+import { EntrevistaService } from "src/app/shared/services/domain/entrevista.service";
+import { NotificationCommunicationService } from "src/app/shared/services/domain/notification-communication.service";
 import { SseService } from "src/app/shared/services/domain/sse.service";
 
 @Component({
@@ -9,7 +12,8 @@ import { SseService } from "src/app/shared/services/domain/sse.service";
   styleUrls: ["./notification.component.scss"],
 })
 export class NotificationComponent implements OnInit, OnDestroy {
-  private eventsSubscription: Subscription;
+  private sseSubscription: Subscription;
+  private notificationSubscription: Subscription;
   notifications: any[] = [];
   badgeCount = 0;
   private audio: HTMLAudioElement;
@@ -18,7 +22,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
   constructor(
     private sseService: SseService,
     private router: Router,
-    private zone: NgZone
+    private zone: NgZone,
+    private notificationCommService: NotificationCommunicationService
   ) {
     this.audio = new Audio("assets/sounds/notification.wav");
     this.audio.load();
@@ -26,13 +31,33 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loadNotificationsFromLocalStorage();
-
-    this.eventsSubscription = this.sseService.getServerSentEvent().subscribe({
-      next: (event) => this.handleEvent(event),
-      error: (error) => console.error(error),
-    });
+    this.listenForNotifications();
   }
 
+  private listenForNotifications() {
+    this.notificationSubscription = this.notificationCommService.notification$.subscribe(
+      () => {
+        this.startSSE();
+      }
+    );
+  }
+
+  private startSSE() {
+    if (this.sseSubscription) {
+      this.sseSubscription.unsubscribe();
+    }
+    this.sseSubscription = this.sseService.startServerSentEvent().subscribe({
+      next: (event) => {
+        this.handleEvent(event);
+        if (event.tipo === TipoNotificacionEnum.PREGUNTAS_GENERADAS || event.tipo === TipoNotificacionEnum.FEEDBACK_GENERADAS) {
+          this.sseSubscription.unsubscribe();
+          this.sseService.stopServerSentEvent();
+        }
+      },
+      error: (error) => console.error('Error in SSE connection:', error),
+      complete: () => console.log('SSE connection closed')
+    });
+  }
   handleEvent(event: any) {
     const { tipo, mensaje } = event;
 
@@ -134,9 +159,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (this.eventsSubscription) {
-      this.eventsSubscription.unsubscribe();
+    if (this.sseSubscription) {
+      this.sseSubscription.unsubscribe();
     }
+    if (this.notificationSubscription) {
+      this.notificationSubscription.unsubscribe();
+    }
+    this.sseService.stopServerSentEvent();
   }
 
   trackById(index: number, item: any): number {

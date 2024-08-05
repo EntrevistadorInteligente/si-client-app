@@ -270,28 +270,22 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   openAudioChat(): void {
-    // Primero, abre el modal
     const modalRef = this.modalService.open(AudioChatComponent, {
       size: 'xl',
       backdrop: 'static',
       keyboard: false
     });
 
-    // Luego, cambia a pantalla completa
     this.maximizeService.toggleFullScreen();
 
     modalRef.result.then(
       (result) => {
-        console.log('Modal cerrado');
-        // Asegúrate de salir del modo pantalla completa si es necesario
         if (this.maximizeService.navServices.fullScreen) {
           this.maximizeService.toggleFullScreen();
           this.resetMessageState();
         }
       },
       (reason) => {
-        console.log('Modal descartado');
-        // Asegúrate de salir del modo pantalla completa si es necesario
         if (this.maximizeService.navServices.fullScreen) {
           this.maximizeService.toggleFullScreen();
         }
@@ -300,74 +294,75 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   openVideoChat(): void {
-    const swalWithBootstrapButtons = Swal.mixin({
-      customClass: {
-        confirmButton: "btn btn-success",
-        cancelButton: "btn btn-danger"
-      },
-      buttonsStyling: false
-    });
-    
-    Swal.fire({
-      title: "Ingresa la clave de prueba exclusiva de previews",
-      input: "password",
-      inputAttributes: {
-        autocapitalize: "off"
-      },
-      showCancelButton: true,
-      confirmButtonText: "aceptar",
-      showLoaderOnConfirm: true,
-      preConfirm: (key) => {
-        return new Promise<void>((resolve, reject) => {
-          if (key === environment.previewKey) {
-            resolve(); // Clave correcta
-          } else {
-            reject('Clave incorrecta'); // Clave incorrecta
-          }
-        });
-      },
-      allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-      if (result.isConfirmed) {
-         // Primero, abre el modal
-         const modalRef = this.modalService.open(VideoChatComponent, {
-          size: 'xl',
-          backdrop: 'static',
-          keyboard: false
-        });
-        modalRef.componentInstance.idEntrevista = this.idEntrevista;
-        modalRef.componentInstance.modalRef = modalRef;
-        // Luego, cambia a pantalla completa
-        this.maximizeService.toggleFullScreen();
-
-        modalRef.result.then(
-          (result) => {
-            console.log('Modal cerrado');
-            // Asegúrate de salir del modo pantalla completa si es necesario
-            if (this.maximizeService.navServices.fullScreen) {
-              this.maximizeService.toggleFullScreen();
-              this.resetMessageState();
-            }
-          },
-          (reason) => {
-            console.log('Modal descartado');
-            // Asegúrate de salir del modo pantalla completa si es necesario
-            if (this.maximizeService.navServices.fullScreen) {
-              this.maximizeService.toggleFullScreen();
-            }
-          }
-        );
-      } else if (result.dismiss === Swal.DismissReason.cancel) {
-        console.log("Acción cancelada por el usuario.");
-      }
-    }).catch(error => {
-      swalWithBootstrapButtons.fire({
-        title: "Acceso denegado",
-        text: "No tienes acceso a la preview. Contacta al administrador si necesitas acceso.",
-        icon: "error",
-        confirmButtonText: "Entendido"
+    if(!this.interviewFinished){
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
       });
-    });
+      
+      Swal.fire({
+        title: "Ingresa la clave de prueba exclusiva de previews",
+        input: "password",
+        inputAttributes: {
+          autocapitalize: "off"
+        },
+        showCancelButton: true,
+        confirmButtonText: "aceptar",
+        showLoaderOnConfirm: true,
+        preConfirm: (key) => {
+          return new Promise<void>((resolve, reject) => {
+            if (key === environment.previewKey) {
+              resolve();
+            } else {
+              reject('Clave incorrecta');
+            }
+          });
+        },
+        allowOutsideClick: () => !Swal.isLoading()
+      }).then((result) => {
+        if (result.isConfirmed) {
+           // Primero, abre el modal
+           const modalRef = this.modalService.open(VideoChatComponent, {
+            size: 'xl',
+            backdrop: 'static',
+            keyboard: false
+          });
+          modalRef.componentInstance.idEntrevista = this.idEntrevista;
+          modalRef.componentInstance.modalRef = modalRef;
+          // Luego, cambia a pantalla completa
+          this.maximizeService.toggleFullScreen();
+  
+          modalRef.result.then(
+            (result) => {
+              if (this.maximizeService.navServices.fullScreen) {
+                this.maximizeService.toggleFullScreen();
+                this.resetMessageState();
+              }
+            },
+            (reason) => {
+              if (this.maximizeService.navServices.fullScreen) {
+                this.maximizeService.toggleFullScreen();
+              }
+            }
+          );
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          console.log("Acción cancelada por el usuario.");
+        }
+      }).catch(error => {
+        swalWithBootstrapButtons.fire({
+          title: "Acceso denegado",
+          text: "No tienes acceso a la preview. Contacta al administrador si necesitas acceso.",
+          icon: "error",
+          confirmButtonText: "Entendido"
+        });
+      });
+    }else {
+      Swal.fire("Tu entrevista ya finalizó. Por favor, solicita tu feedback y podrás iniciar una nueva entrevista.");
+    }
+   
   }
 
   

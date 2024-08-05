@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { RespuestaComentarioDto } from 'src/app/shared/model/respuesta-dto';
+import { EntrevistaService } from 'src/app/shared/services/domain/entrevista.service';
 import { FeedbackService } from 'src/app/shared/services/domain/feedback.service';
 import Swal, { SweetAlertIcon } from 'sweetalert2';
 
@@ -10,19 +12,25 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
   styleUrl: './paso-3.component.scss'
 })
 
-export class Paso3Component implements OnInit {
+export class Paso3Component implements OnInit, OnDestroy {
   @Output() entravistaCompleta = new EventEmitter<boolean>();
   @Input() idEntrevista: string;
+  private subscription: Subscription;
+
   currentIndex: number = 0;
   visible: boolean = false;
   errorMessage: string = '';
  
   constructor(
-    private integradorService: FeedbackService
+    private integradorService: FeedbackService,
+    private entrevistaStateService: EntrevistaService
   ) { }
 
   ngOnInit(): void {
-
+    this.subscription = this.entrevistaStateService.respuestas$.subscribe(
+      respuestas => {
+        this.submitAnswers(respuestas)}
+    );
   }
 
   submitAnswers(respuestas: RespuestaComentarioDto[]) {
@@ -52,6 +60,12 @@ export class Paso3Component implements OnInit {
       icon: icon,
       confirmButtonText: 'OK'
     })
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
 }

@@ -57,7 +57,8 @@ import { MaximizeService } from "./services/domain/maximize.service";
     LoaderComponent,
     LoaderHttpComponent,
     NgbModule, 
-    AngularSvgIconModule]
+    AngularSvgIconModule,
+    NotificationComponent]
 
 })
 export class SharedModule {}

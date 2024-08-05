@@ -5,6 +5,7 @@ import { VistaPreviaEntrevistaDto } from 'src/app/shared/model/vista-previa-entr
 import { IntegradorService } from 'src/app/shared/services/domain/integrador.service';
 import { PaisService } from 'src/app/shared/services/domain/pais.service';
 import { FormularioDto } from 'src/app/shared/model/formulario-dto';
+import { NotificationCommunicationService } from 'src/app/shared/services/domain/notification-communication.service';
 
 @Component({
   selector: 'app-paso-2',
@@ -26,7 +27,8 @@ export class Paso2Component implements OnInit {
 
   constructor(private fb: FormBuilder,
     private integradorService: IntegradorService,
-    private paisService: PaisService) { }
+    private paisService: PaisService,
+    private notificationCommService: NotificationCommunicationService) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,7 +39,6 @@ export class Paso2Component implements OnInit {
       descripcionVacante: ['', [Validators.required, Validators.maxLength(5000)]],
       terminosYCondiciones: [false, Validators.requiredTrue]
     });
-
 
     this.loadCountries();
   }
@@ -72,7 +73,8 @@ export class Paso2Component implements OnInit {
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe({
         next: data => {
           this.preguntas = data;
-          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');
+          this.notificationCommService.triggerNotification();
+          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');       
         },
         error: err => {
           switch (err.error.codigo) {

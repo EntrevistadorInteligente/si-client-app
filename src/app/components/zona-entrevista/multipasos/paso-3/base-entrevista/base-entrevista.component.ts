@@ -65,7 +65,8 @@ export abstract class BaseEntrevistaComponent implements OnInit {
   }
 
   finalizeInterview(nameChatHistory:any): void {
-    this.respuestasEntrevista.emit(this.entrevistaService.getRespuestas());
+    this.entrevistaService.generarSuscripcionNotificacion();
+    this.entrevistaService.enviarRespuestas();
     localStorage.removeItem(nameChatHistory);
   }
 

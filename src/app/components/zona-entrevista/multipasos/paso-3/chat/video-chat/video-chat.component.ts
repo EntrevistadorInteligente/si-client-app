@@ -33,7 +33,6 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   modalRef: NgbActiveModal;
   private finalTranscript: string = '';
 
-
   userStream: MediaStream | undefined;
 
   private peerConnection: RTCPeerConnection;
@@ -468,9 +467,11 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   closeInterview(){
-    this.modalRef.close();
     this.resetMessageState();
     this.finalizeInterview(this.nameChatHistory);
+    setTimeout(() => {
+      this.modalRef.close();
+    }, 500);
   }
 
 }
