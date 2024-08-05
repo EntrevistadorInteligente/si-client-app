@@ -132,7 +132,6 @@
         }
       }
       .chat-message {
-        position: absolute;
         bottom: 0;
         width: 95%;
         padding: 10px;
@@ -472,6 +471,7 @@
 .apexcharts-menu{ 
   border-color: $light-gray !important;
 }
+
 @media(max-width:1660px){
   .chat-history{
     .call-content {

@@ -421,6 +421,7 @@ export class OldChatComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.resizeObserver) {
+      this.resetMessageState();
       this.resizeObserver.disconnect();
     }
   }
