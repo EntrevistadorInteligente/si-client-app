@@ -1,12 +1,38 @@
 <div class="audio-chat-container" [class.fullscreen]="isFullscreen">
-    <div *ngIf="isFullscreen" class="audio-chat-content">
-       
-        <h2>Bienvenido a tu entrevista por Audio</h2>
-        <p>Prepárate para una experiencia interactiva única.</p>
-        <button (click)="closeFullscreen()" class="start-button">Comenzar entrevista</button>
-    </div>
+  <div *ngIf="isFullscreen" class="audio-chat-content">
+    <h2>Bienvenido a tu entrevista por Audio</h2>
+    <p>Prepárate para una experiencia interactiva única.</p>
+    <button (click)="closeFullscreen()" class="start-button">
+      Comenzar entrevista
+    </button>
+  </div>
 
-    <div *ngIf="!isFullscreen" class="audio-chat-interface">
-        <!-- AQUI VA TU LOGICA -->
+  <div
+    *ngIf="!isFullscreen"
+    class="col audio-chat-interface d-flex flex-column">
+    <div
+      class="content-fluid flex-grow-1 d-flex justify-content-center align-items-center">
+      <canvas id="visualizer" class="visualizer dot"></canvas>
     </div>
+    <div class="container-fluid">
+      <div class="d-flex justify-content-evenly w-100">
+        <div>
+          <button
+            (click)="toggleVisualization()"
+            class="rounded-button btn-pause">
+            @if (pause) {
+              <i class="icofont icofont-ui-pause"></i>
+            } @else {
+              <i class="fa fa-square"></i>
+            }
+          </button>
+        </div>
+        <div>
+          <button class="rounded-button btn-danger">
+            <i class="icofont icofont-ui-close"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

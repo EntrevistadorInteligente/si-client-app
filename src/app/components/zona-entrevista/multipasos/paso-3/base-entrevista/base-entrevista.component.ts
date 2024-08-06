@@ -71,4 +71,5 @@ export abstract class BaseEntrevistaComponent implements OnInit {
   }
 
   abstract sendMessage(): void;
+
 }

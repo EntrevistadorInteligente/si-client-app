@@ -57,18 +57,21 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   override ngOnInit() {
     super.ngOnInit();
     this.interviewFinished = this.entrevistaService.isInterviewFinished();
-    this.resetMessageState();
     this.nameChatHistory = `${this.authService.getEmail()}_chatHistory`;
     this.initializeAvatar();
+
     this.timerService.time$.subscribe(time => {
       this.remainingTime = time;
+      if (this.sessionData && time === '00:00') {
+
+        this.closeInterview();
+      }
     });
 
     this.timerService.dashOffset$.subscribe(offset => {
       this.dashOffset = offset;
     });
-   
-   
+    
   }
 
   showNextQuestion(): void {
