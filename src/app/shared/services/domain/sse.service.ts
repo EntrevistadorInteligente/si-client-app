@@ -18,7 +18,7 @@ export class SseService {
   constructor(private authService: AuthService, private zone: NgZone) { }
 
   getServerSentEvent(): Observable<any> {
-    const user = this.authService.getUsername();
+    const user = this.authService.getEmail();
     return new Observable(observer => {
       const eventSource = this.connect(observer, `${this.notifcacionesURL}/eventos/subscribe/${user}`);
       return () => eventSource.close();

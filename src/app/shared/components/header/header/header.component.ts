@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { LayoutService } from 'src/app/shared/services/layout/layout.service';
 import { NavService } from 'src/app/shared/services/nav.service';
+import { MaximizeService } from 'src/app/shared/services/domain/maximize.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
 
   collapseSidebar: boolean = true;
     constructor(private navServices: NavService, public layout: LayoutService, 
-      private authService: AuthService
+      private authService: AuthService,
+      private maximizeService: MaximizeService
     ) {
       this.dark = this.layout.config.settings.layout_version == 'dark-only';
   }
@@ -37,6 +39,9 @@ export class HeaderComponent implements OnInit {
       this.isLogged = isLogged;
     });
   }
- 
+
+  maximize() {
+    this.maximizeService.toggleFullScreen();
+  }
   
 }

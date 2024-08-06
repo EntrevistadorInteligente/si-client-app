@@ -67,7 +67,7 @@ export class OldChatComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
+    this.nameChatHistory = `${this.authService.getEmail()}_chatHistory`;
     this.loadChatHistory();
     this.speechService.initialize();
     this.lastSeenBootTyping = this.currentTime;
@@ -421,6 +421,7 @@ export class OldChatComponent implements OnInit {
 
   ngOnDestroy(): void {
     if (this.resizeObserver) {
+      this.resetMessageState();
       this.resizeObserver.disconnect();
     }
   }

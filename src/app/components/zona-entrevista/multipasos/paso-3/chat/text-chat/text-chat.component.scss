@@ -25,10 +25,15 @@
     align-items: flex-end;
     flex-direction: row;
   }
+  .character-counter{
+    text-align: center;
+  }
   
   @keyframes recordingAnimation {
     0% { background-color: #dc3545; }
     50% { background-color: #c82333; }
     100% { background-color: #dc3545; }
   }
+  
+
   

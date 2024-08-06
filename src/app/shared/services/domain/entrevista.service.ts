@@ -12,7 +12,7 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root'
 })
 export class EntrevistaService {
- 
+
   private preguntas: PreguntaComentarioDto[] = [];
   private respuestas: RespuestaComentarioDto[] = [];
   private currentIndex: number = 0;
@@ -34,7 +34,7 @@ export class EntrevistaService {
 
 
   initializeInterview(idEntrevista: string): Observable<any> {
-    const nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
+    const nameChatHistory = `${this.authService.getEmail()}_chatHistory`;
     const chatData = this.loadChatHistory(nameChatHistory);
     
     if (chatData) {
@@ -120,6 +120,21 @@ export class EntrevistaService {
       return of('Entrevista finalizada');
     }
   }
+
+  getClose(): Observable<string> {
+      this.isFirstInteraction = false;
+      return this.chatBotService.getCloseInterview(
+        this.lastUserResponse,
+        this.lastAssistantResponse,
+        this.entrevistaUsuario
+      ).pipe(
+        tap(data => {
+          this.lastAssistantResponse = data.response;
+        }),
+        map(data => data.response)
+      );
+  }
+ 
 
   addUserResponse(response: string): void {
     this.lastUserResponse = response;

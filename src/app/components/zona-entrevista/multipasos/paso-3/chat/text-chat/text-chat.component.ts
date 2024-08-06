@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { EntrevistaService } from 'src/app/shared/services/domain/entrevista.service';
 import { SpeechService } from 'src/app/shared/services/chat/speech.service';
 import { RecordVoiceService } from 'src/app/shared/services/domain/record-voice.service';
@@ -6,6 +6,11 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { BaseEntrevistaComponent } from '../../base-entrevista/base-entrevista.component';
 import Typed from 'typed.js';
+import { VideoChatComponent } from '../video-chat/video-chat.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MaximizeService } from 'src/app/shared/services/domain/maximize.service';
+import { AudioChatComponent } from '../audio-chat/audio-chat.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-text-chat',
@@ -30,32 +35,36 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     private speechService: SpeechService,
     private voiceRecognitionService: RecordVoiceService,
     private authService: AuthService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private modalService: NgbModal,
+    private maximizeService: MaximizeService
   ) {
     super(entrevistaService);
   }
 
   override ngOnInit(): void {
     super.ngOnInit();
-    this.nameChatHistory = `${this.authService.getUsername()}_chatHistory`;
+    this.nameChatHistory = `${this.authService.getEmail()}_chatHistory`;
     this.speechService.initialize();
     this.lastSeenBootTyping = this.currentTime;
     this.initVoiceRecognition();
+    this.interviewFinished = this.entrevistaService.isInterviewFinished();
+
   }
 
   processAssistantResponse(response: string): void {
     this.messages = this.entrevistaService.getMessages();
 
-    const messageId = `typewriter-${this.messages.length }`;
+    const messageId = `typewriter-${this.messages.length}`;
     this.botTyping = true;
     let typingTime = new Date().toLocaleTimeString([], {
       hour: '2-digit',
       minute: '2-digit',
     });
-    
+
     this.lastSeenBootTyping = typingTime;
     this.entrevistaService.addAssistantResponse(response);
-    
+
     this.saveChatHistory();
     setTimeout(() => {
       this.initTypedEffect(`#${messageId}`, response);
@@ -91,11 +100,12 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.handleUserResponse(this.userMessage);
     this.resetTextarea();
   }
-    
+
   handleUserResponse(response: string): void {
     this.entrevistaService.addUserResponse(response);
     this.messages = this.entrevistaService.getMessages();
     this.userMessage = '';
+    this.finalTranscript = '';
     this.showNextQuestion();
     this.saveChatHistory();
   }
@@ -104,10 +114,23 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.botTyping = true;
     this.entrevistaService.getNextQuestion().subscribe({
       next: question => {
-        
+        this.resetMessageState();
         if (this.entrevistaService.isInterviewFinished()) {
-          this.botTyping = false;
-          this.endInterview();
+          this.entrevistaService.getClose().subscribe({
+            next: async (close) => {
+              this.botTyping = false;
+
+              this.processAssistantResponse(close);
+            
+              this.endInterview();
+             
+            },
+            error: (err: any) => {
+              console.log('Error getting next question:', err);
+              this.botTyping = false;
+            }
+          });
+          
           return;
         }
 
@@ -120,6 +143,12 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     });
   }
 
+  private resetMessageState() {
+    this.userMessage = '';
+    this.finalTranscript = '';
+    this.voiceRecognitionService.resetRecognitionBuffer();
+  }
+
   handleHistoryLoaded(): void {
     this.changeDetectorRef.detectChanges();
     this.insertMessageInTypewriter();
@@ -127,8 +156,6 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
       setTimeout(() => {
         this.showNextQuestion();
       }, 500);
-    } else {
-      
     }
   }
   private insertMessageInTypewriter(): void {
@@ -147,17 +174,20 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     this.scrollToBottom();
   }
 
+
   resetTextarea(): void {
-    this.messageInput.nativeElement.value = '';
-    this.adjustTextareaHeight();
-  }
-
-  adjustTextareaHeight(): void {
     const textarea = this.messageInput.nativeElement;
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    textarea.value = '';
+    this.userMessage = '';
+    this.adjustTextareaHeight(textarea);
   }
 
+  adjustTextareaHeight(element: HTMLTextAreaElement): void {
+    element.style.height = 'auto';
+    element.style.height = (element.scrollHeight) + 'px';
+    this.scrollToBottom();
+    element.scrollTop = element.scrollHeight;
+  }
 
   private initVoiceRecognition() {
     this.voiceRecognitionService.getSpeechResult().subscribe((result: string) => {
@@ -169,6 +199,11 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
         this.userMessage = result;
       }
       this.scrollToEnd();
+
+      const textarea = this.messageInput.nativeElement;
+      textarea.value = this.userMessage;
+      this.adjustTextareaHeight(textarea);
+      this.changeDetectorRef.detectChanges();
     });
 
     this.voiceRecognitionService.getRecordingStatus().subscribe((status: boolean) => {
@@ -184,16 +219,17 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     const input = this.messageInput.nativeElement;
     input.scrollLeft = input.scrollWidth;
   }
-  
+
   toggleVoiceRecognition() {
     this.errorMessage = '';
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
+      const textarea = this.messageInput.nativeElement;
+      this.adjustTextareaHeight(textarea);
     } else {
       this.voiceRecognitionService.startRecognition();
     }
   }
-
 
   scrollToBottom(): void {
     try {
@@ -203,15 +239,13 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
   }
 
   onInput(event: Event): void {
-    const input = event.target as HTMLInputElement;
+    const input = event.target as HTMLTextAreaElement;
     if (input.value.length > 1000) {
       input.value = input.value.substring(0, 1000);
-      this.userMessage = input.value;
-    } else {
-      this.userMessage = input.value;
-      this.finalTranscript = this.userMessage;
     }
-    this.adjustTextareaHeight();
+    this.userMessage = input.value;
+    this.finalTranscript = this.userMessage;
+    this.adjustTextareaHeight(input);
   }
 
   onPaste(event: ClipboardEvent): void {
@@ -228,25 +262,123 @@ export class TextoChatComponent extends BaseEntrevistaComponent implements OnIni
     });
   }
 
-  ngAfterViewInit(): void {
-    this.resizeObserver = new ResizeObserver(() => {
-      this.adjustTextareaHeight();
-    });
-    this.resizeObserver.observe(this.messageInput.nativeElement);
-  }
-
   ngOnDestroy(): void {
     if (this.resizeObserver) {
+      this.resetMessageState();
       this.resizeObserver.disconnect();
     }
   }
 
   openAudioChat(): void {
-    this.alert('Alerta', 'Funcionalidad no disponible', 'info');
+    // Primero, abre el modal
+    const modalRef = this.modalService.open(AudioChatComponent, {
+      size: 'xl',
+      backdrop: 'static',
+      keyboard: false
+    });
+
+    // Luego, cambia a pantalla completa
+    this.maximizeService.toggleFullScreen();
+
+    modalRef.result.then(
+      (result) => {
+        console.log('Modal cerrado');
+        // Asegúrate de salir del modo pantalla completa si es necesario
+        if (this.maximizeService.navServices.fullScreen) {
+          this.maximizeService.toggleFullScreen();
+          this.resetMessageState();
+        }
+      },
+      (reason) => {
+        console.log('Modal descartado');
+        // Asegúrate de salir del modo pantalla completa si es necesario
+        if (this.maximizeService.navServices.fullScreen) {
+          this.maximizeService.toggleFullScreen();
+        }
+      }
+    );
   }
 
   openVideoChat(): void {
-    this.alert('Alerta', 'Funcionalidad no disponible', 'info');
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger"
+      },
+      buttonsStyling: false
+    });
+    
+    Swal.fire({
+      title: "Ingresa la clave de prueba exclusiva de previews",
+      input: "password",
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "aceptar",
+      showLoaderOnConfirm: true,
+      preConfirm: (key) => {
+        return new Promise<void>((resolve, reject) => {
+          if (key === environment.previewKey) {
+            resolve(); // Clave correcta
+          } else {
+            reject('Clave incorrecta'); // Clave incorrecta
+          }
+        });
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) {
+         // Primero, abre el modal
+         const modalRef = this.modalService.open(VideoChatComponent, {
+          size: 'xl',
+          backdrop: 'static',
+          keyboard: false
+        });
+        modalRef.componentInstance.idEntrevista = this.idEntrevista;
+        modalRef.componentInstance.modalRef = modalRef;
+        // Luego, cambia a pantalla completa
+        this.maximizeService.toggleFullScreen();
+
+        modalRef.result.then(
+          (result) => {
+            console.log('Modal cerrado');
+            // Asegúrate de salir del modo pantalla completa si es necesario
+            if (this.maximizeService.navServices.fullScreen) {
+              this.maximizeService.toggleFullScreen();
+              this.resetMessageState();
+            }
+          },
+          (reason) => {
+            console.log('Modal descartado');
+            // Asegúrate de salir del modo pantalla completa si es necesario
+            if (this.maximizeService.navServices.fullScreen) {
+              this.maximizeService.toggleFullScreen();
+            }
+          }
+        );
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        console.log("Acción cancelada por el usuario.");
+      }
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: "Acceso denegado",
+        text: "No tienes acceso a la preview. Contacta al administrador si necesitas acceso.",
+        icon: "error",
+        confirmButtonText: "Entendido"
+      });
+    });
+  }
+
+  
+  closeInterview(){
+    this.finalizeInterview(this.nameChatHistory);
+    this.resetMessageState();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.adjustTextareaHeight(this.messageInput.nativeElement);
   }
 
 }
