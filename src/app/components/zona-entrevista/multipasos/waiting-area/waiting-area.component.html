@@ -1,15 +1,19 @@
 <div class="card">
     <div class="card-body mt-3">
-        <div class="loader-container">
-            <div class="row prueba">
-                <div class="col-md-1"></div>
-                <div class="col-md-10 text-center">
-                    <img src="assets/images/chatbot.png" width="180" alt="chatbot" srcset="">
-                    <h3 class="animate-charcter display-3" [id]="'typewriter-' + 1"><span class="cursor"><b>|</b></span></h3>
-                    
+            <div class="d-flex align-items-center flex-column">
+                <div class="image-container animated-container">
+                    <img
+                      *ngFor="let image of images; let i = index"
+                      [src]="image"
+                      [hidden]="i !== currentImageIndex"
+                      alt="waiting area animation"
+                    />
+                    <span class="top"></span>
+                    <span class="right"></span>
+                    <span class="bottom"></span>
+                    <span class="left"></span>
                 </div>
-                <div class="col-md-1"></div>
+                <p class="mt-3 cursor align-self-start" [id]="'typewriter-' + 1">|</p>
             </div>
-        </div>
     </div>
 </div>

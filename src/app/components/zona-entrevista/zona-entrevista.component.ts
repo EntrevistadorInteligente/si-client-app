@@ -83,9 +83,9 @@ export class ZonaEntrevistaComponent implements OnInit {
       case 'FG':
         return new InterviewState(2, false, '');
       case 'GP':
-        return new InterviewState(1, true, 'Estamos generando tu entrevista... por favor esta a tento a las notificaciones');
+        return new InterviewState(1, true, 'Estamos generando tu entrevista... por favor, mantente atento a las notificaciones.');
       case 'GF':
-        return new InterviewState(2, true, 'Estamos generando el feedback... por favor esta a tento a las notificaciones');
+        return new InterviewState(2, true, 'Estamos generando tu feedback... por favor, mantente atento a las notificaciones.');
       default:
         return new InterviewState(0, false, '');
     }

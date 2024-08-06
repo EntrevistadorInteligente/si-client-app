@@ -35,7 +35,7 @@ export class Paso3Component implements OnInit {
     this.integradorService.enviarRespuestas(this.idEntrevista, respuestas).subscribe({
       next: (res:any) => {
         this.entravistaCompleta.emit(true);
-        this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
+        // this.alert('Éxito', 'Entrevista enviada con éxito, se está generando el feedback', 'success');
       },
       error: (err: any) => {
         console.error('error: ', err);

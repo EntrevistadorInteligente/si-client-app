@@ -12,10 +12,15 @@ export class WaitingAreaComponent implements OnInit, AfterViewInit {
   
   public loading = true;
 
-  constructor(
-  ) { }
+  public currentImageIndex: number = 0;
+  
+  public images: string[] = [
+    'assets/gifs/candidates-scene.gif',
+    'assets/gifs/interview-scene.gif'
+  ];
 
   ngOnInit() {
+    this.startImageRotation();
   }
 
   ngAfterViewInit() {
@@ -38,4 +43,11 @@ export class WaitingAreaComponent implements OnInit, AfterViewInit {
       loop: true
     });
   }
+
+  startImageRotation() {
+    setTimeout(() => {
+      this.currentImageIndex = 1;
+    }, 3000);
+  }
+  
 }
