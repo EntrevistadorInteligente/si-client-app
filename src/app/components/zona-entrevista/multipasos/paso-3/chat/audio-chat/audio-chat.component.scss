@@ -1,0 +1,144 @@
+.audio-chat-container {
+    &.fullscreen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+  }
+  
+  .audio-chat-content {
+    text-align: center;
+    color: white;
+  }
+  
+  .avatar-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .start-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .audio-chat-interface{
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+  }
+
+.content-fluid {
+  flex-grow: 1; /* Ocupa el espacio restante */
+}
+
+.container-fluid {
+  flex-shrink: 0; /* No se reduce más allá de su contenido */
+}
+
+  .rounded-button {
+    width: 60px;
+    height: 60px;
+    display: inline-flex;
+    font-size: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    margin-bottom: 0.6rem;
+  }
+
+  .dot {
+    height: 30vw;
+    width: 30vw;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: width 0.1s ease, height 0.1s ease;
+  }
+  .dot-resize {
+    transition: width 0.3s ease, height 0.3s ease;
+  }
+
+  @media (max-width: 1200px) {
+    .dot {
+      height: 40vw;
+      width: 40vw;
+    }
+  }
+  
+  @media (max-width: 950px) {
+    .dot {
+      height: 50vw;
+      width: 50vw;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    .dot {
+      height: 60vw;
+      width: 60vw;
+    }
+  }
+  
+  @media (max-width: 500px) {
+    .dot {
+      height: 70vw;
+      width: 70vw;
+    }
+  }
+  
+  @media (max-width: 350px) {
+    .dot {
+      height: 80vw;
+      width: 80vw;
+    }
+  }
+
+  .btn-danger{
+    color: #fff!important;
+  }
+
+.btn-pause {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-pause:active {
+    color: #fff;
+    background-color: #565e64;
+    border-color: #51585e;
+}
+
+.btn-pause:hover {
+    color: #fff;
+    background-color: #5c636a;
+    border-color: #565e64;
+}
+  
+  

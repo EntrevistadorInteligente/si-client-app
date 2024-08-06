@@ -1,8 +1,8 @@
   <div class="header-wrapper row m-0"> 
   <div class="header-logo-wrapper col-auto p-0">
     <div class="logo-wrapper">
-    <a routerLink='/'><img class="img-fluid image-dark" src="assets/images/logo/logo.png" alt=""></a>
-    <a routerLink='/'><img class="img-fluid for-dark image-light" src="assets/images/logo/logo_dark.png" alt=""></a>
+    <a routerLink='/'><img class="img-fluid image-dark" src="assets/img/Logo-EI.png" alt=""></a>
+    <a routerLink='/'><img class="img-fluid for-dark image-light" src="assets/img/Logo-EI.png" alt=""></a>
   </div>
     <div class="toggle-sidebar" (click)="sidebarToggle()">
       <div class="status_toggle sidebar-toggle d-flex">        
@@ -26,7 +26,9 @@
         <app-notification></app-notification>
       </li>
       <li class="maximize">
-      <app-maximize></app-maximize>
+        <a class="text-dark" (click)="maximize()">
+          <svg-icon src="assets/svgIcon/maximize.svg"></svg-icon>  
+        </a>        
       </li>
       <li class="profile-nav onhover-dropdown pe-0 py-0 me-0">
         <app-account></app-account>

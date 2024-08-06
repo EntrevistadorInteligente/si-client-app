@@ -19,7 +19,7 @@ export class AccountComponent implements OnInit {
     this.authService.isLogged$.subscribe(isLogged => {
       this.isLogged = isLogged;
       if (isLogged) {
-        this.userName = this.authService.getUsername();
+        this.userName = this.authService.getEmail();
       } else {
         this.userName = '';
       }
