@@ -72,7 +72,6 @@ export class Paso2Component implements OnInit {
       this.integradorService.crearSolicitudEntrevista(formulario).subscribe({
         next: data => {
           this.preguntas = data;
-          // this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');
         },
         error: err => {
           switch (err.error.codigo) {
