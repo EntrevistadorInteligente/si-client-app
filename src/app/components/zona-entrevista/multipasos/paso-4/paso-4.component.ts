@@ -68,10 +68,8 @@ export class Paso4Component implements OnInit {
     swalWithBootstrapButtons
       .fire({
         title: 'Terminar entrevista',
-        text: '¡Una vez terminada, no podrás ver el feedback tu entrevista en proceso nuevamente e iniciarás una nueva entrevista!',
+        text: '¡Una vez terminada, no podrás ver el feedback tu entrevista en proceso nuevamente e iniciarás una nueva entrevista!. Por favor danos tu feedback sobre el proceso de preparación de la entrevista, esto nos ayudará a mejorar nuestra aplicación. Tu opinión es muy importante para nosotros',
         input: 'textarea',
-        inputPlaceholder:
-          'Por favor danos tu feedback sobre el proceso de preparación de la entrevista, esto nos ayudará a mejorar nuestra aplicación. Tu opinión es muy importante para nosotros (opcional)',
         showCancelButton: true,
         confirmButtonText: 'Terminar entrevista',
         cancelButtonText: 'Cancelar',

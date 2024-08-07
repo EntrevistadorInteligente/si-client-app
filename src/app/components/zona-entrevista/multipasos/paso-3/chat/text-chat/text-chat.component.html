@@ -25,11 +25,10 @@
                     </div>
                   </div>
                   <ul class="list-inline float-start chat-menu-icons">
-                    <li class="list-inline-item">
-                      <a (click)="openVideoChat()"
-                        ><i class="icon-video-camera"></i
-                      ></a>
-                    </li>
+                    <li [ngClass]="{'disabled': interviewFinished}" [attr.disabled]="interviewFinished ? true : null"
+                    class="list-inline-item"><a (click)="openVideoChat()" 
+                    data-container="body" data-bs-toggle="tooltip" data-bs-placement="top" 
+                    title="Simulación de entrevista realista por videollamada"><i class="icon-video-camera"></i></a></li>
                   </ul>
                 </div>
                 <!-- chat-header end-->

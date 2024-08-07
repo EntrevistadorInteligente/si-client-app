@@ -5,20 +5,20 @@
 export const environment = {
   production: true,
     // OAUTH MODULE -- DEL APP MODULE
-    urlBase: 'https://keycloak.pruebas-entrevistador-inteligente.site/',
+    urlBase: 'https://keycloak.kahop.com/',
 
     // INTEGRADOR SERVICE
-    orquestadorURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/orquestador/v1',
+    orquestadorURL: 'https://gw.kahop.com/api/orquestador/v1',
   
     // FEEDBACK SERVICE
-    feedbackURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/administrador-entrevista/v1',
+    feedbackURL: 'https://gw.kahop.com/api/administrador-entrevista/v1',
   
     // FEEDBACK SERVICE
-    notifcacionesURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/notificaciones/v1',
+    notifcacionesURL: 'https://gw.kahop.com/api/notificaciones/v1',
         // FEEDBACK SERVICE
-    chatURL: 'https://gateway.pruebas-entrevistador-inteligente.site/api/chats/v1',
+    chatURL: 'https://gw.kahop.com/api/chats/v1',
 
-    landingApp: 'https://www.pruebas-entrevistador-inteligente.site/es/pagina-principal/',
+    landingApp: 'https://www.kahop.com/es/pagina-principal/',
 
     previewKey: 'a@C+n[U3]P!I,6U',
   
