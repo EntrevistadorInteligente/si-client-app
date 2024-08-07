@@ -1,8 +1,7 @@
 <!-- Page Sidebar Start-->
 <div class="logo-wrapper">
   <a routerLink='/'>
-    <img class="img-fluid for-light" src="assets/img/Logo-EI.png" alt="">
-    <img class="img-fluid for-dark" src="assets/img/Logo-EI.png" alt="">
+    <img class="img-fluid" src="assets/img/Logo-EI.png" alt="">
     Entrevistador
   </a>
   <div class="back-btn" (click)="sidebarToggle()">
@@ -11,7 +10,6 @@
 </div>
 <nav class="sidebar-main">
   <div class="left-arrow" id="left-arrow" [class.d-none]="leftArrowNone" (click)="scrollToLeft()">
-    <i class="icon-arrow-left"></i>
   </div>
   <div id="sidebar-menu" [ngStyle]="{ marginLeft:  margin + 'px'}">
     <ul class="sidebar-links custom-scrollbar" id="scroll">
