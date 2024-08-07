@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, map, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, forkJoin, map, Observable, of, Subject, switchMap, tap } from 'rxjs';
 import { ChatBotService } from './chat-bot.service';
 import { FeedbackService } from './feedback.service';
 import { IntegradorService } from './integrador.service';
@@ -7,6 +7,7 @@ import { EntrevistaUsuarioDto } from '../../model/entrevista-usuario-dto';
 import { RespuestaComentarioDto } from '../../model/respuesta-dto';
 import { PreguntaComentarioDto } from '../../model/pregunta-comentario-dto';
 import { AuthService } from '../auth/auth.service';
+import { NotificationCommunicationService } from './notification-communication.service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,11 +25,15 @@ export class EntrevistaService {
   private isFirstInteraction: boolean = true;
   private isHistoryLoaded: boolean = false;
 
+  private respuestasSubject = new Subject<RespuestaComentarioDto[]>();
+  respuestas$ = this.respuestasSubject.asObservable();
+
   constructor(
     private feedbackService: FeedbackService,
     private chatBotService: ChatBotService,
     private integradorService: IntegradorService,
-    private authService: AuthService
+    private authService: AuthService,
+    private notificationCommService: NotificationCommunicationService
   ) {}
 
 
@@ -218,4 +223,13 @@ export class EntrevistaService {
       this.lastUserResponse = lastMessage.text;
     }
   }
+
+  enviarRespuestas() {
+    this.respuestasSubject.next(this.respuestas);
+  }
+  
+  generarSuscripcionNotificacion() {
+    this.notificationCommService.triggerNotification();
+  }
+
 }
