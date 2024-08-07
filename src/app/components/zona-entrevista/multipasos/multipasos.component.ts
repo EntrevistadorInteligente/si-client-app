@@ -28,12 +28,12 @@ export class MultipasosComponent implements OnInit {
 
   onFormCompleted() {
     this.isIntermediate = true;
-    this.loadingMessage = 'Estamos generando tu entrevista... por favor esta a tento a las notificaciones';
+    this.loadingMessage = 'Estamos generando tu entrevista... por favor, mantente atento a las notificaciones.';
   }
 
   onInterviewCompleted() {
     this.isIntermediate = true;
-    this.loadingMessage = 'Estamos generando el feedback para tu entrevista... por favor, estate atento a las notificaciones';
+    this.loadingMessage = 'Estamos generando tu feedback... por favor, mantente atento a las notificaciones.';
   }
 
 

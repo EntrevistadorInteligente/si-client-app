@@ -74,7 +74,6 @@ export class Paso2Component implements OnInit {
         next: data => {
           this.preguntas = data;
           this.notificationCommService.triggerNotification();
-          this.alert('Éxito', 'Solicitud entrevista enviada con éxito, se está generando tu entrevista', 'success');       
         },
         error: err => {
           switch (err.error.codigo) {
