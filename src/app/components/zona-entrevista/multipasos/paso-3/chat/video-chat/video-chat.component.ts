@@ -167,11 +167,13 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     if (this.messages.length > 0 && lastMessage.type === 'user') {
       setTimeout(() => {
         this.showNextQuestion();
+        this.timerService.startTimer(10 * 60);
       }, 500);
     } else {
       this.isFromChat = true;
       setTimeout(() => {
           this.speakQuestion("Continuemos con tu entrevista. La última pregunta que te hice fue: " + lastMessage.text);
+          this.timerService.startTimer(10 * 60);
           this.isLoading = false;
       }, 1000);
       
@@ -217,6 +219,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
       error: (err: any) => {
         console.error('error: ', err);
         this.alert('Error', 'Ocurrió un error al conectarse con el servidor de video. Por favor, inténtelo de nuevo más tarde.', 'error');
+        this.modalRef.close();
       },
     });
   }
@@ -224,7 +227,7 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
   async startSession() {
     this.isLoadingSession = true;
     try {
-      this.timerService.startTimer(10 * 60);
+      
 
       // Create a new session
       this.sessionData = await this.createNewSession();
@@ -238,6 +241,8 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
       this.handleHistoryLoaded2();
     } catch (error) {
       console.error("Error starting avatar session:", error);
+      this.alert('Error', 'Ocurrió un error al conectarse con el servidor de video. Por favor, inténtelo de nuevo más tarde.', 'error');
+      this.modalRef.close();
     }
     this.isLoadingSession = false;
   }
@@ -437,7 +442,6 @@ export class VideoChatComponent extends BaseEntrevistaComponent implements OnIni
     if (this.isRecording) {
       this.voiceRecognitionService.stopRecognition();
       const textarea = this.messageInput.nativeElement;
-      this.resetMessageState();
       this.adjustTextareaHeight(textarea);
     } else {
       this.voiceRecognitionService.startRecognition();
