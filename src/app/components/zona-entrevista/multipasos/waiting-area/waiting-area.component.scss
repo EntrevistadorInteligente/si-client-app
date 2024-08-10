@@ -1,24 +1,24 @@
 .cursor {
   width: 96%;
-  overflow-wrap: break-word;
+  white-space: normal;
   text-align: center;
   font-size: 2rem;
   font-weight: 500;
   color: #526069;
 }
 
-.card-body {
-  height: 510px;
-}
-
 .image-container img {
   width: 100%;
-  border-radius: 5px;
+  height: auto;
+  border-radius: 7px;
+  pointer-events: none;
+  user-select: none;
 }
 
 .animated-container {
   position: relative;
-  width: 700px;
+  width: 100%;
+  max-width: 700px;
   color: #fff;
   background: transparent;
   overflow: hidden;
@@ -32,7 +32,7 @@
   justify-content: space-around;
   align-items: center;
   padding: 0.3em;
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 p {
@@ -172,5 +172,21 @@ span {
   100% {
     opacity: 1;
     height: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .cursor {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .animated-container {
+    max-width: 100%;
+  }
+
+  .cursor {
+    font-size: 1.2rem;
   }
 }

@@ -85,6 +85,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.badgeCount = this.notifications.length;
       this.playNotificationSound();
       this.saveNotificationsToLocalStorage();
+      this.notificationCommService.sendMessage(this.getMessage(tipo));
     });
   }
 
@@ -98,13 +99,13 @@ export class NotificationComponent implements OnInit, OnDestroy {
   getMessage(tipo: string): string {
     switch (tipo) {
       case "PG":
-        return "Tu entrevista está lista!";
+        return "¡Tu entrevista está lista!";
       case "FG":
-        return "Tu feedback está listo!";
+        return "¡Tu feedback está listo!";
       case "HG":
-        return "Tu hoja de vida esta listo!";
+        return "¡Tu hoja de vida esta listo!";
       default:
-        return "Nuevo mensaje!";
+        return "¡Nuevo mensaje!";
     }
   }
 
@@ -126,6 +127,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
       window.location.reload();
     } else {
       this.router.navigate(link).then(() => {
+        this.notificationCommService.sendMessage('');
         this.removeNotification(notification);
       });
     }

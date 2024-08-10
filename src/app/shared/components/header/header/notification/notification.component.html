@@ -7,7 +7,7 @@
       </g>
     </g>
   </svg>
-  <span class="badge rounded-pill badge-warning">{{ badgeCount }}</span>
+  <span *ngIf="badgeCount > 0" class="badge rounded-pill badge-warning">{{ badgeCount }}</span>
 </div>
 <div class="onhover-show-div notification-dropdown">
   <div class="dropdown-title">
